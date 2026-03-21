@@ -1,0 +1,100 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+	keywords?: string;
+}
+
+const { title, description = "Discover the best AI tools to boost your productivity. Comprehensive guides, reviews, and comparisons of the latest AI tools in 2026.", keywords = "AI tools, AI software, artificial intelligence, ChatGPT, Claude, Midjourney, AI review, AI comparison, productivity tools" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--primary: #6366f1;
+		--primary-dark: #4f46e5;
+		--secondary: #10b981;
+		--dark: #0f172a;
+		--light: #f8fafc;
+		--gray: #64748b;
+		--border: #e2e8f0;
+	}
+	
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	html {
+		font-family: 'Inter', sans-serif;
+		background: var(--light);
+		color: var(--dark);
+		scroll-behavior: smooth;
+	}
+	
+	body {
+		min-height: 100vh;
+	}
+	
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+	
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+	
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 12px 24px;
+		border-radius: 8px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		border: none;
+	}
+	
+	.btn-primary {
+		background: var(--primary);
+		color: white;
+	}
+	
+	.btn-primary:hover {
+		background: var(--primary-dark);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+	}
+	
+	.btn-secondary {
+		background: white;
+		color: var(--dark);
+		border: 2px solid var(--border);
+	}
+	
+	.btn-secondary:hover {
+		border-color: var(--primary);
+		color: var(--primary);
+	}
+</style>

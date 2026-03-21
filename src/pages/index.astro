@@ -1,0 +1,667 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const popularTools = [
+  { name: "ChatGPT", category: "AI Chatbot", description: "OpenAI's advanced AI chatbot for conversation, coding, and content creation", icon: "💬", color: "#10a37f", url: "https://chat.openai.com" },
+  { name: "Claude", category: "AI Assistant", description: "Anthropic's AI assistant focused on analysis, writing, and reasoning", icon: "🧠", color: "#d97706", url: "https://claude.ai" },
+  { name: "Midjourney", category: "Image Generation", description: "Create stunning, artistic images from text descriptions", icon: "🎨", color: "#6366f1", url: "https://midjourney.com" },
+  { name: "DALL-E 3", category: "Image Generation", description: "OpenAI's powerful image generation model", icon: "🖼️", color: "#059669", url: "https://openai.com/dall-e-3" },
+  { name: "GitHub Copilot", category: "Code Assistant", description: "AI pair programmer that suggests code in real-time", icon: "💻", color: "#181717", url: "https://github.com/features/copilot" },
+  { name: "Claude Code", category: "Code Assistant", description: "Anthropic's CLI tool for coding, debugging, and task automation", icon: "⚡", color: "#f59e0b", url: "https://claude.com/claude-code" },
+  { name: "Runway", category: "Video Generation", description: "AI-powered video editing and generation platform", icon: "🎬", color: "#ec4899", url: "https://runwayml.com" },
+  { name: "Perplexity", category: "AI Search", description: "AI-powered search engine with cited sources", icon: "🔍", color: "#6366f1", url: "https://perplexity.ai" },
+  { name: "Notion AI", category: "Productivity", description: "AI-powered notes, docs, and project management", icon: "📝", color: "#000000", url: "https://notion.so/product/ai" },
+  { name: "Gamma", category: "Content Creation", description: "AI-powered presentation and document creation", icon: "📊", color: "#8b5cf6", url: "https://gamma.app" }
+];
+
+const categories = [
+  { name: "AI Chatbots", icon: "💬", count: 12, slug: "chatbots" },
+  { name: "Image Generation", icon: "🎨", count: 8, slug: "image-generation" },
+  { name: "Code Assistants", icon: "💻", count: 6, slug: "code-assistants" },
+  { name: "Video Tools", icon: "🎬", count: 5, slug: "video-tools" },
+  { name: "Productivity", icon: "⚡", count: 10, slug: "productivity" },
+  { name: "Search & Research", icon: "🔬", count: 4, slug: "search" }
+];
+
+const latestReviews = [
+  { title: "Claude 3.5 Sonnet Review", date: "2026-03-15", excerpt: "The best AI assistant for complex reasoning tasks", rating: 5 },
+  { title: "GPT-4.5 vs Claude 3.7", date: "2026-03-10", excerpt: "Comprehensive comparison of the top two AI models", rating: 5 },
+  { title: "Midjourney V7 Deep Dive", date: "2026-03-08", excerpt: "Is the new version worth the upgrade?", rating: 4 }
+];
+---
+
+<Layout title="AI Tool Guide - Your Ultimate Resource for AI Tools in 2026">
+	<!-- Header -->
+	<header class="header">
+		<div class="container">
+			<nav class="nav">
+				<a href="/" class="logo">
+					<span class="logo-icon">🤖</span>
+					<span class="logo-text">AIToolGuide</span>
+				</a>
+				<div class="nav-links">
+					<a href="#popular">Tools</a>
+					<a href="#reviews">Reviews</a>
+					<a href="#categories">Categories</a>
+					<a href="#about">About</a>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+	<!-- Hero Section -->
+	<section class="hero">
+		<div class="container">
+			<div class="hero-content">
+				<span class="hero-badge">🚀 #1 AI Tools Resource in 2026</span>
+				<h1 class="hero-title">
+					Discover the Best <span class="gradient-text">AI Tools</span><br>
+					to Transform Your Workflow
+				</h1>
+				<p class="hero-description">
+					Your ultimate guide to navigating the AI revolution. Expert reviews, 
+					comprehensive comparisons, and hands-on guides to help you choose 
+					the right tools for your needs.
+				</p>
+				<div class="hero-actions">
+					<a href="#popular" class="btn btn-primary">Explore Tools →</a>
+					<a href="#categories" class="btn btn-secondary">Browse Categories</a>
+				</div>
+				<div class="hero-stats">
+					<div class="stat">
+						<span class="stat-number">500+</span>
+						<span class="stat-label">AI Tools</span>
+					</div>
+					<div class="stat">
+						<span class="stat-number">50+</span>
+						<span class="stat-label">In-depth Reviews</span>
+					</div>
+					<div class="stat">
+						<span class="stat-number">10K+</span>
+						<span class="stat-label">Monthly Readers</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Popular AI Tools -->
+	<section id="popular" class="section">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-badge">🔥 Trending Now</span>
+				<h2 class="section-title">Popular AI Tools</h2>
+				<p class="section-description">The most talked-about AI tools that are shaping the future of work</p>
+			</div>
+			<div class="tools-grid">
+				{popularTools.map((tool, index) => (
+					<a href={tool.url} target="_blank" rel="noopener noreferrer" class="tool-card">
+						<div class="tool-icon" style={`background: ${tool.color}20; color: ${tool.color}`}>
+							{tool.icon}
+						</div>
+						<div class="tool-content">
+							<span class="tool-category">{tool.category}</span>
+							<h3 class="tool-name">{tool.name}</h3>
+							<p class="tool-description">{tool.description}</p>
+						</div>
+						<span class="tool-arrow">→</span>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Latest Reviews -->
+	<section id="reviews" class="section section-dark">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-badge">⭐ Expert Reviews</span>
+				<h2 class="section-title">Latest Reviews</h2>
+				<p class="section-description">Deep dives and comparisons from our expert team</p>
+			</div>
+			<div class="reviews-grid">
+				{latestReviews.map((review) => (
+					<article class="review-card">
+						<div class="review-rating">
+							{Array.from({ length: 5 }).map((_, i) => (
+								<span class={`star ${i < review.rating ? 'filled' : ''}`}>★</span>
+							))}
+						</div>
+						<h3 class="review-title">{review.title}</h3>
+						<p class="review-excerpt">{review.excerpt}</p>
+						<div class="review-meta">
+							<span class="review-date">{review.date}</span>
+							<span class="review-read-more">Read More →</span>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Categories -->
+	<section id="categories" class="section">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-badge">📂 Browse by Category</span>
+				<h2 class="section-title">Industry Categories</h2>
+				<p class="section-description">Find exactly what you need across different domains</p>
+			</div>
+			<div class="categories-grid">
+				{categories.map((category) => (
+					<a href={`/category/${category.slug}`} class="category-card">
+						<span class="category-icon">{category.icon}</span>
+						<h3 class="category-name">{category.name}</h3>
+						<span class="category-count">{category.count} tools</span>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="cta">
+		<div class="container">
+			<div class="cta-content">
+				<h2 class="cta-title">Ready to Transform Your Workflow?</h2>
+				<p class="cta-description">Join thousands of professionals using AI tools to 10x their productivity</p>
+				<a href="#popular" class="btn btn-primary">Get Started Now →</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="footer-content">
+				<div class="footer-brand">
+					<span class="logo-icon">🤖</span>
+					<span class="logo-text">AIToolGuide</span>
+					<p class="footer-description">Your trusted guide to the best AI tools in 2026 and beyond.</p>
+				</div>
+				<div class="footer-links">
+					<div class="footer-column">
+						<h4>Tools</h4>
+						<a href="#popular">Popular</a>
+						<a href="#categories">Categories</a>
+						<a href="#">New Arrivals</a>
+					</div>
+					<div class="footer-column">
+						<h4>Resources</h4>
+						<a href="#reviews">Reviews</a>
+						<a href="#">Guides</a>
+						<a href="#">Comparisons</a>
+					</div>
+					<div class="footer-column">
+						<h4>Company</h4>
+						<a href="#">About</a>
+						<a href="#">Contact</a>
+						<a href="#">Privacy</a>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<p>© 2026 AIToolGuide.tech. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+</Layout>
+
+<style>
+	/* Header */
+	.header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(10px);
+		z-index: 1000;
+		border-bottom: 1px solid var(--border);
+	}
+	
+	.nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 70px;
+	}
+	
+	.logo {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-weight: 800;
+		font-size: 1.5rem;
+	}
+	
+	.logo-icon {
+		font-size: 1.8rem;
+	}
+	
+	.logo-text {
+		background: linear-gradient(135deg, var(--primary), var(--secondary));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+	
+	.nav-links {
+		display: flex;
+		gap: 30px;
+	}
+	
+	.nav-links a {
+		font-weight: 500;
+		color: var(--gray);
+		transition: color 0.3s;
+	}
+	
+	.nav-links a:hover {
+		color: var(--primary);
+	}
+	
+	/* Hero */
+	.hero {
+		padding: 160px 0 100px;
+		background: linear-gradient(180deg, #f0f9ff 0%, #fff 100%);
+		text-align: center;
+	}
+	
+	.hero-badge {
+		display: inline-block;
+		padding: 8px 16px;
+		background: linear-gradient(135deg, #fef3c7, #fde68a);
+		color: #92400e;
+		font-weight: 600;
+		font-size: 0.875rem;
+		border-radius: 20px;
+		margin-bottom: 24px;
+	}
+	
+	.hero-title {
+		font-size: 3.5rem;
+		font-weight: 800;
+		line-height: 1.2;
+		margin-bottom: 24px;
+		color: var(--dark);
+	}
+	
+	.gradient-text {
+		background: linear-gradient(135deg, var(--primary), #8b5cf6, var(--secondary));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+	
+	.hero-description {
+		font-size: 1.25rem;
+		color: var(--gray);
+		max-width: 700px;
+		margin: 0 auto 40px;
+		line-height: 1.7;
+	}
+	
+	.hero-actions {
+		display: flex;
+		gap: 16px;
+		justify-content: center;
+		margin-bottom: 60px;
+	}
+	
+	.hero-stats {
+		display: flex;
+		justify-content: center;
+		gap: 60px;
+	}
+	
+	.stat {
+		text-align: center;
+	}
+	
+	.stat-number {
+		display: block;
+		font-size: 2.5rem;
+		font-weight: 800;
+		color: var(--dark);
+	}
+	
+	.stat-label {
+		color: var(--gray);
+		font-size: 0.875rem;
+	}
+	
+	/* Sections */
+	.section {
+		padding: 100px 0;
+	}
+	
+	.section-dark {
+		background: var(--dark);
+		color: white;
+	}
+	
+	.section-header {
+		text-align: center;
+		margin-bottom: 60px;
+	}
+	
+	.section-badge {
+		display: inline-block;
+		padding: 8px 16px;
+		background: var(--primary);
+		color: white;
+		font-weight: 600;
+		font-size: 0.875rem;
+		border-radius: 20px;
+		margin-bottom: 16px;
+	}
+	
+	.section-dark .section-badge {
+		background: var(--secondary);
+	}
+	
+	.section-title {
+		font-size: 2.5rem;
+		font-weight: 800;
+		margin-bottom: 16px;
+	}
+	
+	.section-description {
+		font-size: 1.125rem;
+		color: var(--gray);
+		max-width: 600px;
+		margin: 0 auto;
+	}
+	
+	.section-dark .section-description {
+		color: #94a3b8;
+	}
+	
+	/* Tools Grid */
+	.tools-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+		gap: 24px;
+	}
+	
+	.tool-card {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		padding: 24px;
+		background: white;
+		border-radius: 16px;
+		border: 1px solid var(--border);
+		transition: all 0.3s ease;
+	}
+	
+	.tool-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+		border-color: var(--primary);
+	}
+	
+	.tool-icon {
+		width: 56px;
+		height: 56px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.75rem;
+		border-radius: 12px;
+		flex-shrink: 0;
+	}
+	
+	.tool-content {
+		flex: 1;
+	}
+	
+	.tool-category {
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: var(--primary);
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+	
+	.tool-name {
+		font-size: 1.25rem;
+		font-weight: 700;
+		margin: 4px 0;
+	}
+	
+	.tool-description {
+		font-size: 0.875rem;
+		color: var(--gray);
+		line-height: 1.5;
+	}
+	
+	.tool-arrow {
+		font-size: 1.5rem;
+		color: var(--gray);
+		transition: all 0.3s;
+	}
+	
+	.tool-card:hover .tool-arrow {
+		color: var(--primary);
+		transform: translateX(4px);
+	}
+	
+	/* Reviews Grid */
+	.reviews-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 24px;
+	}
+	
+	.review-card {
+		padding: 32px;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 16px;
+		transition: all 0.3s;
+	}
+	
+	.review-card:hover {
+		background: rgba(255, 255, 255, 0.1);
+		transform: translateY(-4px);
+	}
+	
+	.review-rating {
+		margin-bottom: 16px;
+	}
+	
+	.star {
+		color: #475569;
+		font-size: 1.25rem;
+	}
+	
+	.star.filled {
+		color: #fbbf24;
+	}
+	
+	.review-title {
+		font-size: 1.25rem;
+		font-weight: 700;
+		margin-bottom: 12px;
+	}
+	
+	.review-excerpt {
+		color: #94a3b8;
+		line-height: 1.6;
+		margin-bottom: 20px;
+	}
+	
+	.review-meta {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.875rem;
+	}
+	
+	.review-date {
+		color: #64748b;
+	}
+	
+	.review-read-more {
+		color: var(--secondary);
+		font-weight: 600;
+	}
+	
+	/* Categories Grid */
+	.categories-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+		gap: 20px;
+	}
+	
+	.category-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 32px 24px;
+		background: white;
+		border-radius: 16px;
+		border: 1px solid var(--border);
+		transition: all 0.3s ease;
+		text-align: center;
+	}
+	
+	.category-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+		border-color: var(--primary);
+	}
+	
+	.category-icon {
+		font-size: 2.5rem;
+		margin-bottom: 16px;
+	}
+	
+	.category-name {
+		font-size: 1rem;
+		font-weight: 700;
+		margin-bottom: 8px;
+	}
+	
+	.category-count {
+		font-size: 0.875rem;
+		color: var(--gray);
+	}
+	
+	/* CTA */
+	.cta {
+		padding: 80px 0;
+		background: linear-gradient(135deg, var(--primary), #8b5cf6);
+		text-align: center;
+	}
+	
+	.cta-content {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+	
+	.cta-title {
+		font-size: 2.5rem;
+		font-weight: 800;
+		color: white;
+		margin-bottom: 16px;
+	}
+	
+	.cta-description {
+		font-size: 1.125rem;
+		color: rgba(255, 255, 255, 0.9);
+		margin-bottom: 32px;
+	}
+	
+	/* Footer */
+	.footer {
+		background: var(--dark);
+		color: white;
+		padding: 60px 0 30px;
+	}
+	
+	.footer-content {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 40px;
+	}
+	
+	.footer-brand {
+		max-width: 300px;
+	}
+	
+	.footer-brand .logo-icon,
+	.footer-brand .logo-text {
+		display: inline;
+	}
+	
+	.footer-description {
+		margin-top: 16px;
+		color: #94a3b8;
+		line-height: 1.6;
+	}
+	
+	.footer-links {
+		display: flex;
+		gap: 60px;
+	}
+	
+	.footer-column h4 {
+		font-size: 1rem;
+		font-weight: 700;
+		margin-bottom: 20px;
+	}
+	
+	.footer-column a {
+		display: block;
+		color: #94a3b8;
+		margin-bottom: 12px;
+		transition: color 0.3s;
+	}
+	
+	.footer-column a:hover {
+		color: white;
+	}
+	
+	.footer-bottom {
+		text-align: center;
+		padding-top: 30px;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		color: #64748b;
+		font-size: 0.875rem;
+	}
+	
+	/* Responsive */
+	@media (max-width: 768px) {
+		.hero-title {
+			font-size: 2.5rem;
+		}
+		
+		.hero-stats {
+			gap: 30px;
+		}
+		
+		.stat-number {
+			font-size: 2rem;
+		}
+		
+		.tools-grid {
+			grid-template-columns: 1fr;
+		}
+		
+		.footer-content {
+			flex-direction: column;
+			gap: 40px;
+		}
+		
+		.footer-links {
+			flex-wrap: wrap;
+			gap: 30px;
+		}
+		
+		.nav-links {
+			display: none;
+		}
+	}
+</style>
