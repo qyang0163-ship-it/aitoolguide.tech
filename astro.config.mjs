@@ -1,11 +1,10 @@
-// @ts-check
-
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://www.aitoolguide.tech',
-	integrations: [mdx(), sitemap()],
+  output: 'static',
+  site: 'https://aitoolguide-tech.vercel.app',
+  build: {
+    format: 'directory'
+  }
 });

@@ -1,62 +1,68 @@
-# Astro Starter Kit: Blog
+# AIToolGuide.tech - AI工具赚钱指南
 
-```sh
-npm create astro@latest -- --template blog
+> 🚀 2026年最实用的AI副业变现攻略网站
+
+## 项目简介
+
+AIToolGuide.tech 是一个专注于AI工具变现的导航站，帮助普通人利用AI工具开启副业、增加收入。
+
+## 核心功能
+
+- 💰 **十大AI赚钱工具** - 每个工具附带详细变现教程
+- 📖 **真实案例分享** - 来自成功用户的变现故事
+- 🎯 **六大变现赛道** - 写作、绘画、视频、代码、知识付费、效率工具
+- 🔥 **限时福利** - 新用户可获得《AI赚钱工具包》
+
+## 技术栈
+
+- [Astro](https://astro.build) - 静态站点生成器
+- HTML/CSS - 原生样式
+- 响应式设计
+
+## 本地开发
+
+```bash
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm run dev
+
+# 构建
+npm run build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 部署
 
-Features:
+本项目部署在 Vercel，每次推送到 main 分支会自动构建部署。
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+## 项目结构
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
+```
+/
 ├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
+│   ├── layouts/
+│   │   └── Layout.astro       # 基础布局
+│   └── pages/
+│       ├── index.astro        # 首页
+│       └── tool/
+│           └── [tool].astro   # 工具详情页模板
+├── public/
+│   └── favicon.svg
 ├── astro.config.mjs
-├── README.md
 ├── package.json
-└── tsconfig.json
+└── README.md
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 更新日志
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### v2.0.0 (2026-03-23)
+- 🎉 全新改版，聚焦"AI赚钱"主题
+- 💸 重构首页，强化变现导向
+- 📱 新增工具详情页模板
+- 🔥 增加紧迫感营销元素
+- ✨ 优化CTA按钮和转化路径
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+---
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+© 2026 AIToolGuide.tech - 让每个人都能用AI创造收入

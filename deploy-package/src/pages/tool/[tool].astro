@@ -1,0 +1,977 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// 工具详情数据
+const toolDetails = {
+  'chatgpt': {
+    name: 'ChatGPT',
+    icon: '💬',
+    color: '#10a37f',
+    category: 'AI写作赚钱',
+    headline: 'ChatGPT怎么赚钱？2026年实测月入8000+的5种方法',
+    description: 'OpenAI的ChatGPT是目前最强大的AI写作工具，掌握它就能轻松接单赚钱',
+    income: '￥3000-8000/月',
+    difficulty: '⭐⭐',
+    timeToFirstIncome: '1-3天',
+    tools: ['ChatGPT Plus账号', '文档编辑工具', '接单平台账号'],
+    methods: [
+      {
+        title: '文案代写服务',
+        desc: '帮客户写公众号文章、小红书文案、产品描述等',
+        steps: ['注册接单平台（猪八戒、闲鱼、淘宝）', '发布文案代写服务', '用ChatGPT快速生成初稿', '人工润色后交付'],
+        income: '￥50-200/篇',
+        tip: '重点：学会写Prompt，让AI生成更符合客户需求的内容'
+      },
+      {
+        title: '论文辅助写作',
+        desc: '帮助学生写论文大纲、文献综述、降重改写',
+        steps: ['在闲鱼/小红书发布服务', '与客户沟通需求', '用ChatGPT生成内容', '查重修改后交付'],
+        income: '￥100-500/篇',
+        tip: '注意：只做辅助，不涉及学术造假'
+      },
+      {
+        title: '短视频脚本创作',
+        desc: '为抖音、快手创作者写脚本',
+        steps: ['找到短视频创作者群体', '提供脚本试写', '用ChatGPT批量生成创意', '建立长期合作关系'],
+        income: '￥30-100/条',
+        tip: '重点：了解平台调性，写出爆款脚本'
+      },
+      {
+        title: '简历优化服务',
+        desc: '帮求职者优化简历，提高面试率',
+        steps: ['在招聘平台发布服务', '收集客户原始简历', '用ChatGPT优化表达', '排版美化后交付'],
+        income: '￥50-150/份',
+        tip: '重点：突出客户亮点，匹配目标岗位'
+      },
+      {
+        title: 'AI提示词售卖',
+        desc: '整理优质Prompt在平台售卖',
+        steps: ['测试整理各类Prompt', '制作Prompt合集', '在小红书/知识星球售卖', '持续更新维护'],
+        income: '￥9.9-99/份',
+        tip: '重点：Prompt要实用、有差异化'
+      }
+    ],
+    platforms: [
+      { name: '闲鱼', desc: '门槛低，适合新手', link: '#' },
+      { name: '猪八戒', desc: '订单多，竞争激烈', link: '#' },
+      { name: '小红书', desc: '流量大，适合引流', link: '#' },
+      { name: '淘宝', desc: '信誉度高，长期稳定', link: '#' }
+    ],
+    tips: [
+      '学会写高质量Prompt是关键',
+      '不要直接复制AI内容，要人工润色',
+      '建立自己的客户群体，减少平台依赖',
+      '多学习营销技巧，提高客单价'
+    ],
+    faq: [
+      { q: '需要购买ChatGPT Plus吗？', a: '建议购买，GPT-4质量更高，能接更高单价订单' },
+      { q: '新手多久能赚钱？', a: '一般1-3天就能接到第一单' },
+      { q: '会被客户发现用AI吗？', a: '只要人工润色到位，客户通常看不出来' }
+    ]
+  },
+  'midjourney': {
+    name: 'Midjourney',
+    icon: '🎨',
+    color: '#6366f1',
+    category: 'AI绘画接单',
+    headline: 'Midjourney怎么赚钱？设计师月入2万的接单秘籍',
+    description: 'Midjourney是AI绘画领域的王者，用它能快速生成高质量图片，接单赚钱效率极高',
+    income: '￥5000-15000/月',
+    difficulty: '⭐⭐⭐',
+    timeToFirstIncome: '3-7天',
+    tools: ['Midjourney订阅', 'Discord账号', '图片编辑软件'],
+    methods: [
+      {
+        title: '头像定制服务',
+        desc: '帮客户生成个性化头像、情侣头像',
+        steps: ['在小红书/闲鱼发布作品展示', '接受客户定制需求', '用Midjourney生成多版本', '精修后交付'],
+        income: '￥30-100/张',
+        tip: '重点：积累风格模板，提高出图效率'
+      },
+      {
+        title: '电商主图设计',
+        desc: '为淘宝/拼多多商家设计产品主图',
+        steps: ['联系电商卖家', '了解产品特点和需求', '生成产品场景图', '后期处理交付'],
+        income: '￥100-500/套',
+        tip: '重点：学习产品摄影构图，提升图片质量'
+      },
+      {
+        title: '海报设计接单',
+        desc: '接活动海报、宣传海报设计',
+        steps: ['在设计平台展示作品', '接海报设计订单', '用Midjourney生成素材', '排版合成最终稿'],
+        income: '￥200-1000/张',
+        tip: '重点：掌握排版技巧，AI生成+人工设计'
+      },
+      {
+        title: '表情包制作',
+        desc: '制作微信表情包、IP形象',
+        steps: ['设计IP形象', '用Midjourney生成表情', '制作表情包上传', '通过打赏获利'],
+        income: '￥500-5000/套',
+        tip: '重点：表情包要有趣、有传播性'
+      },
+      {
+        title: '卖AI绘画课程',
+        desc: '教别人用Midjourney赚钱',
+        steps: ['整理自己的使用经验', '制作视频教程', '在知识平台售卖', '提供答疑服务'],
+        income: '￥99-999/份',
+        tip: '重点：实操案例+变现方法，更有吸引力'
+      }
+    ],
+    platforms: [
+      { name: '小红书', desc: '展示作品，引流接单', link: '#' },
+      { name: '闲鱼', desc: '低门槛，快速成交', link: '#' },
+      { name: '猪八戒', desc: '设计订单多', link: '#' },
+      { name: '站酷', desc: '设计师社区，展示作品', link: '#' }
+    ],
+    tips: [
+      '多练习Prompt写作，掌握风格控制',
+      '建立自己的作品集，展示给客户',
+      '学习基础PS技能，后期处理很重要',
+      '关注流行趋势，及时调整风格'
+    ],
+    faq: [
+      { q: 'Midjourney订阅费用多少？', a: '基础版$10/月，标准版$30/月，建议先买基础版试水' },
+      { q: '不会设计能接单吗？', a: '可以，从简单头像定制开始，逐步提升' },
+      { q: 'AI生成图片有版权吗？', a: 'Midjourney生成的图片版权属于用户，可商用' }
+    ]
+  }
+};
+
+const { tool } = Astro.params;
+const toolData = toolDetails[tool] || toolDetails['chatgpt'];
+---
+
+<Layout title={`${toolData.name}怎么赚钱？2026年实测变现攻略 - AI工具赚钱指南`}>
+  <!-- 顶部紧迫感横幅 -->
+  <div class="urgency-banner">
+    🔥 限时福利：前100名注册用户可获得《AI赚钱工具包》+ 独家接单渠道
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo">
+          <span class="logo-icon">💰</span>
+          <span class="logo-text">AIToolGuide</span>
+          <span class="logo-tag">赚钱版</span>
+        </a>
+        <div class="nav-links">
+          <a href="/">首页</a>
+          <a href="/#tools">赚钱工具</a>
+          <a href="/#methods">变现方法</a>
+          <a href="/#stories">成功案例</a>
+        </div>
+        <a href="/#tools" class="btn btn-primary btn-small">免费开始赚钱 →</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge-group">
+          <span class="hero-badge">💰 {toolData.category}</span>
+          <span class="money-badge">预期收入：{toolData.income}</span>
+        </div>
+        <h1 class="hero-title">{toolData.headline}</h1>
+        <p class="hero-description">{toolData.description}</p>
+        
+        <div class="hero-meta">
+          <div class="meta-item">
+            <span class="meta-label">上手难度</span>
+            <span class="meta-value">{toolData.difficulty}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">首单时间</span>
+            <span class="meta-value">{toolData.timeToFirstIncome}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">赚钱方法</span>
+            <span class="meta-value">{toolData.methods.length}种</span>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#methods" class="btn btn-urgent btn-large">🔥 立即学习变现方法</a>
+          <a href="#tools" class="btn btn-primary btn-large">🚀 免费使用工具</a>
+          <a href="#community" class="btn btn-secondary btn-large">📱 加入赚钱交流群</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 所需工具 -->
+  <section class="tools-needed">
+    <div class="container">
+      <h2 class="section-title">你需要准备什么？</h2>
+      <div class="tools-grid">
+        {toolData.tools.map((item, index) => (
+          <div class="tool-item">
+            <span class="tool-number">{index + 1}</span>
+            <span class="tool-text">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 赚钱方法详解 -->
+  <section id="methods" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">💡 实操方法</span>
+        <h2 class="section-title">{toolData.methods.length}种变现方法详解</h2>
+        <p class="section-description">每种方法都有详细步骤和真实收入数据</p>
+      </div>
+      
+      <div class="methods-list">
+        {toolData.methods.map((method, index) => (
+          <div class="method-card">
+            <div class="method-header">
+              <div class="method-number">{index + 1}</div>
+              <div class="method-info">
+                <h3 class="method-title">{method.title}</h3>
+                <span class="method-income">{method.income}</span>
+              </div>
+            </div>
+            <p class="method-desc">{method.desc}</p>
+            
+            <div class="method-steps">
+              <h4>操作步骤：</h4>
+              <ol>
+                {method.steps.map((step) => (
+                  <li>{step}</li>
+                ))}
+              </ol>
+            </div>
+            
+            <div class="method-tip">
+              <span class="tip-icon">💡</span>
+              <span class="tip-text">{method.tip}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 接单平台推荐 -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">🎯 平台推荐</span>
+        <h2 class="section-title">去哪里接单？</h2>
+        <p class="section-description">这些平台都有大量订单，选择适合自己的</p>
+      </div>
+      
+      <div class="platforms-grid">
+        {toolData.platforms.map((platform) => (
+          <div class="platform-card">
+            <h3 class="platform-name">{platform.name}</h3>
+            <p class="platform-desc">{platform.desc}</p>
+            <a href={platform.link} class="platform-link">去接单 →</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 经验技巧 -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">⭐ 经验分享</span>
+        <h2 class="section-title">高手都在用的技巧</h2>
+        <p class="section-description">这些技巧能让你事半功倍，收入翻倍</p>
+      </div>
+      
+      <div class="tips-grid">
+        {toolData.tips.map((tip) => (
+          <div class="tip-card">
+            <span class="tip-icon">✓</span>
+            <p class="tip-text">{tip}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-light">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">❓ 常见问题</span>
+        <h2 class="section-title">新手最常问的问题</h2>
+      </div>
+      
+      <div class="faq-list">
+        {toolData.faq.map((item) => (
+          <div class="faq-item">
+            <h4 class="faq-question">Q: {item.q}</h4>
+            <p class="faq-answer">A: {item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部CTA -->
+  <section id="start" class="cta">
+    <div class="container">
+      <div class="cta-content">
+        <span class="cta-badge">🎁 限时福利</span>
+        <h2 class="cta-title">准备好开始赚钱了吗？</h2>
+        <p class="cta-description">
+          现在行动，你也可以像其他人一样月入过万！<br>
+          现在加入即可获得：《AI赚钱工具包》+ 独家接单渠道
+        </p>
+        
+        <div class="cta-actions">
+          <a href="#" class="btn btn-urgent btn-large">🔥 立即开始赚钱（免费）</a>
+          <a href="#" class="btn btn-primary btn-large">💎 领取工具包</a>
+          <a href="#" class="btn btn-secondary btn-large" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);">
+            📱 加入赚钱交流群
+          </a>
+        </div>
+        
+        <div class="cta-urgency">
+          <span>⏰ 已有 <strong>12,847</strong> 人加入 | 剩余名额 <strong>153</strong> 个</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="logo-icon">💰</span>
+          <span class="logo-text">AIToolGuide</span>
+          <span class="logo-tag">赚钱版</span>
+          <p class="footer-description">专注AI工具变现，让每个人都能用AI创造收入。</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>赚钱工具</h4>
+            <a href="/">AI写作工具</a>
+            <a href="/">AI绘画工具</a>
+            <a href="/">视频剪辑工具</a>
+          </div>
+          <div class="footer-column">
+            <h4>变现攻略</h4>
+            <a href="/">新手入门</a>
+            <a href="/">进阶技巧</a>
+            <a href="/">接单平台</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 AIToolGuide.tech 赚钱版. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .header {
+    position: fixed;
+    top: 32px;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 1.5rem;
+  }
+  
+  .logo-icon { font-size: 1.8rem; }
+  
+  .logo-text {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .logo-tag {
+    font-size: 0.7rem;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .nav-links a {
+    font-weight: 600;
+    color: var(--gray);
+    transition: color 0.3s;
+  }
+  
+  .nav-links a:hover { color: var(--primary); }
+  
+  .btn-small { padding: 10px 20px; font-size: 0.9rem; }
+  
+  .hero {
+    padding: 140px 0 80px;
+    background: linear-gradient(180deg, #fef3c7 0%, #fff 50%, #f0f9ff 100%);
+    text-align: center;
+  }
+  
+  .hero-badge-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  
+  .hero-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 20px;
+  }
+  
+  .hero-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 24px;
+    color: var(--dark);
+  }
+  
+  .hero-description {
+    font-size: 1.25rem;
+    color: var(--gray);
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+  }
+  
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .meta-item {
+    text-align: center;
+  }
+  
+  .meta-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 4px;
+  }
+  
+  .meta-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .tools-needed {
+    padding: 60px 0;
+    background: white;
+    text-align: center;
+  }
+  
+  .tools-needed .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+  }
+  
+  .tools-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .tool-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border-radius: 12px;
+  }
+  
+  .tool-number {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 700;
+    border-radius: 50%;
+  }
+  
+  .tool-text {
+    font-weight: 600;
+    color: var(--dark);
+  }
+  
+  .section {
+    padding: 80px 0;
+  }
+  
+  .section-dark {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+  }
+  
+  .section-light {
+    background: #f8fafc;
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .section-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .section-dark .section-badge {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  
+  .section-description {
+    font-size: 1.1rem;
+    color: var(--gray);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .section-dark .section-description {
+    color: #94a3b8;
+  }
+  
+  .methods-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .method-card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.3s;
+  }
+  
+  .method-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .method-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .method-number {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border-radius: 12px;
+  }
+  
+  .method-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  
+  .method-income {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  
+  .method-desc {
+    color: var(--gray);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+  }
+  
+  .method-steps {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .method-steps h4 {
+    margin-bottom: 12px;
+    color: var(--dark);
+  }
+  
+  .method-steps ol {
+    padding-left: 20px;
+  }
+  
+  .method-steps li {
+    margin-bottom: 8px;
+    color: var(--gray);
+  }
+  
+  .method-tip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-radius: 12px;
+  }
+  
+  .tip-icon {
+    font-size: 1.5rem;
+  }
+  
+  .tip-text {
+    color: #92400e;
+    font-weight: 600;
+  }
+  
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
+  }
+  
+  .platform-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  
+  .platform-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+  }
+  
+  .platform-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  
+  .platform-desc {
+    color: #94a3b8;
+    margin-bottom: 16px;
+  }
+  
+  .platform-link {
+    color: #f59e0b;
+    font-weight: 600;
+  }
+  
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .tip-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    transition: all 0.3s;
+  }
+  
+  .tip-card:hover {
+    border-color: var(--primary);
+  }
+  
+  .tip-card .tip-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    font-weight: 700;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  
+  .tip-card .tip-text {
+    color: var(--dark);
+    font-weight: 500;
+    line-height: 1.6;
+  }
+  
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .faq-item {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  
+  .faq-question {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--dark);
+  }
+  
+  .faq-answer {
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  
+  .cta {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .cta-badge {
+    display: inline-block;
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 30px;
+    margin-bottom: 24px;
+  }
+  
+  .cta-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+  
+  .cta-description {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+    line-height: 1.8;
+  }
+  
+  .cta-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .cta-urgency {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+  }
+  
+  .cta-urgency strong {
+    color: #f59e0b;
+    font-size: 1.2rem;
+  }
+  
+  .footer {
+    background: #020617;
+    color: white;
+    padding: 60px 0 30px;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 60px;
+  }
+  
+  .footer-brand {
+    max-width: 320px;
+  }
+  
+  .footer-description {
+    margin-top: 16px;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 60px;
+  }
+  
+  .footer-column h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .footer-column a {
+    display: block;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    transition: color 0.3s;
+    font-size: 0.95rem;
+  }
+  
+  .footer-column a:hover {
+    color: white;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #64748b;
+    font-size: 0.875rem;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+    
+    .hero-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .hero-actions .btn {
+      width: 100%;
+      max-width: 320px;
+    }
+    
+    .hero-meta {
+      gap: 20px;
+    }
+    
+    .method-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .platforms-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .tips-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+      flex-direction: column;
+      gap: 40px;
+    }
+    
+    .footer-links {
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    .cta-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .cta-actions .btn {
+      width: 100%;
+      max-width: 320px;
+    }
+    
+    .cta-title {
+      font-size: 1.8rem;
+    }
+  }
+</style>

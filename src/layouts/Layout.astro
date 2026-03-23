@@ -1,103 +1,118 @@
 ---
-import SpeedInsights from "@vercel/speed-insights/astro";
----
 interface Props {
 	title: string;
-	description?: string;
-	keywords?: string;
 }
 
-const { title, description = "Discover the best AI tools to boost your productivity. Comprehensive guides, reviews, and comparisons of the latest AI tools in 2026.", keywords = "AI tools, AI software, artificial intelligence, ChatGPT, Claude, Midjourney, AI review, AI comparison, productivity tools" } = Astro.props;
+const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="keywords" content={keywords} />
+		<meta name="description" content="AIToolGuide - 2026年最实用的AI赚钱工具导航站，教你用AI工具做副业、接私单、提升收入" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		<style is:global>
+			:root {
+				--primary: #0ea5e9;
+				--secondary: #8b5cf6;
+				--accent: #f59e0b;
+				--dark: #0f172a;
+				--gray: #64748b;
+				--border: #e2e8f0;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+				line-height: 1.6;
+				color: var(--dark);
+			}
+			a {
+				text-decoration: none;
+				color: inherit;
+			}
+			.container {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 20px;
+			}
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 14px 28px;
+				border-radius: 10px;
+				font-weight: 600;
+				font-size: 1rem;
+				transition: all 0.3s;
+				border: none;
+				cursor: pointer;
+			}
+			.btn-primary {
+				background: linear-gradient(135deg, var(--primary), var(--secondary));
+				color: white;
+				box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4);
+			}
+			.btn-primary:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5);
+			}
+			.btn-secondary {
+				background: white;
+				color: var(--dark);
+				border: 2px solid var(--border);
+			}
+			.btn-secondary:hover {
+				border-color: var(--primary);
+				color: var(--primary);
+			}
+			.btn-urgent {
+				background: linear-gradient(135deg, #ef4444, #f97316);
+				color: white;
+				box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+				animation: pulse 2s infinite;
+			}
+			.btn-urgent:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+			}
+			@keyframes pulse {
+				0%, 100% { transform: scale(1); }
+				50% { transform: scale(1.02); }
+			}
+			.btn-large {
+				padding: 18px 36px;
+				font-size: 1.125rem;
+			}
+			.money-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+				padding: 6px 12px;
+				background: linear-gradient(135deg, #fef3c7, #fde68a);
+				color: #92400e;
+				font-weight: 700;
+				font-size: 0.8rem;
+				border-radius: 20px;
+			}
+			.urgency-banner {
+				background: linear-gradient(90deg, #fef3c7, #fee2e2);
+				padding: 10px;
+				text-align: center;
+				font-weight: 600;
+				color: #92400e;
+				font-size: 0.9rem;
+			}
+		</style>
 	</head>
 	<body>
 		<slot />
-        <SpeedInsights />
 	</body>
 </html>
-
-<style is:global>
-	:root {
-		--primary: #6366f1;
-		--primary-dark: #4f46e5;
-		--secondary: #10b981;
-		--dark: #0f172a;
-		--light: #f8fafc;
-		--gray: #64748b;
-		--border: #e2e8f0;
-	}
-	
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-	
-	html {
-		font-family: 'Inter', sans-serif;
-		background: var(--light);
-		color: var(--dark);
-		scroll-behavior: smooth;
-	}
-	
-	body {
-		min-height: 100vh;
-	}
-	
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 20px;
-	}
-	
-	a {
-		text-decoration: none;
-		color: inherit;
-	}
-	
-	.btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-		padding: 12px 24px;
-		border-radius: 8px;
-		font-weight: 600;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		border: none;
-	}
-	
-	.btn-primary {
-		background: var(--primary);
-		color: white;
-	}
-	
-	.btn-primary:hover {
-		background: var(--primary-dark);
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-	}
-	
-	.btn-secondary {
-		background: white;
-		color: var(--dark);
-		border: 2px solid var(--border);
-	}
-	
-	.btn-secondary:hover {
-		border-color: var(--primary);
-		color: var(--primary);
-	}
-</style>
