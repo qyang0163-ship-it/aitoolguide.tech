@@ -1,0 +1,693 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// 获取URL参数
+const { tool } = Astro.params;
+
+// 工具详情数据
+const toolDetails: Record<string, any> = {
+  'chatgpt': {
+    name: 'ChatGPT',
+    icon: '💬',
+    color: '#10a37f',
+    category: 'AI写作赚钱',
+    headline: 'ChatGPT怎么赚钱？2026年实测月入8000+的5种方法',
+    description: 'OpenAI的ChatGPT是目前最强大的AI写作工具，掌握它就能轻松接单赚钱',
+    income: '￥3000-8000/月',
+    difficulty: '⭐⭐',
+    timeToFirstIncome: '1-3天',
+    tools: ['ChatGPT Plus账号', '文档编辑工具', '接单平台账号'],
+    methods: [
+      {
+        title: '文案代写服务',
+        desc: '帮客户写公众号文章、小红书文案、产品描述等',
+        steps: ['注册接单平台（猪八戒、闲鱼、淘宝）', '发布文案代写服务', '用ChatGPT快速生成初稿', '人工润色后交付'],
+        income: '￥50-200/篇',
+        tip: '重点：学会写Prompt，让AI生成更符合客户需求的内容'
+      },
+      {
+        title: '论文辅助写作',
+        desc: '帮助学生写论文大纲、文献综述、降重改写',
+        steps: ['在闲鱼/小红书发布服务', '与客户沟通需求', '用ChatGPT生成内容', '查重修改后交付'],
+        income: '￥100-500/篇',
+        tip: '注意：只做辅助，不涉及学术造假'
+      },
+      {
+        title: '短视频脚本创作',
+        desc: '为抖音、快手创作者写脚本',
+        steps: ['找到短视频创作者群体', '提供脚本试写', '用ChatGPT批量生成创意', '建立长期合作关系'],
+        income: '￥30-100/条',
+        tip: '重点：了解平台调性，写出爆款脚本'
+      },
+      {
+        title: '简历优化服务',
+        desc: '帮求职者优化简历，提高面试率',
+        steps: ['在招聘平台发布服务', '收集客户原始简历', '用ChatGPT优化表达', '排版美化后交付'],
+        income: '￥50-150/份',
+        tip: '重点：突出客户亮点，匹配目标岗位'
+      },
+      {
+        title: 'AI提示词售卖',
+        desc: '整理优质Prompt在平台售卖',
+        steps: ['测试整理各类Prompt', '制作Prompt合集', '在小红书/知识星球售卖', '持续更新维护'],
+        income: '￥9.9-99/份',
+        tip: '重点：Prompt要实用、有差异化'
+      }
+    ],
+    platforms: [
+      { name: '闲鱼', desc: '门槛低，适合新手', link: '#' },
+      { name: '猪八戒', desc: '订单多，竞争激烈', link: '#' },
+      { name: '小红书', desc: '流量大，适合引流', link: '#' },
+      { name: '淘宝', desc: '信誉度高，长期稳定', link: '#' }
+    ],
+    tips: [
+      '学会写高质量Prompt是关键',
+      '不要直接复制AI内容，要人工润色',
+      '建立自己的客户群体，减少平台依赖',
+      '多学习营销技巧，提高客单价'
+    ],
+    faq: [
+      { q: '需要购买ChatGPT Plus吗？', a: '建议购买，GPT-4质量更高，能接更高单价订单' },
+      { q: '新手多久能赚钱？', a: '一般1-3天就能接到第一单' },
+      { q: '会被客户发现用AI吗？', a: '只要人工润色到位，客户通常看不出来' }
+    ]
+  },
+  'midjourney': {
+    name: 'Midjourney',
+    icon: '🎨',
+    color: '#6366f1',
+    category: 'AI绘画接单',
+    headline: 'Midjourney怎么赚钱？2026年实测月入15000+的4种方法',
+    description: 'Midjourney是目前最强大的AI绘画工具，用它能轻松接设计单赚钱',
+    income: '￥5000-15000/月',
+    difficulty: '⭐⭐⭐',
+    timeToFirstIncome: '3-7天',
+    tools: ['Midjourney订阅', 'Discord账号', '设计软件（PS/AI）'],
+    methods: [
+      {
+        title: '头像定制服务',
+        desc: '帮客户生成个性化AI头像、情侣头像',
+        steps: ['在小红书/闲鱼发布作品', '吸引客户咨询', '根据需求生成头像', '精修后交付'],
+        income: '￥30-100/张',
+        tip: '重点：展示作品集，建立信任'
+      },
+      {
+        title: '电商设计接单',
+        desc: '做产品主图、详情页、海报设计',
+        steps: ['加入电商设计群', '展示AI作品案例', '接单并按需求生成', '结合PS精修'],
+        income: '￥200-1000/单',
+        tip: '重点：学习基础PS，提升交付质量'
+      },
+      {
+        title: '表情包制作',
+        desc: '制作微信表情包上传售卖',
+        steps: ['确定表情包主题', '用Midjourney生成系列图', '制作成表情包', '上传到微信表情平台'],
+        income: '￥500-5000/套',
+        tip: '重点：选择热门主题，持续更新'
+      },
+      {
+        title: '设计素材售卖',
+        desc: '在素材网站售卖AI生成的设计元素',
+        steps: ['批量生成设计素材', '上传到千图网/包图网', '设置合理价格', '持续补充新素材'],
+        income: '￥1000-5000/月',
+        tip: '重点：了解平台规则，避免版权问题'
+      }
+    ],
+    platforms: [
+      { name: '小红书', desc: '展示作品，吸引客户', link: '#' },
+      { name: '闲鱼', desc: '接单平台，门槛低', link: '#' },
+      { name: '猪八戒', desc: '设计订单多', link: '#' },
+      { name: '微信表情', desc: '表情包变现', link: '#' }
+    ],
+    tips: [
+      '多练习Prompt，提升出图质量',
+      '建立自己的风格，形成差异化',
+      '学会基础PS，提升交付质量',
+      '重视客户反馈，持续优化'
+    ],
+    faq: [
+      { q: 'Midjourney订阅费用多少？', a: '标准版$30/月，足够接单使用' },
+      { q: '不会PS能做吗？', a: '可以，但会PS能接更高单价订单' },
+      { q: '版权问题怎么办？', a: '商用需遵守Midjourney使用条款' }
+    ]
+  }
+};
+
+// 获取当前工具数据
+const currentTool = toolDetails[tool || 'chatgpt'] || toolDetails['chatgpt'];
+
+// 相关工具推荐
+const relatedTools = [
+  { name: 'DALL-E 3', icon: '🖼️', category: 'AI绘画赚钱', slug: 'dall-e-3' },
+  { name: 'Claude', icon: '🧠', category: 'AI副业变现', slug: 'claude' },
+  { name: 'Notion AI', icon: '📝', category: '效率变现', slug: 'notion-ai' }
+];
+---
+
+<Layout title={`${currentTool.name}怎么赚钱？2026年最新变现攻略 | AIToolGuide`} description={currentTool.description}>
+  <!-- 面包屑导航 -->
+  <nav class="breadcrumb">
+    <div class="container">
+      <a href="/">首页</a>
+      <span>/</span>
+      <a href="/#tools">赚钱工具</a>
+      <span>/</span>
+      <span>{currentTool.name}</span>
+    </div>
+  </nav>
+
+  <!-- Hero区域 -->
+  <section class="tool-hero">
+    <div class="container">
+      <div class="tool-header">
+        <div class="tool-icon" style={`background: ${currentTool.color}`}>
+          {currentTool.icon}
+        </div>
+        <div class="tool-meta">
+          <span class="category">{currentTool.category}</span>
+          <h1>{currentTool.headline}</h1>
+          <p class="description">{currentTool.description}</p>
+          <div class="tool-stats">
+            <div class="stat">
+              <span class="stat-label">预期收入</span>
+              <span class="stat-value" style={`color: ${currentTool.color}`}>{currentTool.income}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">上手难度</span>
+              <span class="stat-value">{currentTool.difficulty}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">首单时间</span>
+              <span class="stat-value">{currentTool.timeToFirstIncome}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主要内容 -->
+  <main class="tool-content">
+    <div class="container">
+      <div class="content-grid">
+        <!-- 左侧：赚钱方法 -->
+        <div class="main-column">
+          <section class="section">
+            <h2>💰 {currentTool.name}赚钱的{currentTool.methods.length}种方法</h2>
+            <div class="methods-list">
+              {currentTool.methods.map((method, index) => (
+                <div class="method-card">
+                  <div class="method-header">
+                    <span class="method-number">{index + 1}</span>
+                    <h3>{method.title}</h3>
+                    <span class="method-income">{method.income}</span>
+                  </div>
+                  <p class="method-desc">{method.desc}</p>
+                  <div class="method-steps">
+                    <h4>操作步骤：</h4>
+                    <ol>
+                      {method.steps.map(step => <li>{step}</li>)}
+                    </ol>
+                  </div>
+                  <div class="method-tip">
+                    <strong>💡 经验提示：</strong>{method.tip}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- 接单平台 -->
+          <section class="section">
+            <h2>📱 推荐接单平台</h2>
+            <div class="platforms-grid">
+              {currentTool.platforms.map(platform => (
+                <div class="platform-card">
+                  <h3>{platform.name}</h3>
+                  <p>{platform.desc}</p>
+                  <a href={platform.link} class="btn btn-small">去接单</a>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- 经验技巧 -->
+          <section class="section">
+            <h2>🎯 高手经验分享</h2>
+            <div class="tips-list">
+              {currentTool.tips.map(tip => (
+                <div class="tip-item">
+                  <span class="tip-icon">✓</span>
+                  <span>{tip}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- FAQ -->
+          <section class="section">
+            <h2>❓ 常见问题</h2>
+            <div class="faq-list">
+              {currentTool.faq.map(item => (
+                <div class="faq-item">
+                  <h4>Q: {item.q}</h4>
+                  <p>A: {item.a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        <!-- 右侧：侧边栏 -->
+        <aside class="sidebar">
+          <!-- 立即行动CTA -->
+          <div class="sidebar-card cta-card">
+            <h3>🚀 立即开始赚钱</h3>
+            <p>已有 <strong>2,847</strong> 人通过{currentTool.name}实现副业收入</p>
+            <a href={currentTool.url} target="_blank" class="btn btn-primary btn-block">
+              免费使用{currentTool.name}
+            </a>
+            <a href="#methods" class="btn btn-secondary btn-block">
+              查看详细教程
+            </a>
+          </div>
+
+          <!-- 所需工具 -->
+          <div class="sidebar-card">
+            <h3>🛠️ 所需工具</h3>
+            <ul class="tools-list">
+              {currentTool.tools.map(t => <li>{t}</li>)}
+            </ul>
+          </div>
+
+          <!-- 相关工具 -->
+          <div class="sidebar-card">
+            <h3>🔥 相关赚钱工具</h3>
+            <div class="related-tools">
+              {relatedTools.map(related => (
+                <a href={`/tool/${related.slug}`} class="related-tool">
+                  <span class="related-icon">{related.icon}</span>
+                  <div>
+                    <div class="related-name">{related.name}</div>
+                    <div class="related-category">{related.category}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- 限时福利 -->
+          <div class="sidebar-card urgency-card">
+            <h3>⏰ 限时福利</h3>
+            <p>前100名加入交流群的用户可获得：</p>
+            <ul>
+              <li>《{currentTool.name}赚钱秘籍》</li>
+              <li>独家接单渠道分享</li>
+              <li>1对1答疑指导</li>
+            </ul>
+            <div class="urgency-note">剩余名额: <span class="spots-left">23</span></div>
+            <button class="btn btn-urgent btn-block">立即加入交流群</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- 底部CTA -->
+  <section class="bottom-cta">
+    <div class="container">
+      <h2>准备好用{currentTool.name}赚钱了吗？</h2>
+      <p>现在就开始行动，开启你的AI副业之旅</p>
+      <div class="cta-buttons">
+        <a href={currentTool.url} target="_blank" class="btn btn-primary btn-large">
+          立即免费使用{currentTool.name}
+        </a>
+        <a href="/" class="btn btn-secondary btn-large">
+          查看更多赚钱工具
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .breadcrumb {
+    background: #f8fafc;
+    padding: 15px 0;
+    font-size: 0.9rem;
+  }
+  .breadcrumb a {
+    color: #64748b;
+  }
+  .breadcrumb a:hover {
+    color: #0ea5e9;
+  }
+  .breadcrumb span {
+    margin: 0 10px;
+    color: #94a3b8;
+  }
+
+  .tool-hero {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    padding: 60px 0;
+  }
+  .tool-header {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .tool-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    flex-shrink: 0;
+  }
+  .tool-meta {
+    flex: 1;
+  }
+  .category {
+    display: inline-block;
+    padding: 6px 16px;
+    background: #e0f2fe;
+    color: #0369a1;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  .tool-meta h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    line-height: 1.3;
+  }
+  .description {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 25px;
+  }
+  .tool-stats {
+    display: flex;
+    gap: 40px;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin-bottom: 5px;
+  }
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .tool-content {
+    padding: 60px 0;
+  }
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+  }
+
+  .section {
+    margin-bottom: 50px;
+  }
+  .section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+
+  .method-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  }
+  .method-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  .method-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #0ea5e9, #8b5cf6);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+  .method-header h3 {
+    flex: 1;
+    font-size: 1.3rem;
+  }
+  .method-income {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .method-desc {
+    color: #64748b;
+    margin-bottom: 20px;
+  }
+  .method-steps {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+  }
+  .method-steps h4 {
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+  .method-steps ol {
+    padding-left: 20px;
+  }
+  .method-steps li {
+    margin-bottom: 8px;
+    color: #475569;
+  }
+  .method-tip {
+    background: #ecfdf5;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 4px solid #10b981;
+  }
+
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .platform-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  }
+  .platform-card h3 {
+    margin-bottom: 10px;
+  }
+  .platform-card p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  .tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .tip-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  .tip-icon {
+    width: 24px;
+    height: 24px;
+    background: #10b981;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .faq-item {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  .faq-item h4 {
+    margin-bottom: 10px;
+    color: #0f172a;
+  }
+  .faq-item p {
+    color: #64748b;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  .sidebar-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  }
+  .sidebar-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+  }
+
+  .cta-card {
+    background: linear-gradient(135deg, #0ea5e9, #8b5cf6);
+    color: white;
+  }
+  .cta-card h3 {
+    color: white;
+  }
+  .cta-card p {
+    margin-bottom: 20px;
+    opacity: 0.9;
+  }
+  .btn-block {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .tools-list {
+    list-style: none;
+  }
+  .tools-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tools-list li:before {
+    content: "✓";
+    color: #10b981;
+    font-weight: 700;
+  }
+
+  .related-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .related-tool {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 12px;
+    transition: all 0.3s;
+  }
+  .related-tool:hover {
+    background: #e0f2fe;
+  }
+  .related-icon {
+    font-size: 2rem;
+  }
+  .related-name {
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .related-category {
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+
+  .urgency-card {
+    background: linear-gradient(135deg, #fef3c7, #fee2e2);
+    border: 2px solid #fbbf24;
+  }
+  .urgency-card ul {
+    margin: 15px 0;
+    padding-left: 20px;
+  }
+  .urgency-card li {
+    margin-bottom: 8px;
+  }
+  .urgency-note {
+    text-align: center;
+    margin: 15px 0;
+    font-weight: 600;
+  }
+  .spots-left {
+    color: #ef4444;
+    font-size: 1.5rem;
+  }
+
+  .bottom-cta {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+  }
+  .bottom-cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+  .bottom-cta p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    margin-bottom: 30px;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  @media (max-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr;
+    }
+    .tool-header {
+      flex-direction: column;
+      text-align: center;
+    }
+    .tool-stats {
+      justify-content: center;
+    }
+    .platforms-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
