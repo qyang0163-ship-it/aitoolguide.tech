@@ -196,7 +196,7 @@ const article = articles[slug] || articles['ai-money-tools'];
 
 <Layout title={article.title}>
   <!-- 紧迫感横幅 -->
-  <div class="urgency-banner">
+  <div class="urgency-banner" data-i18n="urgencyBanner">
     🔥 限时福利：前100名注册用户可获得《AI赚钱工具包》+ 独家接单渠道 — 本周已有 1,247 人领取
   </div>
 
@@ -210,12 +210,12 @@ const article = articles[slug] || articles['ai-money-tools'];
           <span class="logo-tag">赚钱版</span>
         </a>
         <div class="nav-links">
-          <a href="/">首页</a>
-          <a href="/#tools">赚钱工具</a>
-          <a href="/#methods">变现方法</a>
-          <a href="/#stories">成功案例</a>
+          <a href="/" data-i18n="navTools">赚钱工具</a>
+          <a href="/#tools" data-i18n="navMethods">变现方法</a>
+          <a href="/#methods" data-i18n="navStories">成功案例</a>
+          <a href="/#stories" data-i18n="navStart">立即开始</a>
         </div>
-        <a href="/#tools" class="btn btn-primary btn-small">免费开始赚钱 →</a>
+        <a href="/#tools" class="btn btn-primary btn-small" data-i18n="navCta">免费开始赚钱 →</a>
       </nav>
     </div>
   </header>
@@ -256,8 +256,8 @@ const article = articles[slug] || articles['ai-money-tools'];
       <!-- 中间CTA -->
       <div class="mid-cta">
         <div class="mid-cta-content">
-          <span>⚡ 别光看，现在就行动！</span>
-          <a href="/#tools" class="btn btn-urgent">🔥 免费领取AI赚钱工具包</a>
+          <span data-i18n="midCta">⚡ 别光看，现在就行动！</span>
+          <a href="/#tools" class="btn btn-urgent" data-i18n="midCtaBtn">🔥 免费领取AI赚钱工具包</a>
         </div>
       </div>
 
@@ -312,16 +312,16 @@ const article = articles[slug] || articles['ai-money-tools'];
       <!-- 底部强转化CTA -->
       <div class="article-bottom-cta">
         <div class="bottom-cta-content">
-          <span class="bottom-cta-badge">🎁 限时福利</span>
-          <h2>看完了？现在就开始行动吧！</h2>
-          <p>再好的方法，不执行就等于零。现在就选一个工具开始，比别人快一步！</p>
+          <span class="bottom-cta-badge" data-i18n="bottomCtaBadge">🎁 限时福利</span>
+          <h2 data-i18n="bottomCtaTitle">看完了？现在就开始行动吧！</h2>
+          <p data-i18n="bottomCtaDesc">再好的方法，不执行就等于零。现在就选一个工具开始，比别人快一步！</p>
           <div class="bottom-cta-buttons">
-            <a href="/#tools" class="btn btn-urgent btn-large">🔥 立即免费试用AI工具</a>
-            <a href="/" class="btn btn-primary btn-large">💎 查看更多赚钱攻略</a>
-            <a href="#" class="btn btn-secondary btn-large" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);">📱 加入赚钱交流群</a>
+            <a href="/#tools" class="btn btn-urgent btn-large" data-i18n="bottomCtaCta1">🔥 立即免费试用AI工具</a>
+            <a href="/" class="btn btn-primary btn-large" data-i18n="bottomCtaCta2">💎 查看更多赚钱攻略</a>
+            <a href="#" class="btn btn-secondary btn-large" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);" data-i18n="bottomCtaCta3">📱 加入赚钱交流群</a>
           </div>
           <div class="bottom-cta-urgency">
-            <span>⏰ 已有 <strong>12,847</strong> 人开始行动 | 剩余名额 <strong>153</strong> 个</span>
+            <span><span data-i18n="bottomUrgency1">⏰</span> <strong data-i18n="bottomUrgency2">12,847</strong> <span data-i18n="bottomUrgency3">人开始行动 |</span> <strong data-i18n="bottomUrgency4">153</strong> <span data-i18n="bottomUrgency5">个剩余名额</span></span>
           </div>
         </div>
       </div>

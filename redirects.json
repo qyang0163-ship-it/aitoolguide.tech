@@ -1,0 +1,22 @@
+[
+  { "source": "/ai赚钱工具", "destination": "/blog/ai-money-tools/", "permanent": true },
+  { "source": "/chatgpt怎么赚钱", "destination": "/blog/chatgpt-make-money/", "permanent": true },
+  { "source": "/ai副业项目", "destination": "/blog/ai-side-hustle/", "permanent": true },
+  { "source": "/ai工具推荐2026", "destination": "/blog/best-ai-tools-2026/", "permanent": true },
+  { "source": "/midjourney赚钱", "destination": "/blog/midjourney-make-money/", "permanent": true },
+  { "source": "/notion-ai用法", "destination": "/blog/notion-ai-guide/", "permanent": true },
+  { "source": "/ai写作赚钱", "destination": "/blog/ai-writing-money/", "permanent": true },
+  { "source": "/ai绘画接单", "destination": "/blog/ai-art-freelance/", "permanent": true },
+  { "source": "/免费ai工具", "destination": "/blog/free-ai-tools/", "permanent": true },
+  { "source": "/最强ai工具合集", "destination": "/blog/top-ai-tools-collection/", "permanent": true },
+  { "source": "/ai-money-tools", "destination": "/blog/ai-money-tools/", "permanent": true },
+  { "source": "/chatgpt-make-money", "destination": "/blog/chatgpt-make-money/", "permanent": true },
+  { "source": "/ai-side-hustle", "destination": "/blog/ai-side-hustle/", "permanent": true },
+  { "source": "/best-ai-tools-2026", "destination": "/blog/best-ai-tools-2026/", "permanent": true },
+  { "source": "/midjourney-make-money", "destination": "/blog/midjourney-make-money/", "permanent": true },
+  { "source": "/notion-ai-guide", "destination": "/blog/notion-ai-guide/", "permanent": true },
+  { "source": "/ai-writing-money", "destination": "/blog/ai-writing-money/", "permanent": true },
+  { "source": "/ai-art-freelance", "destination": "/blog/ai-art-freelance/", "permanent": true },
+  { "source": "/free-ai-tools", "destination": "/blog/free-ai-tools/", "permanent": true },
+  { "source": "/top-ai-tools-collection", "destination": "/blog/top-ai-tools-collection/", "permanent": true }
+]

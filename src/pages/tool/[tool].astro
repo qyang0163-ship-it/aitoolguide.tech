@@ -201,7 +201,7 @@ const toolData = toolDetails[toolSlug] || toolDetails['chatgpt'];
 
 <Layout title={`${toolData.name}赚钱攻略 - ${toolData.headline}`}>
   <!-- 紧迫感横幅 -->
-  <div class="urgency-banner">
+  <div class="urgency-banner" data-i18n="urgencyBanner">
     🔥 限时福利：前100名注册用户可获得《{toolData.name}赚钱工具包》+ 独家接单渠道
   </div>
 
@@ -215,10 +215,10 @@ const toolData = toolDetails[toolSlug] || toolDetails['chatgpt'];
           <span class="logo-tag">赚钱版</span>
         </a>
         <div class="nav-links">
-          <a href="/">首页</a>
-          <a href="/#tools">赚钱工具</a>
-          <a href="/#methods">变现方法</a>
-          <a href="/#stories">成功案例</a>
+          <a href="/" data-i18n="navTools">赚钱工具</a>
+          <a href="/#tools" data-i18n="navMethods">变现方法</a>
+          <a href="/#methods" data-i18n="navStories">成功案例</a>
+          <a href="/#stories" data-i18n="navStart">立即开始</a>
         </div>
         <a href={toolData.url || '#'} target="_blank" class="btn btn-primary btn-small">免费使用{toolData.name} →</a>
       </nav>
