@@ -7,7 +7,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en" dir="ltr" id="html-root">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="AIToolGuide - 2026年最实用的AI赚钱工具导航站，教你用AI工具做副业、接私单、提升收入" />
@@ -110,10 +110,39 @@ const { title } = Astro.props;
 				color: #92400e;
 				font-size: 0.9rem;
 			}
+			/* RTL Support for Arabic */
+			[dir="rtl"] .nav-links {
+				flex-direction: row-reverse;
+			}
+			[dir="rtl"] .hero-actions,
+			[dir="rtl"] .cta-actions,
+			[dir="rtl"] .bottom-cta-buttons {
+				flex-direction: row-reverse;
+			}
+			[dir="rtl"] .footer-links {
+				flex-direction: row-reverse;
+			}
+			[dir="rtl"] .article-card-footer,
+			[dir="rtl"] .tool-detail-header,
+			[dir="rtl"] .method-header {
+				flex-direction: row-reverse;
+			}
 		</style>
 	</head>
 	<body>
 		<slot />
 		<script src="/i18n.js" is:inline></script>
+		<script>
+			// Immediate language detection to prevent flash of wrong language
+			(function() {
+				const savedLang = localStorage.getItem('aitg_lang');
+				if (savedLang) {
+					document.documentElement.lang = savedLang === 'zh-CN' ? 'zh-Hans' : savedLang === 'zh-TW' ? 'zh-Hant' : savedLang;
+					if (savedLang === 'ar') {
+						document.documentElement.dir = 'rtl';
+					}
+				}
+			})();
+		</script>
 	</body>
 </html>
