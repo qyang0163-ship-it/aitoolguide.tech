@@ -15,7 +15,7 @@
   "sectionMethodsBadge": "🎯 Elige tu camino", "sectionMethodsTitle": "6 formas de monetizar con IA", "sectionMethodsDesc": "Encuentra la mejor manera de ganar",
   "sectionStoriesBadge": "⭐ Historias reales", "sectionStoriesTitle": "Ellos ya ganan con IA", "sectionStoriesDesc": "Historias reales — tú también puedes",
   "earningMethod": "Método:", "difficulty": "Dificultad:", "tryFree": "🚀 Prueba gratis", "viewTutorial": "📖 Ver tutorial", "hotBadge": "🔥 Tendencia", "viewAllTools": "Ver 50+ herramientas →",
-  "catWriting": "Escritura IA", "catArt": "Arte IA", "catVideo": "Edición de video", "catCode": "Programación", "catKnowledge": "Infoproductos", "catProductivity": "Productividad", "startEarning": "Empezar →",
+  "catWriting": "Escritura IA", "catArt": "Arte IA", "catVideo": "Edición de video", "catCode": "Programación", "catKnowledge": "Infoproductos", "catProductivity": "Productividad", "catResearch": "Investigación IA", "startEarning": "Empezar →",
   "ctaBadge": "🎁 Oferta limitada", "ctaTitle": "¿Aún mirando? ¡Otros ya ganan!",
   "ctaDesc1": "Regístrate y obtén:", "ctaDesc2": "✅ 'Kit IA' ($40)", "ctaDesc3": "✅ Canales freelance exclusivos", "ctaDesc4": "✅ Mentoría 1a1 (primeros 100)",
   "ctaCta1": "🔥 Empieza a ganar (gratis)", "ctaCta2": "💎 Obtener kit", "ctaCta3": "📱 Unirse",
@@ -28,5 +28,16 @@
   "bottomCtaBadge": "🎁 Oferta", "bottomCtaTitle": "¿Terminaste? ¡Empieza!", "bottomCtaDesc": "Elige una herramienta y empieza.",
   "bottomCtaCta1": "🔥 Prueba gratis", "bottomCtaCta2": "💎 Más guías", "bottomCtaCta3": "📱 Comunidad",
   "bottomUrgency1": "⏰", "bottomUrgency2": "12,847", "bottomUrgency3": "actuando |", "bottomUrgency4": "153", "bottomUrgency5": "plazas",
-  "alsoRead": "📚 También te interesa", "confusion": "💢 ¿Tienes este problema?", "detailTitle": "🛠️ Guía detallada", "conclusion": "✅ Conclusión"
+  "alsoRead": "📚 También te interesa", "confusion": "💢 ¿Tienes este problema?", "detailTitle": "🛠️ Guía detallada", "conclusion": "✅ Conclusión",
+  "toolDesc_chatgpt": "Usa IA para redacción. Gana €500+/mes",
+  "toolDesc_midjourney": "Genera imágenes. Diseño de avatares",
+  "toolDesc_claude": "Escritura larga, asistencia de código",
+  "toolDesc_notion": "Crea plantillas para vender",
+  "toolDesc_runway": "Generación de video IA",
+  "toolDesc_dalle3": "Generación rápida de imágenes",
+  "toolDesc_perplexity": "Investigación rápida",
+  "toolDesc_copilot": "Aumenta eficiencia de código",
+  "toolDesc_gamma": "PPT con un clic",
+  "toolDesc_claudecode": "Desarrollo de scripts",
+  "moneyMethod": "Método:", "income": "Ingreso:", "perMonth": "/mes"
 }

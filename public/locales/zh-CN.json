@@ -27,5 +27,17 @@
   "bottomCtaBadge": "🎁 限时福利", "bottomCtaTitle": "看完了？现在就开始行动吧！", "bottomCtaDesc": "再好的方法，不执行就等于零。",
   "bottomCtaCta1": "🔥 立即免费试用AI工具", "bottomCtaCta2": "💎 查看更多赚钱攻略", "bottomCtaCta3": "📱 加入赚钱交流群",
   "bottomUrgency1": "⏰", "bottomUrgency2": "12,847", "bottomUrgency3": "人开始行动 |", "bottomUrgency4": "153", "bottomUrgency5": "个剩余名额",
-  "alsoRead": "📚 你可能还想看", "confusion": "💢 你是不是也有这样的困惑？", "detailTitle": "🛠️ 详细介绍与实操教程", "conclusion": "✅ 总结"
+  "alsoRead": "📚 你可能还想看", "confusion": "💢 你是不是也有这样的困惑？", "detailTitle": "🛠️ 详细介绍与实操教程", "conclusion": "✅ 总结",
+  "toolDesc_chatgpt": "用AI写文案、做代写、接私单，月入5000+",
+  "toolDesc_midjourney": "生成精美图片，接头像定制、电商设计单",
+  "toolDesc_claude": "长文写作、代码辅助、知识付费内容生产",
+  "toolDesc_notion": "制作模板卖钱、做知识管理课程",
+  "toolDesc_runway": "AI视频生成，接短视频剪辑、广告制作",
+  "toolDesc_dalle3": "快速出图，做表情包、插画、设计素材",
+  "toolDesc_perplexity": "快速调研，做行业报告、付费问答",
+  "toolDesc_copilot": "提升编程效率，接外包项目、做技术咨询",
+  "toolDesc_gamma": "AI一键生成PPT，最适合新手的赚钱工具",
+  "toolDesc_claudecode": "自动化脚本开发，接技术外包、效率工具定制",
+  "moneyMethod": "赚钱方式：", "income": "收入：", "perMonth": "/月",
+  "catResearch": "AI调研"
 }

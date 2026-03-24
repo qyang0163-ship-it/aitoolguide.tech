@@ -27,5 +27,17 @@
   "bottomCtaBadge": "🎁 Limited Offer", "bottomCtaTitle": "Done reading? Start now!", "bottomCtaDesc": "Pick a tool and start today!",
   "bottomCtaCta1": "🔥 Try AI Tools Free", "bottomCtaCta2": "💎 More Guides", "bottomCtaCta3": "📱 Join Community",
   "bottomUrgency1": "⏰", "bottomUrgency2": "12,847", "bottomUrgency3": "taking action |", "bottomUrgency4": "153", "bottomUrgency5": "spots remaining",
-  "alsoRead": "📚 You Might Also Like", "confusion": "💢 Have This Problem?", "detailTitle": "🛠️ Guide & Tutorials", "conclusion": "✅ Conclusion"
+  "alsoRead": "📚 You Might Also Like", "confusion": "💢 Have This Problem?", "detailTitle": "🛠️ Guide & Tutorials", "conclusion": "✅ Conclusion",
+  "toolDesc_chatgpt": "Use AI for copywriting, ghostwriting, and private orders. Earn $500+/month",
+  "toolDesc_midjourney": "Generate stunning images. Take avatar customization and e-commerce design orders",
+  "toolDesc_claude": "Long-form writing, code assistance, knowledge product content production",
+  "toolDesc_notion": "Create templates to sell, build knowledge management courses",
+  "toolDesc_runway": "AI video generation. Take short video editing and ad production orders",
+  "toolDesc_dalle3": "Quick image generation. Create stickers, illustrations, design assets",
+  "toolDesc_perplexity": "Fast research. Create industry reports, paid Q&A services",
+  "toolDesc_copilot": "Boost coding efficiency. Take outsourcing projects, tech consulting",
+  "toolDesc_gamma": "One-click PPT generation. Best tool for beginners to make money",
+  "toolDesc_claudecode": "Automation script development. Take tech outsourcing orders",
+  "moneyMethod": "Method:", "income": "Income:", "perMonth": "/month",
+  "catResearch": "AI Research"
 }
