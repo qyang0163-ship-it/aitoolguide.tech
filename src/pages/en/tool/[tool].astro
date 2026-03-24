@@ -1,0 +1,32 @@
+---
+// Redirect to root tool page with lang parameter
+export function getStaticPaths() {
+  return [
+    { params: { tool: 'chatgpt' } },
+    { params: { tool: 'midjourney' } },
+    { params: { tool: 'claude' } },
+    { params: { tool: 'notion' } },
+    { params: { tool: 'runway' } },
+    { params: { tool: 'dalle3' } },
+    { params: { tool: 'perplexity' } },
+    { params: { tool: 'copilot' } },
+    { params: { tool: 'gamma' } },
+    { params: { tool: 'claude-code' } }
+  ];
+}
+
+const { tool } = Astro.params;
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="refresh" content={`0;url=/tool/${tool}/`} />
+  <script>
+    window.location.href = `/tool/${tool}/`;
+  </script>
+</head>
+<body>
+  <p>Redirecting to <a href={`/tool/${tool}/`}>tool page</a>...</p>
+</body>
+</html>

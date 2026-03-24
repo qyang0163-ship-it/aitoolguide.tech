@@ -1,0 +1,199 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Show } from '@clerk/astro/components';
+---
+
+<Layout title="VIP Exclusive - High-Level Money Making Methods">
+  <Show when="signed-in">
+    <div class="vip-container">
+      <div class="vip-header">
+        <span class="vip-badge">👑 VIP EXCLUSIVE</span>
+        <h1>Advanced AI Money Making Methods</h1>
+        <p class="vip-subtitle">High-level strategies reserved for VIP members only</p>
+      </div>
+
+      <div class="vip-content">
+        <div class="vip-card">
+          <h2>🔥 Method 1: AI Agency Model</h2>
+          <p>Build a full-service AI agency offering content creation, design, and automation services to businesses. Scale from solo freelancer to agency owner.</p>
+          <div class="income-highlight">Potential: $10,000-$50,000/month</div>
+        </div>
+
+        <div class="vip-card">
+          <h2>💎 Method 2: AI Productized Services</h2>
+          <p>Create standardized AI-powered service packages that can be delivered at scale without increasing your time investment.</p>
+          <div class="income-highlight">Potential: $5,000-$20,000/month</div>
+        </div>
+
+        <div class="vip-card">
+          <h2>🚀 Method 3: AI SaaS Micro-Tools</h2>
+          <p>Build and monetize small AI-powered tools that solve specific problems. Low maintenance, high recurring revenue potential.</p>
+          <div class="income-highlight">Potential: $3,000-$15,000/month</div>
+        </div>
+
+        <div class="vip-card locked">
+          <h2>🔒 More Methods Coming Soon</h2>
+          <p>New exclusive methods are added weekly for VIP members.</p>
+        </div>
+      </div>
+    </div>
+  </Show>
+
+  <Show when="signed-out">
+    <div class="login-prompt">
+      <div class="login-content">
+        <span class="lock-icon">🔒</span>
+        <h1>VIP Content Locked</h1>
+        <p>Sign in to access exclusive high-level money making methods and strategies.</p>
+        <div class="login-buttons">
+          <SignInButton mode="modal" class="btn btn-urgent btn-large">Sign In</SignInButton>
+          <SignUpButton mode="modal" class="btn btn-primary btn-large">Create Free Account</SignUpButton>
+        </div>
+        <div class="vip-benefits">
+          <h3>👑 VIP Benefits:</h3>
+          <ul>
+            <li>✅ Advanced money making methods</li>
+            <li>✅ Exclusive freelance channels</li>
+            <li>✅ 1-on-1 mentorship opportunities</li>
+            <li>✅ Premium templates and tools</li>
+            <li>✅ Private community access</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Show>
+</Layout>
+
+<style>
+  .vip-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 120px 20px 60px;
+  }
+  .vip-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .vip-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  .vip-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .vip-subtitle {
+    font-size: 1.2rem;
+    color: #64748b;
+  }
+  .vip-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .vip-card {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 40px;
+    transition: all 0.3s;
+  }
+  .vip-card:hover {
+    border-color: #0ea5e9;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  }
+  .vip-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+  .vip-card p {
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .income-highlight {
+    display: inline-block;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+  }
+  .vip-card.locked {
+    background: #f8fafc;
+    border-style: dashed;
+  }
+  .login-prompt {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  }
+  .login-content {
+    max-width: 600px;
+    text-align: center;
+    color: white;
+  }
+  .lock-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .login-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+  .login-content p {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 30px;
+  }
+  .login-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .vip-benefits {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: left;
+  }
+  .vip-benefits h3 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .vip-benefits ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .vip-benefits li {
+    color: rgba(255,255,255,0.9);
+  }
+  @media (max-width: 768px) {
+    .vip-benefits ul {
+      grid-template-columns: 1fr;
+    }
+    .login-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    .login-buttons .btn {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+</style>

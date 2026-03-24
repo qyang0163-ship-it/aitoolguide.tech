@@ -1,4 +1,6 @@
 ---
+import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/astro/components';
+
 interface Props {
 	title: string;
 }
@@ -164,6 +166,15 @@ const { title } = Astro.props;
 		</style>
 	</head>
 	<body>
+		<header class="clerk-header" style="position: fixed; top: 0; right: 0; z-index: 9999; padding: 10px 20px;">
+			<Show when="signed-out">
+				<SignInButton mode="modal" class="btn btn-primary btn-small" />
+				<SignUpButton mode="modal" class="btn btn-secondary btn-small" />
+			</Show>
+			<Show when="signed-in">
+				<UserButton />
+			</Show>
+		</header>
 		<slot />
 		<script src="/i18n.js" is:inline></script>
 		<script>
