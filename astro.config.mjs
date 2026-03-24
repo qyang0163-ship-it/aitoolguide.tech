@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: 'https://aitoolguide-tech.vercel.app',
+  site: 'https://www.aitoolguide.tech',
   build: {
     format: 'directory'
   }

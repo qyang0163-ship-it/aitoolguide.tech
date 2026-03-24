@@ -182,15 +182,21 @@ const toolDetails = {
   }
 };
 
-// 生成静态路径
+// 生成静态路径 - 将数据通过 props 传递
 export function getStaticPaths() {
-  return Object.keys(toolDetails).map(tool => ({
-    params: { tool }
+  const tools = {
+    'chatgpt': { name: 'ChatGPT' },
+    'midjourney': { name: 'Midjourney' },
+    'notion': { name: 'Notion AI' }
+  };
+  return Object.keys(tools).map(tool => ({
+    params: { tool },
+    props: { toolSlug: tool }
   }));
 }
 
-const { tool } = Astro.params;
-const toolData = toolDetails[tool] || toolDetails['chatgpt'];
+const { toolSlug } = Astro.props;
+const toolData = toolDetails[toolSlug] || toolDetails['chatgpt'];
 ---
 
 <Layout title={`${toolData.name}赚钱攻略 - ${toolData.headline}`}>
