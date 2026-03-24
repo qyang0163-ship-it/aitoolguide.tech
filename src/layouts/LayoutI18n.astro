@@ -1,0 +1,138 @@
+---
+// Multi-language Layout component with SSR i18n support
+// Generates static HTML for each locale with proper meta tags
+
+import { i18nConfig, currencyConfig } from '../config/i18n.js';
+
+export interface Props {
+  title: string;
+  description: string;
+  locale?: string;
+  toolId?: string;
+}
+
+const { 
+  title, 
+  description, 
+  locale = 'en',
+  toolId
+} = Astro.props;
+
+const { locales } = i18nConfig;
+const currentLocale = locales.find(l => l.code === locale) || locales[0];
+const currency = currencyConfig[locale] || currencyConfig['en'];
+
+// Generate hreflang tags for all locales
+const hreflangTags = locales.map(l => ({
+  lang: l.code === 'zh-cn' ? 'zh-Hans' : l.code === 'zh-tw' ? 'zh-Hant' : l.code,
+  url: `https://www.aitoolguide.tech/${l.code}/`
+}));
+
+// RTL support
+const isRTL = currentLocale.rtl;
+const dir = isRTL ? 'rtl' : 'ltr';
+---
+
+<!DOCTYPE html>
+<html lang={locale} dir={dir} id="html-root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+  
+  <!-- Canonical -->
+  <link rel="canonical" href={`https://www.aitoolguide.tech/${locale}/`} />
+  
+  <!-- Hreflang tags for all 16 languages -->
+  {hreflangTags.map(tag => (
+    <link rel="alternate" hreflang={tag.lang} href={tag.url} />
+  ))}
+  <link rel="alternate" hreflang="x-default" href="https://www.aitoolguide.tech/en/" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={`https://www.aitoolguide.tech/${locale}/`} />
+  <meta property="og:site_name" content="AIToolGuide" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  
+  <title>{title}</title>
+  
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-14213142037"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-14213142037');
+  </script>
+  
+  <!-- Vercel Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  
+  <!-- Currency and locale config for client-side -->
+  <script define:vars={{ locale, currency }}>
+    window.AITG_LOCALE = locale;
+    window.AITG_CURRENCY = currency;
+  </script>
+</head>
+<body>
+  <slot />
+</body>
+</html>
+
+<style is:global>
+  :root {
+    --primary: #0ea5e9;
+    --secondary: #8b5cf6;
+    --accent: #f59e0b;
+    --dark: #0f172a;
+    --gray: #64748b;
+    --light: #f8fafc;
+    --border: #e2e8f0;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--dark);
+    line-height: 1.6;
+    background: #fff;
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* RTL support */
+  [dir="rtl"] .nav-links {
+    flex-direction: row-reverse;
+  }
+  
+  [dir="rtl"] .hero-stats {
+    flex-direction: row-reverse;
+  }
+  
+  [dir="rtl"] .tools-grid {
+    direction: rtl;
+  }
+</style>
