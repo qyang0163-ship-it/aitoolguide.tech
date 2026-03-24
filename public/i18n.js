@@ -1,5 +1,5 @@
-// AIToolGuide i18n Engine v3 - 16 Languages, "3+13" L10n, RTL Support
-// Works on ALL pages (index, blog, tool) via data-i18n attributes
+// AIToolGuide i18n Engine v4 - 16 Languages, Auto-Translation for Hardcoded Content
+// Works on ALL pages (index, blog, tool) via data-i18n attributes + auto-translation
 (function() {
   'use strict';
 
@@ -24,6 +24,131 @@
 
   var LANG_KEY = 'aitg_lang';
   var cache = {};
+  var currentLang = 'en';
+
+  // Auto-translation dictionary for common Chinese text on sub-pages
+  var autoTranslateDict = {
+    'en': {
+      '赚钱工具': 'Money Tools',
+      '变现方法': 'Methods',
+      '成功案例': 'Success Stories',
+      '立即开始': 'Get Started',
+      '预期收入': 'Income',
+      '上手难度': 'Difficulty',
+      '首单时间': 'First Income',
+      '你需要准备这些': 'What You Need',
+      '操作步骤：': 'Steps:',
+      '去哪里接单？': 'Where to Get Orders?',
+      '去接单 →': 'Get Orders →',
+      '新手必看FAQ': 'FAQ for Beginners',
+      '准备好开始赚钱了吗？': 'Ready to Start Earning?',
+      '现在行动，比别人更快一步！': 'Act now, get ahead!',
+      '前100名用户可获得专属赚钱工具包': 'First 100 get exclusive toolkit',
+      '人实现收入增长': 'people increased income',
+      '免费使用': 'Free Trial',
+      '立即学习赚钱方法': 'Learn Methods Now',
+      '查看接单平台': 'View Platforms',
+      '查看更多赚钱工具': 'View All Tools',
+      '老司机的经验总结': 'Pro Tips',
+      '常见问题': 'FAQ',
+      '重点': 'Key Point',
+      '方法': 'Method',
+      '限时福利': 'Limited Offer',
+      '赚钱版': 'Money Edition',
+      '种方式': 'Ways',
+      '专属赚钱工具包': 'Exclusive Money Toolkit',
+      '已有': 'Already',
+      '通过': 'through',
+      '实现收入增长': 'increased income',
+      '准备': 'Ready',
+      '开始': 'Start',
+      '赚钱': 'Earning',
+      '文案代写服务': 'Copywriting Service',
+      '论文辅助写作': 'Academic Writing Help',
+      '短视频脚本创作': 'Short Video Script Writing',
+      '简历优化服务': 'Resume Optimization',
+      'AI提示词售卖': 'AI Prompt Sales',
+      '头像定制服务': 'Avatar Customization',
+      '电商设计接单': 'E-commerce Design',
+      '壁纸/表情包制作': 'Wallpaper/Sticker Creation',
+      '插画设计外包': 'Illustration Design',
+      '模板售卖': 'Template Sales',
+      '知识付费课程': 'Knowledge Courses',
+      '个人效率咨询': 'Productivity Consulting'
+    },
+    'ja': {
+      '赚钱工具': '稼ぐツール',
+      '变现方法': '稼ぎ方',
+      '成功案例': '成功例',
+      '立即开始': '始める',
+      '预期收入': '収入',
+      '上手难度': '難易度',
+      '首单时间': '初注文時間',
+      '你需要准备这些': '必要なもの',
+      '操作步骤：': '手順：',
+      '去哪里接单？': 'どこで受注？',
+      '去接单 →': '受注する →',
+      '新手必看FAQ': '初心者FAQ',
+      '准备好开始赚钱了吗？': '稼ぎ始める準備は？',
+      '现在行动，比别人更快一步！': '今すぐ行動して先を行こう！',
+      '前100名用户可获得专属赚钱工具包': '先着100名に専用ツールキット',
+      '人实现收入增长': '人が収入増加',
+      '免费使用': '無料で使う',
+      '立即学习赚钱方法': '今すぐ稼ぎ方を学ぶ',
+      '查看接单平台': '受注プラットフォーム',
+      '查看更多赚钱工具': 'ツールを見る',
+      '老司机的经验总结': 'プロのコツ',
+      '常见问题': 'よくある質問',
+      '重点': 'ポイント',
+      '方法': '方法',
+      '限时福利': '限定特典',
+      '赚钱版': '稼ぎ版',
+      '种方式': 'つの方法',
+      '专属赚钱工具包': '専用稼ぎツールキット',
+      '已有': '既に',
+      '通过': 'で',
+      '实现收入增长': '収入増加実現',
+      '准备': '準備',
+      '开始': '開始',
+      '赚钱': '稼ぐ'
+    },
+    'es': {
+      '赚钱工具': 'Herramientas',
+      '变现方法': 'Métodos',
+      '成功案例': 'Casos de Éxito',
+      '立即开始': 'Empezar',
+      '预期收入': 'Ingresos',
+      '上手难度': 'Dificultad',
+      '首单时间': 'Primera Venta',
+      '你需要准备这些': 'Lo Que Necesitas',
+      '操作步骤：': 'Pasos:',
+      '去哪里接单？': '¿Dónde Conseguir Clientes?',
+      '去接单 →': 'Conseguir →',
+      '新手必看FAQ': 'FAQ Principiantes',
+      '准备好开始赚钱了吗？': '¿Listo para Ganar?',
+      '现在行动，比别人更快一步！': '¡Actúa ahora, adelántate!',
+      '前100名用户可获得专属赚钱工具包': 'Primeros 100 reciben toolkit exclusivo',
+      '人实现收入增长': 'personas aumentaron ingresos',
+      '免费使用': 'Prueba Gratis',
+      '立即学习赚钱方法': 'Aprender Métodos',
+      '查看接单平台': 'Ver Plataformas',
+      '查看更多赚钱工具': 'Ver Más Herramientas',
+      '老司机的经验总结': 'Consejos Pro',
+      '常见问题': 'Preguntas Frecuentes',
+      '重点': 'Clave',
+      '方法': 'Método',
+      '限时福利': 'Oferta Limitada',
+      '赚钱版': 'Edición Dinero',
+      '种方式': 'Formas',
+      '专属赚钱工具包': 'Toolkit Exclusivo',
+      '已有': 'Ya',
+      '通过': 'con',
+      '实现收入增长': 'ingresos aumentados',
+      '准备': 'Listo',
+      '开始': 'Empezar',
+      '赚钱': 'Ganar'
+    }
+  };
 
   function detectLang() {
     var saved = localStorage.getItem(LANG_KEY);
@@ -46,7 +171,6 @@
           cache[code] = JSON.parse(xhr.responseText);
           cb(cache[code]);
         } catch(e) {
-          // fallback to en
           if (code !== 'en') loadLocale('en', cb);
         }
       } else if (code !== 'en') {
@@ -58,11 +182,36 @@
   }
 
   function applyTranslations(t) {
+    // 1. Translate elements with data-i18n attributes
     var els = document.querySelectorAll('[data-i18n]');
     for (var i = 0; i < els.length; i++) {
       var key = els[i].getAttribute('data-i18n');
       if (t[key] !== undefined) els[i].textContent = t[key];
     }
+    
+    // 2. Auto-translate hardcoded Chinese text on sub-pages
+    if (currentLang !== 'zh-CN' && currentLang !== 'zh-TW') {
+      var dict = autoTranslateDict[currentLang] || autoTranslateDict['en'];
+      if (dict) {
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        var node;
+        while (node = walker.nextNode()) {
+          var text = node.textContent;
+          if (/[\u4e00-\u9fa5]/.test(text)) {
+            var translated = text;
+            for (var cn in dict) {
+              if (dict.hasOwnProperty(cn)) {
+                translated = translated.split(cn).join(dict[cn]);
+              }
+            }
+            if (translated !== text) {
+              node.textContent = translated;
+            }
+          }
+        }
+      }
+    }
+    
     // Update meta description
     var meta = document.querySelector('meta[name="description"]');
     if (meta && t.heroDesc) meta.setAttribute('content', t.heroDesc);
@@ -87,7 +236,6 @@
   function showFallbackBanner(t) {
     var notice = t.genericFallbackNotice;
     if (!notice) {
-      // Remove existing banner if switching to core market
       var existing = document.getElementById('aitg-fallback-banner');
       if (existing) existing.remove();
       return;
@@ -108,6 +256,7 @@
   }
 
   function setLang(code) {
+    currentLang = code;
     localStorage.setItem(LANG_KEY, code);
     var langObj = LANGS.find(function(l) { return l.code === code; });
     applyHtmlLang(code);
@@ -118,7 +267,6 @@
       showFallbackBanner(t);
     });
 
-    // Update switcher button
     var btn = document.getElementById('aitg-lang-btn');
     if (btn && langObj) {
       btn.innerHTML = langObj.flag + ' ' + langObj.label + ' <span style="font-size:0.7em">\u25BC</span>';
@@ -126,7 +274,6 @@
   }
 
   function createSwitcher() {
-    // Remove old switcher if exists
     var old = document.getElementById('aitg-lang-switcher');
     if (old) old.remove();
 
@@ -167,7 +314,6 @@
     container.appendChild(btn);
     container.appendChild(dd);
 
-    // Insert into nav - works on ALL pages
     var nav = document.querySelector('.nav');
     if (nav) {
       var cta = nav.querySelector('.btn-primary.btn-small, .btn-primary');
