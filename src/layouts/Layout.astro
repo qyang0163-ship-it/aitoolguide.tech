@@ -15,6 +15,40 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<!-- Google Analytics (GA4) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-AITOOLGUIDE" is:inline></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-AITOOLGUIDE');
+			// Track CTA button clicks
+			document.addEventListener('click', function(e) {
+				var btn = e.target.closest('.btn-urgent, .btn-primary, [data-track]');
+				if (btn) {
+					var label = btn.textContent.trim().substring(0, 50);
+					var page = window.location.pathname;
+					var lang = localStorage.getItem('aitg_lang') || 'en';
+					gtag('event', 'cta_click', {
+						'event_category': 'conversion',
+						'event_label': label,
+						'page_path': page,
+						'user_language': lang
+					});
+				}
+			});
+			// Track language switches
+			var origSetLang = window.AITG_i18n && window.AITG_i18n.setLang;
+			if (origSetLang) {
+				var _orig = origSetLang;
+				window.AITG_i18n.setLang = function(code) {
+					gtag('event', 'language_switch', { 'event_category': 'i18n', 'event_label': code });
+					return _orig(code);
+				};
+			}
+		</script>
+		<!-- Vercel Analytics -->
+		<script defer src="/_vercel/insights/script.js" is:inline></script>
 		<style is:global>
 			:root {
 				--primary: #0ea5e9;
