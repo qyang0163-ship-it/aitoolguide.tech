@@ -160,7 +160,7 @@ const quickStartSteps = [
 
 <Layout title="AI工具赚钱指南 - 2026年最实用的AI副业变现攻略">
   <!-- 顶部紧迫感横幅 -->
-  <div class="urgency-banner">
+  <div class="urgency-banner" data-i18n="urgencyBanner">
     🔥 限时福利：前100名注册用户可获得《AI赚钱工具包》+ 独家接单渠道
   </div>
 
@@ -174,12 +174,12 @@ const quickStartSteps = [
           <span class="logo-tag">赚钱版</span>
         </a>
         <div class="nav-links">
-          <a href="#tools">赚钱工具</a>
-          <a href="#methods">变现方法</a>
-          <a href="#stories">成功案例</a>
-          <a href="#start">立即开始</a>
+          <a href="#tools" data-i18n="navTools">赚钱工具</a>
+          <a href="#methods" data-i18n="navMethods">变现方法</a>
+          <a href="#stories" data-i18n="navStories">成功案例</a>
+          <a href="#start" data-i18n="navStart">立即开始</a>
         </div>
-        <a href="#tools" class="btn btn-primary btn-small">免费开始赚钱 →</a>
+        <a href="#tools" class="btn btn-primary btn-small" data-i18n="navCta">免费开始赚钱 →</a>
       </nav>
     </div>
   </header>
@@ -189,48 +189,48 @@ const quickStartSteps = [
     <div class="container">
       <div class="hero-content">
         <div class="hero-badge-group">
-          <span class="hero-badge">💸 副业变现首选</span>
-          <span class="money-badge">已帮助 10,000+ 人实现收入增长</span>
+          <span class="hero-badge" data-i18n="heroBadge">💸 副业变现首选</span>
+          <span class="money-badge" data-i18n="heroSocial">已帮助 10,000+ 人实现收入增长</span>
         </div>
         <h1 class="hero-title">
-          用AI工具<span class="gradient-text">轻松赚钱</span><br>
-          普通人也能月入过万
+          <span data-i18n="heroTitle1">用AI工具</span><span class="gradient-text" data-i18n="heroTitle2">轻松赚钱</span><br>
+          <span data-i18n="heroTitle3">普通人也能月入过万</span>
         </h1>
         <p class="hero-description">
-          不需要编程基础，不需要设计经验，只要会用AI工具，就能在2026年抓住最大红利。<br>
-          <strong>10大AI赚钱工具 + 详细变现教程 + 独家接单渠道</strong>，手把手教你开启副业！
+          <span data-i18n="heroDesc">不需要编程基础，不需要设计经验，只要会用AI工具，就能在2026年抓住最大红利。</span><br>
+          <strong data-i18n="heroDescStrong">10大AI赚钱工具 + 详细变现教程 + 独家接单渠道</strong><span data-i18n="heroDescEnd">，手把手教你开启副业！</span>
         </p>
         
         <!-- 三个CTA按钮 -->
         <div class="hero-actions">
-          <a href="#tools" class="btn btn-urgent btn-large">🔥 立即免费试用（限时）</a>
-          <a href="#methods" class="btn btn-primary btn-large">查看赚钱方法 →</a>
-          <a href="#stories" class="btn btn-secondary btn-large">看成功案例</a>
+          <a href="#tools" class="btn btn-urgent btn-large" data-i18n="heroCta1">🔥 立即免费试用（限时）</a>
+          <a href="#methods" class="btn btn-primary btn-large" data-i18n="heroCta2">查看赚钱方法 →</a>
+          <a href="#stories" class="btn btn-secondary btn-large" data-i18n="heroCta3">看成功案例</a>
         </div>
 
         <!-- 紧迫感元素 -->
         <div class="urgency-box">
           <span class="urgency-icon">⏰</span>
-          <span class="urgency-text">本周已有 <strong>1,247</strong> 人通过本站开始赚钱</span>
-          <span class="urgency-countdown">名额有限，先到先得</span>
+          <span><span data-i18n="urgencyText">本周已有</span> <strong data-i18n="urgencyCount">1,247</strong> <span data-i18n="urgencyPeople">人通过本站开始赚钱</span></span>
+          <span class="urgency-countdown" data-i18n="urgencyLimit">名额有限，先到先得</span>
         </div>
         
         <div class="hero-stats">
           <div class="stat">
-            <span class="stat-number">50+</span>
-            <span class="stat-label">AI赚钱工具</span>
+            <span class="stat-number" data-i18n="stat1Num">50+</span>
+            <span class="stat-label" data-i18n="stat1Label">AI赚钱工具</span>
           </div>
           <div class="stat">
-            <span class="stat-number">10K+</span>
-            <span class="stat-label">成功变现案例</span>
+            <span class="stat-number" data-i18n="stat2Num">10K+</span>
+            <span class="stat-label" data-i18n="stat2Label">成功变现案例</span>
           </div>
           <div class="stat">
-            <span class="stat-number">￥5000</span>
-            <span class="stat-label">平均月收入</span>
+            <span class="stat-number" data-i18n="stat3Num">￥5000</span>
+            <span class="stat-label" data-i18n="stat3Label">平均月收入</span>
           </div>
           <div class="stat">
-            <span class="stat-number">98%</span>
-            <span class="stat-label">新手成功率</span>
+            <span class="stat-number" data-i18n="stat4Num">98%</span>
+            <span class="stat-label" data-i18n="stat4Label">新手成功率</span>
           </div>
         </div>
       </div>
@@ -257,9 +257,9 @@ const quickStartSteps = [
   <section id="tools" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">💰 亲测有效</span>
-        <h2 class="section-title">十大AI赚钱工具</h2>
-        <p class="section-description">每个工具都附带详细变现教程和真实收入数据</p>
+        <span class="section-badge" data-i18n="sectionToolsBadge">💰 亲测有效</span>
+        <h2 class="section-title" data-i18n="sectionToolsTitle">十大AI赚钱工具</h2>
+        <p class="section-description" data-i18n="sectionToolsDesc">每个工具都附带详细变现教程和真实收入数据</p>
       </div>
       
       <!-- 工具卡片网格 -->
@@ -317,9 +317,9 @@ const quickStartSteps = [
   <section id="methods" class="section section-dark">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">🎯 按方式选择</span>
-        <h2 class="section-title">六大AI变现赛道</h2>
-        <p class="section-description">找到最适合你的赚钱方式，零基础也能快速上手</p>
+        <span class="section-badge" data-i18n="sectionMethodsBadge">🎯 按方式选择</span>
+        <h2 class="section-title" data-i18n="sectionMethodsTitle">六大AI变现赛道</h2>
+        <p class="section-description" data-i18n="sectionMethodsDesc">找到最适合你的赚钱方式，零基础也能快速上手</p>
       </div>
       <div class="categories-grid">
         {moneyCategories.map((category) => (
@@ -339,9 +339,9 @@ const quickStartSteps = [
   <section id="stories" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">⭐ 真实案例</span>
-        <h2 class="section-title">他们都在用AI赚钱</h2>
-        <p class="section-description">来自真实用户的变现故事，你也可以做到</p>
+        <span class="section-badge" data-i18n="sectionStoriesBadge">⭐ 真实案例</span>
+        <h2 class="section-title" data-i18n="sectionStoriesTitle">他们都在用AI赚钱</h2>
+        <p class="section-description" data-i18n="sectionStoriesDesc">来自真实用户的变现故事，你也可以做到</p>
       </div>
       <div class="stories-grid">
         {successStories.map((story) => (
@@ -372,20 +372,20 @@ const quickStartSteps = [
   <section id="start" class="cta">
     <div class="container">
       <div class="cta-content">
-        <span class="cta-badge">🎁 限时福利</span>
-        <h2 class="cta-title">还在观望？别人已经开始赚钱了！</h2>
+        <span class="cta-badge" data-i18n="ctaBadge">🎁 限时福利</span>
+        <h2 class="cta-title" data-i18n="ctaTitle">还在观望？别人已经开始赚钱了！</h2>
         <p class="cta-description">
-          现在注册即可获得：<br>
-          ✅ 《AI赚钱工具包》（价值￥299）<br>
-          ✅ 独家接单渠道和平台推荐<br>
-          ✅ 1对1变现指导（限前100名）
+          <span data-i18n="ctaDesc1">现在注册即可获得：</span><br>
+          <span data-i18n="ctaDesc2">✅ 《AI赚钱工具包》（价值￥299）</span><br>
+          <span data-i18n="ctaDesc3">✅ 独家接单渠道和平台推荐</span><br>
+          <span data-i18n="ctaDesc4">✅ 1对1变现指导（限前100名）</span>
         </p>
         
         <!-- 最终CTA按钮组 -->
         <div class="cta-actions">
-          <a href="#tools" class="btn btn-urgent btn-large">🔥 立即开始赚钱（免费）</a>
-          <a href="#tools" class="btn btn-primary btn-large">💎 领取工具包</a>
-          <a href="#tools" class="btn btn-secondary btn-large" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);">
+          <a href="#tools" class="btn btn-urgent btn-large" data-i18n="ctaCta1">🔥 立即开始赚钱（免费）</a>
+          <a href="#tools" class="btn btn-primary btn-large" data-i18n="ctaCta2">💎 领取工具包</a>
+          <a href="#tools" class="btn btn-secondary btn-large" style="background: rgba(255,255,255,0.2); color: white; border-color: rgba(255,255,255,0.3);" data-i18n="ctaCta3">
             📱 加入赚钱交流群
           </a>
         </div>
@@ -405,7 +405,7 @@ const quickStartSteps = [
           <span class="logo-icon">💰</span>
           <span class="logo-text">AIToolGuide</span>
           <span class="logo-tag">赚钱版</span>
-          <p class="footer-description">专注AI工具变现，让每个人都能用AI创造收入。2026年最实用的AI副业指南。</p>
+          <p class="footer-description" data-i18n="footerDesc">专注AI工具变现，让每个人都能用AI创造收入。2026年最实用的AI副业指南。</p>
           <div class="footer-social">
             <a href="#" class="social-link">微信</a>
             <a href="#" class="social-link">小红书</a>
@@ -437,7 +437,7 @@ const quickStartSteps = [
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 AIToolGuide.tech 赚钱版. All rights reserved. | 本站仅供学习交流，请合法合规使用AI工具</p>
+        <p data-i18n="footerCopyright">© 2026 AIToolGuide.tech 赚钱版. All rights reserved. | 本站仅供学习交流，请合法合规使用AI工具</p>
       </div>
     </div>
   </footer>
