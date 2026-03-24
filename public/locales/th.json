@@ -26,5 +26,17 @@
   "bottomCtaBadge": "🎁 พิเศษ", "bottomCtaTitle": "อ่านจบ? เริ่มเลย!", "bottomCtaDesc": "เลือกเครื่องมือแล้วเริ่มวันนี้",
   "bottomCtaCta1": "🔥 ทดลอง AI ฟรี", "bottomCtaCta2": "💎 คู่มือเพิ่ม", "bottomCtaCta3": "📱 ชุมชน",
   "bottomUrgency1": "⏰", "bottomUrgency2": "12,847", "bottomUrgency3": "กำลังทำ |", "bottomUrgency4": "153", "bottomUrgency5": "ที่เหลือ",
-  "alsoRead": "📚 อ่านเพิ่ม", "confusion": "💢 มีปัญหานี้ไหม?", "detailTitle": "🛠️ คู่มือ", "conclusion": "✅ สรุป"
+  "alsoRead": "📚 อ่านเพิ่ม", "confusion": "💢 มีปัญหานี้ไหม?", "detailTitle": "🛠️ คู่มือ", "conclusion": "✅ สรุป",
+  "toolDesc_chatgpt": "เขียนด้วย AI รับจ้างเขียน สร้างรายได้เดือนละ 15,000+ บาท",
+  "toolDesc_midjourney": "สร้างภาพสวย รับออกแบบอวาตาร์ สร้างรายได้เดือนละ 25,000+ บาท",
+  "toolDesc_claude": "เขียนบทความยาว ช่วยเขียนโค้ด ผลิตคอนเทนต์",
+  "toolDesc_notion": "สร้างเทมเพลตขาย สอนหลักสูตรจัดการความรู้",
+  "toolDesc_runway": "สร้างวิดีโอ AI ตัดต่อวิดีโอสั้น ทำโฆษณา",
+  "toolDesc_dalle3": "สร้างภาพเร็ว ทำสติ๊กเกอร์ ภาพประกอบ",
+  "toolDesc_perplexity": "วิจัยเร็ว ทำรายงานอุตสาหกรรม",
+  "toolDesc_copilot": "เพิ่มประสิทธิภาพการเขียนโค้ด รับโปรเจกต์นอก",
+  "toolDesc_gamma": "สร้าง PPT คลิกเดียว เหมาะสำหรับมือใหม่",
+  "toolDesc_claudecode": "พัฒนาสคริปต์อัตโนมัติ รับงานเทคนิค",
+  "moneyMethod": "วิธี:", "income": "รายได้:", "perMonth": "/เดือน",
+  "catResearch": "วิจัย AI"
 }
