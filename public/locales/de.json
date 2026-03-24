@@ -1,10 +1,10 @@
 {
-  "navTools": "Geld-Tools", "navMethods": "Methoden", "navStories": "Erfolge", "navStart": "Starten", "navCta": "Kostenlos starten →",
-  "platformFreelance": "Upwork, Fiverr, Freelancer", "platformTraffic": "X, TikTok, YouTube", "platformPayment": "PayPal, Payoneer, Wise",
+  "navTools": "Tools", "navMethods": "Methoden", "navStories": "Erfolge", "navStart": "Starten", "navCta": "Kostenlos starten →",
+  "platformFreelance": "Upwork, Fiverr, Freelancer.de", "platformTraffic": "LinkedIn, TikTok, YouTube", "platformPayment": "PayPal, Payoneer, Überweisung",
   "genericFallbackNotice": "💡 Dieses Tutorial verwendet internationale Plattformen.",
   "urgencyBanner": "🔥 Limitiert: Erste 100 erhalten 'AI Toolkit' + exklusive Kanäle",
   "heroBadge": "💸 #1 Nebenjob", "heroSocial": "10.000+ Menschen unterstützt",
-  "heroTitle1": "Geld verdienen", "heroTitle2": "mit KI-Tools", "heroTitle3": "Anfänger: 1.000€+/Monat",
+  "heroTitle1": "Geld verdienen", "heroTitle2": "mit KI", "heroTitle3": "Anfänger: 1.000€+/Monat",
   "heroDesc": "Kein Coding. Kein Design. Lerne KI-Tools und nutze die Chance 2026.", "heroDescStrong": "10 KI-Tools + Schritt-für-Schritt + Exklusive Kanäle", "heroDescEnd": " — Starte jetzt!",
   "heroCta1": "🔥 Jetzt kostenlos testen", "heroCta2": "Methoden ansehen →", "heroCta3": "Erfolge ansehen",
   "urgencyText": "Diese Woche", "urgencyCount": "1.247", "urgencyPeople": "verdienen bereits", "urgencyLimit": "Plätze begrenzt",
@@ -14,7 +14,7 @@
   "sectionMethodsBadge": "🎯 Weg wählen", "sectionMethodsTitle": "6 KI Monetarisierungs-Tracks", "sectionMethodsDesc": "Ohne Erfahrung starten",
   "sectionStoriesBadge": "⭐ Echte Geschichten", "sectionStoriesTitle": "Alle verdienen mit KI", "sectionStoriesDesc": "Du kannst es auch!",
   "earningMethod": "Methode:", "difficulty": "Schwierigkeit:", "tryFree": "🚀 Kostenlos testen", "viewTutorial": "📖 Tutorial", "hotBadge": "🔥 Trend", "viewAllTools": "Alle 50+ Tools →",
-  "catWriting": "KI-Schreiben", "catArt": "KI-Kunst", "catVideo": "Video", "catCode": "Code & Tech", "catKnowledge": "Wissensprodukte", "catProductivity": "Produktivität", "catResearch": "KI-Forschung", "startEarning": "Starten →",
+  "catWriting": "KI-Schreiben", "catArt": "KI-Kunst", "catVideo": "Video", "catCode": "Code & Tech", "catKnowledge": "Wissensprodukte", "catProductivity": "Produktivität", "startEarning": "Starten →",
   "ctaBadge": "🎁 Limitiert", "ctaTitle": "Noch am Zuschauen? Andere verdienen!",
   "ctaDesc1": "Jetzt registrieren:", "ctaDesc2": "✅ 'KI Toolkit' (40€ Wert)", "ctaDesc3": "✅ Exklusive Freelancer-Kanäle", "ctaDesc4": "✅ 1:1 Mentoring (erste 100)",
   "ctaCta1": "🔥 Jetzt verdienen (kostenlos)", "ctaCta2": "💎 Toolkit holen", "ctaCta3": "📱 Community",
@@ -38,5 +38,8 @@
   "toolDesc_copilot": "Code-Effizienz, Freelance-Projekte",
   "toolDesc_gamma": "PPT per Klick, bestes Tool für Anfänger",
   "toolDesc_claudecode": "Automatisierung, Tech-Freelance",
-  "moneyMethod": "Methode:", "income": "Einkommen:", "perMonth": "/Monat"
+  "income": "Einkommen:",
+  "perMonth": "/Monat",
+  "catResearch": "KI-Forschung",
+  "moneyMethod": "Methode:"
 }
