@@ -1,127 +1,122 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/astro/components';
 ---
 
 <Layout title="VIP Exclusive - High-Level Money Making Methods">
-  <script src="/mock-auth.js" is:inline></script>
-  
   <!-- Signed Out View -->
-  <div data-auth="signed-out" class="login-prompt">
-    <div class="login-content">
-      <span class="lock-icon">🔒</span>
-      <h1>VIP Content Locked</h1>
-      <p>Sign in to access exclusive high-level money making methods and strategies.</p>
-      <div class="login-buttons">
-        <button onclick="MockAuth.signInWithGoogle()" class="btn btn-urgent btn-large">
-          <svg class="google-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-          Sign in with Google
-        </button>
-        <button onclick="MockAuth.signInWithGoogle()" class="btn btn-primary btn-large">Create Free Account</button>
-      </div>
-      <div class="vip-benefits">
-        <h3>👑 VIP Benefits:</h3>
-        <ul>
-          <li>✅ Advanced money making methods</li>
-          <li>✅ Exclusive freelance channels</li>
-          <li>✅ 1-on-1 mentorship opportunities</li>
-          <li>✅ Premium templates and tools</li>
-          <li>✅ Private community access</li>
-        </ul>
+  <Show when="signed-out">
+    <div class="login-prompt">
+      <div class="login-content">
+        <span class="lock-icon">🔒</span>
+        <h1>VIP Content Locked</h1>
+        <p>Sign in to access exclusive high-level money making methods and strategies.</p>
+        <div class="login-buttons">
+          <SignInButton mode="modal" class="btn btn-urgent btn-large">
+            <svg class="google-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Sign in with Google
+          </SignInButton>
+          <SignUpButton mode="modal" class="btn btn-primary btn-large">Create Free Account</SignUpButton>
+        </div>
+        <div class="vip-benefits">
+          <h3>👑 VIP Benefits:</h3>
+          <ul>
+            <li>✅ Advanced money making methods</li>
+            <li>✅ Exclusive freelance channels</li>
+            <li>✅ 1-on-1 mentorship opportunities</li>
+            <li>✅ Premium templates and tools</li>
+            <li>✅ Private community access</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
+  </Show>
 
   <!-- Signed In View -->
-  <div data-auth="signed-in" class="vip-container" style="display: none;">
-    <div class="vip-header">
-      <span class="vip-badge">👑 VIP EXCLUSIVE</span>
-      <h1>Advanced AI Money Making Methods</h1>
-      <p class="vip-subtitle">Welcome back, <span data-user="name"></span>!</p>
-      <button onclick="MockAuth.signOut(); location.reload();" class="btn btn-secondary btn-small">Sign Out</button>
+  <Show when="signed-in">
+    <div class="vip-container">
+      <div class="vip-header">
+        <span class="vip-badge">👑 VIP EXCLUSIVE</span>
+        <h1>Advanced AI Money Making Methods</h1>
+        <p class="vip-subtitle">Welcome back, VIP Member!</p>
+        <div class="user-section">
+          <UserButton />
+        </div>
+      </div>
+
+      <div class="vip-content">
+        <div class="vip-card">
+          <h2>🔥 Method 1: AI Agency Model</h2>
+          <p>Build a full-service AI agency offering content creation, design, and automation services to businesses. Scale from solo freelancer to agency owner.</p>
+          <div class="income-highlight">Potential: $10,000-$50,000/month</div>
+          <div class="method-steps">
+            <h4>Implementation Steps:</h4>
+            <ol>
+              <li>Define your agency niche (content, design, or automation)</li>
+              <li>Create service packages with clear deliverables</li>
+              <li>Build a portfolio with 3-5 case studies</li>
+              <li>Reach out to 50 potential clients per week</li>
+              <li>Hire subcontractors as demand grows</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="vip-card">
+          <h2>💎 Method 2: AI Productized Services</h2>
+          <p>Create standardized AI-powered service packages that can be delivered at scale without increasing your time investment.</p>
+          <div class="income-highlight">Potential: $5,000-$20,000/month</div>
+          <div class="method-steps">
+            <h4>Implementation Steps:</h4>
+            <ol>
+              <li>Identify a repeatable service (e.g., AI blog posts)</li>
+              <li>Create templates and SOPs</li>
+              <li>Set up automated delivery systems</li>
+              <li>Price for volume (e.g., $500/month for 20 posts)</li>
+              <li>Scale to 50+ recurring clients</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="vip-card">
+          <h2>🚀 Method 3: AI SaaS Micro-Tools</h2>
+          <p>Build and monetize small AI-powered tools that solve specific problems. Low maintenance, high recurring revenue potential.</p>
+          <div class="income-highlight">Potential: $3,000-$15,000/month</div>
+          <div class="method-steps">
+            <h4>Implementation Steps:</h4>
+            <ol>
+              <li>Find a painful problem in a niche market</li>
+              <li>Build a simple AI tool solution</li>
+              <li>Launch on Product Hunt and relevant communities</li>
+              <li>Offer freemium model ($9-29/month premium)</li>
+              <li>Grow through SEO and content marketing</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="vip-card">
+          <h2>⚡ Method 4: AI Consulting & Training</h2>
+          <p>Help businesses implement AI solutions. High-ticket consulting with ongoing retainers.</p>
+          <div class="income-highlight">Potential: $8,000-$30,000/month</div>
+          <div class="method-steps">
+            <h4>Implementation Steps:</h4>
+            <ol>
+              <li>Develop deep expertise in 1-2 AI tools</li>
+              <li>Create case studies showing ROI</li>
+              <li>Offer free audits to generate leads</li>
+              <li>Charge $2,000-$5,000 for initial setup</li>
+              <li>Add $1,000-$3,000/month retainers</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="vip-card locked">
+          <h2>🔒 More Methods Coming Soon</h2>
+          <p>New exclusive methods are added weekly for VIP members.</p>
+          <p class="coming-soon-text">Next update: AI Affiliate Marketing Mastery</p>
+        </div>
+      </div>
     </div>
-
-    <div class="vip-content">
-      <div class="vip-card">
-        <h2>🔥 Method 1: AI Agency Model</h2>
-        <p>Build a full-service AI agency offering content creation, design, and automation services to businesses. Scale from solo freelancer to agency owner.</p>
-        <div class="income-highlight">Potential: $10,000-$50,000/month</div>
-        <div class="method-steps">
-          <h4>Implementation Steps:</h4>
-          <ol>
-            <li>Define your agency niche (content, design, or automation)</li>
-            <li>Create service packages with clear deliverables</li>
-            <li>Build a portfolio with 3-5 case studies</li>
-            <li>Reach out to 50 potential clients per week</li>
-            <li>Hire subcontractors as demand grows</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="vip-card">
-        <h2>💎 Method 2: AI Productized Services</h2>
-        <p>Create standardized AI-powered service packages that can be delivered at scale without increasing your time investment.</p>
-        <div class="income-highlight">Potential: $5,000-$20,000/month</div>
-        <div class="method-steps">
-          <h4>Implementation Steps:</h4>
-          <ol>
-            <li>Identify a repeatable service (e.g., AI blog posts)</li>
-            <li>Create templates and SOPs</li>
-            <li>Set up automated delivery systems</li>
-            <li>Price for volume (e.g., $500/month for 20 posts)</li>
-            <li>Scale to 50+ recurring clients</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="vip-card">
-        <h2>🚀 Method 3: AI SaaS Micro-Tools</h2>
-        <p>Build and monetize small AI-powered tools that solve specific problems. Low maintenance, high recurring revenue potential.</p>
-        <div class="income-highlight">Potential: $3,000-$15,000/month</div>
-        <div class="method-steps">
-          <h4>Implementation Steps:</h4>
-          <ol>
-            <li>Find a painful problem in a niche market</li>
-            <li>Build a simple AI tool solution</li>
-            <li>Launch on Product Hunt and relevant communities</li>
-            <li>Offer freemium model ($9-29/month premium)</li>
-            <li>Grow through SEO and content marketing</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="vip-card">
-        <h2>⚡ Method 4: AI Consulting & Training</h2>
-        <p>Help businesses implement AI solutions. High-ticket consulting with ongoing retainers.</p>
-        <div class="income-highlight">Potential: $8,000-$30,000/month</div>
-        <div class="method-steps">
-          <h4>Implementation Steps:</h4>
-          <ol>
-            <li>Develop deep expertise in 1-2 AI tools</li>
-            <li>Create case studies showing ROI</li>
-            <li>Offer free audits to generate leads</li>
-            <li>Charge $2,000-$5,000 for initial setup</li>
-            <li>Add $1,000-$3,000/month retainers</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="vip-card locked">
-        <h2>🔒 More Methods Coming Soon</h2>
-        <p>New exclusive methods are added weekly for VIP members.</p>
-        <p class="coming-soon-text">Next update: AI Affiliate Marketing Mastery</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Auto-update UI when auth state changes
-    window.addEventListener('auth:login', function() {
-      location.reload();
-    });
-    window.addEventListener('auth:logout', function() {
-      location.reload();
-    });
-  </script>
+  </Show>
 </Layout>
 
 <style>
@@ -153,6 +148,9 @@ import Layout from '../layouts/Layout.astro';
     font-size: 1.2rem;
     color: #64748b;
     margin-bottom: 20px;
+  }
+  .user-section {
+    margin-top: 20px;
   }
   .vip-content {
     display: flex;
