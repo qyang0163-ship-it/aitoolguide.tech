@@ -1,0 +1,81 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const categoryData = {
+  name: 'Knowledge Products',
+  icon: '📚',
+  headline: 'AI Knowledge Products',
+  description: 'Create and sell templates, courses, and digital products using AI tools',
+  income: '$300-2,000/month',
+  tools: [
+    { name: 'Notion AI', income: '$300-1,000/month', difficulty: '⭐', link: '/tool/notion/' },
+    { name: 'Gamma', income: '$400-1,400/month', difficulty: '⭐', link: '/tool/gamma/' },
+    { name: 'Perplexity', income: '$300-700/month', difficulty: '⭐', link: '/tool/perplexity/' }
+  ],
+  methods: [
+    'Template creation and sales',
+    'Online course development',
+    'Research report services',
+    'Knowledge management consulting',
+    'Digital product bundles'
+  ]
+};
+---
+
+<Layout title={`${categoryData.name} - AI Money Making Guide`}>
+  <div class="category-page">
+    <header class="category-header" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+      <div class="container">
+        <span class="category-icon">{categoryData.icon}</span>
+        <h1>{categoryData.headline}</h1>
+        <p>{categoryData.description}</p>
+        <div class="income-badge">💰 {categoryData.income}</div>
+      </div>
+    </header>
+
+    <section class="tools-section">
+      <div class="container">
+        <h2>Recommended Tools</h2>
+        <div class="tools-grid">
+          {categoryData.tools.map(tool => (
+            <a href={tool.link} class="tool-card">
+              <h3>{tool.name}</h3>
+              <p class="income">{tool.income}</p>
+              <p class="difficulty">Difficulty: {tool.difficulty}</p>
+              <span class="btn">View Tutorial →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="methods-section">
+      <div class="container">
+        <h2>Money Making Methods</h2>
+        <ul class="methods-list">
+          {categoryData.methods.map(method => (
+            <li>{method}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .category-page { padding-top: 100px; }
+  .category-header { color: white; padding: 60px 0; text-align: center; }
+  .category-icon { font-size: 4rem; display: block; margin-bottom: 20px; }
+  .category-header h1 { font-size: 2.5rem; margin-bottom: 16px; }
+  .income-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 12px 24px; border-radius: 30px; margin-top: 20px; font-weight: 700; }
+  .tools-section, .methods-section { padding: 60px 0; }
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 30px; }
+  .tool-card { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-decoration: none; color: inherit; transition: transform 0.3s; }
+  .tool-card:hover { transform: translateY(-4px); }
+  .tool-card h3 { font-size: 1.5rem; margin-bottom: 12px; }
+  .tool-card .income { color: #f5576c; font-weight: 700; font-size: 1.2rem; }
+  .tool-card .btn { display: inline-block; margin-top: 16px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; }
+  .methods-list { list-style: none; max-width: 600px; }
+  .methods-list li { padding: 16px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px; padding-left: 48px; position: relative; }
+  .methods-list li::before { content: '✅'; position: absolute; left: 16px; }
+</style>
