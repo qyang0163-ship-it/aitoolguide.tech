@@ -28,5 +28,19 @@
   "bottomCtaBadge": "🎁 限時福利", "bottomCtaTitle": "看完了？現在就開始行動吧！", "bottomCtaDesc": "再好的方法不執行就等於零。",
   "bottomCtaCta1": "🔥 立即免費試用", "bottomCtaCta2": "💎 查看更多攻略", "bottomCtaCta3": "📱 加入交流群",
   "bottomUrgency1": "⏰", "bottomUrgency2": "12,847", "bottomUrgency3": "人開始行動 |", "bottomUrgency4": "153", "bottomUrgency5": "個剩餘名額",
-  "alsoRead": "📚 你可能還想看", "confusion": "💢 你是不是也有這樣的困惑？", "detailTitle": "🛠️ 詳細介紹與實操教程", "conclusion": "✅ 總結"
+  "alsoRead": "📚 你可能還想看", "confusion": "💢 你是不是也有這樣的困惑？", "detailTitle": "🛠️ 詳細介紹與實操教程", "conclusion": "✅ 總結",
+  "toolDesc_chatgpt": "用AI寫文案、接案賺錢，月入NT$15,000+",
+  "toolDesc_midjourney": "生成精美圖片，接頭像客製、電商設計案",
+  "toolDesc_claude": "長文寫作、程式碼輔助、知識付費內容製作",
+  "toolDesc_notion": "製作模板販售、知識管理課程",
+  "toolDesc_runway": "AI影片生成，接短影片剪輯、廣告製作",
+  "toolDesc_dalle3": "快速生成圖片，製作貼圖、插畫、設計素材",
+  "toolDesc_perplexity": "快速研究，製作產業報告、付費問答",
+  "toolDesc_copilot": "提升程式碼效率，接外包專案、技術諮詢",
+  "toolDesc_gamma": "AI一鍵生成PPT，最適合新手的賺錢工具",
+  "toolDesc_claudecode": "自動化腳本開發，接技術外包、效率工具客製",
+  "income": "收入：",
+  "perMonth": "/月",
+  "catResearch": "AI研究",
+  "moneyMethod": "方法："
 }
