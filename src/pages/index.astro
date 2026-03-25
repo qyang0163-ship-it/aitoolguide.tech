@@ -36,6 +36,7 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
             <button onclick="signOut()" class="btn btn-ghost btn-small">Sign Out</button>
           </div>
           <a href="/sign-in" id="login-btn" class="btn btn-secondary btn-small">Sign In</a>
+          <!-- Language switcher will be inserted here by i18n.js -->
         </div>
       </nav>
     </div>
@@ -493,9 +494,10 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .logo-tag { font-size: 0.7rem; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; padding: 4px 10px; border-radius: 12px; font-weight: 700; }
   .nav-links { display: flex; gap: 30px; }
   .nav-links a { font-weight: 600; color: var(--gray); }
-  .nav-actions { display: flex; align-items: center; gap: 12px; }
+  .nav-actions { display: flex; align-items: center; gap: 12px; flex-wrap: nowrap; }
+  #aitg-lang-switcher { margin-left: 8px; }
   .user-menu { display: flex; align-items: center; gap: 12px; }
-  .user-email { font-size: 0.85rem; color: var(--gray); max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .user-email { font-size: 0.85rem; color: var(--gray); max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .btn-ghost { background: transparent; color: var(--gray); border: 1px solid var(--border); }
   .btn-ghost:hover { background: var(--border); }
   .btn-small { padding: 10px 20px; font-size: 0.9rem; }

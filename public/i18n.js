@@ -350,8 +350,14 @@
     container.appendChild(btn);
     container.appendChild(dd);
 
+    // Try to insert in nav-actions, fallback to nav
+    var navActions = document.querySelector('.nav-actions');
     var nav = document.querySelector('.nav');
-    if (nav) {
+    
+    if (navActions) {
+      // Insert at the end of nav-actions
+      navActions.appendChild(container);
+    } else if (nav) {
       var cta = nav.querySelector('.btn-primary.btn-small, .btn-primary');
       if (cta) {
         nav.insertBefore(container, cta);
