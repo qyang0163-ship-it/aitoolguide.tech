@@ -199,9 +199,82 @@ src/
 
 ---
 
+## 2026-03-25 18:20 - Traffic Tier Strategy & Top 100 Directory
+
+### Task 1: Monetization Tier Strategy Implemented
+
+**Tier 1 (Commission - Direct Affiliate):**
+- Tools: Notion AI, Runway, Gamma, Perplexity
+- Links: `/go/notion`, `/go/runway`, etc.
+- UI: Partner badge "🎁 Official Partner Perks" below CTA
+- Revenue: Direct affiliate commissions
+
+**Tier 2 (Private Domain - Auth Required):**
+- Tools: ChatGPT, Midjourney, Claude, Copilot, DALL-E 3, Claude Code
+- Links: `/sign-in` (Clerk Auth)
+- CTA: "🔥 Unlock Earning Guide" (was "Try Free")
+- Strategy: Capture emails, build user base, monetize through courses/affiliates
+
+**Implementation:**
+- Modified `src/data/tools.js` - Added `tier`, `partner`, `ctaKey` fields
+- Updated `src/pages/index.astro` - Conditional rendering based on tier
+- Added partner badge styling
+- 16-language i18n support for all new keys
+
+### Task 2: Top 100 AI Tools Directory
+
+**Route:** `/ai-tools-100`
+
+**Data:** `src/data/top100-tools.js`
+- 100 AI tools ranked by global traffic
+- Fields: rank, name, category, description, url, partner
+- Categories: Chatbot, Image Gen, Code, Video, Voice, 3D, Enterprise, etc.
+
+**Ranking (Global Traffic):**
+1. ChatGPT
+2. Midjourney
+3. Claude
+4. GitHub Copilot
+5. DALL-E 3
+6. Notion AI
+7. Runway
+8. Perplexity
+9. Gamma
+10. Stable Diffusion
+... (100 total)
+
+**UI Design:**
+- 4-tier display system:
+  - 🏆 Giants (1-10): Featured cards
+  - ⭐ Major Players (11-30): List view
+  - 🎯 Specialized (31-60): List view
+  - 🚀 Emerging (61-100): Compact list
+- Partner tools marked with 💰 badge
+- Category color coding
+- Responsive design
+
+**Navigation:**
+- Added "Top 100 AI" to header nav
+- 16-language i18n support
+
+### Files Modified
+- `src/data/tools.js` - Tier classification
+- `src/data/top100-tools.js` - 100 tools data (NEW)
+- `src/pages/ai-tools-100.astro` - Directory page (NEW)
+- `src/pages/index.astro` - Tool cards + navigation
+- `public/locales/*.json` - i18n translations
+
+### Deployment
+- ✅ Commit: `1c6e865`
+- ⏳ Vercel: Auto-deploying
+- 🌐 URL: https://www.aitoolguide.tech
+- 🌐 Top 100: https://www.aitoolguide.tech/ai-tools-100
+
+---
+
 ## TODO
 - [ ] Integrate Clerk Auth
 - [ ] Add gated content for logged-in users
 - [ ] Test all 16 language variants
-- [ ] Verify affiliate link tracking
+- [x] Verify affiliate link tracking
 - [ ] Add analytics events
