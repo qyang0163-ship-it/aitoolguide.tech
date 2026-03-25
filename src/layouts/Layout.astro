@@ -1,17 +1,21 @@
 ---
 interface Props {
 	title: string;
+	lang?: string;
 }
 
-const { title } = Astro.props;
+const { title, lang = 'en' } = Astro.props;
+
+const locales = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar', 'hi', 'th', 'tr', 'vi', 'id'];
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
-<html lang="en" dir="ltr" id="html-root">
+<html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} id="html-root">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="AIToolGuide - 2026年最实用的AI赚钱工具导航站，教你用AI工具做副业、接私单、提升收入" />
-		<meta name="keywords" content="AI赚钱,AI副业,ChatGPT赚钱,Midjourney赚钱,AI工具,副业赚钱,自由职业,AI写作,AI设计" />
+		<meta name="description" content="AIToolGuide - The most practical AI money-making tools directory in 2026. Learn how to use AI tools for side hustles, freelance work, and income growth." />
+		<meta name="keywords" content="AI tools,make money with AI,ChatGPT,Midjourney,AI side hustle,AI writing,AI design,freelance" />
 		<meta name="author" content="AIToolGuide Team" />
 		<meta name="robots" content="index, follow" />
 		<meta name="googlebot" content="index, follow" />
@@ -21,19 +25,25 @@ const { title } = Astro.props;
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://www.aitoolguide.tech/" />
 		<meta property="og:title" content={title} />
-		<meta property="og:description" content="2026年最实用的AI赚钱工具导航站，教你用AI工具做副业、接私单、提升收入" />
+		<meta property="og:description" content="The most practical AI money-making tools directory in 2026. Learn how to use AI tools for side hustles, freelance work, and income growth." />
 		<meta property="og:image" content="https://www.aitoolguide.tech/og-image.jpg" />
-		<meta property="og:locale" content="zh_CN" />
+		<meta property="og:locale" content={lang.replace('-', '_')} />
 		
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content="https://www.aitoolguide.tech/" />
 		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content="2026年最实用的AI赚钱工具导航站，教你用AI工具做副业、接私单、提升收入" />
+		<meta property="twitter:description" content="The most practical AI money-making tools directory in 2026. Learn how to use AI tools for side hustles, freelance work, and income growth." />
 		<meta property="twitter:image" content="https://www.aitoolguide.tech/og-image.jpg" />
 		
 		<!-- Canonical URL -->
-		<link rel="canonical" href="https://www.aitoolguide.tech/" />
+		<link rel="canonical" href={`https://www.aitoolguide.tech${currentPath}`} />
+		
+		<!-- Hreflang tags for SEO -->
+		{locales.map(locale => (
+			<link rel="alternate" hreflang={locale} href={`https://www.aitoolguide.tech/${locale}${currentPath}`} />
+		))}
+		<link rel="alternate" hreflang="x-default" href={`https://www.aitoolguide.tech${currentPath}`} />
 		
 		<!-- Structured Data -->
 		<script type="application/ld+json" is:inline>
@@ -42,7 +52,7 @@ const { title } = Astro.props;
 			"@type": "WebSite",
 			"name": "AIToolGuide",
 			"url": "https://www.aitoolguide.tech",
-			"description": "2026年最实用的AI赚钱工具导航站",
+			"description": "The most practical AI money-making tools directory in 2026",
 			"potentialAction": {
 				"@type": "SearchAction",
 				"target": "https://www.aitoolguide.tech/search?q={search_term_string}",

@@ -207,5 +207,19 @@
   "top100Desc": "グローバルトラフィックと使用率でランキングされた人気AIツール",
   "top100Partner": "パートナー",
   "top100Category": "カテゴリ",
-  "top100Visit": "訪問"
+  "top100Visit": "訪問",
+  "signOut": "ログアウト",
+  "welcomeBack": "お帰りなさい",
+  "exclusiveAccess": "すべての独占コンテンツにアクセスできます",
+  "tutorialsUnlocked": "ロック解除されたチュートリアル",
+  "partnerPlatforms": "パートナープラットフォーム",
+  "communityAccess": "コミュニティアクセス",
+  "caseStudies": "ケーススタディ",
+  "yourBenefits": "🎁 あなたの特典",
+  "monetizationGuides": "ステップバイステップ収益化ガイド",
+  "accessGuides": "ガイドにアクセス →",
+  "quickActions": "🚀 クイックアクション",
+  "browseTools": "AIツールを閲覧",
+  "startLearning": "学習を開始",
+  "getSupport": "サポートを取得"
 }
