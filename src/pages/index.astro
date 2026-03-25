@@ -572,8 +572,14 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .section-description { color: var(--gray); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
   
   .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; margin-bottom: 40px; }
-  .tool-card { background: white; border: 2px solid var(--border); border-radius: 20px; padding: 24px; transition: all 0.3s; position: relative; }
-  .tool-card:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+  .tool-card { background: white; border: 2px solid var(--border); border-radius: 20px; padding: 24px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; animation: fadeInUp 0.6s ease-out backwards; }
+  .tool-card:hover { border-color: var(--primary); transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15); }
+  .tool-card:nth-child(1) { animation-delay: 0.1s; }
+  .tool-card:nth-child(2) { animation-delay: 0.2s; }
+  .tool-card:nth-child(3) { animation-delay: 0.3s; }
+  .tool-card:nth-child(4) { animation-delay: 0.4s; }
+  .tool-card:nth-child(5) { animation-delay: 0.5s; }
+  .tool-card:nth-child(6) { animation-delay: 0.6s; }
   .tool-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 2px solid var(--border); border-left: 4px solid; padding-left: 16px; }
   .tool-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
   .tool-info { flex: 1; }
@@ -633,6 +639,41 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .footer-column a { display: block; color: #94a3b8; margin-bottom: 12px; font-size: 0.9rem; }
   .footer-column a:hover { color: white; }
   .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); color: #64748b; font-size: 0.875rem; }
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .category-card { animation: fadeInUp 0.6s ease-out backwards; }
+  .category-card:nth-child(1) { animation-delay: 0.1s; }
+  .category-card:nth-child(2) { animation-delay: 0.15s; }
+  .category-card:nth-child(3) { animation-delay: 0.2s; }
+  .category-card:nth-child(4) { animation-delay: 0.25s; }
+  .category-card:nth-child(5) { animation-delay: 0.3s; }
+  .category-card:nth-child(6) { animation-delay: 0.35s; }
+  
+  .story-card { animation: fadeInUp 0.6s ease-out backwards; }
+  .story-card:nth-child(1) { animation-delay: 0.1s; }
+  .story-card:nth-child(2) { animation-delay: 0.2s; }
+  .story-card:nth-child(3) { animation-delay: 0.3s; }
   
   @media (max-width: 768px) {
     .hero { padding: 120px 20px 60px; }

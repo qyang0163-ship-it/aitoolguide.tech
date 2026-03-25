@@ -244,5 +244,16 @@
   "forgotPasswordTitle": "Reset Your Password",
   "forgotPasswordDesc": "Enter your email address and we'll send you a link to reset your password.",
   "sendResetLink": "Send Reset Link",
-  "resetLinkSent": "Password reset link sent! Check your email."
+  "resetLinkSent": "Password reset link sent! Check your email.",
+  "faqTitle": "Frequently Asked Questions",
+  "faqSubtitle": "Everything you need to know about making money with AI tools",
+  "faqStillQuestions": "Still have questions?",
+  "faqJoinCommunity": "Join our community or contact our support team",
+  "aboutTitle": "Helping People Earn with AI",
+  "aboutMission": "We believe AI should be a tool for financial freedom, not just a tech novelty. Our mission is to help 1 million people start earning with AI by 2030.",
+  "aboutStory": "Our Story",
+  "aboutValues": "What We Believe",
+  "footerOurStory": "Our Story",
+  "footerFAQ": "FAQ",
+  "footerJoin": "Join Community"
 }
