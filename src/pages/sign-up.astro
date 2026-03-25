@@ -26,34 +26,46 @@ import Layout from '../layouts/Layout.astro';
         <div class="auth-box">
           <div class="auth-header">
             <span class="auth-badge">🔥 Exclusive Access</span>
-            <h1>Unlock AI Money-Making Guides</h1>
-            <p>Join 12,000+ members already earning with AI tools</p>
+            <h1 data-i18n="signupTitle">Unlock AI Money-Making Guides</h1>
+            <p data-i18n="signupSubtitle">Join 12,000+ members already earning with AI tools</p>
+          </div>
+
+          <!-- Error Message -->
+          <div id="error-message" class="error-message" style="display: none;">
+            <span class="error-icon">⚠️</span>
+            <span class="error-text"></span>
+          </div>
+
+          <!-- Success Message -->
+          <div id="success-message" class="success-message" style="display: none;">
+            <span class="success-icon">✅</span>
+            <span class="success-text"></span>
           </div>
 
           <!-- Benefits -->
           <div class="benefits">
             <div class="benefit">
               <span class="benefit-icon">📚</span>
-              <span>Step-by-step monetization tutorials</span>
+              <span data-i18n="benefit1">Step-by-step monetization tutorials</span>
             </div>
             <div class="benefit">
               <span class="benefit-icon">💎</span>
-              <span>Exclusive freelance platforms</span>
+              <span data-i18n="benefit2">Exclusive freelance platforms</span>
             </div>
             <div class="benefit">
               <span class="benefit-icon">🎯</span>
-              <span>Real case studies & income proof</span>
+              <span data-i18n="benefit3">Real case studies & income proof</span>
             </div>
             <div class="benefit">
               <span class="benefit-icon">👥</span>
-              <span>Private community access</span>
+              <span data-i18n="benefit4">Private community access</span>
             </div>
           </div>
 
           <!-- Sign Up Form -->
           <form id="signup-form" class="auth-form">
             <div class="form-group">
-              <label for="email">Email Address</label>
+              <label for="email" data-i18n="emailLabel">Email Address</label>
               <input 
                 type="email" 
                 id="email" 
@@ -64,7 +76,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
             
             <div class="form-group">
-              <label for="password">Password</label>
+              <label for="password" data-i18n="passwordLabel">Password</label>
               <input 
                 type="password" 
                 id="password" 
@@ -76,62 +88,89 @@ import Layout from '../layouts/Layout.astro';
             </div>
 
             <div class="form-group">
-              <label for="referral">How did you hear about us? (Optional)</label>
+              <label for="referral" data-i18n="referralLabel">How did you hear about us? (Optional)</label>
               <select id="referral" name="referral">
-                <option value="">Select an option</option>
-                <option value="google">Google Search</option>
-                <option value="social">Social Media</option>
-                <option value="friend">Friend Recommendation</option>
-                <option value="youtube">YouTube</option>
-                <option value="other">Other</option>
+                <option value="" data-i18n="referralSelect">Select an option</option>
+                <option value="google" data-i18n="referralGoogle">Google Search</option>
+                <option value="social" data-i18n="referralSocial">Social Media</option>
+                <option value="friend" data-i18n="referralFriend">Friend Recommendation</option>
+                <option value="youtube" data-i18n="referralYoutube">YouTube</option>
+                <option value="other" data-i18n="referralOther">Other</option>
               </select>
             </div>
 
             <div class="form-checkbox">
               <input type="checkbox" id="agree" name="agree" required />
               <label for="agree">
-                I agree to the <a href="#" target="_blank">Terms of Service</a> and 
-                <a href="#" target="_blank">Privacy Policy</a>
+                <span data-i18n="agreeText1">I agree to the</span>
+                <a href="#" target="_blank" data-i18n="termsLink">Terms of Service</a>
+                <span data-i18n="agreeText2">and</span>
+                <a href="#" target="_blank" data-i18n="privacyLink">Privacy Policy</a>
               </label>
             </div>
 
             <button type="submit" class="btn btn-urgent btn-large">
-              <span>🚀 Create Free Account</span>
+              <span data-i18n="createAccount">🚀 Create Free Account</span>
             </button>
           </form>
 
           <!-- Divider -->
           <div class="divider">
-            <span>or</span>
+            <span data-i18n="orDivider">or</span>
           </div>
 
-          <!-- Social Login -->
+          <!-- Google Login -->
           <div class="social-login">
-            <button class="btn btn-google" id="google-signup">
+            <div id="g_id_onload"
+                 data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                 data-context="signup"
+                 data-ux_mode="popup"
+                 data-login_uri=""
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="rectangular"
+                 data-theme="outline"
+                 data-text="signup_with"
+                 data-size="large"
+                 data-logo_alignment="left">
+            </div>
+            <!-- Fallback button if Google script fails -->
+            <button class="btn btn-google" id="google-signup-fallback" style="display: none;">
               <svg viewBox="0 0 24 24" width="18" height="18">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
               </svg>
-              Continue with Google
+              <span data-i18n="googleSignup">Continue with Google</span>
             </button>
           </div>
 
           <!-- Sign In Link -->
           <div class="auth-footer">
-            <p>Already have an account? <a href="/sign-in">Sign In</a></p>
+            <p>
+              <span data-i18n="haveAccount">Already have an account?</span>
+              <a href="/sign-in" data-i18n="signInLink">Sign In</a>
+            </p>
           </div>
         </div>
 
         <!-- Urgency -->
         <div class="urgency-box">
           <span class="urgency-icon">⏰</span>
-          <span><strong>153</strong> spots remaining for this month's free toolkit</span>
+          <span>
+            <strong>153</strong>
+            <span data-i18n="spotsRemaining"> spots remaining for this month's free toolkit</span>
+          </span>
         </div>
       </div>
     </section>
   </div>
+
+  <!-- Google Identity Services Script -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </Layout>
 
 <style>
@@ -175,6 +214,16 @@ import Layout from '../layouts/Layout.astro';
     -webkit-text-fill-color: transparent;
   }
 
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #aitg-lang-switcher {
+    margin-left: 8px;
+  }
+
   .back-link {
     color: rgba(255,255,255,0.7);
     text-decoration: none;
@@ -184,16 +233,6 @@ import Layout from '../layouts/Layout.astro';
 
   .back-link:hover {
     color: white;
-  }
-
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  #aitg-lang-switcher {
-    margin-left: 8px;
   }
 
   /* Auth Section */
@@ -234,6 +273,41 @@ import Layout from '../layouts/Layout.astro';
   .auth-header p {
     color: #64748b;
     font-size: 1rem;
+  }
+
+  /* Error & Success Messages */
+  .error-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+  }
+
+  .error-icon {
+    font-size: 1.2rem;
+  }
+
+  .success-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #16a34a;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+  }
+
+  .success-icon {
+    font-size: 1.2rem;
   }
 
   /* Benefits */
@@ -385,6 +459,10 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: 24px;
   }
 
+  .g_id_signin {
+    width: 100% !important;
+  }
+
   /* Auth Footer */
   .auth-footer {
     text-align: center;
@@ -451,6 +529,27 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
+  // Show error message
+  function showError(message) {
+    const errorEl = document.getElementById('error-message');
+    const errorText = errorEl.querySelector('.error-text');
+    errorText.textContent = message;
+    errorEl.style.display = 'flex';
+    
+    // Hide after 5 seconds
+    setTimeout(() => {
+      errorEl.style.display = 'none';
+    }, 5000);
+  }
+
+  // Show success message
+  function showSuccess(message) {
+    const successEl = document.getElementById('success-message');
+    const successText = successEl.querySelector('.success-text');
+    successText.textContent = message;
+    successEl.style.display = 'flex';
+  }
+
   // Form submission
   document.getElementById('signup-form').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -458,12 +557,18 @@ import Layout from '../layouts/Layout.astro';
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     
+    // Validate password length
+    if (password.length < 8) {
+      showError('Password must be at least 8 characters long.');
+      return;
+    }
+    
     // Store user data in localStorage (demo mode)
     const users = JSON.parse(localStorage.getItem('aitg_users') || '[]');
     
     // Check if email already exists
     if (users.find(u => u.email === email)) {
-      alert('This email is already registered. Please sign in.');
+      showError('This email is already registered. Please sign in or use a different email.');
       return;
     }
     
@@ -481,14 +586,64 @@ import Layout from '../layouts/Layout.astro';
     localStorage.setItem('aitg_current_user', JSON.stringify(newUser));
     
     // Show success message
-    alert('🎉 Account created successfully! Welcome to AIToolGuide.');
+    showSuccess('🎉 Account created successfully! Redirecting...');
     
-    // Redirect to home or VIP page
-    window.location.href = '/';
+    // Redirect to home after 1.5 seconds
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 1500);
   });
 
-  // Google Sign Up (placeholder)
-  document.getElementById('google-signup').addEventListener('click', function() {
-    alert('Google Sign Up coming soon! Please use email registration.');
+  // Handle Google Sign In
+  function handleGoogleCredentialResponse(response) {
+    // Decode the JWT token
+    const credential = response.credential;
+    const payload = JSON.parse(atob(credential.split('.')[1]));
+    
+    const email = payload.email;
+    const name = payload.name;
+    const picture = payload.picture;
+    
+    // Store user data
+    const users = JSON.parse(localStorage.getItem('aitg_users') || '[]');
+    
+    // Check if user exists
+    let user = users.find(u => u.email === email);
+    
+    if (!user) {
+      // Create new user from Google data
+      user = {
+        id: Date.now(),
+        email: email,
+        name: name,
+        picture: picture,
+        provider: 'google',
+        createdAt: new Date().toISOString()
+      };
+      users.push(user);
+      localStorage.setItem('aitg_users', JSON.stringify(users));
+    }
+    
+    // Set current user
+    localStorage.setItem('aitg_current_user', JSON.stringify(user));
+    
+    // Show success and redirect
+    showSuccess('🎉 Signed in with Google! Redirecting...');
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 1500);
+  }
+
+  // Check if Google script loaded
+  window.addEventListener('load', function() {
+    if (typeof google === 'undefined') {
+      // Show fallback button if Google script fails
+      document.getElementById('google-signup-fallback').style.display = 'flex';
+    }
+  });
+
+  // Fallback Google button
+  document.getElementById('google-signup-fallback').addEventListener('click', function() {
+    showError('Google Sign In is temporarily unavailable. Please use email registration.');
   });
 </script>

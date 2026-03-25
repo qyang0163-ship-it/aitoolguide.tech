@@ -179,10 +179,10 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
                 </>
               ) : (
                 <>
-                  <a href="/sign-in" class="btn btn-urgent tool-login-link" data-tool-url={tool.url} data-track={`tool_${tool.id}_unlock`}>
+                  <a href="/sign-in" class="btn btn-urgent tool-login-link" data-track={`tool_${tool.id}_unlock`}>
                     <span data-i18n={tool.ctaKey}>{tool.ctaDefault}</span>
                   </a>
-                  <a href={tool.url} target="_blank" class="btn btn-urgent tool-visit-link" style="display: none;" data-track={`tool_${tool.id}_try`}>
+                  <a href={tool.externalUrl} target="_blank" class="btn btn-urgent tool-visit-link" style="display: none;" data-track={`tool_${tool.id}_try`}>
                     <span data-i18n="tryFree">🚀 Try Free Now</span>
                   </a>
                 </>
