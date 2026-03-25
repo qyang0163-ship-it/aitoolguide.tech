@@ -127,5 +127,8 @@
   "catVideoDesc": "लघु वीडियो, विज्ञापन निर्माण",
   "catCodeDesc": "विकास, स्क्रिप्ट अनुकूलन",
   "catKnowledgeDesc": "पाठ्यक्रम, टेम्पलेट, संसाधन",
-  "catProductivityDesc": "स्वचालन, दक्षता"
+  "catProductivityDesc": "स्वचालन, दक्षता",
+  "tagBeginner": "नौसिखिया अनुकूल",
+  "tagDesigner": "डिजाइनर के लिए जरूरी",
+  "tagPassive": "निष्क्रिय आय"
 }

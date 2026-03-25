@@ -127,5 +127,8 @@
   "catVideoDesc": "Короткие видео, рекламное производство",
   "catCodeDesc": "Разработка, настройка скриптов",
   "catKnowledgeDesc": "Курсы, шаблоны, ресурсы",
-  "catProductivityDesc": "Автоматизация, эффективность"
+  "catProductivityDesc": "Автоматизация, эффективность",
+  "tagBeginner": "Для новичков",
+  "tagDesigner": "Дизайнеру обязательно",
+  "tagPassive": "Пассивный доход"
 }

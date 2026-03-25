@@ -127,5 +127,8 @@
   "catVideoDesc": "Vidéos courtes, production publicitaire",
   "catCodeDesc": "Développement, scripts",
   "catKnowledgeDesc": "Cours, modèles, ressources",
-  "catProductivityDesc": "Automatisation, efficacité"
+  "catProductivityDesc": "Automatisation, efficacité",
+  "tagBeginner": "Débutant friendly",
+  "tagDesigner": "Designer must-read",
+  "tagPassive": "Revenu passif"
 }

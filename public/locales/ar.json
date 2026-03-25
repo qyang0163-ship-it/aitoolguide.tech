@@ -127,5 +127,8 @@
   "catVideoDesc": "فيديوهات قصيرة، إنتاج الإعلانات",
   "catCodeDesc": "التطوير، تخصيص السكربتات",
   "catKnowledgeDesc": "دورات، قوالب، موارد",
-  "catProductivityDesc": "الأتمتة، الكفاءة"
+  "catProductivityDesc": "الأتمتة، الكفاءة",
+  "tagBeginner": "مناسب للمبتدئين",
+  "tagDesigner": "مصمم يجب قراءته",
+  "tagPassive": "دخل سلبي"
 }

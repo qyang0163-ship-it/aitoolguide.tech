@@ -127,5 +127,8 @@
   "catVideoDesc": "Kısa videolar, reklam yapımı",
   "catCodeDesc": "Geliştirme, script özelleştirme",
   "catKnowledgeDesc": "Kurslar, şablonlar, kaynaklar",
-  "catProductivityDesc": "Otomasyon, verimlilik"
+  "catProductivityDesc": "Otomasyon, verimlilik",
+  "tagBeginner": "Yeni Başlayanlar İçin",
+  "tagDesigner": "Tasarımcı İçin",
+  "tagPassive": "Pasif Gelir"
 }

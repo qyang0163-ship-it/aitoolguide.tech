@@ -127,5 +127,8 @@
   "catVideoDesc": "Video pendek, produksi iklan",
   "catCodeDesc": "Pengembangan, kustomisasi skrip",
   "catKnowledgeDesc": "Kursus, template, sumber daya",
-  "catProductivityDesc": "Otomatisasi, efisiensi"
+  "catProductivityDesc": "Otomatisasi, efisiensi",
+  "tagBeginner": "Ramah Pemula",
+  "tagDesigner": "Wajib Baca Designer",
+  "tagPassive": "Pendapatan Pasif"
 }

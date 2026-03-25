@@ -127,5 +127,8 @@
   "catVideoDesc": "Kurzvideos, Werbeproduktion",
   "catCodeDesc": "Entwicklung, Skript-Anpassung",
   "catKnowledgeDesc": "Kurse, Vorlagen, Ressourcen",
-  "catProductivityDesc": "Automatisierung, Effizienz"
+  "catProductivityDesc": "Automatisierung, Effizienz",
+  "tagBeginner": "Anfängerfreundlich",
+  "tagDesigner": "Designer-Must-Read",
+  "tagPassive": "Passives Einkommen"
 }

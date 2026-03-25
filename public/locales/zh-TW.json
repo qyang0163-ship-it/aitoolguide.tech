@@ -127,5 +127,8 @@
   "catVideoDesc": "短視頻、廣告製作",
   "catCodeDesc": "程序開發、腳本定制",
   "catKnowledgeDesc": "課程、模板、資料",
-  "catProductivityDesc": "自動化、效率提升"
+  "catProductivityDesc": "自動化、效率提升",
+  "tagBeginner": "新手友好",
+  "tagDesigner": "設計師必讀",
+  "tagPassive": "被動收入"
 }

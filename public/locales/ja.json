@@ -127,5 +127,8 @@
   "catVideoDesc": "短編動画、広告制作",
   "catCodeDesc": "開発、スクリプト作成",
   "catKnowledgeDesc": "コース、テンプレート、資料",
-  "catProductivityDesc": "自動化、効率向上"
+  "catProductivityDesc": "自動化、効率向上",
+  "tagBeginner": "初心者向け",
+  "tagDesigner": "デザイナー必読",
+  "tagPassive": "不労所得"
 }

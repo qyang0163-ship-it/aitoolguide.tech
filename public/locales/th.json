@@ -127,5 +127,8 @@
   "catVideoDesc": "วิดีโอสั้น ผลิตโฆษณา",
   "catCodeDesc": "การพัฒนา การปรับแต่งสคริปต์",
   "catKnowledgeDesc": "คอร์ส เทมเพลต เอกสาร",
-  "catProductivityDesc": "การทำงานอัตโนมัติ ประสิทธิภาพ"
+  "catProductivityDesc": "การทำงานอัตโนมัติ ประสิทธิภาพ",
+  "tagBeginner": "เหมาะกับมือใหม่",
+  "tagDesigner": "นักออกแบบต้องอ่าน",
+  "tagPassive": "รายได้แบบพาสซีฟ"
 }
