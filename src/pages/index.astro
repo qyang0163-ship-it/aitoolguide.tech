@@ -28,7 +28,15 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
           <a href="/ai-tools-100" data-i18n="navTop100">Top 100 AI</a>
           <a href="#start" data-i18n="navStart">Get Started</a>
         </div>
-        <a href="#tools" class="btn btn-primary btn-small" data-i18n="navCta">Start Earning Free →</a>
+        <div class="nav-actions">
+          <a href="#tools" class="btn btn-primary btn-small" data-i18n="navCta">Start Earning Free →</a>
+          <div id="user-menu" class="user-menu" style="display: none;">
+            <span class="user-email"></span>
+            <a href="/member" class="btn btn-secondary btn-small">Member Center</a>
+            <button onclick="signOut()" class="btn btn-ghost btn-small">Sign Out</button>
+          </div>
+          <a href="/sign-in" id="login-btn" class="btn btn-secondary btn-small">Sign In</a>
+        </div>
       </nav>
     </div>
   </header>
@@ -437,10 +445,40 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
     }
 
     // Run on page load and when language changes
-    document.addEventListener('DOMContentLoaded', updateDynamicContent);
+    document.addEventListener('DOMContentLoaded', function() {
+      updateDynamicContent();
+      checkUserStatus();
+    });
     window.addEventListener('storage', function(e) {
       if (e.key === 'aitg_lang') updateDynamicContent();
+      if (e.key === 'aitg_current_user') checkUserStatus();
     });
+
+    // Check user login status
+    function checkUserStatus() {
+      const currentUser = localStorage.getItem('aitg_current_user');
+      const userMenu = document.getElementById('user-menu');
+      const loginBtn = document.getElementById('login-btn');
+      
+      if (currentUser) {
+        const user = JSON.parse(currentUser);
+        if (userMenu) {
+          userMenu.style.display = 'flex';
+          userMenu.querySelector('.user-email').textContent = user.email;
+        }
+        if (loginBtn) loginBtn.style.display = 'none';
+      } else {
+        if (userMenu) userMenu.style.display = 'none';
+        if (loginBtn) loginBtn.style.display = 'inline-flex';
+      }
+    }
+
+    // Sign out function
+    function signOut() {
+      localStorage.removeItem('aitg_current_user');
+      alert('👋 You have been signed out.');
+      window.location.reload();
+    }
   </script>
 </Layout>
 
@@ -455,6 +493,11 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .logo-tag { font-size: 0.7rem; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; padding: 4px 10px; border-radius: 12px; font-weight: 700; }
   .nav-links { display: flex; gap: 30px; }
   .nav-links a { font-weight: 600; color: var(--gray); }
+  .nav-actions { display: flex; align-items: center; gap: 12px; }
+  .user-menu { display: flex; align-items: center; gap: 12px; }
+  .user-email { font-size: 0.85rem; color: var(--gray); max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .btn-ghost { background: transparent; color: var(--gray); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: var(--border); }
   .btn-small { padding: 10px 20px; font-size: 0.9rem; }
   
   .hero { padding: 140px 0 80px; text-align: center; }
