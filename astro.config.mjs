@@ -1,17 +1,15 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import clerk from '@clerk/astro';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
+  output: 'static',
   site: 'https://www.aitoolguide.tech',
   trailingSlash: 'always',
   build: {
     format: 'directory'
   },
   integrations: [
-    clerk(),
     sitemap({
       i18n: {
         defaultLocale: 'en',

@@ -1,320 +1,194 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/astro/components';
 ---
 
-<Layout title="VIP Exclusive - High-Level Money Making Methods">
+<Layout title="VIP Exclusive - Advanced AI Money Making Methods">
+  <div id="vip-loading" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <p style="color: #64748b; font-size: 1.2rem;">Loading...</p>
+  </div>
+
   <!-- Signed Out View -->
-  <Show when="signed-out">
-    <div class="login-prompt">
-      <div class="login-content">
-        <span class="lock-icon">🔒</span>
-        <h1>VIP Content Locked</h1>
-        <p>Sign in to access exclusive high-level money making methods and strategies.</p>
-        <div class="login-buttons">
-          <SignInButton mode="modal" class="btn btn-urgent btn-large">
-            <svg class="google-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-            Sign in with Google
-          </SignInButton>
-          <SignUpButton mode="modal" class="btn btn-primary btn-large">Create Free Account</SignUpButton>
-        </div>
-        <div class="vip-benefits">
-          <h3>👑 VIP Benefits:</h3>
-          <ul>
-            <li>✅ Advanced money making methods</li>
-            <li>✅ Exclusive freelance channels</li>
-            <li>✅ 1-on-1 mentorship opportunities</li>
-            <li>✅ Premium templates and tools</li>
-            <li>✅ Private community access</li>
-          </ul>
-        </div>
+  <div id="vip-locked" class="login-prompt" style="display: none;">
+    <div class="login-content">
+      <span class="lock-icon">🔒</span>
+      <h1>VIP Content Locked</h1>
+      <p>Sign in to access exclusive high-level money making methods.</p>
+      <div class="login-buttons">
+        <button id="clerk-signin-btn" class="btn btn-urgent btn-large">🔐 Sign in with Google</button>
+      </div>
+      <div class="vip-benefits">
+        <h3>👑 VIP Benefits:</h3>
+        <ul>
+          <li>✅ Advanced money making methods ($10K+/month)</li>
+          <li>✅ Exclusive freelance channels</li>
+          <li>✅ 1-on-1 mentorship opportunities</li>
+          <li>✅ Premium templates and tools</li>
+          <li>✅ Private community access</li>
+        </ul>
       </div>
     </div>
-  </Show>
+  </div>
 
   <!-- Signed In View -->
-  <Show when="signed-in">
-    <div class="vip-container">
-      <div class="vip-header">
-        <span class="vip-badge">👑 VIP EXCLUSIVE</span>
-        <h1>Advanced AI Money Making Methods</h1>
-        <p class="vip-subtitle">Welcome back, VIP Member!</p>
-        <div class="user-section">
-          <UserButton />
+  <div id="vip-content" class="vip-container" style="display: none;">
+    <div class="vip-header">
+      <span class="vip-badge">👑 VIP EXCLUSIVE</span>
+      <h1>Advanced AI Money Making Methods</h1>
+      <p class="vip-subtitle">Welcome back, <span id="vip-username">VIP Member</span>!</p>
+      <div id="vip-user-button" style="margin-top: 16px;"></div>
+    </div>
+
+    <div class="vip-content-grid">
+      <div class="vip-card">
+        <h2>🔥 Method 1: AI Agency Model</h2>
+        <p>Build a full-service AI agency offering content creation, design, and automation services to businesses.</p>
+        <div class="income-highlight">💰 $10,000-$50,000/month</div>
+        <div class="method-steps">
+          <h4>Steps:</h4>
+          <ol>
+            <li>Define your niche (content, design, automation)</li>
+            <li>Create service packages with clear deliverables</li>
+            <li>Build portfolio with 3-5 case studies</li>
+            <li>Outreach to 50 potential clients/week</li>
+            <li>Hire subcontractors as demand grows</li>
+          </ol>
         </div>
       </div>
 
-      <div class="vip-content">
-        <div class="vip-card">
-          <h2>🔥 Method 1: AI Agency Model</h2>
-          <p>Build a full-service AI agency offering content creation, design, and automation services to businesses. Scale from solo freelancer to agency owner.</p>
-          <div class="income-highlight">Potential: $10,000-$50,000/month</div>
-          <div class="method-steps">
-            <h4>Implementation Steps:</h4>
-            <ol>
-              <li>Define your agency niche (content, design, or automation)</li>
-              <li>Create service packages with clear deliverables</li>
-              <li>Build a portfolio with 3-5 case studies</li>
-              <li>Reach out to 50 potential clients per week</li>
-              <li>Hire subcontractors as demand grows</li>
-            </ol>
-          </div>
+      <div class="vip-card">
+        <h2>💎 Method 2: AI Productized Services</h2>
+        <p>Standardized AI service packages delivered at scale without increasing time investment.</p>
+        <div class="income-highlight">💰 $5,000-$20,000/month</div>
+        <div class="method-steps">
+          <h4>Steps:</h4>
+          <ol>
+            <li>Identify a repeatable service (e.g., 20 blog posts/month)</li>
+            <li>Create templates and SOPs</li>
+            <li>Automate delivery pipeline</li>
+            <li>Price for volume ($500/month packages)</li>
+            <li>Scale to 50+ recurring clients</li>
+          </ol>
         </div>
+      </div>
 
-        <div class="vip-card">
-          <h2>💎 Method 2: AI Productized Services</h2>
-          <p>Create standardized AI-powered service packages that can be delivered at scale without increasing your time investment.</p>
-          <div class="income-highlight">Potential: $5,000-$20,000/month</div>
-          <div class="method-steps">
-            <h4>Implementation Steps:</h4>
-            <ol>
-              <li>Identify a repeatable service (e.g., AI blog posts)</li>
-              <li>Create templates and SOPs</li>
-              <li>Set up automated delivery systems</li>
-              <li>Price for volume (e.g., $500/month for 20 posts)</li>
-              <li>Scale to 50+ recurring clients</li>
-            </ol>
-          </div>
+      <div class="vip-card">
+        <h2>🚀 Method 3: AI SaaS Micro-Tools</h2>
+        <p>Build small AI-powered tools solving specific problems. Low maintenance, high recurring revenue.</p>
+        <div class="income-highlight">💰 $3,000-$15,000/month</div>
+        <div class="method-steps">
+          <h4>Steps:</h4>
+          <ol>
+            <li>Find painful problem in a niche market</li>
+            <li>Build simple AI tool (use no-code if needed)</li>
+            <li>Launch on Product Hunt</li>
+            <li>Freemium model ($9-29/month)</li>
+            <li>Grow via SEO and content marketing</li>
+          </ol>
         </div>
+      </div>
 
-        <div class="vip-card">
-          <h2>🚀 Method 3: AI SaaS Micro-Tools</h2>
-          <p>Build and monetize small AI-powered tools that solve specific problems. Low maintenance, high recurring revenue potential.</p>
-          <div class="income-highlight">Potential: $3,000-$15,000/month</div>
-          <div class="method-steps">
-            <h4>Implementation Steps:</h4>
-            <ol>
-              <li>Find a painful problem in a niche market</li>
-              <li>Build a simple AI tool solution</li>
-              <li>Launch on Product Hunt and relevant communities</li>
-              <li>Offer freemium model ($9-29/month premium)</li>
-              <li>Grow through SEO and content marketing</li>
-            </ol>
-          </div>
+      <div class="vip-card">
+        <h2>⚡ Method 4: AI Consulting & Training</h2>
+        <p>Help businesses implement AI. High-ticket consulting with ongoing retainers.</p>
+        <div class="income-highlight">💰 $8,000-$30,000/month</div>
+        <div class="method-steps">
+          <h4>Steps:</h4>
+          <ol>
+            <li>Develop deep expertise in 1-2 AI tools</li>
+            <li>Create ROI case studies</li>
+            <li>Offer free audits to generate leads</li>
+            <li>Charge $2,000-$5,000 for setup</li>
+            <li>Add $1,000-$3,000/month retainers</li>
+          </ol>
         </div>
+      </div>
 
-        <div class="vip-card">
-          <h2>⚡ Method 4: AI Consulting & Training</h2>
-          <p>Help businesses implement AI solutions. High-ticket consulting with ongoing retainers.</p>
-          <div class="income-highlight">Potential: $8,000-$30,000/month</div>
-          <div class="method-steps">
-            <h4>Implementation Steps:</h4>
-            <ol>
-              <li>Develop deep expertise in 1-2 AI tools</li>
-              <li>Create case studies showing ROI</li>
-              <li>Offer free audits to generate leads</li>
-              <li>Charge $2,000-$5,000 for initial setup</li>
-              <li>Add $1,000-$3,000/month retainers</li>
-            </ol>
-          </div>
-        </div>
-
-        <div class="vip-card locked">
-          <h2>🔒 More Methods Coming Soon</h2>
-          <p>New exclusive methods are added weekly for VIP members.</p>
-          <p class="coming-soon-text">Next update: AI Affiliate Marketing Mastery</p>
-        </div>
+      <div class="vip-card locked">
+        <h2>🔒 More Coming Soon</h2>
+        <p>New methods added weekly. Next: AI Affiliate Marketing Mastery</p>
       </div>
     </div>
-  </Show>
+  </div>
+
+  <script is:inline>
+    // Clerk Frontend Auth for VIP page
+    (function() {
+      const CLERK_PK = 'pk_test_dGVhY2hpbmctZ2FyZmlzaC03NS5jbGVyay5hY2NvdW50cy5kZXYk';
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
+      script.crossOrigin = 'anonymous';
+      script.onload = async function() {
+        try {
+          const clerk = new window.Clerk(CLERK_PK);
+          await clerk.load();
+          document.getElementById('vip-loading').style.display = 'none';
+          
+          if (clerk.user) {
+            // Signed in
+            document.getElementById('vip-content').style.display = 'block';
+            document.getElementById('vip-username').textContent = clerk.user.firstName || clerk.user.emailAddresses[0]?.emailAddress || 'VIP Member';
+            const ub = document.getElementById('vip-user-button');
+            if (ub) clerk.mountUserButton(ub);
+          } else {
+            // Signed out
+            document.getElementById('vip-locked').style.display = 'flex';
+            document.getElementById('clerk-signin-btn').addEventListener('click', function() {
+              clerk.openSignIn();
+            });
+            clerk.addListener(function(e) {
+              if (clerk.user) location.reload();
+            });
+          }
+        } catch(e) {
+          console.error('Clerk error:', e);
+          // Fallback: show content anyway
+          document.getElementById('vip-loading').style.display = 'none';
+          document.getElementById('vip-content').style.display = 'block';
+        }
+      };
+      script.onerror = function() {
+        // If Clerk CDN fails, show content anyway
+        document.getElementById('vip-loading').style.display = 'none';
+        document.getElementById('vip-content').style.display = 'block';
+      };
+      document.head.appendChild(script);
+    })();
+  </script>
 </Layout>
 
 <style>
-  .vip-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 120px 20px 60px;
-  }
-  .vip-header {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-  .vip-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #f59e0b, #ef4444);
-    color: white;
-    padding: 10px 24px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-  }
-  .vip-header h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 16px;
-  }
-  .vip-subtitle {
-    font-size: 1.2rem;
-    color: #64748b;
-    margin-bottom: 20px;
-  }
-  .user-section {
-    margin-top: 20px;
-  }
-  .vip-content {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-  .vip-card {
-    background: white;
-    border: 2px solid #e2e8f0;
-    border-radius: 20px;
-    padding: 40px;
-    transition: all 0.3s;
-  }
-  .vip-card:hover {
-    border-color: #0ea5e9;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-  }
-  .vip-card h2 {
-    font-size: 1.5rem;
-    margin-bottom: 16px;
-  }
-  .vip-card p {
-    color: #64748b;
-    line-height: 1.7;
-    margin-bottom: 20px;
-  }
-  .income-highlight {
-    display: inline-block;
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    color: #92400e;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-  .method-steps {
-    background: #f8fafc;
-    padding: 24px;
-    border-radius: 12px;
-    margin-top: 20px;
-  }
-  .method-steps h4 {
-    margin-bottom: 16px;
-    color: #0f172a;
-  }
-  .method-steps ol {
-    padding-left: 20px;
-  }
-  .method-steps li {
-    margin-bottom: 10px;
-    color: #475569;
-    line-height: 1.6;
-  }
-  .vip-card.locked {
-    background: #f8fafc;
-    border-style: dashed;
-    text-align: center;
-  }
-  .coming-soon-text {
-    color: #0ea5e9;
-    font-weight: 600;
-  }
-  .login-prompt {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  }
-  .login-content {
-    max-width: 600px;
-    text-align: center;
-    color: white;
-  }
-  .lock-icon {
-    font-size: 4rem;
-    display: block;
-    margin-bottom: 20px;
-  }
-  .login-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 16px;
-  }
-  .login-content p {
-    font-size: 1.2rem;
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 30px;
-  }
-  .login-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-  }
-  .google-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-  }
-  .vip-benefits {
-    background: rgba(255,255,255,0.05);
-    border-radius: 16px;
-    padding: 30px;
-    text-align: left;
-  }
-  .vip-benefits h3 {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  .vip-benefits ul {
-    list-style: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .vip-benefits li {
-    color: rgba(255,255,255,0.9);
-  }
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 28px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: all 0.3s;
-    border: none;
-    cursor: pointer;
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, #0ea5e9, #8b5cf6);
-    color: white;
-  }
-  .btn-urgent {
-    background: linear-gradient(135deg, #ef4444, #f97316);
-    color: white;
-  }
-  .btn-secondary {
-    background: rgba(255,255,255,0.1);
-    color: white;
-    border: 2px solid rgba(255,255,255,0.2);
-  }
-  .btn-large {
-    padding: 18px 36px;
-    font-size: 1.1rem;
-  }
-  .btn-small {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
+  .vip-container { max-width: 900px; margin: 0 auto; padding: 120px 20px 60px; }
+  .vip-header { text-align: center; margin-bottom: 50px; }
+  .vip-badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+  .vip-header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+  .vip-subtitle { font-size: 1.2rem; color: #64748b; }
+  .vip-content-grid { display: flex; flex-direction: column; gap: 30px; }
+  .vip-card { background: white; border: 2px solid #e2e8f0; border-radius: 20px; padding: 40px; transition: all 0.3s; }
+  .vip-card:hover { border-color: #0ea5e9; box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+  .vip-card h2 { font-size: 1.5rem; margin-bottom: 16px; }
+  .vip-card p { color: #64748b; line-height: 1.7; margin-bottom: 20px; }
+  .income-highlight { display: inline-block; background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; padding: 12px 24px; border-radius: 30px; font-weight: 700; margin-bottom: 20px; }
+  .method-steps { background: #f8fafc; padding: 24px; border-radius: 12px; margin-top: 20px; }
+  .method-steps h4 { margin-bottom: 16px; color: #0f172a; }
+  .method-steps ol { padding-left: 20px; }
+  .method-steps li { margin-bottom: 10px; color: #475569; line-height: 1.6; }
+  .vip-card.locked { background: #f8fafc; border-style: dashed; text-align: center; }
+  .login-prompt { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+  .login-content { max-width: 600px; text-align: center; color: white; }
+  .lock-icon { font-size: 4rem; display: block; margin-bottom: 20px; }
+  .login-content h1 { font-size: 2.5rem; margin-bottom: 16px; }
+  .login-content p { font-size: 1.2rem; color: rgba(255,255,255,0.8); margin-bottom: 30px; }
+  .login-buttons { display: flex; gap: 16px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 1rem; transition: all 0.3s; border: none; cursor: pointer; }
+  .btn-urgent { background: linear-gradient(135deg, #ef4444, #f97316); color: white; }
+  .btn-large { padding: 18px 36px; font-size: 1.1rem; }
+  .vip-benefits { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 30px; text-align: left; }
+  .vip-benefits h3 { margin-bottom: 20px; text-align: center; }
+  .vip-benefits ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .vip-benefits li { color: rgba(255,255,255,0.9); }
   @media (max-width: 768px) {
-    .vip-benefits ul {
-      grid-template-columns: 1fr;
-    }
-    .login-buttons {
-      flex-direction: column;
-      align-items: center;
-    }
-    .login-buttons .btn {
-      width: 100%;
-      max-width: 300px;
-    }
+    .vip-benefits ul { grid-template-columns: 1fr; }
+    .login-buttons { flex-direction: column; align-items: center; }
+    .login-buttons .btn { width: 100%; max-width: 300px; }
   }
 </style>

@@ -1,6 +1,4 @@
 ---
-import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/astro/components';
-
 interface Props {
 	title: string;
 }
@@ -205,15 +203,48 @@ const { title } = Astro.props;
 		</style>
 	</head>
 	<body>
-		<header class="clerk-header" style="position: fixed; top: 0; right: 0; z-index: 9999; padding: 10px 20px;">
-			<Show when="signed-out">
-				<SignInButton mode="modal" class="btn btn-primary btn-small" />
-				<SignUpButton mode="modal" class="btn btn-secondary btn-small" />
-			</Show>
-			<Show when="signed-in">
-				<UserButton />
-			</Show>
-		</header>
+		<!-- Auth Header (Clerk Frontend JS) -->
+		<div id="clerk-auth-header" style="position: fixed; top: 0; right: 0; z-index: 9999; padding: 10px 20px; display: flex; gap: 8px; align-items: center;">
+		</div>
+		<script is:inline>
+			// Clerk Frontend-only integration
+			(function() {
+				const CLERK_PK = 'pk_test_dGVhY2hpbmctZ2FyZmlzaC03NS5jbGVyay5hY2NvdW50cy5kZXYk';
+				const script = document.createElement('script');
+				script.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
+				script.crossOrigin = 'anonymous';
+				script.onload = async function() {
+					try {
+						const clerk = new window.Clerk(CLERK_PK);
+						await clerk.load();
+						window.__clerk = clerk;
+						const header = document.getElementById('clerk-auth-header');
+						if (!header) return;
+						if (clerk.user) {
+							// Signed in - show user button
+							const div = document.createElement('div');
+							div.id = 'user-button';
+							header.appendChild(div);
+							clerk.mountUserButton(div);
+						} else {
+							// Signed out - show sign in button
+							const div = document.createElement('div');
+							div.id = 'sign-in-btn';
+							header.appendChild(div);
+							clerk.mountSignIn(div, { appearance: { elements: { rootBox: { display: 'none' } } } });
+							const btn = document.createElement('button');
+							btn.textContent = 'Sign In';
+							btn.style.cssText = 'background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.85rem;';
+							btn.onclick = () => clerk.openSignIn();
+							header.appendChild(btn);
+						}
+					} catch(e) {
+						console.log('Clerk init skipped:', e.message);
+					}
+				};
+				document.head.appendChild(script);
+			})();
+		</script>
 		<slot />
 		<script src="/i18n.js" is:inline></script>
 		<script>
