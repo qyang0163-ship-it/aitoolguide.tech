@@ -14,7 +14,7 @@ import Layout from '../layouts/Layout.astro';
           </a>
           <div class="nav-actions">
             <a href="/" class="back-link">← Back to Home</a>
-            <!-- Language switcher will be inserted here -->
+            <!-- Language switcher will be inserted here by i18n.js -->
           </div>
         </nav>
       </div>
@@ -635,4 +635,84 @@ import Layout from '../layouts/Layout.astro';
   document.getElementById('google-signin-fallback').addEventListener('click', function() {
     showError('Google Sign In is temporarily unavailable. Please use email login.');
   });
+
+  // Initialize language switcher for auth pages
+  // i18n.js should handle this, but ensure it works on auth pages
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check if language switcher was created by i18n.js
+    setTimeout(function() {
+      const existingSwitcher = document.getElementById('aitg-lang-switcher');
+      if (!existingSwitcher) {
+        // Create language switcher manually if i18n.js didn't create it
+        createAuthLangSwitcher();
+      }
+    }, 100);
+  });
+
+  function createAuthLangSwitcher() {
+    const navActions = document.querySelector('.nav-actions');
+    if (!navActions) return;
+
+    const LANGS = [
+      { code: 'en', label: 'English', flag: '🇺🇸', tier: 'core' },
+      { code: 'zh-CN', label: '简体中文', flag: '🇨🇳', tier: 'core' },
+      { code: 'zh-TW', label: '繁體中文', flag: '🇹🇼', tier: 'core' },
+      { code: 'ja', label: '日本語', flag: '🇯🇵', tier: 'core' },
+      { code: 'ko', label: '한국어', flag: '🇰🇷', tier: 'core' },
+      { code: 'es', label: 'Español', flag: '🇪🇸', tier: 'core' },
+      { code: 'fr', label: 'Français', flag: '🇫🇷', tier: 'extended' },
+      { code: 'de', label: 'Deutsch', flag: '🇩🇪', tier: 'extended' },
+      { code: 'pt', label: 'Português', flag: '🇵🇹', tier: 'extended' },
+      { code: 'ru', label: 'Русский', flag: '🇷🇺', tier: 'extended' },
+      { code: 'ar', label: 'العربية', flag: '🇸🇦', tier: 'extended' },
+      { code: 'hi', label: 'हिन्दी', flag: '🇮🇳', tier: 'extended' },
+      { code: 'th', label: 'ไทย', flag: '🇹🇭', tier: 'extended' },
+      { code: 'tr', label: 'Türkçe', flag: '🇹🇷', tier: 'extended' },
+      { code: 'vi', label: 'Tiếng Việt', flag: '🇻🇳', tier: 'extended' },
+      { code: 'id', label: 'Bahasa Indonesia', flag: '🇮🇩', tier: 'extended' }
+    ];
+
+    const savedLang = localStorage.getItem('aitg_lang') || 'en';
+    const currentLangObj = LANGS.find(l => l.code === savedLang) || LANGS[0];
+
+    const container = document.createElement('div');
+    container.id = 'aitg-lang-switcher';
+    container.style.cssText = 'position:relative;display:inline-flex;align-items:center;z-index:1001;';
+
+    const btn = document.createElement('button');
+    btn.id = 'aitg-lang-btn';
+    btn.style.cssText = 'background:linear-gradient(135deg,#0ea5e9,#8b5cf6);color:white;border:none;padding:8px 14px;border-radius:10px;font-weight:600;font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:5px;transition:transform 0.2s;white-space:nowrap;';
+    btn.innerHTML = currentLangObj.flag + ' ' + currentLangObj.label + ' <span style="font-size:0.7em">▼</span>';
+
+    const dd = document.createElement('div');
+    dd.id = 'aitg-lang-dd';
+    dd.style.cssText = 'display:none;position:absolute;top:100%;right:0;margin-top:8px;background:white;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.15);min-width:200px;max-height:400px;overflow-y:auto;border:1px solid #e2e8f0;z-index:9999;';
+
+    LANGS.forEach(function(lang) {
+      const item = document.createElement('button');
+      item.style.cssText = 'display:flex;align-items:center;gap:10px;width:100%;padding:10px 16px;border:none;background:none;cursor:pointer;font-size:0.9rem;color:#0f172a;text-align:left;transition:background 0.2s;white-space:nowrap;';
+      item.innerHTML = '<span style="font-size:1.1rem">' + lang.flag + '</span><span>' + lang.label + '</span>' + (lang.tier === 'core' ? '<span style="font-size:0.6rem;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:8px;margin-left:auto;">★</span>' : '');
+      item.onmouseenter = function() { this.style.background = '#f1f5f9'; };
+      item.onmouseleave = function() { this.style.background = 'none'; };
+      item.onclick = function(e) {
+        e.stopPropagation();
+        localStorage.setItem('aitg_lang', lang.code);
+        btn.innerHTML = lang.flag + ' ' + lang.label + ' <span style="font-size:0.7em">▼</span>';
+        dd.style.display = 'none';
+        // Reload to apply translations
+        window.location.reload();
+      };
+      dd.appendChild(item);
+    });
+
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+    };
+    document.addEventListener('click', function() { dd.style.display = 'none'; });
+
+    container.appendChild(btn);
+    container.appendChild(dd);
+    navActions.appendChild(container);
+  }
 </script>
