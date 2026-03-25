@@ -1,0 +1,399 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const stats = [
+  { number: '50+', label: 'AI Tools Tested' },
+  { number: '12K+', label: 'Community Members' },
+  { number: '$2M+', label: 'Member Earnings' },
+  { number: '16', label: 'Languages Supported' }
+];
+
+const values = [
+  {
+    icon: '🎯',
+    title: 'Practical Focus',
+    desc: 'We only recommend tools that actually help you make money, not just cool tech.'
+  },
+  {
+    icon: '💯',
+    title: 'Real Results',
+    desc: 'Every tutorial is tested by real people earning real income with these tools.'
+  },
+  {
+    icon: '🌍',
+    title: 'Global Access',
+    desc: 'Our platform supports 16 languages to help people worldwide access AI opportunities.'
+  },
+  {
+    icon: '🤝',
+    title: 'Community First',
+    desc: 'We believe in sharing knowledge and growing together as a community.'
+  }
+];
+
+const team = [
+  {
+    name: 'AIToolGuide Team',
+    role: 'Curators & Educators',
+    bio: 'A passionate team of AI enthusiasts, freelancers, and digital nomads who test and document the best ways to monetize AI tools.'
+  }
+];
+---
+
+<Layout title="About Us - AIToolGuide">
+  <div class="about-page">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="logo">
+            <span class="logo-icon">💰</span>
+            <span class="logo-text">AIToolGuide</span>
+          </a>
+          <div class="nav-actions">
+            <a href="/" class="back-link">← Back to Home</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="about-hero">
+      <div class="container">
+        <span class="hero-badge">🚀 Our Mission</span>
+        <h1>Helping People Earn with AI</h1>
+        <p>We believe AI should be a tool for financial freedom, not just a tech novelty. Our mission is to help 1 million people start earning with AI by 2030.</p>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          {stats.map(stat => (
+            <div class="stat-card">
+              <span class="stat-number">{stat.number}</span>
+              <span class="stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Story -->
+    <section class="story-section">
+      <div class="container">
+        <div class="story-content">
+          <h2>Our Story</h2>
+          <p>AIToolGuide started in 2025 when our founder realized that while everyone was talking about AI, few people knew how to actually make money with it.</p>
+          <p>We spent 6 months testing 50+ AI tools, trying every possible way to monetize them. Some worked, most didn't. But the ones that worked changed everything.</p>
+          <p>Today, we've helped thousands of people start their AI side hustles, from students paying tuition to parents working from home. Our community spans 100+ countries, all connected by one goal: using AI to create better lives.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="values-section">
+      <div class="container">
+        <h2>What We Believe</h2>
+        <div class="values-grid">
+          {values.map(value => (
+            <div class="value-card">
+              <span class="value-icon">{value.icon}</span>
+              <h3>{value.title}</h3>
+              <p>{value.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Join Our Journey</h2>
+        <p>Be part of the AI earning revolution</p>
+        <div class="cta-buttons">
+          <a href="/sign-up" class="btn btn-primary">Start Earning</a>
+          <a href="/faq" class="btn btn-secondary">Learn More</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>
+    .about-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+
+    /* Header */
+    .header {
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: white;
+    }
+
+    .logo-icon { font-size: 1.8rem; }
+    .logo-text {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-link {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover {
+      color: white;
+    }
+
+    /* Hero */
+    .about-hero {
+      padding: 80px 20px 40px;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .about-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .about-hero p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Stats */
+    .stats-section {
+      padding: 40px 20px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 32px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    /* Story */
+    .story-section {
+      padding: 60px 20px;
+      color: white;
+    }
+
+    .story-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .story-content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .story-content p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    /* Values */
+    .values-section {
+      padding: 60px 20px;
+      color: white;
+    }
+
+    .values-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .value-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .value-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .value-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .value-card p {
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .cta-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      margin-bottom: 32px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-hero h1 {
+        font-size: 1.75rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</Layout>

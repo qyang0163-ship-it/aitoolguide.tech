@@ -1,0 +1,370 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqs = [
+  {
+    question: 'What is AIToolGuide?',
+    answer: 'AIToolGuide is the #1 AI tools directory focused on helping people make money with AI. We curate the best AI tools and provide step-by-step tutorials on how to monetize them.'
+  },
+  {
+    question: 'How can I make money with AI tools?',
+    answer: 'There are many ways: freelance writing with ChatGPT, design services with Midjourney, video editing with Runway, coding with Copilot, and more. Each tool page has detailed monetization guides.'
+  },
+  {
+    question: 'Is it free to use AIToolGuide?',
+    answer: 'Yes! Browsing tools and reading basic guides is completely free. We also offer premium member content with exclusive tutorials and resources.'
+  },
+  {
+    question: 'Do I need technical skills?',
+    answer: 'Not at all! Many AI tools require zero technical background. Tools like ChatGPT, Midjourney, and Gamma are designed for beginners. We provide beginner-friendly tutorials for all skill levels.'
+  },
+  {
+    question: 'How much can I earn with AI tools?',
+    answer: 'Earnings vary by tool and effort. Beginners typically earn $500-$2,000/month, while experienced users can make $5,000-$30,000/month. Check our case studies for real examples.'
+  },
+  {
+    question: 'Which AI tool should I start with?',
+    answer: 'For beginners, we recommend ChatGPT (writing) or Gamma (presentations) as they have the lowest learning curve. For creative people, Midjourney is excellent for design work.'
+  },
+  {
+    question: 'How do I become a member?',
+    answer: 'Click "Sign In" and create a free account. Members get access to exclusive tutorials, case studies, and our private community of AI earners.'
+  },
+  {
+    question: 'Are the AI tools on your site free?',
+    answer: 'Most tools offer free tiers or trials. Some premium features require paid subscriptions. We clearly mark pricing and always recommend starting with free versions.'
+  },
+  {
+    question: 'Can I really make money as a beginner?',
+    answer: 'Absolutely! Many of our success stories come from complete beginners who started with zero experience. The key is choosing the right tool and following our step-by-step guides.'
+  },
+  {
+    question: 'How often is the tool list updated?',
+    answer: 'We update our Top 100 list monthly based on global traffic, user reviews, and earning potential. New tools are added weekly as we discover and test them.'
+  }
+];
+---
+
+<Layout title="FAQ - AIToolGuide">
+  <div class="faq-page">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="logo">
+            <span class="logo-icon">💰</span>
+            <span class="logo-text">AIToolGuide</span>
+          </a>
+          <div class="nav-actions">
+            <a href="/" class="back-link">← Back to Home</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- FAQ Hero -->
+    <section class="faq-hero">
+      <div class="container">
+        <span class="hero-badge">❓ FAQ</span>
+        <h1>Frequently Asked Questions</h1>
+        <p>Everything you need to know about making money with AI tools</p>
+      </div>
+    </section>
+
+    <!-- FAQ List -->
+    <section class="faq-content">
+      <div class="container">
+        <div class="faq-grid">
+          {faqs.map((faq, index) => (
+            <div class="faq-item" data-faq={index}>
+              <button class="faq-question" onclick={`toggleFaq(${index})`}>
+                <span class="faq-number">{String(index + 1).padStart(2, '0')}</span>
+                <span class="faq-text">{faq.question}</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer" id={`faq-answer-${index}`}>
+                <p>{faq.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- CTA -->
+        <div class="faq-cta">
+          <h2>Still have questions?</h2>
+          <p>Join our community or contact our support team</p>
+          <div class="cta-buttons">
+            <a href="/sign-up" class="btn btn-primary">Join Community</a>
+            <a href="mailto:support@aitoolguide.tech" class="btn btn-secondary">Contact Support</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    function toggleFaq(index) {
+      const answer = document.getElementById(`faq-answer-${index}`);
+      const item = document.querySelector(`[data-faq="${index}"]`);
+      const icon = item.querySelector('.faq-icon');
+      
+      if (answer.style.maxHeight) {
+        answer.style.maxHeight = null;
+        icon.textContent = '+';
+        item.classList.remove('active');
+      } else {
+        // Close others
+        document.querySelectorAll('.faq-answer').forEach(el => el.style.maxHeight = null);
+        document.querySelectorAll('.faq-icon').forEach(el => el.textContent = '+');
+        document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+        
+        // Open this one
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        icon.textContent = '−';
+        item.classList.add('active');
+      }
+    }
+  </script>
+
+  <style>
+    .faq-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+
+    /* Header */
+    .header {
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: white;
+    }
+
+    .logo-icon { font-size: 1.8rem; }
+    .logo-text {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-link {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover {
+      color: white;
+    }
+
+    /* Hero */
+    .faq-hero {
+      padding: 80px 20px 40px;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .faq-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .faq-hero p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* FAQ Content */
+    .faq-content {
+      padding: 40px 20px 80px;
+    }
+
+    .faq-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    .faq-item {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(102, 126, 234, 0.5);
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 24px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .faq-number {
+      font-size: 0.9rem;
+      color: #667eea;
+      font-weight: 700;
+      min-width: 30px;
+    }
+
+    .faq-text {
+      flex: 1;
+    }
+
+    .faq-icon {
+      font-size: 1.5rem;
+      color: #667eea;
+      transition: transform 0.3s;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .faq-answer p {
+      padding: 0 24px 24px 70px;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    /* CTA */
+    .faq-cta {
+      text-align: center;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      color: white;
+    }
+
+    .faq-cta h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .faq-cta p {
+      opacity: 0.8;
+      margin-bottom: 24px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .faq-hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .faq-question {
+        padding: 20px;
+        font-size: 1rem;
+      }
+
+      .faq-answer p {
+        padding: 0 20px 20px 60px;
+      }
+
+      .faq-number {
+        min-width: 25px;
+      }
+    }
+  </style>
+</Layout>
