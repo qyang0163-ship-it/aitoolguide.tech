@@ -240,5 +240,9 @@
   "startLearning": "开始学习",
   "getSupport": "获取支持",
   "comingSoonTitle": "即将推出",
-  "comingSoonMessage": "此功能正在开发中，敬请期待！"
+  "comingSoonMessage": "此功能正在开发中，敬请期待！",
+  "forgotPasswordTitle": "重置密码",
+  "forgotPasswordDesc": "输入您的邮箱地址，我们将发送重置密码链接给您。",
+  "sendResetLink": "发送重置链接",
+  "resetLinkSent": "密码重置链接已发送！请检查您的邮箱。"
 }

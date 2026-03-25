@@ -71,7 +71,7 @@ import Layout from '../layouts/Layout.astro';
                 <input type="checkbox" id="remember" name="remember" />
                 <span data-i18n="rememberMe">Remember me</span>
               </label>
-              <a href="#" class="forgot-link" data-i18n="forgotPassword">Forgot password?</a>
+              <a href="#" class="forgot-link" data-i18n="forgotPassword" onclick="showForgotPasswordModal(); return false;">Forgot password?</a>
             </div>
 
             <button type="submit" class="btn btn-urgent btn-large">
@@ -153,6 +153,28 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
     </section>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgot-password-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeForgotPasswordModal()">&times;</span>
+      <span class="modal-icon">🔐</span>
+      <h3 data-i18n="forgotPasswordTitle">Reset Your Password</h3>
+      <p data-i18n="forgotPasswordDesc">Enter your email address and we'll send you a link to reset your password.</p>
+      
+      <form id="forgot-password-form" class="modal-form">
+        <div class="form-group">
+          <input type="email" id="reset-email" placeholder="your@email.com" required />
+        </div>
+        <button type="submit" class="btn btn-primary" data-i18n="sendResetLink">Send Reset Link</button>
+      </form>
+      
+      <div id="reset-success" class="reset-success" style="display: none;">
+        <span class="success-icon">✅</span>
+        <p data-i18n="resetLinkSent">Password reset link sent! Check your email.</p>
+      </div>
+    </div>
   </div>
 
   <!-- Google Identity Services Script - Uncomment when OAuth is configured -->
@@ -503,6 +525,76 @@ import Layout from '../layouts/Layout.astro';
     font-size: 1.25rem;
   }
 
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+  }
+
+  .modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #64748b;
+  }
+
+  .modal-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .modal-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+  }
+
+  .modal-content p {
+    color: #64748b;
+    font-size: 1rem;
+    margin-bottom: 24px;
+  }
+
+  .modal-form {
+    margin-bottom: 16px;
+  }
+
+  .reset-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 16px;
+    color: #16a34a;
+  }
+
+  .success-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
   /* Responsive */
   @media (max-width: 480px) {
     .auth-box {
@@ -634,6 +726,53 @@ import Layout from '../layouts/Layout.astro';
   // Fallback Google button
   document.getElementById('google-signin-fallback').addEventListener('click', function() {
     showError('Google Sign In is temporarily unavailable. Please use email login.');
+  });
+
+  // Forgot Password Modal Functions
+  function showForgotPasswordModal() {
+    document.getElementById('forgot-password-modal').style.display = 'flex';
+  }
+
+  function closeForgotPasswordModal() {
+    document.getElementById('forgot-password-modal').style.display = 'none';
+  }
+
+  // Forgot Password Form Submission
+  document.getElementById('forgot-password-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('reset-email').value;
+    
+    // Check if user exists
+    const users = JSON.parse(localStorage.getItem('aitg_users') || '[]');
+    const user = users.find(u => u.email === email);
+    
+    if (!user) {
+      showError('No account found with this email address.');
+      return;
+    }
+    
+    // In a real app, this would send an email
+    // For demo, we'll just show success message
+    document.getElementById('forgot-password-form').style.display = 'none';
+    document.getElementById('reset-success').style.display = 'block';
+    
+    // Store reset token (demo only)
+    const resetToken = 'reset_' + Date.now();
+    localStorage.setItem('aitg_reset_' + email, JSON.stringify({
+      token: resetToken,
+      expires: Date.now() + 3600000 // 1 hour
+    }));
+    
+    console.log('Password reset link would be sent to:', email);
+    console.log('Reset token:', resetToken);
+  });
+
+  // Close modal when clicking outside
+  document.getElementById('forgot-password-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeForgotPasswordModal();
+    }
   });
 
   // Initialize language switcher for auth pages

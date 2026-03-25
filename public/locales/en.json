@@ -240,5 +240,9 @@
   "startLearning": "Start Learning",
   "getSupport": "Get Support",
   "comingSoonTitle": "Coming Soon",
-  "comingSoonMessage": "This feature is under development. Check back soon!"
+  "comingSoonMessage": "This feature is under development. Check back soon!",
+  "forgotPasswordTitle": "Reset Your Password",
+  "forgotPasswordDesc": "Enter your email address and we'll send you a link to reset your password.",
+  "sendResetLink": "Send Reset Link",
+  "resetLinkSent": "Password reset link sent! Check your email."
 }
