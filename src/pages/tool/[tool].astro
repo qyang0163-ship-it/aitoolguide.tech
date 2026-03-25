@@ -1,126 +1,76 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// 工具数据 - 支持多语言
+// Tool data - base info only, translations come from i18n
 const toolData = {
   'chatgpt': {
     name: 'ChatGPT',
     icon: '💬',
     color: '#10a37f',
-    category: 'AI Writing',
-    headline: 'Make Money with ChatGPT: 5 Proven Methods',
-    description: 'Use ChatGPT for copywriting, ghostwriting, and private orders. Earn $500+/month',
-    income: '$500-1,500/month',
-    difficulty: '⭐⭐',
-    timeToFirstIncome: '1-3 days',
+    categoryKey: 'catWriting',
     url: 'https://chat.openai.com'
   },
   'midjourney': {
     name: 'Midjourney',
     icon: '🎨',
     color: '#6366f1',
-    category: 'AI Art & Design',
-    headline: 'Midjourney Money Guide: From Zero to $2,100/month',
-    description: 'Generate stunning images. Take avatar customization and e-commerce design orders',
-    income: '$700-2,100/month',
-    difficulty: '⭐⭐⭐',
-    timeToFirstIncome: '3-7 days',
+    categoryKey: 'catArt',
     url: 'https://midjourney.com'
   },
   'claude': {
     name: 'Claude',
     icon: '🧠',
     color: '#d97757',
-    category: 'AI Writing',
-    headline: 'Make Money with Claude: Long-form Writing & Code Assistance',
-    description: 'Long-form writing, code assistance, knowledge product content production',
-    income: '$700-2,000/month',
-    difficulty: '⭐⭐',
-    timeToFirstIncome: '1-3 days',
+    categoryKey: 'catWriting',
     url: 'https://claude.ai'
   },
   'notion': {
     name: 'Notion AI',
     icon: '📝',
     color: '#000000',
-    category: 'Productivity',
-    headline: 'Notion AI Money Guide: Sell Templates & Courses',
-    description: 'Create templates to sell, build knowledge management courses',
-    income: '$300-1,000/month',
-    difficulty: '⭐',
-    timeToFirstIncome: '7-14 days',
+    categoryKey: 'catProductivity',
     url: 'https://notion.so/product/ai'
   },
   'runway': {
     name: 'Runway',
     icon: '🎬',
-    color: '#8b5cf6',
-    category: 'Video Editing',
-    headline: 'Runway Money Guide: AI Video Generation',
-    description: 'AI video generation. Take short video editing and ad production orders',
-    income: '$800-2,800/month',
-    difficulty: '⭐⭐⭐',
-    timeToFirstIncome: '3-7 days',
+    color: '#ec4899',
+    categoryKey: 'catVideo',
     url: 'https://runwayml.com'
   },
   'dalle3': {
     name: 'DALL-E 3',
     icon: '🖼️',
-    color: '#10a37f',
-    category: 'AI Art & Design',
-    headline: 'DALL-E 3 Money Guide: Quick Image Generation',
-    description: 'Quick image generation. Create stickers, illustrations, design assets',
-    income: '$400-1,100/month',
-    difficulty: '⭐⭐',
-    timeToFirstIncome: '1-3 days',
+    color: '#8b5cf6',
+    categoryKey: 'catArt',
     url: 'https://openai.com/dall-e-3'
   },
   'perplexity': {
     name: 'Perplexity',
     icon: '🔍',
-    color: '#1e3a5f',
-    category: 'AI Research',
-    headline: 'Perplexity Money Guide: Fast Research Services',
-    description: 'Fast research. Create industry reports, paid Q&A services',
-    income: '$300-700/month',
-    difficulty: '⭐',
-    timeToFirstIncome: '1-3 days',
+    color: '#10b981',
+    categoryKey: 'catResearch',
     url: 'https://perplexity.ai'
   },
   'copilot': {
     name: 'GitHub Copilot',
     icon: '💻',
-    color: '#6e40c9',
-    category: 'Code & Tech',
-    headline: 'GitHub Copilot Money Guide: Coding Efficiency',
-    description: 'Boost coding efficiency. Take outsourcing projects, tech consulting',
-    income: '$1,100-4,200/month',
-    difficulty: '⭐⭐⭐⭐',
-    timeToFirstIncome: '7-14 days',
+    color: '#6b7280',
+    categoryKey: 'catCode',
     url: 'https://github.com/features/copilot'
   },
   'gamma': {
     name: 'Gamma',
     icon: '📊',
     color: '#f59e0b',
-    category: 'Productivity',
-    headline: 'Gamma Money Guide: One-Click PPT Generation',
-    description: 'One-click PPT generation. Best tool for beginners to make money',
-    income: '$400-1,400/month',
-    difficulty: '⭐',
-    timeToFirstIncome: '1-3 days',
+    categoryKey: 'catProductivity',
     url: 'https://gamma.app'
   },
   'claude-code': {
     name: 'Claude Code',
     icon: '⚡',
-    color: '#d97757',
-    category: 'Code & Tech',
-    headline: 'Claude Code Money Guide: Automation Development',
-    description: 'Development of automation scripts and efficiency tools',
-    income: '$1,400-7,000/month',
-    difficulty: '⭐⭐⭐⭐',
-    timeToFirstIncome: '7-14 days',
+    color: '#dc2626',
+    categoryKey: 'catCode',
     url: 'https://claude.ai/claude-code'
   }
 };
@@ -136,9 +86,9 @@ const { tool } = Astro.params;
 const data = toolData[tool] || toolData['chatgpt'];
 ---
 
-<Layout title={`${data.name} Money Guide - ${data.headline}`}>
-  <div class="urgency-banner">
-    🔥 Limited: First 100 users get the '{data.name} Money Toolkit' + Exclusive Freelance Channels
+<Layout title={`${data.name} - AI Money Guide`}>
+  <div class="urgency-banner" data-i18n="toolPageUrgency">
+    🔥 Limited: First 100 users get exclusive toolkit
   </div>
 
   <header class="header">
@@ -149,11 +99,13 @@ const data = toolData[tool] || toolData['chatgpt'];
           <span class="logo-text">AIToolGuide</span>
         </a>
         <div class="nav-links">
-          <a href="/#tools">Tools</a>
-          <a href="/#methods">Methods</a>
-          <a href="/#stories">Stories</a>
+          <a href="/#tools" data-i18n="navTools">Tools</a>
+          <a href="/#methods" data-i18n="navMethods">Methods</a>
+          <a href="/#stories" data-i18n="navStories">Stories</a>
         </div>
-        <a href={data.url} target="_blank" class="btn btn-primary btn-small">Try {data.name} Free →</a>
+        <a href={data.url} target="_blank" class="btn btn-primary btn-small">
+          <span data-i18n="tryFree">Try Free</span> →
+        </a>
       </nav>
     </div>
   </header>
@@ -162,29 +114,31 @@ const data = toolData[tool] || toolData['chatgpt'];
     <div class="container">
       <div class="tool-badge" style={`background: ${data.color}20; color: ${data.color}`}>
         <span class="tool-icon-large">{data.icon}</span>
-        <span>{data.category}</span>
+        <span data-i18n={data.categoryKey}>{data.categoryKey}</span>
       </div>
-      <h1 class="hero-title">{data.headline}</h1>
-      <p class="hero-description">{data.description}</p>
+      <h1 class="hero-title" data-i18n={`toolHeadline_${tool}`}>Make Money with {data.name}</h1>
+      <p class="hero-description" data-i18n={`toolDesc_${tool}`}>Tool description loading...</p>
       
       <div class="hero-stats">
         <div class="stat-card">
-          <span class="stat-value">{data.income}</span>
-          <span class="stat-label">Expected Income</span>
+          <span class="stat-value" data-i18n={`toolIncome_${tool}`}>$500-1,500/month</span>
+          <span class="stat-label" data-i18n="toolPageIncomeLabel">Expected Income</span>
         </div>
         <div class="stat-card">
-          <span class="stat-value">{data.difficulty}</span>
-          <span class="stat-label">Difficulty</span>
+          <span class="stat-value" data-i18n={`toolDifficulty_${tool}`}>⭐⭐</span>
+          <span class="stat-label" data-i18n="toolPageDifficultyLabel">Difficulty</span>
         </div>
         <div class="stat-card">
-          <span class="stat-value">{data.timeToFirstIncome}</span>
-          <span class="stat-label">First Income</span>
+          <span class="stat-value" data-i18n={`toolTime_${tool}`}>1-3 days</span>
+          <span class="stat-label" data-i18n="toolPageTimeLabel">First Income</span>
         </div>
       </div>
       
       <div class="hero-actions">
-        <a href={data.url} target="_blank" class="btn btn-urgent btn-large">🔥 Try {data.name} Free Now</a>
-        <a href="/" class="btn btn-primary btn-large">💎 View All Tools</a>
+        <a href={data.url} target="_blank" class="btn btn-urgent btn-large">
+          <span data-i18n="toolPageTryFree">🔥 Try Free Now</span>
+        </a>
+        <a href="/" class="btn btn-primary btn-large" data-i18n="toolPageViewAll">💎 View All Tools</a>
       </div>
     </div>
   </section>
@@ -192,16 +146,27 @@ const data = toolData[tool] || toolData['chatgpt'];
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">📖 Tutorial</span>
-        <h2 class="section-title">Complete Money Making Guide</h2>
-        <p class="section-description">Step-by-step tutorial coming soon. Join our community for early access!</p>
+        <span class="section-badge" data-i18n="toolPageTutorialBadge">📖 Tutorial</span>
+        <h2 class="section-title" data-i18n="toolPageTutorialTitle">Complete Money Making Guide</h2>
+        <p class="section-description" data-i18n="toolPageTutorialDesc">Step-by-step methods to monetize this tool</p>
       </div>
-      
-      <div class="coming-soon">
-        <div class="coming-soon-icon">🚀</div>
-        <h3>Detailed Tutorial Coming Soon</h3>
-        <p>We're preparing a comprehensive guide with real case studies and income proof.</p>
-        <a href="/" class="btn btn-primary btn-large">🔥 Explore Other Tools</a>
+
+      <div class="methods-grid">
+        <div class="method-card">
+          <div class="method-number">1</div>
+          <h3 data-i18n="toolPageMethod1Title">Method 1: Freelance Services</h3>
+          <p data-i18n="toolPageMethod1Desc">Offer your skills on Upwork, Fiverr, and Freelancer</p>
+        </div>
+        <div class="method-card">
+          <div class="method-number">2</div>
+          <h3 data-i18n="toolPageMethod2Title">Method 2: Content Creation</h3>
+          <p data-i18n="toolPageMethod2Desc">Create YouTube videos, blog posts, and social media content</p>
+        </div>
+        <div class="method-card">
+          <div class="method-number">3</div>
+          <h3 data-i18n="toolPageMethod3Title">Method 3: Digital Products</h3>
+          <p data-i18n="toolPageMethod3Desc">Sell templates, courses, and digital assets</p>
+        </div>
       </div>
     </div>
   </section>
@@ -209,15 +174,16 @@ const data = toolData[tool] || toolData['chatgpt'];
   <section class="cta">
     <div class="container">
       <div class="cta-content">
-        <span class="cta-badge">🎁 Limited Offer</span>
-        <h2 class="cta-title">Ready to make money with {data.name}?</h2>
-        <p class="cta-description">
-          Start today and get ahead of the competition!<br>
-          First 100 users receive exclusive money-making toolkit
+        <span class="cta-badge" data-i18n="toolPageCtaBadge">🎁 Limited Offer</span>
+        <h2 class="cta-title" data-i18n="toolPageCtaTitle">Ready to start earning?</h2>
+        <p class="cta-description" data-i18n="toolPageCtaDesc">
+          Join thousands already making money with AI tools
         </p>
         <div class="cta-actions">
-          <a href={data.url} target="_blank" class="btn btn-urgent btn-large">🔥 Start Earning Now (Free)</a>
-          <a href="/" class="btn btn-primary btn-large">💎 View All Tools</a>
+          <a href={data.url} target="_blank" class="btn btn-urgent btn-large">
+            <span data-i18n="toolPageTryFree">🔥 Start Earning Now (Free)</span>
+          </a>
+          <a href="/" class="btn btn-primary btn-large" data-i18n="toolPageViewAll">💎 View All Tools</a>
         </div>
       </div>
     </div>
@@ -303,12 +269,12 @@ const data = toolData[tool] || toolData['chatgpt'];
   .btn-large { padding: 18px 36px; font-size: 1.1rem; }
   
   .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
   }
   
   .btn-urgent {
-    background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+    background: linear-gradient(135deg, #f093fb, #f5576c);
     color: white;
     animation: pulse 2s infinite;
   }
@@ -319,41 +285,42 @@ const data = toolData[tool] || toolData['chatgpt'];
   }
   
   .hero {
-    padding: 140px 0 80px;
+    padding: 140px 20px 80px;
     text-align: center;
   }
   
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
   }
   
   .tool-badge {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
+    gap: 8px;
+    padding: 10px 20px;
     border-radius: 30px;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 24px;
   }
   
-  .tool-icon-large { font-size: 2rem; }
+  .tool-icon-large { font-size: 1.5rem; }
   
   .hero-title {
-    font-size: 2.8rem;
+    font-size: 3rem;
     font-weight: 800;
-    line-height: 1.3;
     margin-bottom: 20px;
-    color: #111827;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
   .hero-description {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: #6b7280;
-    max-width: 700px;
+    max-width: 600px;
     margin: 0 auto 40px;
+    line-height: 1.6;
   }
   
   .hero-stats {
@@ -365,139 +332,149 @@ const data = toolData[tool] || toolData['chatgpt'];
   }
   
   .stat-card {
-    background: white;
-    padding: 24px 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     text-align: center;
   }
   
   .stat-value {
     display: block;
     font-size: 1.5rem;
-    font-weight: 800;
-    color: #667eea;
-    margin-bottom: 8px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
   }
   
   .stat-label {
-    color: #6b7280;
     font-size: 0.9rem;
+    color: #6b7280;
   }
   
   .hero-actions {
     display: flex;
-    gap: 16px;
     justify-content: center;
+    gap: 16px;
     flex-wrap: wrap;
   }
   
   .section {
-    padding: 80px 0;
+    padding: 80px 20px;
+    background: #f8fafc;
   }
   
   .section-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 48px;
   }
   
   .section-badge {
     display: inline-block;
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    font-weight: 700;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #667eea20, #764ba220);
+    color: #667eea;
+    font-weight: 600;
     font-size: 0.9rem;
     border-radius: 20px;
     margin-bottom: 16px;
   }
   
   .section-title {
-    font-size: 2.2rem;
-    font-weight: 800;
+    font-size: 2.5rem;
+    font-weight: 700;
     margin-bottom: 12px;
-    color: #111827;
+    color: #1a1a2e;
   }
   
   .section-description {
     font-size: 1.1rem;
     color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
   }
   
-  .coming-soon {
+  .methods-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .method-card {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     text-align: center;
-    padding: 60px;
-    background: #f9fafb;
-    border-radius: 20px;
   }
   
-  .coming-soon-icon {
-    font-size: 4rem;
-    margin-bottom: 20px;
+  .method-number {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
   }
   
-  .coming-soon h3 {
-    font-size: 1.8rem;
+  .method-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
     margin-bottom: 12px;
-    color: #111827;
+    color: #1a1a2e;
   }
   
-  .coming-soon p {
+  .method-card p {
     color: #6b7280;
-    margin-bottom: 30px;
+    line-height: 1.6;
   }
   
   .cta {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
     text-align: center;
-  }
-  
-  .cta-content {
-    max-width: 700px;
-    margin: 0 auto;
   }
   
   .cta-badge {
     display: inline-block;
-    padding: 10px 24px;
-    background: linear-gradient(135deg, #f59e0b, #ef4444);
-    color: white;
-    font-weight: 700;
-    font-size: 1rem;
-    border-radius: 30px;
-    margin-bottom: 24px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fbbf24;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    margin-bottom: 16px;
   }
   
   .cta-title {
     font-size: 2.5rem;
-    font-weight: 800;
-    color: white;
-    margin-bottom: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
   }
   
   .cta-description {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 40px;
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 32px;
   }
   
   .cta-actions {
     display: flex;
-    gap: 16px;
     justify-content: center;
+    gap: 16px;
     flex-wrap: wrap;
   }
   
   @media (max-width: 768px) {
-    .hero { padding: 120px 0 60px; }
     .hero-title { font-size: 2rem; }
-    .hero-stats { flex-direction: column; align-items: center; }
-    .hero-actions { flex-direction: column; align-items: center; }
-    .hero-actions .btn { width: 100%; max-width: 320px; }
-    .nav-links { display: none; }
-    .cta-title { font-size: 1.8rem; }
-    .cta-actions { flex-direction: column; align-items: center; }
-    .cta-actions .btn { width: 100%; max-width: 320px; }
+    .section-title { font-size: 1.75rem; }
+    .cta-title { font-size: 1.75rem; }
+    .hero-stats { gap: 24px; }
+    .methods-grid { grid-template-columns: 1fr; }
   }
 </style>
