@@ -6,7 +6,7 @@ export const toolData = [
     name: "ChatGPT",
     icon: "💬",
     color: "#10a37f",
-    url: "https://chat.openai.com/?ref=aitoolguide",
+    url: "/go/chatgpt",
     incomeRange: { min: 3000, max: 8000 },
     difficulty: 2,
     category: "writing"
@@ -16,7 +16,7 @@ export const toolData = [
     name: "Midjourney",
     icon: "🎨",
     color: "#6366f1",
-    url: "https://midjourney.com/?ref=aitoolguide",
+    url: "/go/midjourney",
     incomeRange: { min: 5000, max: 15000 },
     difficulty: 3,
     category: "art"
@@ -26,7 +26,7 @@ export const toolData = [
     name: "Claude",
     icon: "🧠",
     color: "#d97706",
-    url: "https://claude.ai/?ref=aitoolguide",
+    url: "/go/claude",
     incomeRange: { min: 4000, max: 10000 },
     difficulty: 2,
     category: "writing"
@@ -36,7 +36,7 @@ export const toolData = [
     name: "Notion AI",
     icon: "📝",
     color: "#000000",
-    url: "https://notion.so/product/ai?ref=aitoolguide",
+    url: "/go/notion",
     incomeRange: { min: 2000, max: 6000 },
     difficulty: 1,
     category: "productivity"
@@ -46,7 +46,7 @@ export const toolData = [
     name: "Runway",
     icon: "🎬",
     color: "#ec4899",
-    url: "https://runwayml.com/?ref=aitoolguide",
+    url: "/go/runway",
     incomeRange: { min: 6000, max: 20000 },
     difficulty: 3,
     category: "video"
@@ -56,7 +56,7 @@ export const toolData = [
     name: "DALL-E 3",
     icon: "🖼️",
     color: "#8b5cf6",
-    url: "https://openai.com/dall-e-3?ref=aitoolguide",
+    url: "/go/dalle3",
     incomeRange: { min: 3000, max: 8000 },
     difficulty: 2,
     category: "art"
@@ -66,7 +66,7 @@ export const toolData = [
     name: "Perplexity",
     icon: "🔍",
     color: "#10b981",
-    url: "https://perplexity.ai/?ref=aitoolguide",
+    url: "/go/perplexity",
     incomeRange: { min: 2000, max: 5000 },
     difficulty: 1,
     category: "research"
@@ -76,7 +76,7 @@ export const toolData = [
     name: "GitHub Copilot",
     icon: "💻",
     color: "#6b7280",
-    url: "https://github.com/features/copilot?ref=aitoolguide",
+    url: "/go/copilot",
     incomeRange: { min: 8000, max: 30000 },
     difficulty: 4,
     category: "code"
@@ -86,7 +86,7 @@ export const toolData = [
     name: "Gamma",
     icon: "📊",
     color: "#f59e0b",
-    url: "https://gamma.app/?ref=aitoolguide",
+    url: "/go/gamma",
     incomeRange: { min: 3000, max: 10000 },
     difficulty: 1,
     category: "productivity"
@@ -96,7 +96,7 @@ export const toolData = [
     name: "Claude Code",
     icon: "⚡",
     color: "#dc2626",
-    url: "https://claude.ai/claude-code?ref=aitoolguide",
+    url: "/go/claude-code",
     incomeRange: { min: 10000, max: 50000 },
     difficulty: 4,
     category: "code"

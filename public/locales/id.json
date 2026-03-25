@@ -149,5 +149,15 @@
   "toolPageTryFree": "🔥 Coba Gratis Sekarang",
   "toolPageViewAll": "💎 Lihat Semua Alat",
   "toolPageBack": "← Kembali ke Alat",
-  "toolPageUrgency": "🔥 Terbatas: 100 pengguna pertama dapat toolkit eksklusif"
+  "toolPageUrgency": "🔥 Terbatas: 100 pengguna pertama dapat toolkit eksklusif",
+  "method_chatgpt": "Copywriting dan Ghostwriting",
+  "method_midjourney": "Seni AI dan Layanan Desain",
+  "method_claude": "Penulisan Panjang dan Kode",
+  "method_notion": "Template dan Kursus",
+  "method_runway": "Editing dan Produksi Video",
+  "method_dalle3": "Generasi Gambar dan Desain",
+  "method_perplexity": "Riset dan Laporan",
+  "method_copilot": "Pengembangan dan Konsultasi",
+  "method_gamma": "Desain Presentasi",
+  "method_claudecode": "Otomatisasi dan Script"
 }

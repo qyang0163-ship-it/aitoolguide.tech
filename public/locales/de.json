@@ -149,5 +149,15 @@
   "toolPageTryFree": "🔥 Jetzt Kostenlos Testen",
   "toolPageViewAll": "💎 Alle Tools Ansehen",
   "toolPageBack": "← Zurück zu Tools",
-  "toolPageUrgency": "🔥 Limitiert: Erste 100 erhalten exklusives Toolkit"
+  "toolPageUrgency": "🔥 Limitiert: Erste 100 erhalten exklusives Toolkit",
+  "method_chatgpt": "Copywriting und Ghostwriting",
+  "method_midjourney": "KI-Kunst und Design-Services",
+  "method_claude": "Langform und Code",
+  "method_notion": "Vorlagen und Kurse",
+  "method_runway": "Video-Bearbeitung und Produktion",
+  "method_dalle3": "Bildgenerierung und Design",
+  "method_perplexity": "Recherche und Berichte",
+  "method_copilot": "Entwicklung und Beratung",
+  "method_gamma": "Präsentationsdesign",
+  "method_claudecode": "Automatisierung und Skripte"
 }

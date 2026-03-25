@@ -149,5 +149,15 @@
   "toolPageTryFree": "🔥 ทดลองฟรีทันที",
   "toolPageViewAll": "💎 ดูเครื่องมือทั้งหมด",
   "toolPageBack": "← กลับไปที่เครื่องมือ",
-  "toolPageUrgency": "🔥 จำกัด: 100 คนแรกรับ toolkit พิเศษ"
+  "toolPageUrgency": "🔥 จำกัด: 100 คนแรกรับ toolkit พิเศษ",
+  "method_chatgpt": "การเขียนคำโฆษณาและการเขียนแทน",
+  "method_midjourney": "ศิลปะ AI และบริการออกแบบ",
+  "method_claude": "การเขียนบทความยาวและโค้ด",
+  "method_notion": "เทมเพลตและคอร์ส",
+  "method_runway": "การตัดต่อและผลิตวิดีโอ",
+  "method_dalle3": "การสร้างภาพและการออกแบบ",
+  "method_perplexity": "การวิจัยและรายงาน",
+  "method_copilot": "การพัฒนาและให้คำปรึกษา",
+  "method_gamma": "การออกแบบงานนำเสนอ",
+  "method_claudecode": "การทำงานอัตโนมัติและสคริปต์"
 }

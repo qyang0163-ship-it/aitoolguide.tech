@@ -149,5 +149,15 @@
   "toolPageTryFree": "🔥 지금 무료로 체험",
   "toolPageViewAll": "💎 모든 도구 보기",
   "toolPageBack": "← 도구 목록으로 돌아가기",
-  "toolPageUrgency": "🔥 한정: 선착순 100명에게 전용 툴킷 제공"
+  "toolPageUrgency": "🔥 한정: 선착순 100명에게 전용 툴킷 제공",
+  "method_chatgpt": "카피라이팅 및 대필",
+  "method_midjourney": "AI 아트 및 디자인 서비스",
+  "method_claude": "장문 작성 및 코드",
+  "method_notion": "템플릿 및 코스",
+  "method_runway": "영상 편집 및 제작",
+  "method_dalle3": "이미지 생성 및 디자인",
+  "method_perplexity": "리서치 및 보고서",
+  "method_copilot": "개발 및 컨설팅",
+  "method_gamma": "프레젠테이션 디자인",
+  "method_claudecode": "자동화 및 스크립트"
 }

@@ -149,5 +149,15 @@
   "toolPageTryFree": "🔥 Dùng Thử Miễn Phí Ngay",
   "toolPageViewAll": "💎 Xem Tất Cả Công Cụ",
   "toolPageBack": "← Quay Lại Công Cụ",
-  "toolPageUrgency": "🔥 Giới hạn: 100 người đầu tiên nhận toolkit độc quyền"
+  "toolPageUrgency": "🔥 Giới hạn: 100 người đầu tiên nhận toolkit độc quyền",
+  "method_chatgpt": "Viết quảng cáo và Viết thuê",
+  "method_midjourney": "Nghệ thuật AI và Dịch vụ Thiết kế",
+  "method_claude": "Viết dài hạn và Code",
+  "method_notion": "Mẫu và Khóa học",
+  "method_runway": "Chỉnh sửa và Sản xuất Video",
+  "method_dalle3": "Tạo hình ảnh và Thiết kế",
+  "method_perplexity": "Nghiên cứu và Báo cáo",
+  "method_copilot": "Phát triển và Tư vấn",
+  "method_gamma": "Thiết kế Thuyết trình",
+  "method_claudecode": "Tự động hóa và Script"
 }

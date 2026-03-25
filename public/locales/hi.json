@@ -149,5 +149,15 @@
   "toolPageTryFree": "🔥 अभी मुफ्त आजमाएं",
   "toolPageViewAll": "💎 सभी टूल देखें",
   "toolPageBack": "← टूल पर वापस जाएं",
-  "toolPageUrgency": "🔥 सीमित: पहले 100 उपयोगकर्ताओं को विशेष toolkit"
+  "toolPageUrgency": "🔥 सीमित: पहले 100 उपयोगकर्ताओं को विशेष toolkit",
+  "method_chatgpt": "कॉपीराइटिंग और गोस्टराइटिंग",
+  "method_midjourney": "AI कला और डिजाइन सेवाएं",
+  "method_claude": "लंबी लेखन और कोड",
+  "method_notion": "टेम्पलेट और कोर्स",
+  "method_runway": "वीडियो एडिटिंग और प्रोडक्शन",
+  "method_dalle3": "इमेज जनरेशन और डिजाइन",
+  "method_perplexity": "रिसर्च और रिपोर्ट्स",
+  "method_copilot": "डेवलपमेंट और कंसल्टिंग",
+  "method_gamma": "प्रेजेंटेशन डिजाइन",
+  "method_claudecode": "ऑटोमेशन और स्क्रिप्टिंग"
 }

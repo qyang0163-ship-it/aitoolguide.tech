@@ -189,5 +189,15 @@
   "toolHeadline_claudecode": "Claude Code：自動化與開發",
   "toolIncome_claudecode": "NT$44,000-154,000/月",
   "toolDifficulty_claudecode": "⭐⭐⭐⭐",
-  "toolTime_claudecode": "7-21天"
+  "toolTime_claudecode": "7-21天",
+  "method_chatgpt": "文案代寫與代筆",
+  "method_midjourney": "AI繪畫與設計服務",
+  "method_claude": "長文寫作與代碼",
+  "method_notion": "模板與課程",
+  "method_runway": "影片剪輯與製作",
+  "method_dalle3": "圖像生成與設計",
+  "method_perplexity": "調研與報告",
+  "method_copilot": "開發與諮詢",
+  "method_gamma": "演示文稿設計",
+  "method_claudecode": "自動化與腳本"
 }

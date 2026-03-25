@@ -189,5 +189,15 @@
   "toolHeadline_claudecode": "Claude Code：自動化と開発",
   "toolIncome_claudecode": "¥300,000-1,000,000/月",
   "toolDifficulty_claudecode": "⭐⭐⭐⭐",
-  "toolTime_claudecode": "7-21日"
+  "toolTime_claudecode": "7-21日",
+  "method_chatgpt": "コピーライティング＆代筆",
+  "method_midjourney": "AIアート＆デザインサービス",
+  "method_claude": "長文作成＆コード",
+  "method_notion": "テンプレート＆コース",
+  "method_runway": "動画編集＆制作",
+  "method_dalle3": "画像生成＆デザイン",
+  "method_perplexity": "調査＆レポート",
+  "method_copilot": "開発＆コンサルティング",
+  "method_gamma": "プレゼンテーション設計",
+  "method_claudecode": "自動化＆スクリプト"
 }

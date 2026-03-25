@@ -212,6 +212,42 @@
       }
     }
     
+    // 3. Currency conversion for income badges (¥ to $ for English, etc.)
+    // Exchange rate: 1 USD = 7 CNY
+    var incomeEls = document.querySelectorAll('[data-income-min][data-income-max]');
+    for (var j = 0; j < incomeEls.length; j++) {
+      var el = incomeEls[j];
+      var min = parseInt(el.getAttribute('data-income-min'));
+      var max = parseInt(el.getAttribute('data-income-max'));
+      
+      // Define currency settings per locale
+      var currencySettings = {
+        'en': { symbol: '$', rate: 1 / 7, divisor: 1 },
+        'zh-CN': { symbol: '¥', rate: 1, divisor: 1 },
+        'zh-TW': { symbol: 'NT$', rate: 4.5, divisor: 1 },
+        'ja': { symbol: '¥', rate: 20, divisor: 1000 },
+        'ko': { symbol: '₩', rate: 180, divisor: 10000 },
+        'es': { symbol: '€', rate: 1 / 7.5, divisor: 1 },
+        'fr': { symbol: '€', rate: 1 / 7.5, divisor: 1 },
+        'de': { symbol: '€', rate: 1 / 7.5, divisor: 1 },
+        'pt': { symbol: 'R$', rate: 0.7, divisor: 1 },
+        'ru': { symbol: '₽', rate: 12, divisor: 1000 },
+        'ar': { symbol: '$', rate: 1 / 7, divisor: 1 },
+        'hi': { symbol: '₹', rate: 12, divisor: 1 },
+        'th': { symbol: '฿', rate: 5, divisor: 1 },
+        'tr': { symbol: '₺', rate: 4, divisor: 1 },
+        'vi': { symbol: '₫', rate: 3500, divisor: 1000000 },
+        'id': { symbol: 'Rp', rate: 2200, divisor: 1000000 }
+      };
+      
+      var settings = currencySettings[currentLang] || currencySettings['en'];
+      var convertedMin = Math.round(min * settings.rate / settings.divisor);
+      var convertedMax = Math.round(max * settings.rate / settings.divisor);
+      
+      var suffix = settings.divisor >= 1000000 ? 'M' : settings.divisor >= 1000 ? 'K' : '';
+      el.textContent = settings.symbol + convertedMin + '-' + convertedMax + suffix + '/month';
+    }
+    
     // Update meta description
     var meta = document.querySelector('meta[name="description"]');
     if (meta && t.heroDesc) meta.setAttribute('content', t.heroDesc);

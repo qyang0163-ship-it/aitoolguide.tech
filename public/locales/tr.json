@@ -149,5 +149,15 @@
   "toolPageTryFree": "🔥 Hemen Ücretsiz Dene",
   "toolPageViewAll": "💎 Tüm Araçları Gör",
   "toolPageBack": "← Araçlara Dön",
-  "toolPageUrgency": "🔥 Sınırlı: İlk 100 kullanıcıya özel toolkit"
+  "toolPageUrgency": "🔥 Sınırlı: İlk 100 kullanıcıya özel toolkit",
+  "method_chatgpt": "Metin Yazarlığı ve Ghostwriting",
+  "method_midjourney": "AI Sanatı ve Tasarım Hizmetleri",
+  "method_claude": "Uzun Form Yazım ve Kod",
+  "method_notion": "Şablonlar ve Kurslar",
+  "method_runway": "Video Düzenleme ve Prodüksiyon",
+  "method_dalle3": "Görüntü Oluşturma ve Tasarım",
+  "method_perplexity": "Araştırma ve Raporlar",
+  "method_copilot": "Geliştirme ve Danışmanlık",
+  "method_gamma": "Sunum Tasarımı",
+  "method_claudecode": "Otomasyon ve Scriptler"
 }

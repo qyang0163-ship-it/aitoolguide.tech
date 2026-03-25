@@ -149,5 +149,15 @@
   "toolPageTryFree": "🔥 جرب مجاناً الآن",
   "toolPageViewAll": "💎 عرض جميع الأدوات",
   "toolPageBack": "← العودة إلى الأدوات",
-  "toolPageUrgency": "🔥 محدود: أول 100 مستخدم يحصلون على toolkit حصرية"
+  "toolPageUrgency": "🔥 محدود: أول 100 مستخدم يحصلون على toolkit حصرية",
+  "method_chatgpt": "كتابة الإعلانات والكتابة بالنيابة",
+  "method_midjourney": "فن الذكاء الاصطناعي وخدمات التصميم",
+  "method_claude": "الكتابة الطويلة والبرمجة",
+  "method_notion": "القوالب والدورات",
+  "method_runway": "تحرير وإنتاج الفيديو",
+  "method_dalle3": "توليد الصور والتصميم",
+  "method_perplexity": "البحث والتقارير",
+  "method_copilot": "التطوير والاستشارات",
+  "method_gamma": "تصميم العروض التقديمية",
+  "method_claudecode": "الأتمتة والسكربتات"
 }

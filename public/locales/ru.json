@@ -149,5 +149,15 @@
   "toolPageTryFree": "🔥 Попробовать Бесплатно",
   "toolPageViewAll": "💎 Смотреть Все Инструменты",
   "toolPageBack": "← Назад к Инструментам",
-  "toolPageUrgency": "🔥 Ограничено: Первые 100 получат эксклюзивный toolkit"
+  "toolPageUrgency": "🔥 Ограничено: Первые 100 получат эксклюзивный toolkit",
+  "method_chatgpt": "Копирайтинг и Гострайтинг",
+  "method_midjourney": "ИИ-Арт и Дизайн-услуги",
+  "method_claude": "Длинные тексты и Код",
+  "method_notion": "Шаблоны и Курсы",
+  "method_runway": "Монтаж и Производство видео",
+  "method_dalle3": "Генерация изображений и Дизайн",
+  "method_perplexity": "Исследования и Отчеты",
+  "method_copilot": "Разработка и Консалтинг",
+  "method_gamma": "Дизайн презентаций",
+  "method_claudecode": "Автоматизация и Скрипты"
 }
