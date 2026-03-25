@@ -12,7 +12,10 @@ import Layout from '../layouts/Layout.astro';
             <span class="logo-icon">💰</span>
             <span class="logo-text">AIToolGuide</span>
           </a>
-          <a href="/" class="back-link">← Back to Home</a>
+          <div class="nav-actions">
+            <a href="/" class="back-link">← Back to Home</a>
+            <!-- Language switcher will be inserted here -->
+          </div>
         </nav>
       </div>
     </header>
@@ -165,6 +168,16 @@ import Layout from '../layouts/Layout.astro';
 
   .back-link:hover {
     color: white;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #aitg-lang-switcher {
+    margin-left: 8px;
   }
 
   /* Auth Section */

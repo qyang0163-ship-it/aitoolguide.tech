@@ -178,9 +178,14 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
                   <span class="partner-badge" data-i18n="partnerPerks">🎁 Official Partner Perks</span>
                 </>
               ) : (
-                <a href={tool.url} class="btn btn-urgent" data-track={`tool_${tool.id}_unlock`}>
-                  <span data-i18n={tool.ctaKey}>{tool.ctaDefault}</span>
-                </a>
+                <>
+                  <a href="/sign-in" class="btn btn-urgent tool-login-link" data-tool-url={tool.url} data-track={`tool_${tool.id}_unlock`}>
+                    <span data-i18n={tool.ctaKey}>{tool.ctaDefault}</span>
+                  </a>
+                  <a href={tool.url} target="_blank" class="btn btn-urgent tool-visit-link" style="display: none;" data-track={`tool_${tool.id}_try`}>
+                    <span data-i18n="tryFree">🚀 Try Free Now</span>
+                  </a>
+                </>
               )}
               <a href={`/tool/${tool.id}/`} class="btn btn-secondary" data-i18n="viewTutorial" data-track={`tool_${tool.id}_tutorial`}>
                 📖 View Tutorial
@@ -480,6 +485,41 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
       alert('👋 You have been signed out.');
       window.location.reload();
     }
+
+    // Update tool buttons based on login status
+    function updateToolButtons() {
+      const currentUser = localStorage.getItem('aitg_current_user');
+      const isLoggedIn = !!currentUser;
+      
+      document.querySelectorAll('.tool-actions').forEach(actions => {
+        const loginLink = actions.querySelector('.tool-login-link');
+        const visitLink = actions.querySelector('.tool-visit-link');
+        
+        if (loginLink && visitLink) {
+          if (isLoggedIn) {
+            loginLink.style.display = 'none';
+            visitLink.style.display = 'inline-flex';
+          } else {
+            loginLink.style.display = 'inline-flex';
+            visitLink.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      updateDynamicContent();
+      checkUserStatus();
+      updateToolButtons();
+    });
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'aitg_lang') updateDynamicContent();
+      if (e.key === 'aitg_current_user') {
+        checkUserStatus();
+        updateToolButtons();
+      }
+    });
   </script>
 </Layout>
 
