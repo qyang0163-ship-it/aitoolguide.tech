@@ -1,36 +1,91 @@
 // Tool data with i18n keys - NO hardcoded Chinese
 // All display text uses translation keys
+// 
+// TIER STRATEGY:
+// - tier1 (commission): Notion, Runway, Gamma, Perplexity → /go/xxx + partner badge
+// - tier2 (private): ChatGPT, Midjourney, Claude, Copilot, DALL-E 3, Claude Code → /sign-in
+
 export const toolData = [
+  // ========== TIER 2: Private Domain (Auth Required) ==========
   {
     id: "chatgpt",
     name: "ChatGPT",
     icon: "💬",
     color: "#10a37f",
-    url: "/go/chatgpt",
+    url: "/sign-in",
     incomeRange: { min: 3000, max: 8000 },
     difficulty: 2,
-    category: "writing"
+    category: "writing",
+    tier: "private",
+    ctaKey: "unlockGuide",
+    ctaDefault: "🔥 Unlock Earning Guide"
   },
   {
     id: "midjourney",
     name: "Midjourney",
     icon: "🎨",
     color: "#6366f1",
-    url: "/go/midjourney",
+    url: "/sign-in",
     incomeRange: { min: 5000, max: 15000 },
     difficulty: 3,
-    category: "art"
+    category: "art",
+    tier: "private",
+    ctaKey: "unlockGuide",
+    ctaDefault: "🔥 Unlock Earning Guide"
   },
   {
     id: "claude",
     name: "Claude",
     icon: "🧠",
     color: "#d97706",
-    url: "/go/claude",
+    url: "/sign-in",
     incomeRange: { min: 4000, max: 10000 },
     difficulty: 2,
-    category: "writing"
+    category: "writing",
+    tier: "private",
+    ctaKey: "unlockGuide",
+    ctaDefault: "🔥 Unlock Earning Guide"
   },
+  {
+    id: "copilot",
+    name: "GitHub Copilot",
+    icon: "💻",
+    color: "#6b7280",
+    url: "/sign-in",
+    incomeRange: { min: 8000, max: 30000 },
+    difficulty: 4,
+    category: "code",
+    tier: "private",
+    ctaKey: "unlockGuide",
+    ctaDefault: "🔥 Unlock Earning Guide"
+  },
+  {
+    id: "dalle3",
+    name: "DALL-E 3",
+    icon: "🖼️",
+    color: "#8b5cf6",
+    url: "/sign-in",
+    incomeRange: { min: 3000, max: 8000 },
+    difficulty: 2,
+    category: "art",
+    tier: "private",
+    ctaKey: "unlockGuide",
+    ctaDefault: "🔥 Unlock Earning Guide"
+  },
+  {
+    id: "claude-code",
+    name: "Claude Code",
+    icon: "⚡",
+    color: "#dc2626",
+    url: "/sign-in",
+    incomeRange: { min: 10000, max: 50000 },
+    difficulty: 4,
+    category: "code",
+    tier: "private",
+    ctaKey: "unlockGuide",
+    ctaDefault: "🔥 Unlock Earning Guide"
+  },
+  // ========== TIER 1: Commission (Direct Affiliate) ==========
   {
     id: "notion",
     name: "Notion AI",
@@ -39,7 +94,11 @@ export const toolData = [
     url: "/go/notion",
     incomeRange: { min: 2000, max: 6000 },
     difficulty: 1,
-    category: "productivity"
+    category: "productivity",
+    tier: "commission",
+    ctaKey: "tryFree",
+    ctaDefault: "🚀 Try Free Now",
+    partner: true
   },
   {
     id: "runway",
@@ -49,37 +108,11 @@ export const toolData = [
     url: "/go/runway",
     incomeRange: { min: 6000, max: 20000 },
     difficulty: 3,
-    category: "video"
-  },
-  {
-    id: "dalle3",
-    name: "DALL-E 3",
-    icon: "🖼️",
-    color: "#8b5cf6",
-    url: "/go/dalle3",
-    incomeRange: { min: 3000, max: 8000 },
-    difficulty: 2,
-    category: "art"
-  },
-  {
-    id: "perplexity",
-    name: "Perplexity",
-    icon: "🔍",
-    color: "#10b981",
-    url: "/go/perplexity",
-    incomeRange: { min: 2000, max: 5000 },
-    difficulty: 1,
-    category: "research"
-  },
-  {
-    id: "copilot",
-    name: "GitHub Copilot",
-    icon: "💻",
-    color: "#6b7280",
-    url: "/go/copilot",
-    incomeRange: { min: 8000, max: 30000 },
-    difficulty: 4,
-    category: "code"
+    category: "video",
+    tier: "commission",
+    ctaKey: "tryFree",
+    ctaDefault: "🚀 Try Free Now",
+    partner: true
   },
   {
     id: "gamma",
@@ -89,17 +122,25 @@ export const toolData = [
     url: "/go/gamma",
     incomeRange: { min: 3000, max: 10000 },
     difficulty: 1,
-    category: "productivity"
+    category: "productivity",
+    tier: "commission",
+    ctaKey: "tryFree",
+    ctaDefault: "🚀 Try Free Now",
+    partner: true
   },
   {
-    id: "claude-code",
-    name: "Claude Code",
-    icon: "⚡",
-    color: "#dc2626",
-    url: "/go/claude-code",
-    incomeRange: { min: 10000, max: 50000 },
-    difficulty: 4,
-    category: "code"
+    id: "perplexity",
+    name: "Perplexity",
+    icon: "🔍",
+    color: "#10b981",
+    url: "/go/perplexity",
+    incomeRange: { min: 2000, max: 5000 },
+    difficulty: 1,
+    category: "research",
+    tier: "commission",
+    ctaKey: "tryFree",
+    ctaDefault: "🚀 Try Free Now",
+    partner: true
   }
 ];
 

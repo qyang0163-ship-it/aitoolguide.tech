@@ -1,0 +1,514 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { top100Tools, categoryColors } from '../data/top100-tools.js';
+
+// Group tools by tier for display
+const tier1 = top100Tools.filter(t => t.rank <= 10);
+const tier2 = top100Tools.filter(t => t.rank > 10 && t.rank <= 30);
+const tier3 = top100Tools.filter(t => t.rank > 30 && t.rank <= 60);
+const tier4 = top100Tools.filter(t => t.rank > 60);
+---
+
+<Layout title="Top 100 AI Tools Directory - Global Rankings">
+  <div class="top100-page">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="logo">
+            <span class="logo-icon">💰</span>
+            <span class="logo-text">AIToolGuide</span>
+          </a>
+          <div class="nav-links">
+            <a href="/" data-i18n="navTools">Tools</a>
+            <a href="/#methods" data-i18n="navMethods">Methods</a>
+            <a href="/#stories" data-i18n="navStories">Stories</a>
+            <a href="/ai-tools-100" class="active" data-i18n="navTop100">Top 100 AI</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1 data-i18n="top100Title">Top 100 AI Tools Directory</h1>
+        <p data-i18n="top100Desc">Discover the most popular AI tools ranked by global traffic and usage</p>
+        
+        <!-- Stats -->
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-number">100</span>
+            <span class="stat-label">AI Tools</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">20+</span>
+            <span class="stat-label">Categories</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">💰4</span>
+            <span class="stat-label">Partner Tools</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top 10 Featured -->
+    <section class="tier-section tier-1">
+      <div class="container">
+        <h2 class="tier-title">
+          <span class="tier-badge">🏆</span>
+          Top 10 AI Giants
+        </h2>
+        <div class="tools-grid top10">
+          {tier1.map((tool, index) => (
+            <div class="tool-card featured" style={`--accent: ${categoryColors[tool.category] || '#667eea'}`}>
+              <div class="rank">#{tool.rank}</div>
+              <div class="tool-content">
+                <h3>{tool.name}</h3>
+                <span class="category" style={`background: ${categoryColors[tool.category]}20; color: ${categoryColors[tool.category]}`}>
+                  {tool.category}
+                </span>
+                <p>{tool.description}</p>
+                <div class="tool-footer">
+                  {tool.partner && <span class="partner-badge" data-i18n="top100Partner">💰 Partner</span>}
+                  <a href={tool.url} target="_blank" class="visit-btn" data-i18n="top100Visit">Visit →</a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Tier 2: Major Players -->
+    <section class="tier-section tier-2">
+      <div class="container">
+        <h2 class="tier-title">
+          <span class="tier-badge">⭐</span>
+          Major Players (11-30)
+        </h2>
+        <div class="tools-list">
+          {tier2.map(tool => (
+            <div class="tool-row" style={`--accent: ${categoryColors[tool.category] || '#667eea'}`}>
+              <span class="rank">#{tool.rank}</span>
+              <span class="name">{tool.name}</span>
+              <span class="category">{tool.category}</span>
+              <span class="description">{tool.description}</span>
+              {tool.partner && <span class="partner-badge-sm">💰</span>}
+              <a href={tool.url} target="_blank" class="visit-link">Visit →</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Tier 3: Specialized Tools -->
+    <section class="tier-section tier-3">
+      <div class="container">
+        <h2 class="tier-title">
+          <span class="tier-badge">🎯</span>
+          Specialized Tools (31-60)
+        </h2>
+        <div class="tools-list">
+          {tier3.map(tool => (
+            <div class="tool-row" style={`--accent: ${categoryColors[tool.category] || '#667eea'}`}>
+              <span class="rank">#{tool.rank}</span>
+              <span class="name">{tool.name}</span>
+              <span class="category">{tool.category}</span>
+              <span class="description">{tool.description}</span>
+              {tool.partner && <span class="partner-badge-sm">💰</span>}
+              <a href={tool.url} target="_blank" class="visit-link">Visit →</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Tier 4: Emerging Tools -->
+    <section class="tier-section tier-4">
+      <div class="container">
+        <h2 class="tier-title">
+          <span class="tier-badge">🚀</span>
+          Emerging Tools (61-100)
+        </h2>
+        <div class="tools-list compact">
+          {tier4.map(tool => (
+            <div class="tool-row compact" style={`--accent: ${categoryColors[tool.category] || '#667eea'}`}>
+              <span class="rank">#{tool.rank}</span>
+              <span class="name">{tool.name}</span>
+              <span class="category">{tool.category}</span>
+              {tool.partner && <span class="partner-badge-sm">💰</span>}
+              <a href={tool.url} target="_blank" class="visit-link">→</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Want to monetize these AI tools?</h2>
+        <p>Join thousands already making money with AI</p>
+        <a href="/" class="btn btn-urgent">Start Earning Now →</a>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .top100-page {
+    --primary: #667eea;
+    --secondary: #764ba2;
+    --accent: var(--primary);
+  }
+
+  /* Header */
+  .header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .logo-icon { font-size: 1.8rem; }
+  .logo-text {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+  }
+
+  .nav-links a {
+    font-weight: 600;
+    color: #6b7280;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--primary);
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+
+  .hero p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 40px;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  /* Tier Sections */
+  .tier-section {
+    padding: 60px 20px;
+  }
+
+  .tier-section:nth-child(even) {
+    background: #f8fafc;
+  }
+
+  .tier-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+
+  .tier-badge {
+    font-size: 1.5rem;
+  }
+
+  /* Top 10 Grid */
+  .tools-grid.top10 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .tool-card.featured {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .tool-card.featured:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .tool-card .rank {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+  }
+
+  .tool-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    padding-right: 50px;
+  }
+
+  .tool-card .category {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .tool-card p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+
+  .tool-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .partner-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .visit-btn {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+  }
+
+  .visit-btn:hover {
+    transform: scale(1.05);
+  }
+
+  /* List View */
+  .tools-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tool-row {
+    display: grid;
+    grid-template-columns: 60px 180px 140px 1fr 40px 80px;
+    align-items: center;
+    gap: 16px;
+    background: white;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent);
+    transition: all 0.2s;
+  }
+
+  .tool-row:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateX(4px);
+  }
+
+  .tool-row.compact {
+    grid-template-columns: 60px 160px 120px 30px 60px;
+  }
+
+  .tool-row .rank {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+
+  .tool-row .name {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .tool-row .category {
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+
+  .tool-row .description {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .partner-badge-sm {
+    font-size: 1rem;
+  }
+
+  .visit-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .visit-link:hover {
+    text-decoration: underline;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .cta-section p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 24px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-urgent {
+    background: white;
+    color: var(--primary);
+  }
+
+  .btn-urgent:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .tool-row {
+      grid-template-columns: 50px 140px 120px 1fr 30px 60px;
+    }
+    
+    .tool-row .description {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .stats { gap: 30px; }
+    .stat-number { font-size: 2rem; }
+    
+    .tool-row {
+      grid-template-columns: 50px 1fr auto;
+      gap: 12px;
+    }
+    
+    .tool-row .category,
+    .tool-row .description {
+      display: none;
+    }
+    
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 0.9rem; }
+  }
+</style>

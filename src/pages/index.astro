@@ -25,6 +25,7 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
           <a href="#tools" data-i18n="navTools">Money Tools</a>
           <a href="#methods" data-i18n="navMethods">Methods</a>
           <a href="#stories" data-i18n="navStories">Success Stories</a>
+          <a href="/ai-tools-100" data-i18n="navTop100">Top 100 AI</a>
           <a href="#start" data-i18n="navStart">Get Started</a>
         </div>
         <a href="#tools" class="btn btn-primary btn-small" data-i18n="navCta">Start Earning Free →</a>
@@ -160,9 +161,18 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
             </div>
             
             <div class="tool-actions">
-              <a href={tool.url} target="_blank" class="btn btn-urgent" data-i18n="tryFree" data-track={`tool_${tool.id}_try`}>
-                🚀 Try Free Now
-              </a>
+              {tool.tier === 'commission' ? (
+                <>
+                  <a href={tool.url} target="_blank" class="btn btn-urgent" data-track={`tool_${tool.id}_try`}>
+                    <span data-i18n={tool.ctaKey}>{tool.ctaDefault}</span>
+                  </a>
+                  <span class="partner-badge" data-i18n="partnerPerks">🎁 Official Partner Perks</span>
+                </>
+              ) : (
+                <a href={tool.url} class="btn btn-urgent" data-track={`tool_${tool.id}_unlock`}>
+                  <span data-i18n={tool.ctaKey}>{tool.ctaDefault}</span>
+                </a>
+              )}
               <a href={`/tool/${tool.id}/`} class="btn btn-secondary" data-i18n="viewTutorial" data-track={`tool_${tool.id}_tutorial`}>
                 📖 View Tutorial
               </a>
@@ -490,7 +500,8 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .meta-item { display: flex; gap: 6px; }
   .meta-label { color: var(--gray); }
   .meta-value { font-weight: 600; }
-  .tool-actions { display: flex; gap: 12px; }
+  .tool-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .partner-badge { display: block; width: 100%; font-size: 0.7rem; color: #10b981; font-weight: 600; text-align: center; margin-top: 4px; }
   .hot-badge { position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #ef4444, #f97316); color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
   .view-all { text-align: center; }
   
