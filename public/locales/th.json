@@ -167,5 +167,19 @@
   "top100Desc": "ค้นพบเครื่องมือ AI ยอดนิยมตามปริมาณการเข้าชมทั่วโลก",
   "top100Partner": "พันธมิตร",
   "top100Category": "หมวดหมู่",
-  "top100Visit": "เข้าชม"
+  "top100Visit": "เข้าชม",
+  "signOut": "ออกจากระบบ",
+  "welcomeBack": "ยินดีต้อนรับกลับ",
+  "exclusiveAccess": "คุณมีสิทธิ์เข้าถึงเนื้อหาพิเศษทั้งหมด",
+  "tutorialsUnlocked": "บทเรียนที่ปลดล็อก",
+  "partnerPlatforms": "แพลตฟอร์มพันธมิตร",
+  "communityAccess": "การเข้าถึงชุมชน",
+  "caseStudies": "กรณีศึกษา",
+  "yourBenefits": "🎁 สิทธิประโยชน์พิเศษของคุณ",
+  "monetizationGuides": "คู่มือการสร้างรายได้แบบทีละขั้นตอน",
+  "accessGuides": "เข้าถึงคู่มือ →",
+  "quickActions": "🚀 การดำเนินการอย่างรวดเร็ว",
+  "browseTools": "เรียกดูเครื่องมือ AI",
+  "startLearning": "เริ่มต้นเรียนรู้",
+  "getSupport": "รับการสนับสนุน"
 }
