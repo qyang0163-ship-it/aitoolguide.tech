@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 
 // 工具数据 - 支持多语言
 const toolData = {
@@ -126,7 +126,8 @@ const toolData = {
 };
 
 export function getStaticPaths() {
-  return Object.keys(toolData).map(tool => ({
+  const tools = ['chatgpt','midjourney','claude','notion','runway','dalle3','perplexity','copilot','gamma','claude-code'];
+  return tools.map(tool => ({
     params: { tool }
   }));
 }
