@@ -14,7 +14,7 @@ import Layout from '../layouts/Layout.astro';
           </a>
           <div class="nav-actions">
             <span id="user-email" class="user-email"></span>
-            <button onclick="signOut()" class="btn btn-ghost btn-small">Sign Out</button>
+            <button onclick="signOut()" class="btn btn-ghost btn-small" data-i18n="signOut">Sign Out</button>
           </div>
         </nav>
       </div>
@@ -26,8 +26,8 @@ import Layout from '../layouts/Layout.astro';
         <div class="welcome-banner">
           <span class="welcome-icon">🎉</span>
           <div class="welcome-text">
-            <h1>Welcome back, <span id="member-name">Member</span>!</h1>
-            <p>You have access to all exclusive content</p>
+            <h1><span data-i18n="welcomeBack">Welcome back</span>, <span id="member-name">Member</span>!</h1>
+            <p data-i18n="exclusiveAccess">You have access to all exclusive content</p>
           </div>
         </div>
 
@@ -36,124 +36,133 @@ import Layout from '../layouts/Layout.astro';
           <div class="stat-card">
             <span class="stat-icon">📚</span>
             <span class="stat-number">15</span>
-            <span class="stat-label">Tutorials Unlocked</span>
+            <span class="stat-label" data-i18n="tutorialsUnlocked">Tutorials Unlocked</span>
           </div>
           <div class="stat-card">
             <span class="stat-icon">💎</span>
             <span class="stat-number">4</span>
-            <span class="stat-label">Partner Platforms</span>
+            <span class="stat-label" data-i18n="partnerPlatforms">Partner Platforms</span>
           </div>
           <div class="stat-card">
             <span class="stat-icon">👥</span>
             <span class="stat-number">1</span>
-            <span class="stat-label">Community Access</span>
+            <span class="stat-label" data-i18n="communityAccess">Community Access</span>
           </div>
           <div class="stat-card">
             <span class="stat-icon">🎯</span>
             <span class="stat-number">10</span>
-            <span class="stat-label">Case Studies</span>
+            <span class="stat-label" data-i18n="caseStudies">Case Studies</span>
           </div>
         </div>
 
         <!-- Exclusive Content -->
         <div class="content-section">
-          <h2>🎁 Your Exclusive Benefits</h2>
+          <h2 data-i18n="yourBenefits">🎁 Your Exclusive Benefits</h2>
           
           <div class="benefits-list">
             <div class="benefit-card">
               <div class="benefit-header">
                 <span class="benefit-icon">📖</span>
-                <h3>Step-by-Step Monetization Guides</h3>
+                <h3 data-i18n="monetizationGuides">Step-by-Step Monetization Guides</h3>
               </div>
-              <p>Detailed tutorials for ChatGPT, Midjourney, Claude, and more. Learn exactly how to earn $500-$5,000/month with each tool.</p>
-              <a href="#guides" class="btn btn-primary">Access Guides →</a>
+              <p data-i18n="guidesDesc">Detailed tutorials for ChatGPT, Midjourney, Claude, and more. Learn exactly how to earn $500-$5,000/month with each tool.</p>
+              <a href="/vip-methods" class="btn btn-primary" data-i18n="accessGuides">Access Guides →</a>
             </div>
 
             <div class="benefit-card">
               <div class="benefit-header">
                 <span class="benefit-icon">💎</span>
-                <h3>Exclusive Freelance Platforms</h3>
+                <h3 data-i18n="freelancePlatforms">Exclusive Freelance Platforms</h3>
               </div>
-              <p>Get access to our curated list of high-paying freelance platforms, job boards, and direct client contacts.</p>
-              <a href="#platforms" class="btn btn-primary">View Platforms →</a>
+              <p data-i18n="platformsDesc">Get access to our curated list of high-paying freelance platforms, job boards, and direct client contacts.</p>
+              <button class="btn btn-primary" onclick="showComingSoon('platforms')" data-i18n="viewPlatforms">View Platforms →</button>
             </div>
 
             <div class="benefit-card">
               <div class="benefit-header">
                 <span class="benefit-icon">📊</span>
-                <h3>Real Income Case Studies</h3>
+                <h3 data-i18n="incomeCaseStudies">Real Income Case Studies</h3>
               </div>
-              <p>See exactly how much others are earning, their strategies, timelines, and lessons learned.</p>
-              <a href="#cases" class="btn btn-primary">View Cases →</a>
+              <p data-i18n="casesDesc">See exactly how much others are earning, their strategies, timelines, and lessons learned.</p>
+              <a href="/blog" class="btn btn-primary" data-i18n="viewCases">View Cases →</a>
             </div>
 
             <div class="benefit-card">
               <div class="benefit-header">
                 <span class="benefit-icon">👥</span>
-                <h3>Private Community Access</h3>
+                <h3 data-i18n="privateCommunity">Private Community Access</h3>
               </div>
-              <p>Join our Discord community of 12,000+ AI earners. Get support, share wins, and network.</p>
-              <a href="#community" class="btn btn-primary">Join Community →</a>
+              <p data-i18n="communityDesc">Join our Discord community of 12,000+ AI earners. Get support, share wins, and network.</p>
+              <button class="btn btn-primary" onclick="joinCommunity()" data-i18n="joinCommunity">Join Community →</button>
             </div>
 
             <div class="benefit-card">
               <div class="benefit-header">
                 <span class="benefit-icon">🎁</span>
-                <h3>AI Money Toolkit</h3>
+                <h3 data-i18n="aiToolkit">AI Money Toolkit</h3>
               </div>
-              <p>Download our complete toolkit: prompt templates, pricing guides, contract templates, and more.</p>
-              <a href="#toolkit" class="btn btn-primary">Download Toolkit →</a>
+              <p data-i18n="toolkitDesc">Download our complete toolkit: prompt templates, pricing guides, contract templates, and more.</p>
+              <button class="btn btn-primary" onclick="downloadToolkit()" data-i18n="downloadToolkit">Download Toolkit →</button>
             </div>
 
             <div class="benefit-card">
               <div class="benefit-header">
                 <span class="benefit-icon">🔔</span>
-                <h3>Early Access & Updates</h3>
+                <h3 data-i18n="earlyAccess">Early Access & Updates</h3>
               </div>
-              <p>Be the first to know about new AI tools, earning opportunities, and platform updates.</p>
-              <span class="badge">Coming Soon</span>
+              <p data-i18n="earlyAccessDesc">Be the first to know about new AI tools, earning opportunities, and platform updates.</p>
+              <span class="badge badge-soon" data-i18n="comingSoonBadge">Coming Soon</span>
             </div>
           </div>
         </div>
 
         <!-- Quick Actions -->
         <div class="quick-actions">
-          <h2>🚀 Quick Actions</h2>
+          <h2 data-i18n="quickActions">🚀 Quick Actions</h2>
           <div class="actions-grid">
-            <a href="/" class="action-card">
-              <span class="action-icon">🛠️</span>
-              <span class="action-text">Browse AI Tools</span>
-            </a>
             <a href="/ai-tools-100" class="action-card">
+              <span class="action-icon">🛠️</span>
+              <span class="action-text" data-i18n="browseTools">Browse AI Tools</span>
+            </a>
+            <a href="/blog" class="action-card">
               <span class="action-icon">🏆</span>
-              <span class="action-text">Top 100 AI</span>
+              <span class="action-text" data-i18n="top100">Top 100 AI</span>
             </a>
-            <a href="#guides" class="action-card">
+            <a href="/vip-methods" class="action-card">
               <span class="action-icon">📚</span>
-              <span class="action-text">Start Learning</span>
+              <span class="action-text" data-i18n="startLearning">Start Learning</span>
             </a>
-            <a href="#community" class="action-card">
+            <button class="action-card" onclick="getSupport()">
               <span class="action-icon">💬</span>
-              <span class="action-text">Get Support</span>
-            </a>
+              <span class="action-text" data-i18n="getSupport">Get Support</span>
+            </button>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Coming Soon Modal -->
+    <div id="coming-soon-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <span class="modal-icon">🚧</span>
+        <h3 data-i18n="comingSoonTitle">Coming Soon</h3>
+        <p id="modal-message" data-i18n="comingSoonMessage">This feature is under development. Check back soon!</p>
+      </div>
+    </div>
   </div>
 </Layout>
 
 <style>
   .member-page {
     min-height: 100vh;
-    background: #f8fafc;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
   }
 
   /* Header */
   .header {
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 16px 20px;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
   }
 
   .container {
@@ -175,7 +184,7 @@ import Layout from '../layouts/Layout.astro';
     font-weight: 800;
     font-size: 1.5rem;
     text-decoration: none;
-    color: inherit;
+    color: white;
   }
 
   .logo-icon { font-size: 1.8rem; }
@@ -188,21 +197,30 @@ import Layout from '../layouts/Layout.astro';
   .nav-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+  }
+
+  #aitg-lang-switcher {
+    margin-left: 8px;
   }
 
   .user-email {
+    color: rgba(255,255,255,0.8);
     font-size: 0.9rem;
-    color: #64748b;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
+    gap: 8px;
+    padding: 12px 24px;
     border-radius: 10px;
     font-weight: 600;
+    font-size: 0.95rem;
     text-decoration: none;
     border: none;
     cursor: pointer;
@@ -211,12 +229,18 @@ import Layout from '../layouts/Layout.astro';
 
   .btn-ghost {
     background: transparent;
-    color: #64748b;
-    border: 1px solid #e5e7eb;
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.2);
   }
 
   .btn-ghost:hover {
-    background: #f1f5f9;
+    background: rgba(255,255,255,0.1);
+    color: white;
+  }
+
+  .btn-small {
+    padding: 8px 16px;
+    font-size: 0.85rem;
   }
 
   .btn-primary {
@@ -226,12 +250,7 @@ import Layout from '../layouts/Layout.astro';
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-  }
-
-  .btn-small {
-    padding: 8px 16px;
-    font-size: 0.85rem;
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
   }
 
   /* Dashboard */
@@ -239,15 +258,16 @@ import Layout from '../layouts/Layout.astro';
     padding: 40px 20px;
   }
 
+  /* Welcome Banner */
   .welcome-banner {
     display: flex;
     align-items: center;
     gap: 20px;
     background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    padding: 32px;
     border-radius: 20px;
+    padding: 32px;
     margin-bottom: 32px;
+    color: white;
   }
 
   .welcome-icon {
@@ -256,28 +276,31 @@ import Layout from '../layouts/Layout.astro';
 
   .welcome-text h1 {
     font-size: 1.75rem;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 8px;
   }
 
   .welcome-text p {
     opacity: 0.9;
+    font-size: 1.1rem;
   }
 
-  /* Stats */
+  /* Stats Grid */
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin-bottom: 40px;
   }
 
   .stat-card {
-    background: white;
-    padding: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
+    padding: 24px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    color: white;
+    backdrop-filter: blur(10px);
   }
 
   .stat-icon {
@@ -287,16 +310,18 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .stat-number {
-    display: block;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 800;
-    color: #667eea;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
     margin-bottom: 4px;
   }
 
   .stat-label {
-    color: #64748b;
     font-size: 0.9rem;
+    opacity: 0.8;
   }
 
   /* Content Section */
@@ -305,30 +330,24 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .content-section h2 {
+    color: white;
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 24px;
-    color: #0f172a;
   }
 
   .benefits-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
 
   .benefit-card {
     background: white;
-    padding: 24px;
     border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 2px solid transparent;
-    transition: all 0.3s;
-  }
-
-  .benefit-card:hover {
-    border-color: #667eea;
-    transform: translateY(-2px);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
   }
 
   .benefit-header {
@@ -344,25 +363,29 @@ import Layout from '../layouts/Layout.astro';
 
   .benefit-header h3 {
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #0f172a;
   }
 
   .benefit-card p {
     color: #64748b;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.6;
     margin-bottom: 16px;
+    flex: 1;
   }
 
   .badge {
     display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .badge-soon {
     background: #f1f5f9;
     color: #64748b;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
   }
 
   /* Quick Actions */
@@ -371,15 +394,15 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .quick-actions h2 {
+    color: white;
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 24px;
-    color: #0f172a;
   }
 
   .actions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
   }
 
@@ -387,18 +410,20 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     align-items: center;
     gap: 12px;
-    background: white;
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
+    padding: 20px;
+    color: white;
     text-decoration: none;
-    color: inherit;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
     transition: all 0.3s;
+    backdrop-filter: blur(10px);
   }
 
   .action-card:hover {
+    background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .action-icon {
@@ -407,50 +432,232 @@ import Layout from '../layouts/Layout.astro';
 
   .action-text {
     font-weight: 600;
+  }
+
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+  }
+
+  .modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #64748b;
+  }
+
+  .modal-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .modal-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
     color: #0f172a;
+    margin-bottom: 12px;
+  }
+
+  .modal-content p {
+    color: #64748b;
+    font-size: 1rem;
   }
 
   /* Responsive */
+  @media (max-width: 1024px) {
+    .benefits-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 768px) {
-    .welcome-banner {
-      flex-direction: column;
-      text-align: center;
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .benefits-list {
       grid-template-columns: 1fr;
     }
 
-    .stats-grid {
+    .actions-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .welcome-banner {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .nav-actions {
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .actions-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .user-email {
+      display: none;
     }
   }
 </style>
 
 <script>
-  // Check authentication
+  // Check login status
   document.addEventListener('DOMContentLoaded', function() {
     const currentUser = localStorage.getItem('aitg_current_user');
-    
     if (!currentUser) {
-      // Redirect to sign in if not logged in
       window.location.href = '/sign-in';
       return;
     }
 
-    // Display user info
     const user = JSON.parse(currentUser);
-    const emailEl = document.getElementById('user-email');
-    const nameEl = document.getElementById('member-name');
-    
-    if (emailEl) emailEl.textContent = user.email;
-    if (nameEl) nameEl.textContent = user.email.split('@')[0];
+    document.getElementById('user-email').textContent = user.email;
+    document.getElementById('member-name').textContent = user.name || user.email.split('@')[0];
+
+    // Initialize language switcher
+    setTimeout(function() {
+      const existingSwitcher = document.getElementById('aitg-lang-switcher');
+      if (!existingSwitcher) {
+        createAuthLangSwitcher();
+      }
+    }, 100);
   });
 
-  // Sign out function
+  // Sign out
   function signOut() {
     localStorage.removeItem('aitg_current_user');
-    alert('👋 You have been signed out.');
     window.location.href = '/';
+  }
+
+  // Show coming soon modal
+  function showComingSoon(feature) {
+    const modal = document.getElementById('coming-soon-modal');
+    const message = document.getElementById('modal-message');
+    
+    const messages = {
+      platforms: 'Our exclusive freelance platform list is being curated. Check back in a few days!',
+      toolkit: 'The AI Money Toolkit is being prepared for download. Stay tuned!'
+    };
+    
+    message.textContent = messages[feature] || 'This feature is under development. Check back soon!';
+    modal.style.display = 'flex';
+  }
+
+  // Close modal
+  function closeModal() {
+    document.getElementById('coming-soon-modal').style.display = 'none';
+  }
+
+  // Join community
+  function joinCommunity() {
+    // Discord invite link (placeholder)
+    window.open('https://discord.gg/aitoolguide', '_blank');
+  }
+
+  // Download toolkit
+  function downloadToolkit() {
+    showComingSoon('toolkit');
+  }
+
+  // Get support
+  function getSupport() {
+    window.open('mailto:support@aitoolguide.tech', '_blank');
+  }
+
+  // Create language switcher
+  function createAuthLangSwitcher() {
+    const navActions = document.querySelector('.nav-actions');
+    if (!navActions) return;
+
+    const LANGS = [
+      { code: 'en', label: 'English', flag: '🇺🇸', tier: 'core' },
+      { code: 'zh-CN', label: '简体中文', flag: '🇨🇳', tier: 'core' },
+      { code: 'zh-TW', label: '繁體中文', flag: '🇹🇼', tier: 'core' },
+      { code: 'ja', label: '日本語', flag: '🇯🇵', tier: 'core' },
+      { code: 'ko', label: '한국어', flag: '🇰🇷', tier: 'core' },
+      { code: 'es', label: 'Español', flag: '🇪🇸', tier: 'core' },
+      { code: 'fr', label: 'Français', flag: '🇫🇷', tier: 'extended' },
+      { code: 'de', label: 'Deutsch', flag: '🇩🇪', tier: 'extended' },
+      { code: 'pt', label: 'Português', flag: '🇵🇹', tier: 'extended' },
+      { code: 'ru', label: 'Русский', flag: '🇷🇺', tier: 'extended' },
+      { code: 'ar', label: 'العربية', flag: '🇸🇦', tier: 'extended' },
+      { code: 'hi', label: 'हिन्दी', flag: '🇮🇳', tier: 'extended' },
+      { code: 'th', label: 'ไทย', flag: '🇹🇭', tier: 'extended' },
+      { code: 'tr', label: 'Türkçe', flag: '🇹🇷', tier: 'extended' },
+      { code: 'vi', label: 'Tiếng Việt', flag: '🇻🇳', tier: 'extended' },
+      { code: 'id', label: 'Bahasa Indonesia', flag: '🇮🇩', tier: 'extended' }
+    ];
+
+    const savedLang = localStorage.getItem('aitg_lang') || 'en';
+    const currentLangObj = LANGS.find(l => l.code === savedLang) || LANGS[0];
+
+    const container = document.createElement('div');
+    container.id = 'aitg-lang-switcher';
+    container.style.cssText = 'position:relative;display:inline-flex;align-items:center;z-index:1001;';
+
+    const btn = document.createElement('button');
+    btn.id = 'aitg-lang-btn';
+    btn.style.cssText = 'background:linear-gradient(135deg,#0ea5e9,#8b5cf6);color:white;border:none;padding:8px 14px;border-radius:10px;font-weight:600;font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:5px;transition:transform 0.2s;white-space:nowrap;';
+    btn.innerHTML = currentLangObj.flag + ' ' + currentLangObj.label + ' <span style="font-size:0.7em">▼</span>';
+
+    const dd = document.createElement('div');
+    dd.id = 'aitg-lang-dd';
+    dd.style.cssText = 'display:none;position:absolute;top:100%;right:0;margin-top:8px;background:white;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.15);min-width:200px;max-height:400px;overflow-y:auto;border:1px solid #e2e8f0;z-index:9999;';
+
+    LANGS.forEach(function(lang) {
+      const item = document.createElement('button');
+      item.style.cssText = 'display:flex;align-items:center;gap:10px;width:100%;padding:10px 16px;border:none;background:none;cursor:pointer;font-size:0.9rem;color:#0f172a;text-align:left;transition:background 0.2s;white-space:nowrap;';
+      item.innerHTML = '<span style="font-size:1.1rem">' + lang.flag + '</span><span>' + lang.label + '</span>' + (lang.tier === 'core' ? '<span style="font-size:0.6rem;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:8px;margin-left:auto;">★</span>' : '');
+      item.onmouseenter = function() { this.style.background = '#f1f5f9'; };
+      item.onmouseleave = function() { this.style.background = 'none'; };
+      item.onclick = function(e) {
+        e.stopPropagation();
+        localStorage.setItem('aitg_lang', lang.code);
+        btn.innerHTML = lang.flag + ' ' + lang.label + ' <span style="font-size:0.7em">▼</span>';
+        dd.style.display = 'none';
+        window.location.reload();
+      };
+      dd.appendChild(item);
+    });
+
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+    };
+    document.addEventListener('click', function() { dd.style.display = 'none'; });
+
+    container.appendChild(btn);
+    container.appendChild(dd);
+    navActions.appendChild(container);
   }
 </script>
