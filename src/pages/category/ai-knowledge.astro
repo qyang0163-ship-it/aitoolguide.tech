@@ -45,6 +45,93 @@ import Layout from '../../layouts/Layout.astro';
         </ul>
       </div>
     </section>
+
+    <!-- Getting Started Steps -->
+    <section class="steps-section">
+      <div class="container">
+        <h2>Getting Started in 4 Steps</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <span class="step-num">1</span>
+            <h3>Choose Your Expertise</h3>
+            <p>Pick a topic you know well: productivity, business, or personal development.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">2</span>
+            <h3>Create Your Product</h3>
+            <p>Use Gamma or Notion AI to create courses, templates, or guides.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">3</span>
+            <h3>Set Up Shop</h3>
+            <p>Sell on Gumroad, Etsy, or your own website. Set up payment processing.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">4</span>
+            <h3>Market & Sell</h3>
+            <p>Promote on social media. Start with low prices, gather reviews, then scale.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Story -->
+    <section class="story-section">
+      <div class="container">
+        <h2>Success Story</h2>
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-income">$4,500/month</span>
+            <span class="story-tag">Course Creator</span>
+          </div>
+          <h3>Teacher Builds Course Empire with AI</h3>
+          <p>Lisa, a former teacher, used Gamma AI to create 5 online courses in 3 months. She now earns $4,500/month in passive income from course sales on her website.</p>
+          <div class="story-meta">
+            <span>⏱️ Started: 5 months ago</span>
+            <span>📚 Courses: 5 published</span>
+            <span>⭐ Students: 1,200+</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <h4>What can I sell?</h4>
+            <p>Courses, templates, ebooks, guides, checklists, and digital downloads are all popular.</p>
+          </div>
+          <div class="faq-item">
+            <h4>Do I need to be an expert?</h4>
+            <p>You need to know more than your target audience. Start with what you know best.</p>
+          </div>
+          <div class="faq-item">
+            <h4>How much can I earn?</h4>
+            <p>Beginners: $200-500/mo. Experienced creators: $2,000-10,000+/mo.</p>
+          </div>
+          <div class="faq-item">
+            <h4>Where do I sell?</h4>
+            <p>Gumroad, Teachable, Etsy, or your own website. Each has different fee structures.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to Share & Earn?</h2>
+        <p>Join creators making passive income with knowledge products</p>
+        <div class="cta-buttons">
+          <a href="/tool/gamma/" class="btn btn-primary btn-large">Start with Gamma →</a>
+          <a href="/vip-methods/" class="btn btn-secondary btn-large">View Advanced Methods</a>
+        </div>
+        <p class="cta-note">🎁 First 100 users get free Course Templates</p>
+      </div>
+    </section>
   </div>
 
   <style>
@@ -65,5 +152,34 @@ import Layout from '../../layouts/Layout.astro';
     .methods-list li { padding: 16px 20px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px; font-size: 1.1rem; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     h2 { text-align: center; font-size: 2rem; margin-bottom: 10px; }
+    
+    /* New Sections */
+    .steps-section, .story-section, .faq-section, .cta-section { padding: 60px 0; }
+    .steps-section { background: #f8fafc; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 40px; }
+    .step-card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; }
+    .step-num { width: 50px; height: 50px; background: linear-gradient(135deg, #a8edea, #fed6e3); color: #1e293b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 20px; }
+    .step-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+    .step-card p { color: #64748b; }
+    .story-card { max-width: 800px; margin: 40px auto 0; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+    .story-header { display: flex; gap: 12px; margin-bottom: 20px; }
+    .story-income { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; padding: 8px 16px; border-radius: 20px; font-weight: 700; }
+    .story-tag { background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; }
+    .story-card h3 { font-size: 1.5rem; margin-bottom: 16px; }
+    .story-card > p { color: #475569; line-height: 1.8; margin-bottom: 20px; }
+    .story-meta { display: flex; gap: 24px; color: #64748b; font-size: 0.9rem; }
+    .faq-section { background: #f8fafc; }
+    .faq-list { max-width: 800px; margin: 40px auto 0; }
+    .faq-item { background: white; padding: 24px; border-radius: 12px; margin-bottom: 16px; }
+    .faq-item h4 { font-size: 1.1rem; margin-bottom: 12px; color: #1e293b; }
+    .faq-item p { color: #64748b; }
+    .cta-section { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #1e293b; text-align: center; }
+    .cta-section h2 { color: #1e293b; margin-bottom: 16px; }
+    .cta-section > p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .btn-large { padding: 16px 32px; font-size: 1.1rem; }
+    .btn-secondary { background: white; color: #0d9488; }
+    .cta-note { opacity: 0.8; font-size: 0.95rem; }
+    @media (max-width: 768px) { .steps-grid { grid-template-columns: 1fr; } .cta-buttons { flex-direction: column; align-items: center; } .story-meta { flex-direction: column; gap: 8px; } }
   </style>
 </Layout>

@@ -45,6 +45,93 @@ import Layout from '../../layouts/Layout.astro';
         </ul>
       </div>
     </section>
+
+    <!-- Getting Started Steps -->
+    <section class="steps-section">
+      <div class="container">
+        <h2>Getting Started in 4 Steps</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <span class="step-num">1</span>
+            <h3>Master One Tool</h3>
+            <p>Start with Perplexity for research or Gamma for presentations. Become an expert.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">2</span>
+            <h3>Identify Pain Points</h3>
+            <p>Find businesses struggling with research, reports, or presentations.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">3</span>
+            <h3>Create Packages</h3>
+            <p>Offer standardized services: "10 research reports for $500" or "5 pitch decks for $300".</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">4</span>
+            <h3>Scale with Systems</h3>
+            <p>Use AI to handle more volume. Hire help as you grow to $2,000+/mo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Story -->
+    <section class="story-section">
+      <div class="container">
+        <h2>Success Story</h2>
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-income">$2,200/month</span>
+            <span class="story-tag">VA Services</span>
+          </div>
+          <h3>VA Scales to $2.2K with AI Tools</h3>
+          <p>Maria started as a virtual assistant using Perplexity for research and Gamma for presentations. She now serves 8 clients monthly, handling research, reports, and slide decks efficiently with AI assistance.</p>
+          <div class="story-meta">
+            <span>⏱️ Started: 4 months ago</span>
+            <span>📊 Clients: 8 active</span>
+            <span>⭐ Rating: 4.9/5</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <h4>What services pay best?</h4>
+            <p>Research reports ($100-300 each) and pitch decks ($200-500 each) have highest margins.</p>
+          </div>
+          <div class="faq-item">
+            <h4>Do I need business experience?</h4>
+            <p>Helpful but not required. AI tools help you deliver professional-quality work.</p>
+          </div>
+          <div class="faq-item">
+            <h4>How do I find clients?</h4>
+            <p>LinkedIn outreach, freelance platforms, and business networking groups work best.</p>
+          </div>
+          <div class="faq-item">
+            <h4>Can I do this part-time?</h4>
+            <p>Yes! Many start with 5-10 hours/week and scale up as demand grows.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to Boost Productivity & Earn?</h2>
+        <p>Join professionals making money with AI productivity tools</p>
+        <div class="cta-buttons">
+          <a href="/tool/perplexity/" class="btn btn-primary btn-large">Start with Perplexity →</a>
+          <a href="/vip-methods/" class="btn btn-secondary btn-large">View Advanced Methods</a>
+        </div>
+        <p class="cta-note">🎁 First 100 users get free Productivity Templates</p>
+      </div>
+    </section>
   </div>
 
   <style>
@@ -65,5 +152,34 @@ import Layout from '../../layouts/Layout.astro';
     .methods-list li { padding: 16px 20px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px; font-size: 1.1rem; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     h2 { text-align: center; font-size: 2rem; margin-bottom: 10px; }
+    
+    /* New Sections */
+    .steps-section, .story-section, .faq-section, .cta-section { padding: 60px 0; }
+    .steps-section { background: #f8fafc; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 40px; }
+    .step-card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; }
+    .step-num { width: 50px; height: 50px; background: linear-gradient(135deg, #ffecd2, #fcb69f); color: #1e293b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 20px; }
+    .step-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+    .step-card p { color: #64748b; }
+    .story-card { max-width: 800px; margin: 40px auto 0; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+    .story-header { display: flex; gap: 12px; margin-bottom: 20px; }
+    .story-income { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; padding: 8px 16px; border-radius: 20px; font-weight: 700; }
+    .story-tag { background: linear-gradient(135deg, #ffedd5, #fed7aa); color: #c2410c; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; }
+    .story-card h3 { font-size: 1.5rem; margin-bottom: 16px; }
+    .story-card > p { color: #475569; line-height: 1.8; margin-bottom: 20px; }
+    .story-meta { display: flex; gap: 24px; color: #64748b; font-size: 0.9rem; }
+    .faq-section { background: #f8fafc; }
+    .faq-list { max-width: 800px; margin: 40px auto 0; }
+    .faq-item { background: white; padding: 24px; border-radius: 12px; margin-bottom: 16px; }
+    .faq-item h4 { font-size: 1.1rem; margin-bottom: 12px; color: #1e293b; }
+    .faq-item p { color: #64748b; }
+    .cta-section { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #1e293b; text-align: center; }
+    .cta-section h2 { color: #1e293b; margin-bottom: 16px; }
+    .cta-section > p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .btn-large { padding: 16px 32px; font-size: 1.1rem; }
+    .btn-secondary { background: white; color: #ea580c; }
+    .cta-note { opacity: 0.8; font-size: 0.95rem; }
+    @media (max-width: 768px) { .steps-grid { grid-template-columns: 1fr; } .cta-buttons { flex-direction: column; align-items: center; } .story-meta { flex-direction: column; gap: 8px; } }
   </style>
 </Layout>
