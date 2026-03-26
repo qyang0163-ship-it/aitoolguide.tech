@@ -192,3 +192,116 @@ export function formatIncome(min, max, locale = "en") {
 export function getDifficultyStars(level) {
   return "⭐".repeat(level);
 }
+
+// Smart recommendation algorithm based on user preferences
+export function getRecommendedTools(userPreferences = {}) {
+  const { 
+    preferredCategory = null, 
+    maxDifficulty = 5, 
+    minIncome = 0,
+    tier = null 
+  } = userPreferences;
+  
+  let scoredTools = toolData.map(tool => {
+    let score = 0;
+    
+    // Category match (highest weight)
+    if (preferredCategory && tool.category === preferredCategory) {
+      score += 50;
+    }
+    
+    // Difficulty preference
+    if (tool.difficulty <= maxDifficulty) {
+      score += (maxDifficulty - tool.difficulty) * 10;
+    }
+    
+    // Income potential
+    if (tool.incomeRange.min >= minIncome) {
+      score += Math.min((tool.incomeRange.min / 1000), 20);
+    }
+    
+    // Tier preference
+    if (tier && tool.tier === tier) {
+      score += 15;
+    }
+    
+    // Popularity boost (based on income range)
+    score += (tool.incomeRange.max / 1000) * 2;
+    
+    return { ...tool, score };
+  });
+  
+  // Sort by score descending
+  return scoredTools.sort((a, b) => b.score - a.score);
+}
+
+// Get similar tools based on category and difficulty
+export function getSimilarTools(toolId, limit = 3) {
+  const targetTool = toolData.find(t => t.id === toolId);
+  if (!targetTool) return [];
+  
+  return toolData
+    .filter(t => t.id !== toolId && t.category === targetTool.category)
+    .sort((a, b) => {
+      // Sort by difficulty similarity
+      const diffA = Math.abs(a.difficulty - targetTool.difficulty);
+      const diffB = Math.abs(b.difficulty - targetTool.difficulty);
+      return diffA - diffB;
+    })
+    .slice(0, limit);
+}
+
+// Get trending tools (highest income potential)
+export function getTrendingTools(limit = 5) {
+  return [...toolData]
+    .sort((a, b) => b.incomeRange.max - a.incomeRange.max)
+    .slice(0, limit);
+}
+
+// Get beginner-friendly tools
+export function getBeginnerTools(limit = 5) {
+  return toolData
+    .filter(t => t.difficulty <= 2)
+    .sort((a, b) => b.incomeRange.max - a.incomeRange.max)
+    .slice(0, limit);
+}
+
+// Get passive income tools
+export function getPassiveIncomeTools(limit = 5) {
+  const passiveCategories = ['art', 'productivity', 'research'];
+  return toolData
+    .filter(t => passiveCategories.includes(t.category))
+    .sort((a, b) => b.incomeRange.max - a.incomeRange.max)
+    .slice(0, limit);
+}
+
+// Track user interactions for learning
+export function trackToolInteraction(toolId, action) {
+  const interactions = JSON.parse(localStorage.getItem('toolInteractions') || '{}');
+  if (!interactions[toolId]) {
+    interactions[toolId] = { views: 0, clicks: 0, timeSpent: 0 };
+  }
+  interactions[toolId][action] = (interactions[toolId][action] || 0) + 1;
+  localStorage.setItem('toolInteractions', JSON.stringify(interactions));
+}
+
+// Get personalized recommendations based on history
+export function getPersonalizedRecommendations() {
+  const interactions = JSON.parse(localStorage.getItem('toolInteractions') || '{}');
+  const viewedTools = Object.entries(interactions)
+    .sort((a, b) => b[1].views - a[1].views)
+    .slice(0, 3)
+    .map(([id]) => toolData.find(t => t.id === id))
+    .filter(Boolean);
+  
+  if (viewedTools.length === 0) {
+    return getTrendingTools(4);
+  }
+  
+  // Find similar tools to viewed ones
+  const categories = [...new Set(viewedTools.map(t => t.category))];
+  return toolData
+    .filter(t => !interactions[t.id] && categories.includes(t.category))
+    .sort((a, b) => b.incomeRange.max - a.incomeRange.max)
+    .slice(0, 4);
+}

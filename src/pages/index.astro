@@ -211,6 +211,28 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
     </div>
   </section>
 
+  <!-- Smart Recommendations Section -->
+  <section class="recommendations-section" id="recommendations">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">🤖 AI Recommended</span>
+        <h2 class="section-title">Personalized For You</h2>
+        <p class="section-description">Based on your interests and earning goals</p>
+      </div>
+      
+      <div class="recommendation-tabs">
+        <button class="tab-btn active" data-tab="trending" data-i18n="tabTrending">🔥 Trending</button>
+        <button class="tab-btn" data-tab="beginner" data-i18n="tabBeginner">🌱 Beginner Friendly</button>
+        <button class="tab-btn" data-tab="passive" data-i18n="tabPassive">💤 Passive Income</button>
+        <button class="tab-btn" data-tab="similar" data-i18n="tabSimilar">💡 You May Like</button>
+      </div>
+      
+      <div class="recommendations-grid" id="recommendations-grid">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
   <!-- Categories Section -->
   <section class="categories-section" id="methods">
     <div class="container">
@@ -891,6 +913,25 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
     cursor: pointer;
     color: #64748b;
   }
+  
+  /* Recommendations Section */
+  .recommendations-section { padding: 80px 0; background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
+  .recommendation-tabs { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+  .tab-btn { padding: 12px 24px; border: 2px solid var(--border); border-radius: 50px; background: white; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+  .tab-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .tab-btn.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-color: transparent; }
+  .recommendations-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+  .recommendation-card { background: white; border: 2px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.3s; position: relative; }
+  .recommendation-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+  .rec-badge { position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; font-size: 0.75rem; font-weight: 700; border-radius: 12px; }
+  .rec-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .rec-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+  .rec-info h3 { font-size: 1.1rem; margin-bottom: 4px; }
+  .rec-category { font-size: 0.85rem; color: var(--text-muted); }
+  .rec-income { color: #ef4444; font-weight: 700; font-size: 1.1rem; margin-bottom: 12px; }
+  .rec-reason { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px; padding: 12px; background: var(--bg-secondary); border-radius: 8px; }
+  .rec-actions { display: flex; gap: 12px; }
+  .rec-actions .btn { flex: 1; }
 </style>
 
 <script is:inline>
@@ -937,5 +978,128 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
     sessionStorage.removeItem('postLoginRedirect');
     window.location.href = redirect;
   }
+  
+  // Smart Recommendations System
+  const toolDatabase = [
+    { id: "chatgpt", name: "ChatGPT", icon: "💬", color: "#10a37f", category: "writing", difficulty: 2, incomeMin: 3000, incomeMax: 8000, tier: "private" },
+    { id: "midjourney", name: "Midjourney", icon: "🎨", color: "#6366f1", category: "art", difficulty: 3, incomeMin: 5000, incomeMax: 15000, tier: "private" },
+    { id: "claude", name: "Claude", icon: "🧠", color: "#d97706", category: "writing", difficulty: 2, incomeMin: 4000, incomeMax: 10000, tier: "private" },
+    { id: "notion", name: "Notion AI", icon: "📝", color: "#000000", category: "productivity", difficulty: 1, incomeMin: 2000, incomeMax: 6000, tier: "commission", partner: true },
+    { id: "runway", name: "Runway", icon: "🎬", color: "#ef4444", category: "video", difficulty: 3, incomeMin: 6000, incomeMax: 20000, tier: "commission", partner: true },
+    { id: "dalle3", name: "DALL-E 3", icon: "🖼️", color: "#8b5cf6", category: "art", difficulty: 2, incomeMin: 4000, incomeMax: 12000, tier: "private" },
+    { id: "perplexity", name: "Perplexity", icon: "🔍", color: "#14b8a6", category: "research", difficulty: 1, incomeMin: 2500, incomeMax: 7000, tier: "commission", partner: true },
+    { id: "copilot", name: "GitHub Copilot", icon: "👨‍💻", color: "#3b82f6", category: "code", difficulty: 4, incomeMin: 8000, incomeMax: 25000, tier: "private" },
+    { id: "gamma", name: "Gamma", icon: "📊", color: "#ec4899", category: "productivity", difficulty: 1, incomeMin: 3000, incomeMax: 9000, tier: "commission", partner: true },
+    { id: "claudecode", name: "Claude Code", icon: "💻", color: "#f97316", category: "code", difficulty: 4, incomeMin: 10000, incomeMax: 30000, tier: "private" }
+  ];
+  
+  function getTrendingTools() {
+    return [...toolDatabase].sort((a, b) => b.incomeMax - a.incomeMax).slice(0, 4);
+  }
+  
+  function getBeginnerTools() {
+    return toolDatabase.filter(t => t.difficulty <= 2).sort((a, b) => b.incomeMax - a.incomeMax).slice(0, 4);
+  }
+  
+  function getPassiveTools() {
+    const passiveCats = ['art', 'productivity', 'research'];
+    return toolDatabase.filter(t => passiveCats.includes(t.category)).sort((a, b) => b.incomeMax - a.incomeMax).slice(0, 4);
+  }
+  
+  function getPersonalizedTools() {
+    const viewed = JSON.parse(localStorage.getItem('viewedTools') || '[]');
+    if (viewed.length === 0) return getTrendingTools();
+    const viewedCats = viewed.map(id => toolDatabase.find(t => t.id === id)?.category).filter(Boolean);
+    const uniqueCats = [...new Set(viewedCats)];
+    return toolDatabase.filter(t => !viewed.includes(t.id) && uniqueCats.includes(t.category)).slice(0, 4);
+  }
+  
+  function renderRecommendationCard(tool, reason) {
+    const badge = tool.tier === 'commission' ? '<span class="partner-badge-small">💰 Partner</span>' : '';
+    const btnText = tool.tier === 'commission' ? 'Try Free' : 'Unlock Guide';
+    const btnClass = tool.tier === 'commission' ? 'btn-urgent' : 'btn-primary';
+    return `
+      <div class="recommendation-card" data-tool-id="${tool.id}">
+        <span class="rec-badge">${reason}</span>
+        <div class="rec-header">
+          <div class="rec-icon" style="background: ${tool.color}20; color: ${tool.color}">${tool.icon}</div>
+          <div class="rec-info">
+            <h3>${tool.name}</h3>
+            <span class="rec-category">${tool.category}</span>
+          </div>
+        </div>
+        <div class="rec-income">$${tool.incomeMin.toLocaleString()}-$${tool.incomeMax.toLocaleString()}/mo</div>
+        <div class="rec-reason">${getRecommendationReason(tool)}</div>
+        <div class="rec-actions">
+          <a href="/tool/${tool.id}/" class="btn ${btnClass}">${btnText}</a>
+          ${badge}
+        </div>
+      </div>
+    `;
+  }
+  
+  function getRecommendationReason(tool) {
+    if (tool.difficulty === 1) return "✨ Perfect for beginners - start earning today!";
+    if (tool.incomeMax > 15000) return "🚀 High income potential - top earners choice!";
+    if (tool.tier === 'commission') return "💎 Partner tool - exclusive perks included!";
+    return "💡 Popular choice among successful users";
+  }
+  
+  function loadRecommendations(type) {
+    const grid = document.getElementById('recommendations-grid');
+    if (!grid) return;
+    
+    let tools = [];
+    let reason = "";
+    
+    switch(type) {
+      case 'trending':
+        tools = getTrendingTools();
+        reason = "🔥 Hot";
+        break;
+      case 'beginner':
+        tools = getBeginnerTools();
+        reason = "🌱 Easy";
+        break;
+      case 'passive':
+        tools = getPassiveTools();
+        reason = "💤 Passive";
+        break;
+      case 'similar':
+        tools = getPersonalizedTools();
+        reason = "💡 For You";
+        break;
+    }
+    
+    grid.innerHTML = tools.map(t => renderRecommendationCard(t, reason)).join('');
+  }
+  
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      loadRecommendations(this.dataset.tab);
+    });
+  });
+  
+  // Load initial recommendations
+  document.addEventListener('DOMContentLoaded', () => {
+    loadRecommendations('trending');
+  });
+  
+  // Track tool views
+  document.querySelectorAll('.tool-card, .recommendation-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const toolId = card.dataset.toolId;
+      if (toolId) {
+        const viewed = JSON.parse(localStorage.getItem('viewedTools') || '[]');
+        if (!viewed.includes(toolId)) {
+          viewed.push(toolId);
+          localStorage.setItem('viewedTools', JSON.stringify(viewed));
+        }
+      }
+    });
+  });
 </script>
 </Layout>
