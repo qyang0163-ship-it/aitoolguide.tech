@@ -71,6 +71,26 @@ const currentPath = Astro.url.pathname;
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
 			gtag('config', 'G-14213142037');
+			
+			// Track page load performance
+			window.addEventListener('load', function() {
+				setTimeout(function() {
+					var perfData = window.performance.timing;
+					var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+					var domReadyTime = perfData.domContentLoadedEventEnd - perfData.navigationStart;
+					gtag('event', 'timing_complete', {
+						'name': 'page_load',
+						'value': pageLoadTime,
+						'event_category': 'Performance'
+					});
+					gtag('event', 'timing_complete', {
+						'name': 'dom_ready',
+						'value': domReadyTime,
+						'event_category': 'Performance'
+					});
+				}, 0);
+			});
+			
 			// Track CTA button clicks
 			document.addEventListener('click', function(e) {
 				var btn = e.target.closest('.btn-urgent, .btn-primary, [data-track]');
