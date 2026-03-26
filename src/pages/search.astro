@@ -1,0 +1,370 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const tools = [
+  { id: 'chatgpt', name: 'ChatGPT', icon: '💬', color: '#10a37f', category: 'writing', tier: 'private' },
+  { id: 'midjourney', name: 'Midjourney', icon: '🎨', color: '#6366f1', category: 'art', tier: 'private' },
+  { id: 'claude', name: 'Claude', icon: '🧠', color: '#d97706', category: 'writing', tier: 'private' },
+  { id: 'notion', name: 'Notion AI', icon: '📝', color: '#000000', category: 'productivity', tier: 'commission' },
+  { id: 'runway', name: 'Runway', icon: '🎬', color: '#ec4899', category: 'video', tier: 'commission' },
+  { id: 'dalle3', name: 'DALL-E 3', icon: '🖼️', color: '#8b5cf6', category: 'art', tier: 'private' },
+  { id: 'perplexity', name: 'Perplexity', icon: '🔍', color: '#10b981', category: 'research', tier: 'commission' },
+  { id: 'copilot', name: 'GitHub Copilot', icon: '💻', color: '#6b7280', category: 'code', tier: 'private' },
+  { id: 'gamma', name: 'Gamma', icon: '📊', color: '#f97316', category: 'productivity', tier: 'commission' },
+  { id: 'claude-code', name: 'Claude Code', icon: '⚡', color: '#dc2626', category: 'code', tier: 'private' }
+];
+---
+
+<Layout title="Search AI Tools - AIToolGuide">
+  <div class="search-page">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="logo">
+            <span class="logo-icon">💰</span>
+            <span class="logo-text">AIToolGuide</span>
+          </a>
+          <div class="nav-actions">
+            <a href="/" class="back-link">← Back to Home</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Search Hero -->
+    <section class="search-hero">
+      <div class="container">
+        <h1>Search AI Tools</h1>
+        <p>Find the perfect AI tool for your needs</p>
+        
+        <div class="search-box">
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Search tools, categories, or use cases..."
+            autocomplete="off"
+          />
+          <button class="search-btn">🔍</button>
+        </div>
+
+        <div class="search-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="writing">Writing</button>
+          <button class="filter-btn" data-filter="art">Art</button>
+          <button class="filter-btn" data-filter="video">Video</button>
+          <button class="filter-btn" data-filter="code">Code</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="results-section">
+      <div class="container">
+        <div id="results-count" class="results-count">Showing all {tools.length} tools</div>
+        
+        <div id="results-grid" class="results-grid">
+          {tools.map(tool => (
+            <a href={`/tool/${tool.id}/`} class="result-card" data-category={tool.category} data-name={tool.name.toLowerCase()}>
+              <div class="result-icon" style={`background: ${tool.color}20; color: ${tool.color}`}>
+                {tool.icon}
+              </div>
+              <div class="result-info">
+                <h3>{tool.name}</h3>
+                <span class="result-category">{tool.category}</span>
+                <p class="result-desc">{tool.tier === 'commission' ? 'Partner Tool' : 'Premium Tool'}</p>
+              </div>
+              <span class="result-arrow">→</span>
+            </a>
+          ))}
+        </div>
+
+        <div id="no-results" class="no-results" style="display: none;">
+          <span class="no-results-icon">🔍</span>
+          <h3>No tools found</h3>
+          <p>Try different keywords or browse all tools</p>
+          <a href="/ai-tools-100" class="btn">Browse Top 100 →</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    const searchInput = document.getElementById('search-input');
+    const resultsGrid = document.getElementById('results-grid');
+    const resultsCount = document.getElementById('results-count');
+    const noResults = document.getElementById('no-results');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const resultCards = document.querySelectorAll('.result-card');
+
+    let currentFilter = 'all';
+
+    // Search functionality
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      filterResults(query, currentFilter);
+    });
+
+    // Filter buttons
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        filterResults(searchInput.value.toLowerCase(), currentFilter);
+      });
+    });
+
+    function filterResults(query, filter) {
+      let visibleCount = 0;
+
+      resultCards.forEach(card => {
+        const name = card.dataset.name;
+        const category = card.dataset.category;
+        
+        const matchesQuery = name.includes(query);
+        const matchesFilter = filter === 'all' || category === filter;
+
+        if (matchesQuery && matchesFilter) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      resultsCount.textContent = `Showing ${visibleCount} tool${visibleCount !== 1 ? 's' : ''}`;
+      
+      if (visibleCount === 0) {
+        resultsGrid.style.display = 'none';
+        noResults.style.display = 'block';
+      } else {
+        resultsGrid.style.display = 'grid';
+        noResults.style.display = 'none';
+      }
+    }
+
+    // Focus search on load
+    searchInput.focus();
+  </script>
+
+  <style>
+    .search-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+
+    .header {
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: white;
+    }
+
+    .back-link {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+    }
+
+    .search-hero {
+      padding: 60px 20px 40px;
+      text-align: center;
+      color: white;
+    }
+
+    .search-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .search-hero p {
+      opacity: 0.8;
+      margin-bottom: 32px;
+    }
+
+    .search-box {
+      display: flex;
+      max-width: 600px;
+      margin: 0 auto 24px;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 20px 24px;
+      border: none;
+      font-size: 1.1rem;
+      outline: none;
+    }
+
+    .search-btn {
+      padding: 0 24px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .search-filters {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 25px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-color: transparent;
+    }
+
+    .results-section {
+      padding: 40px 20px 80px;
+    }
+
+    .results-count {
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .results-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .result-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s;
+    }
+
+    .result-card:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateX(8px);
+    }
+
+    .result-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      flex-shrink: 0;
+    }
+
+    .result-info {
+      flex: 1;
+    }
+
+    .result-info h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .result-category {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+
+    .result-desc {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .result-arrow {
+      font-size: 1.5rem;
+      opacity: 0.5;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: white;
+    }
+
+    .no-results-icon {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .no-results h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .no-results p {
+      opacity: 0.7;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 640px) {
+      .search-hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .search-box input {
+        padding: 16px 20px;
+      }
+    }
+  </style>
+</Layout>
