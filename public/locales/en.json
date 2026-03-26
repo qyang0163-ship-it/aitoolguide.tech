@@ -255,5 +255,14 @@
   "aboutValues": "What We Believe",
   "footerOurStory": "Our Story",
   "footerFAQ": "FAQ",
-  "footerJoin": "Join Community"
+  "footerJoin": "Join Community",
+  "storyIncome4": "$1,200/month",
+  "storyTitle4": "College Student Pays Tuition with ChatGPT Writing",
+  "storyDesc4": "University student uses ChatGPT to help classmates with essays and assignments, earning $1,200/month part-time",
+  "storyIncome5": "$3,500/month",
+  "storyTitle5": "Video Editor Scales to $3.5K with Runway AI",
+  "storyDesc5": "Freelance video editor uses Runway AI to speed up editing workflow, taking on 3x more clients and scaling income",
+  "storyIncome6": "$450/month",
+  "storyTitle6": "Developer Sells AI Prompts for Recurring Revenue",
+  "storyDesc6": "Software engineer packages and sells high-quality AI prompts, building a passive income stream with minimal maintenance"
 }
