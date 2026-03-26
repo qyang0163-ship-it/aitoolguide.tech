@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Tool Comparison - AIToolGuide">
+  <div class="compare-page">
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="logo">
+            <span class="logo-icon">💰</span>
+            <span class="logo-text">AIToolGuide</span>
+          </a>
+          <a href="/" class="back-link">← Back</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <h1>AI Tool Comparison</h1>
+        <p>Compare top AI tools side by side</p>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="container">
+        <div class="coming-soon">
+          <span class="icon">🔧</span>
+          <h2>Comparison Tool Coming Soon</h2>
+          <p>We're building an interactive tool comparison feature. Check back soon!</p>
+          <a href="/ai-tools-100" class="btn">Browse Top 100 →</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>
+    .compare-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+
+    .header {
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: white;
+    }
+
+    .back-link {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+    }
+
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .content {
+      padding: 40px 20px;
+    }
+
+    .coming-soon {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 60px;
+      text-align: center;
+      color: white;
+    }
+
+    .icon {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      margin-top: 24px;
+    }
+  </style>
+</Layout>
