@@ -312,5 +312,21 @@
   "vipResource3Title": "Client Proposal Templates",
   "vipResource3Desc": "Win more deals with proven templates",
   "vipResource4Title": "Video Training Library",
-  "vipResource4Desc": "20+ hours of step-by-step video tutorials"
+  "vipResource4Desc": "20+ hours of step-by-step video tutorials",
+  "signinTitle": "Sign In to Your Account",
+  "signinSubtitle": "Access exclusive AI money-making guides",
+  "emailLabel": "Email Address",
+  "passwordLabel": "Password",
+  "signInButton": "Sign In",
+  "forgotPassword": "Forgot Password?",
+  "noAccount": "Don't have an account?",
+  "signUpNow": "Sign Up Now",
+  "signupTitle": "Create Your Account",
+  "signupSubtitle": "Join thousands earning with AI tools",
+  "nameLabel": "Full Name",
+  "confirmPasswordLabel": "Confirm Password",
+  "signUpButton": "Create Account",
+  "hasAccount": "Already have an account?",
+  "signInNow": "Sign In Now",
+  "backToHome": "← Back to Home"
 }

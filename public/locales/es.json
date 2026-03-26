@@ -195,5 +195,21 @@
   "vipWelcome": "Bienvenido de vuelta",
   "vipExclusive": "VIP EXCLUSIVO",
   "vipMethodsTitle": "Métodos Avanzados para Ganar con IA",
-  "vipGuideTitle": "Guía Completa: Cómo Ganar Dinero con IA en 2026"
+  "vipGuideTitle": "Guía Completa: Cómo Ganar Dinero con IA en 2026",
+  "signinTitle": "Iniciar Sesión",
+  "signinSubtitle": "Accede a guías exclusivas de IA",
+  "emailLabel": "Correo Electrónico",
+  "passwordLabel": "Contraseña",
+  "signInButton": "Iniciar Sesión",
+  "forgotPassword": "¿Olvidaste tu contraseña?",
+  "noAccount": "¿No tienes cuenta?",
+  "signUpNow": "Regístrate Ahora",
+  "signupTitle": "Crear Cuenta",
+  "signupSubtitle": "Únete a miles ganando con IA",
+  "nameLabel": "Nombre Completo",
+  "confirmPasswordLabel": "Confirmar Contraseña",
+  "signUpButton": "Crear Cuenta",
+  "hasAccount": "¿Ya tienes cuenta?",
+  "signInNow": "Inicia Sesión",
+  "backToHome": "← Volver al Inicio"
 }

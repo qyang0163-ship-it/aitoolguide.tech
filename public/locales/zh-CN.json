@@ -244,5 +244,21 @@
   "forgotPasswordTitle": "重置密码",
   "forgotPasswordDesc": "输入您的邮箱地址，我们将发送重置密码链接给您。",
   "sendResetLink": "发送重置链接",
-  "resetLinkSent": "密码重置链接已发送！请检查您的邮箱。"
+  "resetLinkSent": "密码重置链接已发送！请检查您的邮箱。",
+  "signinTitle": "登录您的账户",
+  "signinSubtitle": "访问独家AI赚钱指南",
+  "emailLabel": "邮箱地址",
+  "passwordLabel": "密码",
+  "signInButton": "登录",
+  "forgotPassword": "忘记密码？",
+  "noAccount": "还没有账户？",
+  "signUpNow": "立即注册",
+  "signupTitle": "创建您的账户",
+  "signupSubtitle": "加入数千名用AI赚钱的人",
+  "nameLabel": "全名",
+  "confirmPasswordLabel": "确认密码",
+  "signUpButton": "创建账户",
+  "hasAccount": "已有账户？",
+  "signInNow": "立即登录",
+  "backToHome": "← 返回首页"
 }

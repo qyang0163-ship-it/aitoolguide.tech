@@ -221,5 +221,21 @@
   "quickActions": "🚀 快捷操作",
   "browseTools": "瀏覽AI工具",
   "startLearning": "開始學習",
-  "getSupport": "獲取支持"
+  "getSupport": "獲取支持",
+  "signinTitle": "登入您的賬戶",
+  "signinSubtitle": "訪問獨家AI賺錢指南",
+  "emailLabel": "郵箱地址",
+  "passwordLabel": "密碼",
+  "signInButton": "登入",
+  "forgotPassword": "忘記密碼？",
+  "noAccount": "還沒有賬戶？",
+  "signUpNow": "立即註冊",
+  "signupTitle": "創建您的賬戶",
+  "signupSubtitle": "加入數千名用AI賺錢的人",
+  "nameLabel": "全名",
+  "confirmPasswordLabel": "確認密碼",
+  "signUpButton": "創建賬戶",
+  "hasAccount": "已有賬戶？",
+  "signInNow": "立即登入",
+  "backToHome": "← 返回首頁"
 }
