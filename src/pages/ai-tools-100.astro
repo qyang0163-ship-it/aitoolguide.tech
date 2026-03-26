@@ -35,6 +35,16 @@ const tier4 = top100Tools.filter(t => t.rank > 60);
         <h1 data-i18n="top100Title">Top 100 AI Tools Directory</h1>
         <p data-i18n="top100Desc">Discover the most popular AI tools ranked by global traffic and usage</p>
         
+        <!-- Category Filter -->
+        <div class="category-filter">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="Chatbot">Chatbot</button>
+          <button class="filter-btn" data-filter="Image Generation">Image</button>
+          <button class="filter-btn" data-filter="Video">Video</button>
+          <button class="filter-btn" data-filter="Writing">Writing</button>
+          <button class="filter-btn" data-filter="Code">Code</button>
+        </div>
+        
         <!-- Stats -->
         <div class="stats">
           <div class="stat">
@@ -511,4 +521,65 @@ const tier4 = top100Tools.filter(t => t.rank > 60);
     .nav-links { gap: 16px; }
     .nav-links a { font-size: 0.9rem; }
   }
+  
+  /* Category Filter */
+  .category-filter {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 32px 0;
+  }
+  .filter-btn {
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    border-color: transparent;
+    transform: translateY(-2px);
+  }
+  
+  /* Partner Badge Animation */
+  .partner-badge, .partner-badge-sm {
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
 </style>
+
+<script is:inline>
+  // Category Filter Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const toolCards = document.querySelectorAll('.tool-card, .tool-row');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const filter = this.dataset.filter;
+        
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter tools
+        toolCards.forEach(card => {
+          const category = card.querySelector('.category')?.textContent || '';
+          if (filter === 'all' || category.includes(filter)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
