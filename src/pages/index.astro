@@ -357,6 +357,55 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
     </div>
   </section>
 
+  <!-- Latest News Section -->
+  <section class="news-section" id="news">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">📰 Latest Updates</span>
+        <h2 class="section-title">AI Money Making News</h2>
+        <p class="section-description">Stay updated with the latest trends and opportunities</p>
+      </div>
+
+      <div class="news-grid">
+        <article class="news-card">
+          <span class="news-date">Mar 26, 2026</span>
+          <span class="news-tag">Trend</span>
+          <h3>ChatGPT-5 Released: New Opportunities</h3>
+          <p>OpenAI's latest model brings enhanced capabilities for content creators, opening new revenue streams in AI-assisted writing and consulting.</p>
+          <a href="#" class="news-link">Read More →</a>
+        </article>
+
+        <article class="news-card">
+          <span class="news-date">Mar 25, 2026</span>
+          <span class="news-tag">Success Story</span>
+          <h3>From $0 to $50K: Sarah's AI Journey</h3>
+          <p>How a former teacher built a six-figure AI content agency in just 8 months using the methods from our VIP program.</p>
+          <a href="#" class="news-link">Read More →</a>
+        </article>
+
+        <article class="news-card">
+          <span class="news-date">Mar 24, 2026</span>
+          <span class="news-tag">Tool Update</span>
+          <h3>Midjourney V7: Better Images, More Profit</h3>
+          <p>The latest version delivers photorealistic results, making AI art services even more valuable for designers and agencies.</p>
+          <a href="#" class="news-link">Read More →</a>
+        </article>
+
+        <article class="news-card">
+          <span class="news-date">Mar 23, 2026</span>
+          <span class="news-tag">Opportunity</span>
+          <h3>AI Video Editing Boom: $10K/Month Potential</h3>
+          <p>New tools like Runway Gen-3 are creating massive demand for AI video editors. Learn how to capitalize on this trend.</p>
+          <a href="#" class="news-link">Read More →</a>
+        </article>
+      </div>
+
+      <div class="news-footer">
+        <a href="/blog" class="btn btn-secondary">View All News →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
   <section class="cta-section" id="final-cta">
     <div class="container">
@@ -572,13 +621,14 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .logo-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .logo-tag { font-size: 0.7rem; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; padding: 4px 10px; border-radius: 12px; font-weight: 700; }
   .nav-links { display: flex; gap: 30px; }
-  .nav-links a { font-weight: 600; color: var(--gray); }
+  .nav-links a { font-weight: 600; color: var(--text-secondary); }
+  .nav-links a:hover { color: var(--primary); }
   .nav-actions { display: flex; align-items: center; gap: 12px; flex-wrap: nowrap; }
   #aitg-lang-switcher { margin-left: 8px; }
   .user-menu { display: flex; align-items: center; gap: 12px; }
-  .user-email { font-size: 0.85rem; color: var(--gray); max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .btn-ghost { background: transparent; color: var(--gray); border: 1px solid var(--border); }
-  .btn-ghost:hover { background: var(--border); }
+  .user-email { font-size: 0.85rem; color: var(--text-secondary); max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: var(--bg-secondary); }
   .btn-small { padding: 10px 20px; font-size: 0.9rem; }
   
   .hero { padding: 140px 0 80px; text-align: center; }
@@ -714,13 +764,26 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .story-card:nth-child(2) { animation-delay: 0.2s; }
   .story-card:nth-child(3) { animation-delay: 0.3s; }
   
+  /* News Section Styles */
+  .news-section { padding: 80px 0; background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
+  .news-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 40px; }
+  .news-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.3s; }
+  .news-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+  .news-date { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+  .news-tag { display: inline-block; padding: 4px 12px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 0.75rem; font-weight: 600; border-radius: 12px; margin-bottom: 12px; }
+  .news-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--text-primary); }
+  .news-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px; }
+  .news-link { color: var(--primary); font-weight: 600; font-size: 0.9rem; }
+  .news-link:hover { text-decoration: underline; }
+  .news-footer { text-align: center; }
+  
   @media (max-width: 768px) {
     .hero { padding: 120px 20px 60px; }
     .hero-title { font-size: 2rem; }
     .hero-actions { flex-direction: column; align-items: center; }
     .hero-actions .btn { width: 100%; max-width: 320px; justify-content: center; }
     .hero-stats { gap: 30px; }
-    .tools-grid, .categories-grid, .stories-grid { grid-template-columns: 1fr; }
+    .tools-grid, .categories-grid, .stories-grid, .news-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
     .tool-header { flex-wrap: wrap; }
     .income-badge { margin-left: auto; }
