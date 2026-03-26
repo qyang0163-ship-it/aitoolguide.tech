@@ -264,5 +264,14 @@
   "storyDesc5": "Freelance video editor uses Runway AI to speed up editing workflow, taking on 3x more clients and scaling income",
   "storyIncome6": "$450/month",
   "storyTitle6": "Developer Sells AI Prompts for Recurring Revenue",
-  "storyDesc6": "Software engineer packages and sells high-quality AI prompts, building a passive income stream with minimal maintenance"
+  "storyDesc6": "Software engineer packages and sells high-quality AI prompts, building a passive income stream with minimal maintenance",
+  "error404Title": "Page Not Found",
+  "error404Desc": "Oops! The page you're looking for seems to have wandered off into the AI universe.",
+  "error404Suggestions": "You might want to try:",
+  "error404Home": "🏠 Back to Home",
+  "error404Tools": "🛠️ Browse AI Tools",
+  "error404FAQ": "❓ Visit FAQ",
+  "error404Blog": "📚 Read Success Stories",
+  "error404Cta": "Take Me Home →",
+  "error404Fact": "Fun fact: The first AI program was written in 1951. We've come a long way since then!"
 }
