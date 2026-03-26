@@ -319,7 +319,7 @@
 
     var btn = document.createElement('button');
     btn.id = 'aitg-lang-btn';
-    btn.style.cssText = 'background:linear-gradient(135deg,#0ea5e9,#8b5cf6);color:white;border:none;padding:8px 14px;border-radius:10px;font-weight:600;font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:5px;transition:transform 0.2s;white-space:nowrap;';
+    btn.style.cssText = 'background:linear-gradient(135deg,#635bff,#00d4aa);color:white;border:none;padding:8px 14px;border-radius:10px;font-weight:600;font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:5px;transition:transform 0.2s;white-space:nowrap;';
 
     var dd = document.createElement('div');
     dd.id = 'aitg-lang-dd';
