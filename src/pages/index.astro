@@ -295,6 +295,68 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
     </div>
   </section>
 
+  <!-- Learning Progress Section -->
+  <section class="progress-section" id="progress">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">📊 Your Journey</span>
+        <h2 class="section-title">Learning Progress</h2>
+        <p class="section-description">Track your AI money-making journey</p>
+      </div>
+      
+      <div class="progress-dashboard">
+        <div class="progress-stats">
+          <div class="progress-stat">
+            <span class="progress-number" id="tools-viewed">0</span>
+            <span class="progress-label">Tools Explored</span>
+          </div>
+          <div class="progress-stat">
+            <span class="progress-number" id="categories-tried">0</span>
+            <span class="progress-label">Categories Tried</span>
+          </div>
+          <div class="progress-stat">
+            <span class="progress-number" id="user-level">Beginner</span>
+            <span class="progress-label">Current Level</span>
+          </div>
+          <div class="progress-stat">
+            <span class="progress-number" id="next-milestone">5</span>
+            <span class="progress-label">Next Milestone</span>
+          </div>
+        </div>
+        
+        <div class="progress-bar-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+          </div>
+          <p class="progress-text" id="progress-text">Start exploring tools to earn your first badge!</p>
+        </div>
+        
+        <div class="achievements">
+          <div class="achievement" id="badge-explorer" data-locked="true">
+            <span class="achievement-icon">🔍</span>
+            <span class="achievement-name">Explorer</span>
+            <span class="achievement-desc">View 3 tools</span>
+          </div>
+          <div class="achievement" id="badge-curious" data-locked="true">
+            <span class="achievement-icon">🧐</span>
+            <span class="achievement-name">Curious</span>
+            <span class="achievement-desc">Try 2 categories</span>
+          </div>
+          <div class="achievement" id="badge-learner" data-locked="true">
+            <span class="achievement-icon">📚</span>
+            <span class="achievement-name">Learner</span>
+            <span class="achievement-desc">View 5 tools</span>
+          </div>
+          <div class="achievement" id="badge-master" data-locked="true">
+            <span class="achievement-icon">🏆</span>
+            <span class="achievement-name">Master</span>
+            <span class="achievement-desc">Try 4 categories</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Stories Section -->
   <section class="stories-section" id="stories">
     <div class="container">
@@ -932,6 +994,30 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .rec-reason { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px; padding: 12px; background: var(--bg-secondary); border-radius: 8px; }
   .rec-actions { display: flex; gap: 12px; }
   .rec-actions .btn { flex: 1; }
+  
+  /* Progress Section */
+  .progress-section { padding: 80px 0; background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
+  .progress-dashboard { background: white; border-radius: 24px; padding: 40px; box-shadow: var(--shadow-lg); }
+  .progress-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px; }
+  .progress-stat { text-align: center; padding: 24px; background: var(--bg-secondary); border-radius: 16px; }
+  .progress-number { display: block; font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+  .progress-label { font-size: 0.9rem; color: var(--text-muted); }
+  .progress-bar-container { margin-bottom: 40px; }
+  .progress-bar { height: 12px; background: var(--bg-secondary); border-radius: 6px; overflow: hidden; margin-bottom: 16px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 6px; transition: width 0.5s ease; }
+  .progress-text { text-align: center; color: var(--text-secondary); font-size: 1.1rem; }
+  .achievements { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .achievement { text-align: center; padding: 24px; background: var(--bg-secondary); border-radius: 16px; transition: all 0.3s; }
+  .achievement[data-locked="true"] { opacity: 0.5; filter: grayscale(1); }
+  .achievement.unlocked { background: linear-gradient(135deg, #dcfce7, #bbf7d0); border: 2px solid #22c55e; }
+  .achievement-icon { display: block; font-size: 2.5rem; margin-bottom: 12px; }
+  .achievement-name { display: block; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+  .achievement-desc { font-size: 0.85rem; color: var(--text-muted); }
+  
+  @media (max-width: 768px) {
+    .progress-stats { grid-template-columns: repeat(2, 1fr); }
+    .achievements { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 
 <script is:inline>
@@ -1098,7 +1184,201 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
           viewed.push(toolId);
           localStorage.setItem('viewedTools', JSON.stringify(viewed));
         }
+        // Update user profile
+        updateUserProfile(toolId);
       }
+    });
+  });
+  
+  // Advanced User Profile System
+  function updateUserProfile(toolId) {
+    const tool = toolDatabase.find(t => t.id === toolId);
+    if (!tool) return;
+    
+    let profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+    
+    // Initialize profile if empty
+    if (!profile.categories) profile.categories = {};
+    if (!profile.difficultyPreference) profile.difficultyPreference = [];
+    if (!profile.incomeInterest) profile.incomeInterest = [];
+    if (!profile.visitCount) profile.visitCount = 0;
+    if (!profile.lastVisit) profile.lastVisit = null;
+    
+    // Update category interest
+    profile.categories[tool.category] = (profile.categories[tool.category] || 0) + 1;
+    
+    // Update difficulty preference
+    profile.difficultyPreference.push(tool.difficulty);
+    if (profile.difficultyPreference.length > 10) {
+      profile.difficultyPreference.shift();
+    }
+    
+    // Update income interest
+    profile.incomeInterest.push(tool.incomeMax);
+    if (profile.incomeInterest.length > 10) {
+      profile.incomeInterest.shift();
+    }
+    
+    // Update visit stats
+    profile.visitCount++;
+    profile.lastVisit = new Date().toISOString();
+    
+    // Calculate user type
+    profile.userType = calculateUserType(profile);
+    
+    localStorage.setItem('userProfile', JSON.stringify(profile));
+  }
+  
+  function calculateUserType(profile) {
+    const avgDifficulty = profile.difficultyPreference.reduce((a, b) => a + b, 0) / profile.difficultyPreference.length;
+    const avgIncome = profile.incomeInterest.reduce((a, b) => a + b, 0) / profile.incomeInterest.length;
+    
+    if (avgDifficulty <= 1.5 && avgIncome < 8000) return 'beginner';
+    if (avgDifficulty >= 3 && avgIncome > 15000) return 'advanced';
+    if (avgIncome > 20000) return 'ambitious';
+    return 'balanced';
+  }
+  
+  function getSmartRecommendations() {
+    const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+    const viewed = JSON.parse(localStorage.getItem('viewedTools') || '[]');
+    
+    if (!profile.categories || Object.keys(profile.categories).length === 0) {
+      return getTrendingTools();
+    }
+    
+    // Find top category
+    const topCategory = Object.entries(profile.categories)
+      .sort((a, b) => b[1] - a[1])[0][0];
+    
+    // Calculate average difficulty preference
+    const avgDifficulty = profile.difficultyPreference.reduce((a, b) => a + b, 0) / profile.difficultyPreference.length;
+    
+    // Score all unviewed tools
+    let scoredTools = toolDatabase
+      .filter(t => !viewed.includes(t.id))
+      .map(tool => {
+        let score = 0;
+        
+        // Category match (highest weight)
+        if (tool.category === topCategory) score += 50;
+        
+        // Difficulty match
+        const diffDiff = Math.abs(tool.difficulty - avgDifficulty);
+        score += Math.max(0, 30 - diffDiff * 10);
+        
+        // Income potential
+        score += (tool.incomeMax / 1000) * 2;
+        
+        // User type bonus
+        if (profile.userType === 'beginner' && tool.difficulty <= 2) score += 20;
+        if (profile.userType === 'advanced' && tool.difficulty >= 3) score += 20;
+        if (profile.userType === 'ambitious' && tool.incomeMax > 15000) score += 25;
+        
+        return { ...tool, score };
+      });
+    
+    return scoredTools.sort((a, b) => b.score - a.score).slice(0, 4);
+  }
+  
+  // Add smart recommendations tab
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add Smart tab if user has profile
+    const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+    if (profile.categories && Object.keys(profile.categories).length > 0) {
+      const tabsContainer = document.querySelector('.recommendation-tabs');
+      if (tabsContainer) {
+        const smartTab = document.createElement('button');
+        smartTab.className = 'tab-btn';
+        smartTab.dataset.tab = 'smart';
+        smartTab.innerHTML = '🎯 Smart Match';
+        tabsContainer.appendChild(smartTab);
+        
+        smartTab.addEventListener('click', function() {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          const tools = getSmartRecommendations();
+          const grid = document.getElementById('recommendations-grid');
+          grid.innerHTML = tools.map(t => renderRecommendationCard(t, '🎯 Best Match')).join('');
+        });
+      }
+    }
+  });
+  
+  // Learning Progress Tracker
+  function updateProgressDisplay() {
+    const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+    const viewed = JSON.parse(localStorage.getItem('viewedTools') || '[]');
+    
+    // Update stats
+    document.getElementById('tools-viewed').textContent = viewed.length;
+    
+    const categories = profile.categories ? Object.keys(profile.categories).length : 0;
+    document.getElementById('categories-tried').textContent = categories;
+    
+    // Calculate level
+    let level = 'Beginner';
+    let milestone = 5;
+    let progress = 0;
+    
+    if (viewed.length >= 10 && categories >= 4) {
+      level = 'Master';
+      milestone = 'Max';
+      progress = 100;
+    } else if (viewed.length >= 7 && categories >= 3) {
+      level = 'Expert';
+      milestone = 10;
+      progress = 75;
+    } else if (viewed.length >= 5 && categories >= 2) {
+      level = 'Advanced';
+      milestone = 7;
+      progress = 50;
+    } else if (viewed.length >= 3 && categories >= 1) {
+      level = 'Intermediate';
+      milestone = 5;
+      progress = 25;
+    }
+    
+    document.getElementById('user-level').textContent = level;
+    document.getElementById('next-milestone').textContent = milestone;
+    document.getElementById('progress-fill').style.width = progress + '%';
+    
+    // Update achievements
+    if (viewed.length >= 3) unlockAchievement('badge-explorer');
+    if (categories >= 2) unlockAchievement('badge-curious');
+    if (viewed.length >= 5) unlockAchievement('badge-learner');
+    if (categories >= 4) unlockAchievement('badge-master');
+    
+    // Update progress text
+    const texts = [
+      "Start exploring tools to earn your first badge!",
+      "Great start! Keep exploring to unlock more badges.",
+      "You're making progress! Try different categories.",
+      "Almost there! You're becoming an AI expert.",
+      "Congratulations! You're a Master of AI tools!"
+    ];
+    const textIndex = Math.min(Math.floor(progress / 25), 4);
+    document.getElementById('progress-text').textContent = texts[textIndex];
+  }
+  
+  function unlockAchievement(id) {
+    const badge = document.getElementById(id);
+    if (badge && badge.dataset.locked === 'true') {
+      badge.dataset.locked = 'false';
+      badge.classList.add('unlocked');
+      badge.querySelector('.achievement-icon').textContent += ' ✓';
+    }
+  }
+  
+  // Initialize progress on load
+  document.addEventListener('DOMContentLoaded', () => {
+    updateProgressDisplay();
+  });
+  
+  // Update progress when tools are clicked
+  document.querySelectorAll('.tool-card, .recommendation-card').forEach(card => {
+    card.addEventListener('click', () => {
+      setTimeout(updateProgressDisplay, 100);
     });
   });
 </script>
