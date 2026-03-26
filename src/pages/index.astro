@@ -215,48 +215,54 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
       </div>
 
       <div class="categories-grid">
-        <a href="/category/ai-writing" class="category-card">
+        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-writing')">
           <span class="category-icon">✍️</span>
           <h3 data-i18n="catWriting">AI Writing</h3>
           <p data-i18n="catWritingDesc">Copywriting, content creation</p>
           <span class="category-count">15 tools</span>
           <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-        </a>
-        <a href="/category/ai-art" class="category-card">
+          <span class="lock-icon">🔒</span>
+        </div>
+        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-art')">
           <span class="category-icon">🎨</span>
           <h3 data-i18n="catArt">AI Art</h3>
           <p data-i18n="catArtDesc">Avatar customization, design orders</p>
           <span class="category-count">12 tools</span>
           <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-        </a>
-        <a href="/category/ai-video" class="category-card">
+          <span class="lock-icon">🔒</span>
+        </div>
+        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-video')">
           <span class="category-icon">🎬</span>
           <h3 data-i18n="catVideo">Video Editing</h3>
           <p data-i18n="catVideoDesc">Short videos, ad production</p>
           <span class="category-count">8 tools</span>
           <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-        </a>
-        <a href="/category/ai-code" class="category-card">
+          <span class="lock-icon">🔒</span>
+        </div>
+        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-code')">
           <span class="category-icon">💻</span>
           <h3 data-i18n="catCode">Code & Tech</h3>
           <p data-i18n="catCodeDesc">Development, script customization</p>
           <span class="category-count">10 tools</span>
           <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-        </a>
-        <a href="/category/ai-knowledge" class="category-card">
+          <span class="lock-icon">🔒</span>
+        </div>
+        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-knowledge')">
           <span class="category-icon">📚</span>
           <h3 data-i18n="catKnowledge">Knowledge</h3>
           <p data-i18n="catKnowledgeDesc">Courses, templates, resources</p>
           <span class="category-count">20 tools</span>
           <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-        </a>
-        <a href="/category/ai-productivity" class="category-card">
+          <span class="lock-icon">🔒</span>
+        </div>
+        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-productivity')">
           <span class="category-icon">⚡</span>
           <h3 data-i18n="catProductivity">Productivity</h3>
           <p data-i18n="catProductivityDesc">Automation, efficiency boost</p>
           <span class="category-count">6 tools</span>
           <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-        </a>
+          <span class="lock-icon">🔒</span>
+        </div>
       </div>
     </div>
   </section>
@@ -693,6 +699,54 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .category-card p { color: var(--gray); margin-bottom: 12px; }
   .category-count { display: inline-block; background: #f1f5f9; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; color: var(--gray); margin-bottom: 16px; }
   .category-cta { display: block; color: var(--primary); font-weight: 600; }
+  .category-card { position: relative; cursor: pointer; }
+  .category-card .lock-icon { 
+    position: absolute; 
+    top: 16px; 
+    right: 16px; 
+    font-size: 1.2rem; 
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .category-card:hover .lock-icon { opacity: 1; }
+  
+  /* Login Modal */
+  .login-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-modal.active { display: flex; }
+  .login-modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 500px;
+    text-align: center;
+    animation: modalSlideIn 0.3s;
+  }
+  @keyframes modalSlideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .login-modal h3 { font-size: 1.5rem; margin-bottom: 16px; }
+  .login-modal p { color: #64748b; margin-bottom: 24px; }
+  .login-modal .btn { margin: 8px; }
+  .login-modal .close { 
+    position: absolute; 
+    top: 20px; 
+    right: 20px; 
+    font-size: 1.5rem; 
+    cursor: pointer;
+    color: #64748b;
+  }
   
   .stories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px; }
   .story-card { background: white; border: 2px solid var(--border); border-radius: 16px; padding: 24px; }
@@ -793,5 +847,89 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
     .footer-content { flex-direction: column; gap: 40px; }
     .stories-footer { flex-direction: column; align-items: center; }
   }
+
+  /* Login Intercept Modal */
+  .login-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-modal.active { display: flex; }
+  .login-modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 500px;
+    text-align: center;
+    animation: modalSlideIn 0.3s;
+  }
+  @keyframes modalSlideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .login-modal h3 { font-size: 1.5rem; margin-bottom: 16px; }
+  .login-modal p { color: #64748b; margin-bottom: 24px; }
+  .login-modal .btn { margin: 8px; }
+  .login-modal .close { 
+    position: absolute; 
+    top: 20px; 
+    right: 20px; 
+    font-size: 1.5rem; 
+    cursor: pointer;
+    color: #64748b;
+  }
 </style>
+
+<script is:inline>
+  // Check authentication status
+  function isAuthenticated() {
+    const user = localStorage.getItem('aitg_current_user');
+    return user && JSON.parse(user)?.isSignedIn === true;
+  }
+
+  // Check auth and navigate
+  function checkAuthAndNavigate(path) {
+    if (isAuthenticated()) {
+      window.location.href = path;
+    } else {
+      showLoginModal();
+      sessionStorage.setItem('postLoginRedirect', path);
+    }
+  }
+
+  function showLoginModal() {
+    document.getElementById('login-modal').classList.add('active');
+  }
+
+  function closeLoginModal() {
+    document.getElementById('login-modal').classList.remove('active');
+  }
+
+  function redirectToSignUp() {
+    closeLoginModal();
+    window.location.href = '/sign-up';
+  }
+
+  // Close modal on outside click
+  document.addEventListener('click', function(e) {
+    const modal = document.getElementById('login-modal');
+    if (e.target === modal) {
+      closeLoginModal();
+    }
+  });
+
+  // Auto-redirect after login
+  if (isAuthenticated() && sessionStorage.getItem('postLoginRedirect')) {
+    const redirect = sessionStorage.getItem('postLoginRedirect');
+    sessionStorage.removeItem('postLoginRedirect');
+    window.location.href = redirect;
+  }
+</script>
 </Layout>

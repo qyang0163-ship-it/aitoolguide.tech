@@ -348,5 +348,7 @@
   "method_perplexity": "Research, reports, data analysis",
   "method_copilot": "Development, coding, automation",
   "method_gamma": "Presentations, documents, courses",
-  "method_claudecode": "Coding, scripts, automation"
+  "method_claudecode": "Coding, scripts, automation",
+  "lockedContent": "🔒 Member-Only Content",
+  "lockedContentDesc": "This content is exclusively for our registered members. Sign up now to get immediate access!"
 }
