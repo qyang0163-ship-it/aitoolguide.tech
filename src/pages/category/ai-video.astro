@@ -39,6 +39,93 @@ import Layout from '../../layouts/Layout.astro';
         </ul>
       </div>
     </section>
+
+    <!-- Getting Started Steps -->
+    <section class="steps-section">
+      <div class="container">
+        <h2>Getting Started in 4 Steps</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <span class="step-num">1</span>
+            <h3>Choose Your Tool</h3>
+            <p>Start with Runway for AI video editing and effects.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">2</span>
+            <h3>Learn the Basics</h3>
+            <p>Master key features: text-to-video, motion tracking, and effects.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">3</span>
+            <h3>Create Samples</h3>
+            <p>Make 5-10 sample videos showcasing different styles and effects.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">4</span>
+            <h3>Find Clients</h3>
+            <p>Target YouTubers, businesses, and content creators needing video editing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Story -->
+    <section class="story-section">
+      <div class="container">
+        <h2>Success Story</h2>
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-income">$3,500/month</span>
+            <span class="story-tag">Video Editor</span>
+          </div>
+          <h3>Video Editor Scales Income with Runway AI</h3>
+          <p>Jessica, a freelance video editor, started using Runway AI to speed up her workflow. She can now handle 3x more clients, editing 15+ videos per week and earning $3,500/month.</p>
+          <div class="story-meta">
+            <span>⏱️ Started: 3 months ago</span>
+            <span>🎬 Videos: 180+ edited</span>
+            <span>⭐ Rating: 5.0/5</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <h4>Do I need video editing experience?</h4>
+            <p>Basic knowledge helps, but AI tools make it much easier for beginners to start.</p>
+          </div>
+          <div class="faq-item">
+            <h4>What type of videos pay best?</h4>
+            <p>YouTube content and business ads typically pay $100-500 per video.</p>
+          </div>
+          <div class="faq-item">
+            <h4>How fast can I deliver projects?</h4>
+            <p>AI tools reduce editing time by 70%. A 10-minute video takes 2-3 hours instead of 8-10.</p>
+          </div>
+          <div class="faq-item">
+            <h4>Where do I find clients?</h4>
+            <p>Upwork, Fiverr, and direct outreach to YouTubers and small businesses.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to Edit & Earn?</h2>
+        <p>Join video editors making money with AI-powered tools</p>
+        <div class="cta-buttons">
+          <a href="/tool/runway/" class="btn btn-primary btn-large">Start with Runway →</a>
+          <a href="/vip-methods/" class="btn btn-secondary btn-large">View Advanced Methods</a>
+        </div>
+        <p class="cta-note">🎁 First 100 users get free Video Editing Templates</p>
+      </div>
+    </section>
   </div>
 
   <style>
@@ -59,5 +146,34 @@ import Layout from '../../layouts/Layout.astro';
     .methods-list li { padding: 16px 20px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px; font-size: 1.1rem; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     h2 { text-align: center; font-size: 2rem; margin-bottom: 10px; }
+    
+    /* New Sections */
+    .steps-section, .story-section, .faq-section, .cta-section { padding: 60px 0; }
+    .steps-section { background: #f8fafc; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 40px; }
+    .step-card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; }
+    .step-num { width: 50px; height: 50px; background: linear-gradient(135deg, #fa709a, #fee140); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 20px; }
+    .step-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+    .step-card p { color: #64748b; }
+    .story-card { max-width: 800px; margin: 40px auto 0; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+    .story-header { display: flex; gap: 12px; margin-bottom: 20px; }
+    .story-income { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; padding: 8px 16px; border-radius: 20px; font-weight: 700; }
+    .story-tag { background: linear-gradient(135deg, #ffedd5, #fed7aa); color: #c2410c; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; }
+    .story-card h3 { font-size: 1.5rem; margin-bottom: 16px; }
+    .story-card > p { color: #475569; line-height: 1.8; margin-bottom: 20px; }
+    .story-meta { display: flex; gap: 24px; color: #64748b; font-size: 0.9rem; }
+    .faq-section { background: #f8fafc; }
+    .faq-list { max-width: 800px; margin: 40px auto 0; }
+    .faq-item { background: white; padding: 24px; border-radius: 12px; margin-bottom: 16px; }
+    .faq-item h4 { font-size: 1.1rem; margin-bottom: 12px; color: #1e293b; }
+    .faq-item p { color: #64748b; }
+    .cta-section { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; text-align: center; }
+    .cta-section h2 { color: white; margin-bottom: 16px; }
+    .cta-section > p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .btn-large { padding: 16px 32px; font-size: 1.1rem; }
+    .btn-secondary { background: white; color: #fa709a; }
+    .cta-note { opacity: 0.8; font-size: 0.95rem; }
+    @media (max-width: 768px) { .steps-grid { grid-template-columns: 1fr; } .cta-buttons { flex-direction: column; align-items: center; } .story-meta { flex-direction: column; gap: 8px; } }
   </style>
 </Layout>

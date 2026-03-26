@@ -45,6 +45,93 @@ import Layout from '../../layouts/Layout.astro';
         </ul>
       </div>
     </section>
+
+    <!-- Getting Started Steps -->
+    <section class="steps-section">
+      <div class="container">
+        <h2>Getting Started in 4 Steps</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <span class="step-num">1</span>
+            <h3>Choose Your Tool</h3>
+            <p>Start with Midjourney for quality or DALL-E 3 for ease of use.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">2</span>
+            <h3>Build Portfolio</h3>
+            <p>Create 10-20 sample artworks. Show variety in styles and subjects.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">3</span>
+            <h3>Join Platforms</h3>
+            <p>Sell on Etsy, Fiverr, and Redbubble. Create social media presence.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">4</span>
+            <h3>Take Orders</h3>
+            <p>Start with $20-50 commissions. Build reputation, then raise prices.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Story -->
+    <section class="story-section">
+      <div class="container">
+        <h2>Success Story</h2>
+        <div class="story-card">
+          <div class="story-header">
+            <span class="story-income">$2,800/month</span>
+            <span class="story-tag">Side Hustle</span>
+          </div>
+          <h3>Designer Earns $2.8K with AI Avatar Business</h3>
+          <p>Mark, a graphic designer, started creating AI avatars for gamers and influencers. Using Midjourney, he delivers 50+ avatars monthly at $50-80 each, building a steady side income stream.</p>
+          <div class="story-meta">
+            <span>⏱️ Started: 4 months ago</span>
+            <span>🎨 Projects: 200+ delivered</span>
+            <span>⭐ Rating: 4.8/5</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <h4>Do I need art skills?</h4>
+            <p>No! AI tools create the art. You just need to write good prompts and curate results.</p>
+          </div>
+          <div class="faq-item">
+            <h4>Is AI art legal to sell?</h4>
+            <p>Yes, you own the rights to AI-generated images. Always check platform-specific terms.</p>
+          </div>
+          <div class="faq-item">
+            <h4>What sells best?</h4>
+            <p>Custom avatars, logos, and product mockups have the highest demand and margins.</p>
+          </div>
+          <div class="faq-item">
+            <h4>How do I price my work?</h4>
+            <p>Start at $20-30 for simple avatars, $100+ for complex commercial projects.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to Create & Earn?</h2>
+        <p>Join thousands of creators making money with AI art tools</p>
+        <div class="cta-buttons">
+          <a href="/tool/midjourney/" class="btn btn-primary btn-large">Start with Midjourney →</a>
+          <a href="/vip-methods/" class="btn btn-secondary btn-large">View Advanced Methods</a>
+        </div>
+        <p class="cta-note">🎁 First 100 users get free AI Art Prompts Pack</p>
+      </div>
+    </section>
   </div>
 
   <style>
@@ -65,5 +152,117 @@ import Layout from '../../layouts/Layout.astro';
     .methods-list li { padding: 16px 20px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px; font-size: 1.1rem; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     h2 { text-align: center; font-size: 2rem; margin-bottom: 10px; }
+    
+    /* New Sections */
+    .steps-section, .story-section, .faq-section, .cta-section { padding: 60px 0; }
+    .steps-section { background: #f8fafc; }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .step-card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .step-num {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+    .step-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+    .step-card p { color: #64748b; }
+    
+    .story-card {
+      max-width: 800px;
+      margin: 40px auto 0;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    .story-header {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .story-income {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      color: #92400e;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+    .story-tag {
+      background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+      color: #be185d;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    .story-card h3 { font-size: 1.5rem; margin-bottom: 16px; }
+    .story-card > p { color: #475569; line-height: 1.8; margin-bottom: 20px; }
+    .story-meta {
+      display: flex;
+      gap: 24px;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+    
+    .faq-section { background: #f8fafc; }
+    .faq-list {
+      max-width: 800px;
+      margin: 40px auto 0;
+    }
+    .faq-item {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .faq-item h4 { font-size: 1.1rem; margin-bottom: 12px; color: #1e293b; }
+    .faq-item p { color: #64748b; }
+    
+    .cta-section {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      text-align: center;
+    }
+    .cta-section h2 { color: white; margin-bottom: 16px; }
+    .cta-section > p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 32px; }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .btn-large { padding: 16px 32px; font-size: 1.1rem; }
+    .btn-secondary {
+      background: white;
+      color: #f5576c;
+    }
+    .cta-note {
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+    
+    @media (max-width: 768px) {
+      .steps-grid { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .story-meta { flex-direction: column; gap: 8px; }
+    }
   </style>
 </Layout>
