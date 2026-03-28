@@ -1014,9 +1014,19 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .achievement-name { display: block; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
   .achievement-desc { font-size: 0.85rem; color: var(--text-muted); }
   
+  /* Floating CTA */
+  .floating-cta { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); z-index: 999; opacity: 0; transition: all 0.3s ease; }
+  .floating-cta.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .floating-cta-btn { display: flex; flex-direction: column; align-items: center; padding: 12px 24px; background: linear-gradient(135deg, #ef4444, #f97316); color: white; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4); animation: pulse 2s infinite; }
+  .floating-cta-btn span { font-weight: 700; font-size: 1rem; }
+  .floating-cta-btn small { font-size: 0.75rem; opacity: 0.9; }
+  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  
   @media (max-width: 768px) {
     .progress-stats { grid-template-columns: repeat(2, 1fr); }
     .achievements { grid-template-columns: repeat(2, 1fr); }
+    .floating-cta-btn { padding: 10px 20px; }
+    .floating-cta-btn span { font-size: 0.9rem; }
   }
 </style>
 
@@ -1373,6 +1383,18 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   // Initialize progress on load
   document.addEventListener('DOMContentLoaded', () => {
     updateProgressDisplay();
+    
+    // Show floating CTA after scrolling
+    const floatingCta = document.getElementById('floating-cta');
+    if (floatingCta) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+          floatingCta.classList.add('visible');
+        } else {
+          floatingCta.classList.remove('visible');
+        }
+      });
+    }
   });
   
   // Update progress when tools are clicked
@@ -1382,4 +1404,12 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
     });
   });
 </script>
+
+<!-- Floating CTA -->
+<div id="floating-cta" class="floating-cta">
+  <a href="#tools" class="floating-cta-btn">
+    <span>🔥 Start Earning Now</span>
+    <small>Free to try</small>
+  </a>
+</div>
 </Layout>
