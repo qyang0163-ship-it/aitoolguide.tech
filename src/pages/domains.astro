@@ -1,114 +1,87 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
 const title = "Premium AI Digital Assets | AIToolGuide";
 
 const domains = [
-  { name: "ai860.com", tag: "Global Core", tagZh: "全球核心", tagFr: "Cœur Global", tagDe: "Global", tagIt: "Core Globale", tagEs: "Núcleo Global", desc: "Premium 3-digit infrastructure. The ultimate commercial gateway.", descZh: "顶级3位数字基础设施。终极商业门户。", descFr: "Infrastructure premium 3 chiffres. La passerelle commerciale ultime.", descDe: "Premium 3-Stellen-Infrastruktur. Das ultimative kommerzielle Gateway.", descIt: "Infrastruttura premium 3 cifre. L'ultimo gateway commerciale.", descEs: "Infraestructura premium 3 dígitos. La puerta comercial definitiva." },
-  { name: "ai960.com", tag: "Regional Power", tagZh: "区域霸主", tagFr: "Puissance Régionale", tagDe: "Regionale Macht", tagIt: "Potenza Regionale", tagEs: "Poder Regional", desc: "Strategic 960m sq km narrative. Top-tier for regional AI giants.", descZh: "960万平方公里战略叙事。区域AI巨头首选。", descFr: "Narratif stratégique 960M km². Top niveau pour géants AI régionaux.", descDe: "Strategische 960M km² Erzählung. Top-Tier für regionale AI-Giganten.", descIt: "Narrativa strategica 960M km². Top-tier per giganti AI regionali.", descEs: "Narrativa estratégica 960M km². Nivel gigante AI regional." },
-  { name: "ai8880.com", tag: "Prestige", tagZh: "尊贵象征", tagFr: "Prestige", tagDe: "Prestige", tagIt: "Prestigio", tagEs: "Prestigio", desc: "Triple-8 'Fortune' prefix. High-impact branding for Asian markets.", descZh: "三8'发财'前缀。亚洲市场高影响力品牌。", descFr: "Préfixe triple-8 'Fortune'. Impact maximal pour marchés asiatiques.", descDe: "Triple-8 'Glück' Präfix. Hoher Impact für asiatische Märkte.", descIt: "Prefisso triple-8 fortuna. Impatto elevato per mercati asiatici.", descEs: "Prefijo triple-8 fortuna. Alto impacto para mercados asiáticos." },
-  { name: "ai9998.com", tag: "Authority", tagZh: "权威巅峰", tagFr: "Autorité", tagDe: "Autorität", tagIt: "Autorità", tagEs: "Autoridad", desc: "Peak numerical sequence. Imperial-class identity for AI leaders.", descZh: "顶级数字序列。AI领袖的帝王级身份。", descFr: "Séquence numérique ultime. Identité impériale pour leaders AI.", descDe: "Spitzen-Nummernfolge. Kaiserklasse Identität für AI-Führer.", descIt: "Sequenza numerica suprema. Identità imperiale per leader AI.", descEs: "Secuencia numérica máxima. Identidad imperial para líderes AI." },
-  { name: "ai617.com", tag: "Academic", tagZh: "学术殿堂", tagFr: "Académique", tagDe: "Akademisch", tagIt: "Accademico", tagEs: "Académico", desc: "The Boston Legacy. Direct link to MIT, Harvard & Cambridge AI hubs.", descZh: "波士顿遗产。直通MIT、哈佛、剑桥AI中心。", descFr: "L'héritage de Boston. Lien direct avec MIT, Harvard & Cambridge.", descDe: "Das Boston-Erbe. Direkter Link zu MIT, Harvard & Cambridge AI.", descIt: "L'eredità di Boston. Collegamento diretto con MIT, Harvard & Cambridge.", descEs: "El Legado de Boston. Enlace directo con MIT, Harvard & Cambridge." },
-  { name: "ai271.com", tag: "Deep Tech", tagZh: "深度科技", tagFr: "Deep Tech", tagDe: "Deep Tech", tagIt: "Deep Tech", tagEs: "Deep Tech", desc: "Euler's Number (e). The mathematical foundation of neural networks.", descZh: "欧拉数(e)。神经网络的数学基础。", descFr: "Nombre d'Euler (e). Fondement mathématique des réseaux neuronaux.", descDe: "Eulersche Zahl (e). Mathematische Grundlage neuronaler Netze.", descIt: "Numero di Eulero (e). Fondamento matematico delle reti neurali.", descEs: "Número de Euler (e). Fundamento matemático de redes neuronales." },
-  { name: "ai264.com", tag: "Industry Standard", tagZh: "行业标准", tagFr: "Standard Industrie", tagDe: "Industriestandard", tagIt: "Standard Industria", tagEs: "Estándar Industria", desc: "Video encoding legacy. Ideal for next-gen generative video AI.", descZh: "视频编码遗产。下一代生成式视频AI的理想选择。", descFr: "Héritage encodage vidéo. Idéal pour AI vidéo générative next-gen.", descDe: "Video-Encoding-Erbe. Ideal für next-gen generative Video-AI.", descIt: "Eredità codifica video. AI generativa next-gen.", descEs: "Legado codificación video. AI generativa next-gen." },
-  { name: "ai2424.com", tag: "Agentic", tagZh: "智能代理", tagFr: "Agentique", tagDe: "Agentisch", tagIt: "Agentico", tagEs: "Agéntico", desc: "24/7 Autonomy. Designed for AI Agents & Automated SaaS.", descZh: "24/7全天候自主。专为AI代理和自动化SaaS设计。", descFr: "Autonomie 24/7. Conçu pour Agents AI & SaaS automatisés.", descDe: "24/7 Autonomie. Entwickelt für AI-Agenten & Automatisiertes SaaS.", descIt: "Autonomia 24/7. Progettato per Agenti AI & SaaS automatizzati.", descEs: "Autonomía 24/7. Diseñado para Agentes AI & SaaS automatizados." },
+  { id: "01", name: "ai860.com", tag: "Global Core", desc: "Premium 3-digit infrastructure. The ultimate commercial gateway for AI enterprises." },
+  { id: "02", name: "ai960.com", tag: "Regional Power", desc: "Strategic 960m sq km narrative. Top-tier positioning for regional AI giants." },
+  { id: "03", name: "ai8880.com", tag: "Prestige", desc: "Triple-8 'Fortune' prefix. High-impact branding for Asian markets." },
+  { id: "04", name: "ai9998.com", tag: "Authority", desc: "Peak numerical sequence. Imperial-class identity for AI industry leaders." },
+  { id: "05", name: "ai617.com", tag: "Academic", desc: "The Boston Legacy. Direct link to MIT, Harvard & Cambridge AI hubs." },
+  { id: "06", name: "ai271.com", tag: "Deep Tech", desc: "Euler's Number (e). The mathematical foundation of neural networks." },
+  { id: "07", name: "ai264.com", tag: "Industry Standard", desc: "Video encoding legacy. Ideal for next-gen generative video AI." },
+  { id: "08", name: "ai2424.com", tag: "Agentic", desc: "24/7 Autonomy. Designed for AI Agents & Automated SaaS platforms." },
 ];
-
-const translations = {
-  en: { title: "Premium AI Digital Assets", subtitle: "A curated portfolio of high-authority identities for next-generation AI infrastructure and research labs.", view: "View Details", grade: "Institutional Grade", page: "Page", of: "of", langName: "English" },
-  zh: { title: "顶级 AI 数字资产", subtitle: "为下一代 AI 基础设施和研究实验室精心策划的高权威身份组合。", view: "查看详情", grade: "机构级", page: "第", of: "页，共", langName: "中文" },
-  fr: { title: "Actifs Numériques AI Premium", subtitle: "Un portfolio d'identités à haute autorité pour l'infrastructure AI de nouvelle génération.", view: "Voir Détails", grade: "Grade Institutionnel", page: "Page", of: "sur", langName: "Français" },
-  de: { title: "Premium AI Digital Assets", subtitle: "Ein kuratiertes Portfolio hochautoritärer Identitäten für KI-Infrastruktur.", view: "Details", grade: "Institutioneller Grad", page: "Seite", of: "von", langName: "Deutsch" },
-  it: { title: "Asset Digitali AI Premium", subtitle: "Un portfolio curato di identità ad alta autorità per infrastrutture AI.", view: "Vedi Dettagli", grade: "Grado Istituzionale", page: "Pagina", of: "di", langName: "Italiano" },
-  es: { title: "Activos Digitales AI Premium", subtitle: "Un portafolio curado de identidades de alta autoridad para infraestructura AI.", view: "Ver Detalles", grade: "Grado Institucional", page: "Página", of: "de", langName: "Español" }
-};
-
-const langPaths = { en: '/domains', zh: '/domains/zh', fr: '/domains/fr', de: '/domains/de', it: '/domains/it', es: '/domains/es' };
 ---
 
 <Layout title={title}>
-  <div class="domains-wrapper">
-    <div class="domains-page" id="domains-page">
-      <!-- Language Switcher -->
-      <div class="lang-bar">
-        <div class="lang-switcher">
-          <a href="/domains" class={`lang-link ${Astro.url.pathname === '/domains' || Astro.url.pathname === '/domains/' ? 'active' : ''}`}>EN</a>
-          <a href="/domains/zh" class={`lang-link ${Astro.url.pathname.includes('/zh') ? 'active' : ''}`}>中文</a>
-          <a href="/domains/fr" class={`lang-link ${Astro.url.pathname.includes('/fr') ? 'active' : ''}`}>FR</a>
-          <a href="/domains/de" class={`lang-link ${Astro.url.pathname.includes('/de') ? 'active' : ''}`}>DE</a>
-          <a href="/domains/it" class={`lang-link ${Astro.url.pathname.includes('/it') ? 'active' : ''}`}>IT</a>
-          <a href="/domains/es" class={`lang-link ${Astro.url.pathname.includes('/es') ? 'active' : ''}`}>ES</a>
-        </div>
-      </div>
-
+  <div class="page">
+    <div class="container">
       <!-- Header -->
-      <header class="domains-header">
-        <h1>{translations[Astro.params.lang || 'en']?.title || translations.en.title}</h1>
-        <p>{translations[Astro.params.lang || 'en']?.subtitle || translations.en.subtitle}</p>
+      <header class="header">
+        <div class="lang-switcher">
+          <a href="/domains" class="lang-btn active">EN</a>
+          <a href="/domains/zh" class="lang-btn">中文</a>
+          <a href="/domains/fr" class="lang-btn">FR</a>
+          <a href="/domains/de" class="lang-btn">DE</a>
+          <a href="/domains/it" class="lang-btn">IT</a>
+          <a href="/domains/es" class="lang-btn">ES</a>
+        </div>
+        <h1 class="title">Premium AI Digital Assets</h1>
+        <p class="subtitle">A curated portfolio of high-authority identities for next-generation AI infrastructure and research labs.</p>
       </header>
 
-      <!-- Domain Grid -->
-      <main class="domains-main">
-        <div class="domains-grid">
-          {domains.map((domain) => {
-            const lang = Astro.params.lang || 'en';
-            const tag = domain[`tag${lang.charAt(0).toUpperCase() + lang.slice(1)}`] || domain.tag;
-            const desc = domain[`desc${lang.charAt(0).toUpperCase() + lang.slice(1)}`] || domain.desc;
-            const t = translations[lang] || translations.en;
-            return (
-              <a href={`/domain/${domain.name.replace('.com', '')}`} class="domain-card">
-                <div class="domain-header">
-                  <h2 class="domain-name">{domain.name}</h2>
-                  <span class="domain-tag">{tag}</span>
-                </div>
-                <p class="domain-desc">{desc}</p>
-                <div class="domain-footer">
-                  <span class="domain-view">{t.view} →</span>
-                  <span class="domain-separator">|</span>
-                  <span class="domain-grade">{t.grade}</span>
-                </div>
-              </a>
-            );
-          })}
-        </div>
+      <!-- Domain Grid - All 8 Cards -->
+      <main class="grid">
+        {domains.map((domain) => (
+          <a href={`https://${domain.name}`} target="_blank" rel="noopener noreferrer" class="card">
+            <div class="card-header">
+              <span class="asset-id">ASSET-{domain.id}</span>
+              <span class="tag">{domain.tag}</span>
+            </div>
+            <h2 class="domain-name">{domain.name}</h2>
+            <p class="domain-desc">{domain.desc}</p>
+            <div class="card-footer">
+              <span class="view-link">View Details →</span>
+            </div>
+          </a>
+        ))}
       </main>
 
       <!-- Footer -->
-      <footer class="domains-footer">
-        <span>© 2026 aitoolguide.tech - Secure transfer via Escrow, Dan.com, or Aliyun</span>
+      <footer class="footer">
+        <span>© 2026 aitoolguide.tech — Secure transfer via Escrow, Dan.com, or Aliyun</span>
         <span class="footer-id">AITG-ASSET-2026</span>
       </footer>
     </div>
   </div>
 
   <style>
-    .domains-wrapper {
-      background: #0b0b0b;
+    .page {
+      background: #000;
       min-height: 100vh;
+      color: #fff;
     }
     
-    .domains-page {
-      background: #0b0b0b;
-      color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 48px 24px;
     }
     
-    /* Language Bar */
-    .lang-bar {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 40px;
+    /* Header */
+    .header {
+      margin-bottom: 64px;
     }
     
     .lang-switcher {
       display: flex;
+      justify-content: flex-end;
       gap: 8px;
+      margin-bottom: 48px;
     }
     
-    .lang-link {
+    .lang-btn {
       padding: 8px 16px;
       background: transparent;
       color: #666;
@@ -119,138 +92,144 @@ const langPaths = { en: '/domains', zh: '/domains/zh', fr: '/domains/fr', de: '/
       transition: all 0.2s;
     }
     
-    .lang-link:hover {
+    .lang-btn:hover {
       border-color: #555;
       color: #999;
     }
     
-    .lang-link.active {
+    .lang-btn.active {
       background: #fff;
-      color: #0b0b0b;
+      color: #000;
       border-color: #fff;
     }
     
-    /* Header */
-    .domains-header {
-      margin-bottom: 60px;
-    }
-    
-    .domains-header h1 {
-      font-size: 42px;
+    .title {
+      font-size: 48px;
       font-weight: 700;
       letter-spacing: -0.02em;
       margin-bottom: 16px;
       color: #fff;
     }
     
-    .domains-header p {
+    .subtitle {
       color: #888;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 1.6;
-      max-width: 600px;
+      max-width: 640px;
     }
     
-    /* Grid */
-    .domains-main {
-      margin-bottom: 40px;
-    }
-    
-    .domains-grid {
+    /* Grid - 2 columns, gap-8 */
+    .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      gap: 32px;
+      margin-bottom: 64px;
     }
     
     @media (max-width: 768px) {
-      .domains-grid {
+      .grid {
         grid-template-columns: 1fr;
       }
     }
     
-    .domain-card {
+    /* Card - Luxury styling */
+    .card {
       display: block;
-      background: #000;
-      border: 1px solid #333;
-      border-radius: 8px;
+      background: #0a0a0a;
+      border: 1px solid #27272a;
+      border-radius: 16px;
       padding: 32px;
       text-decoration: none;
       color: inherit;
-      transition: border-color 0.2s;
+      transition: all 0.3s ease;
     }
     
-    .domain-card:hover {
-      border-color: #666;
+    .card:hover {
+      border-color: #52525b;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
     }
     
-    .domain-header {
+    .card-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 16px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .asset-id {
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      font-size: 11px;
+      color: #52525b;
+      letter-spacing: 0.1em;
+    }
+    
+    .tag {
+      font-size: 10px;
+      color: #a1a1aa;
+      background: transparent;
+      border: 1px solid #3f3f46;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
     }
     
     .domain-name {
       font-family: 'SF Mono', Monaco, 'Courier New', monospace;
-      font-size: 24px;
+      font-size: 30px;
       font-weight: 700;
       color: #fff;
-      letter-spacing: -0.01em;
-    }
-    
-    .domain-tag {
-      font-size: 11px;
-      color: #888;
-      background: #1a1a1a;
-      padding: 6px 12px;
-      border-radius: 4px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1px solid #333;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
     }
     
     .domain-desc {
-      color: #666;
+      color: #71717a;
       font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 24px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      min-height: 48px;
     }
     
-    .domain-footer {
+    .card-footer {
       display: flex;
       align-items: center;
       gap: 12px;
+      padding-top: 24px;
+      border-top: 1px solid #27272a;
     }
     
-    .domain-view {
-      font-size: 12px;
+    .view-link {
+      font-size: 13px;
       color: #fff;
       border-bottom: 1px solid #fff;
       padding-bottom: 2px;
     }
     
-    .domain-separator {
-      color: #444;
+    .separator {
+      color: #3f3f46;
     }
     
-    .domain-grade {
+    .grade {
       font-size: 12px;
-      color: #555;
+      color: #52525b;
       font-style: italic;
     }
     
     /* Footer */
-    .domains-footer {
-      margin-top: 60px;
-      padding-top: 30px;
-      border-top: 1px solid #222;
+    .footer {
+      padding-top: 32px;
+      border-top: 1px solid #27272a;
       display: flex;
       justify-content: space-between;
       font-size: 12px;
-      color: #555;
+      color: #52525b;
     }
     
     .footer-id {
-      color: #444;
+      font-family: 'SF Mono', monospace;
+      color: #3f3f46;
     }
   </style>
 </Layout>
