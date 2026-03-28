@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const title = "顶级 AI 数字资产 | AIToolGuide";
+---
+
+<Layout title={title}>
+  <div class="page">
+    <div class="container">
+      <div class="lang-bar">
+        <a href="/domains" class="lang-btn">EN</a>
+        <a href="/domains/zh" class="lang-btn active">中文</a>
+        <a href="/domains/fr" class="lang-btn">FR</a>
+        <a href="/domains/de" class="lang-btn">DE</a>
+        <a href="/domains/it" class="lang-btn">IT</a>
+        <a href="/domains/es" class="lang-btn">ES</a>
+      </div>
+      <h1>顶级 AI 数字资产</h1>
+      <p class="subtitle">为下一代 AI 基础设施和研究实验室精心策划的高权威身份组合。</p>
+      <div class="grid">
+        <a href="/domain/ai860" class="card">
+          <div class="card-header">
+            <h2>ai860.com</h2><span class="tag">全球核心</span>
+          </div>
+          <p>顶级3位数字基础设施。终极商业门户。</p>
+          <div class="card-footer"><span class="view">查看详情 →</span><span>|</span><span class="grade">机构级</span></div>
+        </a>
+        <a href="/domain/ai960" class="card">
+          <div class="card-header">
+            <h2>ai960.com</h2><span class="tag">区域霸主</span>
+          </div>
+          <p>960万平方公里战略叙事。区域AI巨头首选。</p>
+          <div class="card-footer"><span class="view">查看详情 →</span><span>|</span><span class="grade">机构级</span></div>
+        </a>
+        <a href="/domain/ai8880" class="card">
+          <div class="card-header">
+            <h2>ai8880.com</h2><span class="tag">尊贵象征</span>
+          </div>
+          <p>三8'发财'前缀。亚洲市场高影响力品牌。</p>
+          <div class="card-footer"><span class="view">查看详情 →</span><span>|</span><span class="grade">机构级</span></div>
+        </a>
+        <a href="/domain/ai9998" class="card">
+          <div class="card-header">
+            <h2>ai9998.com</h2><span class="tag">权威巅峰</span>
+          </div>
+          <p>顶级数字序列。AI领袖的帝王级身份。</p>
+          <div class="card-footer"><span class="view">查看详情 →</span><span>|</span><span class="grade">机构级</span></div>
+        </a>
+        <a href="/domain/ai617" class="card">
+          <div class="card-header">
+            <h2>ai617.com</h2><span class="tag">学术殿堂</span>
+          </div>
+          <p>波士顿遗产。直通MIT、哈佛、剑桥AI中心。</p>
+          <div class="card-footer"><span class="view">查看详情 →</span><span>|</span><span class="grade">机构级</span></div>
+        </a>
+        <a href="/domain/ai271" class="card">
+          <div class="card-header">
+            <h2>ai271.com</h2><span class="tag">深度科技</span>
+          </div>
+          <p>欧拉数(e)。神经网络的数学基础。</p>
+          <div class="card-footer"><span class="view">查看详情 →</span><span>|</span><span class="grade">机构级</span></div>
+        </a>
+        <a href="/domain/ai264" class="card">
+          <div class="card-header">
+            <h2>ai264.com</h2><span class="tag">行业标准</span>
+          </div>
+          <p>视频编码遗产。下一代生成式视频AI的理想选择。</p>
+          <div class="card-footer"><span class="view">查看详情 →</span><span>|</span><span class="grade">机构级</span></div>
+        </a>
+        <a href="/domain/ai2424" class="card">
+          <div class="card-header">
+            <h2>ai2424.com</h2><span class="tag">智能代理</span>
+          </div>
+          <p>24/7全天候自主。专为AI代理和自动化SaaS设计。</p>
+          <div class="card-footer"><span class="view">查看详情 →</span><span>|</span><span class="grade">机构级</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <style>
+    .page { background: #0b0b0b; min-height: 100vh; color: #fff; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+    .lang-bar { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 40px; }
+    .lang-btn { padding: 8px 16px; background: transparent; color: #666; border: 1px solid #333; border-radius: 4px; font-size: 12px; text-decoration: none; transition: all 0.2s; }
+    .lang-btn:hover { border-color: #555; color: #999; }
+    .lang-btn.active { background: #fff; color: #0b0b0b; border-color: #fff; }
+    h1 { font-size: 42px; font-weight: 700; margin-bottom: 16px; }
+    .subtitle { color: #888; font-size: 16px; max-width: 600px; margin-bottom: 60px; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+    .card { display: block; background: #000; border: 1px solid #333; border-radius: 8px; padding: 32px; text-decoration: none; color: inherit; transition: border-color 0.2s; }
+    .card:hover { border-color: #666; }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .card h2 { font-family: 'SF Mono', monospace; font-size: 24px; font-weight: 700; color: #fff; margin: 0; }
+    .tag { font-size: 11px; color: #888; background: #1a1a1a; padding: 6px 12px; border-radius: 4px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid #333; }
+    .card > p { color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+    .card-footer { display: flex; align-items: center; gap: 12px; }
+    .view { font-size: 12px; color: #fff; border-bottom: 1px solid #fff; padding-bottom: 2px; }
+    .card-footer span:nth-child(2) { color: #444; }
+    .grade { font-size: 12px; color: #555; font-style: italic; }
+  </style>
+</Layout>
