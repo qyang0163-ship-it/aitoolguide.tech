@@ -1,0 +1,172 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Premium AI Digital Assets | AIToolGuide";
+
+const domains = [
+  { name: "ai860.com", tag: "Global Core", desc: "Premium 3-digit infrastructure. The ultimate commercial gateway." },
+  { name: "ai960.com", tag: "Regional Power", desc: "Strategic 960m sq km narrative. Top-tier for regional AI giants." },
+  { name: "ai8880.com", tag: "Prestige", desc: "Triple-8 'Fortune' prefix. High-impact branding for Asian markets." },
+  { name: "ai9998.com", tag: "Authority", desc: "Peak numerical sequence. Imperial-class identity for AI leaders." },
+  { name: "ai617.com", tag: "Academic", desc: "The Boston Legacy. Direct link to MIT, Harvard & Cambridge AI hubs." },
+  { name: "ai271.com", tag: "Deep Tech", desc: "Euler's Number (e). The mathematical foundation of neural networks." },
+  { name: "ai264.com", tag: "Industry Standard", desc: "Video encoding legacy. Ideal for next-gen generative video AI." },
+  { name: "ai2424.com", tag: "Agentic", desc: "24/7 Autonomy. Designed for AI Agents & Automated SaaS." },
+];
+---
+
+<Layout title={title}>
+  <div class="domains-page">
+    <header class="domains-header">
+      <h1>Premium AI Digital Assets</h1>
+      <p>A curated portfolio of high-authority identities for next-generation AI infrastructure and research labs.</p>
+    </header>
+
+    <main class="domains-grid">
+      {domains.map((domain) => (
+        <div class="domain-card">
+          <div class="domain-header">
+            <h2>{domain.name}</h2>
+            <span class="domain-tag">{domain.tag}</span>
+          </div>
+          <p class="domain-desc">{domain.desc}</p>
+          <div class="domain-actions">
+            <a href={`mailto:invest@aitoolguide.tech?subject=Inquiry: ${domain.name}`} class="domain-inquiry">Direct Inquiry</a>
+            <span class="domain-separator">|</span>
+            <span class="domain-grade">Institutional Grade</span>
+          </div>
+        </div>
+      ))}
+    </main>
+
+    <footer class="domains-footer">
+      © 2026 aitoolguide.tech - Secure transfer via Escrow, Dan.com, or Aliyun.
+    </footer>
+  </div>
+
+  <style>
+    .domains-page {
+      background: #0b0b0b;
+      color: white;
+      min-height: 100vh;
+      padding: 40px 20px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    
+    .domains-header {
+      max-width: 1000px;
+      margin: 40px auto 60px;
+    }
+    
+    .domains-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: white;
+    }
+    
+    .domains-header p {
+      color: #9ca3af;
+      font-size: 1.1rem;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+    
+    .domains-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .domains-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .domain-card {
+      border: 1px solid #27272a;
+      padding: 24px;
+      border-radius: 8px;
+      background: #000;
+      transition: border-color 0.3s;
+    }
+    
+    .domain-card:hover {
+      border-color: #52525b;
+    }
+    
+    .domain-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    
+    .domain-header h2 {
+      font-family: 'Courier New', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+    }
+    
+    .domain-tag {
+      font-size: 0.65rem;
+      background: #18181b;
+      color: #a1a1aa;
+      padding: 4px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid #27272a;
+    }
+    
+    .domain-desc {
+      color: #6b7280;
+      font-size: 0.875rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .domain-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .domain-inquiry {
+      font-size: 0.75rem;
+      color: white;
+      border-bottom: 1px solid white;
+      padding-bottom: 2px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .domain-inquiry:hover {
+      color: #a1a1aa;
+    }
+    
+    .domain-separator {
+      color: #3f3f46;
+    }
+    
+    .domain-grade {
+      font-size: 0.75rem;
+      color: #52525b;
+      font-style: italic;
+    }
+    
+    .domains-footer {
+      max-width: 1000px;
+      margin: 60px auto 0;
+      border-top: 1px solid #18181b;
+      padding-top: 24px;
+      color: #52525b;
+      font-size: 0.75rem;
+    }
+  </style>
+</Layout>

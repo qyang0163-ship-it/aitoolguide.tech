@@ -3,6 +3,7 @@
   "navMethods": "Methoden",
   "navStories": "Erfolge",
   "navStart": "Starten",
+  "navDomains": "Premium-Domains",
   "navCta": "Kostenlos starten 鈫?,
   "platformFreelance": "Upwork, Fiverr, Freelancer.de",
   "platformTraffic": "LinkedIn, TikTok, YouTube",
@@ -183,3 +184,4 @@
   "startLearning": "Lernen Beginnen",
   "getSupport": "Support Erhalten"
   "lockedContent": "🔒 Locked Content",`n  "lockedContentDesc": "Members only content. Sign up to access!"`n}
+

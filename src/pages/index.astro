@@ -26,6 +26,7 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
           <a href="#methods" data-i18n="navMethods">Methods</a>
           <a href="#stories" data-i18n="navStories">Success Stories</a>
           <a href="/ai-tools-100" data-i18n="navTop100">Top 100 AI</a>
+          <a href="/domains" class="nav-invest" data-i18n="navDomains">Premium Domains <span class="invest-badge">🔥</span></a>
           <a href="#start" data-i18n="navStart">Get Started</a>
         </div>
         <div class="nav-actions">
@@ -1021,6 +1022,14 @@ const title = "AIToolGuide - Make Money with AI Tools | 2026";
   .floating-cta-btn span { font-weight: 700; font-size: 1rem; }
   .floating-cta-btn small { font-size: 0.75rem; opacity: 0.9; }
   @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  
+  /* Nav Invest Badge */
+  .nav-invest { position: relative; }
+  .invest-badge { font-size: 0.7rem; margin-left: 4px; }
+  
+  @media (max-width: 1024px) {
+    .nav-links a { font-size: 0.85rem; }
+  }
   
   @media (max-width: 768px) {
     .progress-stats { grid-template-columns: repeat(2, 1fr); }

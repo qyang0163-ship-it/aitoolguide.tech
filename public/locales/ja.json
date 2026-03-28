@@ -3,7 +3,8 @@
   "navMethods": "鏂规硶",
   "navStories": "鎴愬姛渚?,
   "navStart": "濮嬨倎銈?,
-  "navCta": "鐒℃枡銇у銈併倠 鈫?,
+  ",
+  "navDomains": "プレミアムドメイン"navCta": "鐒℃枡銇у銈併倠 鈫?,
   "platformFreelance": "Upwork, Fiverr, Freelancer",
   "platformTraffic": "X, TikTok, YouTube",
   "platformPayment": "PayPal, Payoneer, Wise",
@@ -223,3 +224,4 @@
   "startLearning": "瀛︾繏銈掗枊濮?,
   "getSupport": "銈点儩銉笺儓銈掑彇寰?
   "lockedContent": "🔒 Locked Content",`n  "lockedContentDesc": "Members only content. Sign up to access!"`n}
+
