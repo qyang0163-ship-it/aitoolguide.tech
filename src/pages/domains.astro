@@ -3,413 +3,123 @@ import Layout from '../layouts/Layout.astro';
 
 const title = "Premium AI Digital Assets | AIToolGuide";
 
-// Domain data with multilingual descriptions
-const domainsData = {
-  en: [
-    { name: "ai860.com", tag: "GLOBAL", desc: "3-digit infrastructure. Ultimate commercial gateway.", path: "/domain/ai860" },
-    { name: "ai960.com", tag: "REGIONAL", desc: "960M km² strategic narrative. Regional AI giant tier.", path: "/domain/ai960" },
-    { name: "ai8880.com", tag: "PRESTIGE", desc: "Triple-8 fortune prefix. Asian market dominance.", path: "/domain/ai8880" },
-    { name: "ai9998.com", tag: "AUTHORITY", desc: "Peak numerical sequence. Imperial-class identity.", path: "/domain/ai9998" },
-    { name: "ai617.com", tag: "ACADEMIC", desc: "Boston legacy. MIT Harvard Cambridge AI hubs.", path: "/domain/ai617" },
-    { name: "ai271.com", tag: "DEEP TECH", desc: "Euler's number. Neural network foundation.", path: "/domain/ai271" },
-    { name: "ai264.com", tag: "STANDARD", desc: "Video encoding legacy. Next-gen generative AI.", path: "/domain/ai264" },
-    { name: "ai2424.com", tag: "AGENTIC", desc: "24/7 autonomy. AI agents & automated SaaS.", path: "/domain/ai2424" },
-  ],
-  zh: [
-    { name: "ai860.com", tag: "全球核心", desc: "3位数字基础设施。终极商业门户。", path: "/domain/ai860" },
-    { name: "ai960.com", tag: "区域霸主", desc: "960万平方公里战略叙事。区域AI巨头。", path: "/domain/ai960" },
-    { name: "ai8880.com", tag: "尊贵象征", desc: "三8发财前缀。亚洲市场主导。", path: "/domain/ai8880" },
-    { name: "ai9998.com", tag: "权威巅峰", desc: "顶级数字序列。帝王级身份标识。", path: "/domain/ai9998" },
-    { name: "ai617.com", tag: "学术殿堂", desc: "波士顿遗产。MIT哈佛剑桥AI中心。", path: "/domain/ai617" },
-    { name: "ai271.com", tag: "深度科技", desc: "欧拉数e。神经网络数学基础。", path: "/domain/ai271" },
-    { name: "ai264.com", tag: "行业标准", desc: "视频编码遗产。下一代生成式AI。", path: "/domain/ai264" },
-    { name: "ai2424.com", tag: "智能代理", desc: "24/7全天候自主。AI代理自动化SaaS。", path: "/domain/ai2424" },
-  ],
-  fr: [
-    { name: "ai860.com", tag: "GLOBAL", desc: "Infrastructure 3 chiffres. Passerelle ultime.", path: "/domain/ai860" },
-    { name: "ai960.com", tag: "RÉGIONAL", desc: "Narratif 960M km². Niveau géant AI régional.", path: "/domain/ai960" },
-    { name: "ai8880.com", tag: "PRESTIGE", desc: "Préfixe triple-8 fortune. Domination asiatique.", path: "/domain/ai8880" },
-    { name: "ai9998.com", tag: "AUTORITÉ", desc: "Séquence numérique ultime. Identité impériale.", path: "/domain/ai9998" },
-    { name: "ai617.com", tag: "ACADÉMIQUE", desc: "Héritage Boston. MIT Harvard Cambridge AI.", path: "/domain/ai617" },
-    { name: "ai271.com", tag: "DEEP TECH", desc: "Nombre d'Euler. Fondement réseaux neuronaux.", path: "/domain/ai271" },
-    { name: "ai264.com", tag: "STANDARD", desc: "Héritage encodage vidéo. AI générative next-gen.", path: "/domain/ai264" },
-    { name: "ai2424.com", tag: "AGENTIQUE", desc: "Autonomie 24/7. Agents AI SaaS automatisés.", path: "/domain/ai2424" },
-  ],
-  de: [
-    { name: "ai860.com", tag: "GLOBAL", desc: "3-Stellen-Infrastruktur. Ultimatives Gateway.", path: "/domain/ai860" },
-    { name: "ai960.com", tag: "REGIONAL", desc: "960M km² Strategie. Regionaler AI-Gigant.", path: "/domain/ai960" },
-    { name: "ai8880.com", tag: "PRESTIGE", desc: "Triple-8 Glück-Präfix. Asiatische Dominanz.", path: "/domain/ai8880" },
-    { name: "ai9998.com", tag: "AUTORITÄT", desc: "Spitzen-Sequenz. Kaiserklasse-Identität.", path: "/domain/ai9998" },
-    { name: "ai617.com", tag: "AKADEMISCH", desc: "Boston-Erbe. MIT Harvard Cambridge AI.", path: "/domain/ai617" },
-    { name: "ai271.com", tag: "DEEP TECH", desc: "Eulersche Zahl. Neuronale Netz-Grundlage.", path: "/domain/ai271" },
-    { name: "ai264.com", tag: "STANDARD", desc: "Video-Encoding-Erbe. Next-gen generative AI.", path: "/domain/ai264" },
-    { name: "ai2424.com", tag: "AGENTISCH", desc: "24/7 Autonomie. AI-Agenten automatisiertes SaaS.", path: "/domain/ai2424" },
-  ],
-  it: [
-    { name: "ai860.com", tag: "GLOBALE", desc: "Infrastruttura 3 cifre. Gateway definitivo.", path: "/domain/ai860" },
-    { name: "ai960.com", tag: "REGIONALE", desc: "Narrativa 960M km². Livello gigante AI regionale.", path: "/domain/ai960" },
-    { name: "ai8880.com", tag: "PRESTIGIO", desc: "Prefisso triple-8 fortuna. Dominanza asiatica.", path: "/domain/ai8880" },
-    { name: "ai9998.com", tag: "AUTORITÀ", desc: "Sequenza numerica suprema. Identità imperiale.", path: "/domain/ai9998" },
-    { name: "ai617.com", tag: "ACCADEMICO", desc: "Eredità Boston. MIT Harvard Cambridge AI.", path: "/domain/ai617" },
-    { name: "ai271.com", tag: "DEEP TECH", desc: "Numero di Eulero. Fondamento reti neurali.", path: "/domain/ai271" },
-    { name: "ai264.com", tag: "STANDARD", desc: "Eredità codifica video. AI generativa next-gen.", path: "/domain/ai264" },
-    { name: "ai2424.com", tag: "AGENTICO", desc: "Autonomia 24/7. Agenti AI SaaS automatizzati.", path: "/domain/ai2424" },
-  ],
-  es: [
-    { name: "ai860.com", tag: "GLOBAL", desc: "Infraestructura 3 dígitos. Gateway definitivo.", path: "/domain/ai860" },
-    { name: "ai960.com", tag: "REGIONAL", desc: "Narrativa 960M km². Nivel gigante AI regional.", path: "/domain/ai960" },
-    { name: "ai8880.com", tag: "PRESTIGIO", desc: "Prefijo triple-8 fortuna. Dominancia asiática.", path: "/domain/ai8880" },
-    { name: "ai9998.com", tag: "AUTORIDAD", desc: "Secuencia numérica máxima. Identidad imperial.", path: "/domain/ai9998" },
-    { name: "ai617.com", tag: "ACADÉMICO", desc: "Legado Boston. MIT Harvard Cambridge AI.", path: "/domain/ai617" },
-    { name: "ai271.com", tag: "DEEP TECH", desc: "Número de Euler. Fundamento redes neuronales.", path: "/domain/ai271" },
-    { name: "ai264.com", tag: "ESTÁNDAR", desc: "Legado codificación video. AI generativa next-gen.", path: "/domain/ai264" },
-    { name: "ai2424.com", tag: "AGÉNTICO", desc: "Autonomía 24/7. Agentes AI SaaS automatizados.", path: "/domain/ai2424" },
-  ]
-};
-
-// UI translations
-const uiTranslations = {
-  en: {
-    title: "AI Digital Assets",
-    subtitle: "Institutional-grade domain portfolio",
-    inquiry: "INQUIRE",
-    footer: "Secure transfer via Escrow · Dan.com · Aliyun",
-    lang: "EN"
-  },
-  zh: {
-    title: "AI 数字资产",
-    subtitle: "机构级域名投资组合",
-    inquiry: "询价",
-    footer: "通过 Escrow · Dan.com · 阿里云 安全转让",
-    lang: "中文"
-  },
-  fr: {
-    title: "Actifs Numériques AI",
-    subtitle: "Portfolio de domaines institutionnel",
-    inquiry: "DEMANDER",
-    footer: "Transfert sécurisé via Escrow · Dan.com · Aliyun",
-    lang: "FR"
-  },
-  de: {
-    title: "AI Digital Assets",
-    subtitle: "Institutionelles Domain-Portfolio",
-    inquiry: "ANFRAGEN",
-    footer: "Sicherer Transfer via Escrow · Dan.com · Aliyun",
-    lang: "DE"
-  },
-  it: {
-    title: "Asset Digitali AI",
-    subtitle: "Portfolio di domini istituzionale",
-    inquiry: "RICHIEDI",
-    footer: "Trasferimento sicuro via Escrow · Dan.com · Aliyun",
-    lang: "IT"
-  },
-  es: {
-    title: "Activos Digitales AI",
-    subtitle: "Portafolio de dominios institucional",
-    inquiry: "CONSULTAR",
-    footer: "Transferencia segura via Escrow · Dan.com · Aliyun",
-    lang: "ES"
-  }
-};
+const domains = [
+  { name: "ai860.com", tag: "Global Core", tagZh: "全球核心", desc: "Premium 3-digit infrastructure. The ultimate commercial gateway.", descZh: "顶级3位数字基础设施。终极商业门户。" },
+  { name: "ai960.com", tag: "Regional Power", tagZh: "区域霸主", desc: "Strategic 960m sq km narrative. Top-tier for regional AI giants.", descZh: "960万平方公里战略叙事。区域AI巨头首选。" },
+  { name: "ai8880.com", tag: "Prestige", tagZh: "尊贵象征", desc: "Triple-8 'Fortune' prefix. High-impact branding for Asian markets.", descZh: "三8'发财'前缀。亚洲市场高影响力品牌。" },
+  { name: "ai9998.com", tag: "Authority", tagZh: "权威巅峰", desc: "Peak numerical sequence. Imperial-class identity for AI leaders.", descZh: "顶级数字序列。AI领袖的帝王级身份。" },
+  { name: "ai617.com", tag: "Academic", tagZh: "学术殿堂", desc: "The Boston Legacy. Direct link to MIT, Harvard & Cambridge AI hubs.", descZh: "波士顿遗产。直通MIT、哈佛、剑桥AI中心。" },
+  { name: "ai271.com", tag: "Deep Tech", tagZh: "深度科技", desc: "Euler's Number (e). The mathematical foundation of neural networks.", descZh: "欧拉数(e)。神经网络的数学基础。" },
+  { name: "ai264.com", tag: "Industry Standard", tagZh: "行业标准", desc: "Video encoding legacy. Ideal for next-gen generative video AI.", descZh: "视频编码遗产。下一代生成式视频AI的理想选择。" },
+  { name: "ai2424.com", tag: "Agentic", tagZh: "智能代理", desc: "24/7 Autonomy. Designed for AI Agents & Automated SaaS.", descZh: "24/7全天候自主。专为AI代理和自动化SaaS设计。" },
+];
 ---
 
 <Layout title={title}>
-  <div class="domains-page" id="domains-page">
-    <!-- Minimal Header -->
-    <header class="domains-header">
-      <div class="header-top">
-        <span class="header-id">AITG-ASSET-2026</span>
-        <div class="lang-switcher">
-          <button class="lang-btn active" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="zh">中文</button>
-          <button class="lang-btn" data-lang="fr">FR</button>
-          <button class="lang-btn" data-lang="de">DE</button>
-          <button class="lang-btn" data-lang="it">IT</button>
-          <button class="lang-btn" data-lang="es">ES</button>
-        </div>
+  <div class="min-h-screen bg-[#0b0b0b] text-white p-8 md:p-12 font-sans" id="domains-page">
+    <!-- Language Switcher -->
+    <div class="max-w-5xl mx-auto mb-8 flex justify-end">
+      <div class="flex gap-2">
+        <button class="lang-btn px-3 py-1.5 text-xs border border-zinc-800 rounded bg-zinc-900 text-zinc-400 hover:border-zinc-600 transition-colors active" data-lang="en">EN</button>
+        <button class="lang-btn px-3 py-1.5 text-xs border border-zinc-800 rounded bg-transparent text-zinc-500 hover:border-zinc-600 hover:text-zinc-300 transition-colors" data-lang="zh">中文</button>
       </div>
-      <h1 id="domains-title">AI Digital Assets</h1>
-      <p id="domains-subtitle">Institutional-grade domain portfolio</p>
+    </div>
+
+    <!-- Header -->
+    <header class="max-w-5xl mx-auto mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tighter mb-4 text-white" id="page-title">Premium AI Digital Assets</h1>
+      <p class="text-zinc-500 text-lg max-w-2xl leading-relaxed" id="page-subtitle">
+        A curated portfolio of high-authority identities for next-generation AI infrastructure and research labs.
+      </p>
     </header>
 
     <!-- Domain Grid -->
-    <main class="domains-container">
-      <div class="domains-grid" id="domains-grid">
-        <!-- Populated by JavaScript -->
+    <main class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="domains-grid">
+        {domains.map((domain) => (
+          <a href={`/domain/${domain.name.replace('.com', '')}`} class="group block border border-zinc-800 p-6 md:p-8 rounded-lg hover:border-zinc-500 transition-colors bg-black">
+            <div class="flex justify-between items-start mb-4">
+              <h2 class="text-2xl font-mono font-bold text-white tracking-tight">{domain.name}</h2>
+              <span class="domain-tag text-xs bg-zinc-900 text-zinc-400 px-3 py-1.5 rounded tracking-widest uppercase border border-zinc-800 whitespace-nowrap">
+                {domain.tag}
+              </span>
+            </div>
+            <p class="domain-desc text-zinc-500 text-sm mb-6 leading-relaxed">{domain.desc}</p>
+            <div class="flex gap-4 items-center">
+              <span class="text-xs text-white border-b border-white pb-1 group-hover:text-zinc-300 group-hover:border-zinc-300 transition-colors">查看详情</span>
+              <span class="text-zinc-700">|</span>
+              <span class="text-xs text-zinc-600 italic">Institutional Grade</span>
+            </div>
+          </a>
+        ))}
       </div>
     </main>
 
-    <!-- Minimal Footer -->
-    <footer class="domains-footer">
-      <span id="domains-footer">Secure transfer via Escrow · Dan.com · Aliyun</span>
-      <span class="footer-id">© 2026</span>
+    <!-- Footer -->
+    <footer class="max-w-5xl mx-auto mt-24 border-t border-zinc-900 pt-8 text-zinc-600 text-xs flex justify-between items-center">
+      <span>© 2026 aitoolguide.tech - Secure transfer via Escrow, Dan.com, or Aliyun</span>
+      <span class="text-zinc-700">AITG-ASSET-2026</span>
     </footer>
   </div>
 
-  <script is:inline define:vars={{ domainsData, uiTranslations }}>
+  <script is:inline define:vars={{ domains }}>
+    const translations = {
+      en: {
+        title: "Premium AI Digital Assets",
+        subtitle: "A curated portfolio of high-authority identities for next-generation AI infrastructure and research labs.",
+        viewDetails: "View Details",
+        grade: "Institutional Grade"
+      },
+      zh: {
+        title: "顶级 AI 数字资产",
+        subtitle: "为下一代 AI 基础设施和研究实验室精心策划的高权威身份组合。",
+        viewDetails: "查看详情",
+        grade: "机构级"
+      }
+    };
+
     let currentLang = 'en';
-    
-    function getDomains() {
-      return domainsData[currentLang] || domainsData['en'];
-    }
-    
-    function getUI() {
-      return uiTranslations[currentLang] || uiTranslations['en'];
-    }
-    
+
     function renderDomains() {
-      const domains = getDomains();
-      const ui = getUI();
-      
       const grid = document.getElementById('domains-grid');
-      grid.innerHTML = domains.map((domain, index) => `
-        <a href="${domain.path}" class="domain-card">
-          <div class="domain-index">${String(index + 1).padStart(2, '0')}</div>
-          <div class="domain-content">
-            <div class="domain-header">
-              <span class="domain-tag">${domain.tag}</span>
-              <h2 class="domain-name">${domain.name}</h2>
-            </div>
-            <p class="domain-desc">${domain.desc}</p>
-            <span class="domain-view">VIEW →</span>
+      const t = translations[currentLang];
+      
+      grid.innerHTML = domains.map((domain) => `
+        <a href="/domain/${domain.name.replace('.com', '')}" class="group block border border-zinc-800 p-6 md:p-8 rounded-lg hover:border-zinc-500 transition-colors bg-black">
+          <div class="flex justify-between items-start mb-4">
+            <h2 class="text-2xl font-mono font-bold text-white tracking-tight">${domain.name}</h2>
+            <span class="text-xs bg-zinc-900 text-zinc-400 px-3 py-1.5 rounded tracking-widest uppercase border border-zinc-800 whitespace-nowrap">
+              ${currentLang === 'zh' ? domain.tagZh : domain.tag}
+            </span>
+          </div>
+          <p class="text-zinc-500 text-sm mb-6 leading-relaxed">${currentLang === 'zh' ? domain.descZh : domain.desc}</p>
+          <div class="flex gap-4 items-center">
+            <span class="text-xs text-white border-b border-white pb-1 group-hover:text-zinc-300 group-hover:border-zinc-300 transition-colors">${t.viewDetails}</span>
+            <span class="text-zinc-700">|</span>
+            <span class="text-xs text-zinc-600 italic">${t.grade}</span>
           </div>
         </a>
       `).join('');
     }
-    
+
     function updateUI() {
-      const ui = getUI();
-      document.getElementById('domains-title').textContent = ui.title;
-      document.getElementById('domains-subtitle').textContent = ui.subtitle;
-      document.getElementById('domains-footer').textContent = ui.footer;
+      const t = translations[currentLang];
+      document.getElementById('page-title').textContent = t.title;
+      document.getElementById('page-subtitle').textContent = t.subtitle;
     }
-    
+
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        document.querySelectorAll('.lang-btn').forEach(b => {
+          b.classList.remove('active', 'bg-zinc-900', 'text-zinc-400');
+          b.classList.add('bg-transparent', 'text-zinc-500');
+        });
+        btn.classList.add('active', 'bg-zinc-900', 'text-zinc-400');
+        btn.classList.remove('bg-transparent', 'text-zinc-500');
         currentLang = btn.dataset.lang;
         updateUI();
         renderDomains();
       });
     });
-    
-    document.addEventListener('DOMContentLoaded', () => {
-      updateUI();
-      renderDomains();
-    });
   </script>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    .domains-page {
-      background: #0a0a0a;
-      color: #e5e5e5;
-      min-height: 100vh;
-      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
-      padding: 60px 40px;
-    }
-    
-    /* Header */
-    .domains-header {
-      max-width: 1200px;
-      margin: 0 auto 60px;
-    }
-    
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 40px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    
-    .header-id {
-      font-size: 11px;
-      color: #404040;
-      letter-spacing: 0.2em;
-    }
-    
-    .lang-switcher {
-      display: flex;
-      gap: 4px;
-    }
-    
-    .lang-btn {
-      padding: 6px 12px;
-      background: transparent;
-      color: #606060;
-      border: 1px solid #1a1a1a;
-      font-size: 11px;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s;
-      letter-spacing: 0.05em;
-    }
-    
-    .lang-btn:hover {
-      border-color: #404040;
-      color: #a0a0a0;
-    }
-    
-    .lang-btn.active {
-      background: #e5e5e5;
-      color: #0a0a0a;
-      border-color: #e5e5e5;
-    }
-    
-    .domains-header h1 {
-      font-size: 32px;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
-    
-    .domains-header p {
-      color: #606060;
-      font-size: 13px;
-      letter-spacing: 0.05em;
-    }
-    
-    /* Domain Grid */
-    .domains-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .domains-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-      background: #1a1a1a;
-      border: 2px solid #1a1a1a;
-    }
-    
-    @media (max-width: 900px) {
-      .domains-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    .domain-card {
-      display: flex;
-      background: #0a0a0a;
-      padding: 50px 40px;
-      transition: background 0.2s;
-      text-decoration: none;
-      color: inherit;
-      min-height: 220px;
-    }
-    
-    .domain-card:hover {
-      background: #111111;
-    }
-    
-    .domain-index {
-      font-size: 12px;
-      color: #505050;
-      margin-right: 40px;
-      padding-top: 4px;
-      min-width: 24px;
-      font-weight: 500;
-    }
-    
-    .domain-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .domain-header {
-      margin-bottom: 20px;
-    }
-    
-    .domain-tag {
-      display: block;
-      font-size: 11px;
-      color: #707070;
-      letter-spacing: 0.2em;
-      margin-bottom: 12px;
-      font-weight: 500;
-    }
-    
-    .domain-name {
-      font-family: 'SF Mono', 'Monaco', monospace;
-      font-size: 28px;
-      font-weight: 600;
-      color: #ffffff;
-      letter-spacing: -0.01em;
-      margin: 0;
-    }
-    
-    .domain-desc {
-      color: #606060;
-      font-size: 14px;
-      line-height: 1.7;
-      margin-bottom: 24px;
-      flex: 1;
-    }
-    
-    .domain-view {
-      font-size: 11px;
-      color: #505050;
-      letter-spacing: 0.15em;
-      transition: color 0.2s;
-      font-weight: 500;
-    }
-    
-    .domain-card:hover .domain-view {
-      color: #ffffff;
-    }
-    
-    /* Footer */
-    .domains-footer {
-      max-width: 1200px;
-      margin: 60px auto 0;
-      padding-top: 30px;
-      border-top: 1px solid #1a1a1a;
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: #404040;
-      letter-spacing: 0.05em;
-    }
-    
-    .footer-id {
-      color: #303030;
-    }
-    
-    @media (max-width: 768px) {
-      .domains-page {
-        padding: 40px 20px;
-      }
-      
-      .domain-card {
-        padding: 30px 20px;
-      }
-      
-      .domain-index {
-        margin-right: 20px;
-      }
-      
-      .domain-name {
-        font-size: 20px;
-      }
-      
-      .header-top {
-        flex-direction: column;
-        gap: 20px;
-        align-items: flex-start;
-      }
-    }
-  </style>
 </Layout>
-// Force redeploy at 2026-03-28 21:50:29
