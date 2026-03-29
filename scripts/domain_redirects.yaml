@@ -1,0 +1,77 @@
+# 域名跳转配置
+# ai2424.com 作为主域名
+# 其他域名 301 跳转到主域名
+
+## 主域名配置
+primary_domain: ai2424.com
+www_redirect: true  # www.ai2424.com → ai2424.com
+https_force: true   # 强制HTTPS
+
+## 其他域名跳转规则
+redirects:
+  # 其他portfolio域名跳转到主站
+  - from: ai860.com
+    to: https://ai2424.com/domains/?ref=ai860
+    type: 301
+    
+  - from: ai960.com
+    to: https://ai2424.com/domains/?ref=ai960
+    type: 301
+    
+  - from: ai8880.com
+    to: https://ai2424.com/domains/?ref=ai8880
+    type: 301
+    
+  - from: ai9998.com
+    to: https://ai2424.com/domains/?ref=ai9998
+    type: 301
+    
+  - from: ai617.com
+    to: https://ai2424.com/domains/?ref=ai617
+    type: 301
+    
+  - from: ai271.com
+    to: https://ai2424.com/domains/?ref=ai271
+    type: 301
+    
+  - from: ai264.com
+    to: https://ai2424.com/domains/?ref=ai264
+    type: 301
+
+## 旧域名跳转
+  - from: aitoolguide.tech
+    to: https://ai2424.com
+    type: 301
+    permanent: true
+    
+  - from: www.aitoolguide.tech
+    to: https://ai2424.com
+    type: 301
+    permanent: true
+
+## 短视频引流专用跳转
+  - from: ai2424.com/go
+    to: https://ai2424.com/?utm_source=short&utm_medium=video&utm_campaign=viral
+    type: 302
+    
+  - from: ai2424.com/free
+    to: https://ai2424.com/vip-methods/?utm_source=short&utm_campaign=free_tools
+    type: 302
+    
+  - from: ai2424.com/start
+    to: https://ai2424.com/sign-up/?utm_source=short&utm_campaign=get_started
+    type: 302
+
+## SEO配置
+seo:
+  canonical_url: https://ai2424.com
+  sitemap: https://ai2424.com/sitemap-index.xml
+  robots_txt: |
+    User-agent: *
+    Allow: /
+    Sitemap: https://ai2424.com/sitemap-index.xml
+    
+    # 旧域名不再索引
+    User-agent: *
+    Disallow: /
+    Host: aitoolguide.tech
