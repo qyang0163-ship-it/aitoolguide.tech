@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const REPO_OWNER = 'qyang0163-ship-it';
-const REPO_NAME = 'aitoolguide.tech';
+const REPO_NAME = 'ai2424.com';
 const BRANCH = 'main';
 
 // Files to upload (excluding node_modules, dist, .git)

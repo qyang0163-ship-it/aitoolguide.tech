@@ -101,8 +101,8 @@ A: 不需要...
 #### 1. 域名跳转设置（今天完成）
 ```javascript
 // 在域名注册商设置301重定向
-// ai860.com → https://www.aitoolguide.tech/?ref=short&campaign=video
-// ai960.com → https://www.aitoolguide.tech/?ref=short&campaign=video2
+// ai860.com → https://www.ai2424.com/?ref=short&campaign=video
+// ai960.com → https://www.ai2424.com/?ref=short&campaign=video2
 ```
 
 #### 2. 制作首批5个视频（本周完成）
@@ -127,7 +127,7 @@ A: 不需要...
 ```
 用户输入 ai860.com → 
 301跳转 → 
-aitoolguide.tech/?ref=short → 
+ai2424.com/?ref=short → 
 自动弹窗："输入邮箱解锁100大AI赚钱工具"
 ```
 

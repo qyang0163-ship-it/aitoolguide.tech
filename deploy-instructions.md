@@ -1,4 +1,4 @@
-# AIToolGuide.tech 部署指南
+# ai2424.com 部署指南
 
 ## 当前状态
 商业化版本代码已准备就绪，位于：
@@ -13,7 +13,7 @@
 1. 访问 https://desktop.github.com/download/
 2. 下载并安装 GitHub Desktop
 3. 登录您的GitHub账户
-4. 克隆仓库 `qyang0163-ship-it/aitoolguide.tech`
+4. 克隆仓库 `qyang0163-ship-it/ai2424.com`
 
 **选项B：安装 Git for Windows**
 1. 访问 https://git-scm.com/download/win
@@ -40,7 +40,7 @@
 
 **使用 GitHub Desktop：**
 1. 打开 GitHub Desktop
-2. 选择 aitoolguide.tech 仓库
+2. 选择 ai2424.com 仓库
 3. 查看变更列表，应该显示修改的文件
 4. 填写提交信息：`Day 1: 商业化首页改造 - 赚钱导向设计`
 5. 点击 "Commit to master"

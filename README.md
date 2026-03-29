@@ -1,10 +1,10 @@
-# AIToolGuide.tech - AI工具赚钱指南
+# ai2424.com - AI工具赚钱指南
 
 > 🚀 2026年最实用的AI副业变现攻略网站
 
 ## 项目简介
 
-AIToolGuide.tech 是一个专注于AI工具变现的导航站，帮助普通人利用AI工具开启副业、增加收入。
+ai2424.com 是一个专注于AI工具变现的导航站，帮助普通人利用AI工具开启副业、增加收入。
 
 ## 核心功能
 
@@ -65,4 +65,4 @@ npm run build
 
 ---
 
-© 2026 AIToolGuide.tech - 让每个人都能用AI创造收入
+© 2026 ai2424.com - 让每个人都能用AI创造收入

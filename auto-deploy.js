@@ -6,23 +6,23 @@ const fs = require('fs');
 const path = require('path');
 
 const CONFIG = {
-  repoUrl: 'https://github.com/qyang0163-ship-it/aitoolguide.tech',
+  repoUrl: 'https://github.com/qyang0163-ship-it/ai2424.com',
   files: [
     {
       githubPath: 'src/pages/index.astro',
-      localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/src/pages/index.astro'
+      localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/src/pages/index.astro'
     },
     {
       githubPath: 'src/layouts/Layout.astro',
-      localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/src/layouts/Layout.astro'
+      localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/src/layouts/Layout.astro'
     },
     {
       githubPath: 'src/pages/tool/[tool].astro',
-      localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/src/pages/tool/[tool].astro'
+      localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/src/pages/tool/[tool].astro'
     },
     {
       githubPath: 'public/favicon.svg',
-      localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/public/favicon.svg'
+      localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/public/favicon.svg'
     }
   ],
   commitMessage: 'Day 1: 商业化首页改造 - 赚钱导向设计'
@@ -49,7 +49,7 @@ async function deploy() {
   
   // 创建部署说明文件
   const deployInstructions = `
-# AIToolGuide.tech 部署包
+# ai2424.com 部署包
 
 ## 自动部署步骤
 
@@ -57,7 +57,7 @@ async function deploy() {
 
 1. 下载并安装 GitHub Desktop: https://desktop.github.com
 2. 登录您的GitHub账户
-3. 克隆仓库: qyang0163-ship-it/aitoolguide.tech
+3. 克隆仓库: qyang0163-ship-it/ai2424.com
 4. 将本文件夹中的文件复制到克隆的仓库目录
 5. 在GitHub Desktop中提交更改
 6. 推送到GitHub
@@ -66,8 +66,8 @@ async function deploy() {
 
 \`\`\`bash
 # 克隆仓库
-git clone https://github.com/qyang0163-ship-it/aitoolguide.tech.git
-cd aitoolguide.tech
+git clone https://github.com/qyang0163-ship-it/ai2424.com.git
+cd ai2424.com
 
 # 复制文件
 cp ../deploy-package/src/pages/index.astro src/pages/
@@ -83,7 +83,7 @@ git push origin master
 
 ### 方法3：GitHub网页上传
 
-1. 访问: https://github.com/qyang0163-ship-it/aitoolguide.tech
+1. 访问: https://github.com/qyang0163-ship-it/ai2424.com
 2. 点击 "Add file" → "Upload files"
 3. 拖拽本文件夹中的所有文件
 4. 填写提交信息: "${CONFIG.commitMessage}"
@@ -141,7 +141,7 @@ ${CONFIG.files.map(f => `- ${f.githubPath}`).join('\n')}
   exec(`explorer "${deployPackageDir}"`);
   
   // 打开GitHub
-  exec('start https://github.com/qyang0163-ship-it/aitoolguide.tech');
+  exec('start https://github.com/qyang0163-ship-it/ai2424.com');
 }
 
 deploy().catch(console.error);

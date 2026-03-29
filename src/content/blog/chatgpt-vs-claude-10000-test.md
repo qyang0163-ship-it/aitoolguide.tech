@@ -214,7 +214,7 @@ Here's what I discovered—and which AI you should use for maximum profit.
 ### Use ChatGPT If:
 - 💻 Code generation & technical tasks
 - 🤖 Automation & scripting
-- 🛠️ Customer support
+- 🛠�?Customer support
 - 🔄 Repetitive tasks
 - 📚 Learning & tutoring
 
@@ -349,7 +349,7 @@ A: Absolutely. I use both daily depending on the task.
 - Client acquisition templates
 - Private community of AI freelancers
 
-**[👉 Get the Complete AI Freelancer Toolkit](https://www.aitoolguide.tech/go/chatgpt-claude)**
+**[👉 Get the Complete AI Freelancer Toolkit](https://www.ai2424.com/go/chatgpt-claude)**
 
 ---
 

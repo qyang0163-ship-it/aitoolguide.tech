@@ -7,7 +7,7 @@ const dir = '.';
 // Configure git author
 const author = {
   name: 'AI Assistant',
-  email: 'ai@aitoolguide.tech'
+  email: 'ai@ai2424.com'
 };
 
 // Initialize git if needed
@@ -34,7 +34,7 @@ try {
     dir,
     fs,
     author,
-    message: 'Initial commit: AIToolGuide.tech v1.0 - Complete homepage with popular AI tools'
+    message: 'Initial commit: ai2424.com v1.0 - Complete homepage with popular AI tools'
   });
 } catch (e) {
   console.log('Commit skipped (nothing to commit or already committed)');

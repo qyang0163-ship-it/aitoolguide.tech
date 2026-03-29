@@ -97,7 +97,7 @@ T+1天: 数据分析+感谢用户
 
 ```markdown
 **Website Name**: AIToolGuide
-**URL**: https://www.aitoolguide.tech
+**URL**: https://www.ai2424.com
 **Category**: AI Tools Directory / Productivity
 **Description**: 
 AIToolGuide is the ultimate AI monetization playbook. 
@@ -198,7 +198,7 @@ Here are 3 proven models:
    Rate: $1000-5000 per report
 
 I documented all 100+ tools with pricing data here:
-https://www.aitoolguide.tech
+https://www.ai2424.com
 
 [Always add value first, link second]
 ```

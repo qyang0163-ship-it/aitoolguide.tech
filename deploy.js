@@ -5,7 +5,7 @@ const path = require('path');
 // GitHub配置
 const CONFIG = {
   owner: 'qyang0163-ship-it',
-  repo: 'aitoolguide.tech',
+  repo: 'ai2424.com',
   branch: 'master',
   token: process.env.GITHUB_TOKEN || 'YOUR_GITHUB_TOKEN_HERE' // 需要在环境变量中设置
 };
@@ -14,19 +14,19 @@ const CONFIG = {
 const filesToUpdate = [
   {
     path: 'src/pages/index.astro',
-    localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/src/pages/index.astro'
+    localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/src/pages/index.astro'
   },
   {
     path: 'src/layouts/Layout.astro',
-    localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/src/layouts/Layout.astro'
+    localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/src/layouts/Layout.astro'
   },
   {
     path: 'src/pages/tool/[tool].astro',
-    localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/src/pages/tool/[tool].astro'
+    localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/src/pages/tool/[tool].astro'
   },
   {
     path: 'public/favicon.svg',
-    localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/public/favicon.svg'
+    localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/public/favicon.svg'
   }
 ];
 
@@ -135,7 +135,7 @@ function updateFile(filePath, content, sha, message) {
 
 // 主函数
 async function main() {
-  console.log('🚀 Starting AIToolGuide.tech update...\n');
+  console.log('🚀 Starting ai2424.com update...\n');
 
   if (CONFIG.token === 'YOUR_GITHUB_TOKEN_HERE') {
     console.error('❌ Error: Please set your GitHub token in the GITHUB_TOKEN environment variable');

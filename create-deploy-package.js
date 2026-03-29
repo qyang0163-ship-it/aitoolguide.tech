@@ -7,19 +7,19 @@ const CONFIG = {
   files: [
     {
       githubPath: 'src/pages/index.astro',
-      localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/src/pages/index.astro'
+      localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/src/pages/index.astro'
     },
     {
       githubPath: 'src/layouts/Layout.astro',
-      localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/src/layouts/Layout.astro'
+      localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/src/layouts/Layout.astro'
     },
     {
       githubPath: 'src/pages/tool/[tool].astro',
-      localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/src/pages/tool/[tool].astro'
+      localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/src/pages/tool/[tool].astro'
     },
     {
       githubPath: 'public/favicon.svg',
-      localPath: 'C:/Users/Administrator/Documents/GitHub/aitoolguide.tech/aitoolguide.tech-master/public/favicon.svg'
+      localPath: 'C:/Users/Administrator/Documents/GitHub/ai2424.com/ai2424.com-master/public/favicon.svg'
     }
   ],
   commitMessage: 'Day 1: 商业化首页改造 - 赚钱导向设计'
@@ -63,13 +63,13 @@ CONFIG.files.forEach(file => {
 });
 
 // 创建部署说明
-const deployInstructions = `# AIToolGuide.tech 部署包
+const deployInstructions = `# ai2424.com 部署包
 
 ## 快速部署步骤
 
 ### 方法1：GitHub网页上传（最简单）
 
-1. 访问: https://github.com/qyang0163-ship-it/aitoolguide.tech
+1. 访问: https://github.com/qyang0163-ship-it/ai2424.com
 2. 点击 "Add file" → "Upload files"
 3. 拖拽本文件夹中的文件到上传区域
 4. 填写提交信息: "${CONFIG.commitMessage}"
@@ -78,8 +78,8 @@ const deployInstructions = `# AIToolGuide.tech 部署包
 ### 方法2：Git命令行
 
 \`\`\`bash
-git clone https://github.com/qyang0163-ship-it/aitoolguide.tech.git
-cd aitoolguide.tech
+git clone https://github.com/qyang0163-ship-it/ai2424.com.git
+cd ai2424.com
 cp -r ../deploy-package/* .
 git add .
 git commit -m "${CONFIG.commitMessage}"
@@ -103,7 +103,7 @@ console.log(`📂 Location: ${deployPackageDir}`);
 
 // 打开文件夹和GitHub
 exec(`explorer "${deployPackageDir}"`);
-exec('start https://github.com/qyang0163-ship-it/aitoolguide.tech/upload/master');
+exec('start https://github.com/qyang0163-ship-it/ai2424.com/upload/master');
 
 console.log('\n✅ 已打开文件管理器和GitHub上传页面');
 console.log('💡 请将deploy-package文件夹中的文件拖拽到GitHub上传页面');

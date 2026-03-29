@@ -1,4 +1,4 @@
-# AIToolGuide.tech 变现升级规划方案
+# ai2424.com 变现升级规划方案
 # 日期：2026-03-24
 # 版本：v1.0
 
@@ -188,4 +188,4 @@ affiliate_redirect → { tool_name, destination_url }  // 待补充
 
 ---
 
-© 2026 AIToolGuide.tech | 商业变现规划 v1.0
+© 2026 ai2424.com | 商业变现规划 v1.0

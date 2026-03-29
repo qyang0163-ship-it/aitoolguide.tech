@@ -84,7 +84,7 @@
 
 ### 域名跳转设置
 ```
-ai860.com → 301重定向 → aitoolguide.tech/?ref=short&campaign=video
+ai860.com → 301重定向 → ai2424.com/?ref=short&campaign=video
 ```
 
 ### 落地页弹窗

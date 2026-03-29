@@ -2,7 +2,7 @@
 
 **审计时间**: 2026-03-26 17:36 GMT+8  
 **审计员**: 小跃 2 (产品经理 + SEO专家视角)  
-**网站**: https://www.aitoolguide.tech  
+**网站**: https://www.ai2424.com  
 **当前版本**: Commit `6c76dbb`
 
 ---

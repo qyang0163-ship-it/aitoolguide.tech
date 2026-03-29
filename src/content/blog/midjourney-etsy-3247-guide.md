@@ -22,7 +22,7 @@ You've probably heard success stories about people making thousands on Etsy. But
 - **Crickets** on your listings
 - **Discouraged** and gave up
 
-**Here's the truth**: The Etsy market is saturated with generic products. But there's a **blue ocean** that 95% of sellers miss‚Äî**AI-generated digital art**.
+**Here's the truth**: The Etsy market is saturated with generic products. But there's a **blue ocean** that 95% of sellers miss‚Ä?*AI-generated digital art**.
 
 ## Why Midjourney + Etsy is the Perfect Combo
 
@@ -182,17 +182,17 @@ corporate aesthetic --ar 1:1 --v 6
 
 ## Common Mistakes to Avoid
 
-‚ùå **Mistake 1**: Uploading low-resolution images
-‚úÖ **Solution**: Always use 300 DPI, minimum 3000px width
+‚ù?**Mistake 1**: Uploading low-resolution images
+‚ú?**Solution**: Always use 300 DPI, minimum 3000px width
 
-‚ùå **Mistake 2**: Copying popular designs exactly
-‚úÖ **Solution**: Use as inspiration, add your unique twist
+‚ù?**Mistake 2**: Copying popular designs exactly
+‚ú?**Solution**: Use as inspiration, add your unique twist
 
-‚ùå **Mistake 3**: Ignoring SEO
-‚úÖ **Solution**: Research keywords before creating listings
+‚ù?**Mistake 3**: Ignoring SEO
+‚ú?**Solution**: Research keywords before creating listings
 
-‚ùå **Mistake 4**: Pricing too low
-‚úÖ **Solution**: Test higher prices, digital products have no COGS
+‚ù?**Mistake 4**: Pricing too low
+‚ú?**Solution**: Test higher prices, digital products have no COGS
 
 ## FAQ
 
@@ -235,7 +235,7 @@ A: Specific niches (kawaii, minimalist, boho) still have room. Avoid generic "wa
 - Listing template library
 - Private Discord community
 
-**[üëâ Unlock Full Toolkit - 50% Off Today Only](https://www.aitoolguide.tech/go/midjourney)**
+**[üëâ Unlock Full Toolkit - 50% Off Today Only](https://www.ai2424.com/go/midjourney)**
 
 *Affiliate disclosure: We may earn a commission if you purchase through our links. This helps us create more free content.*
 
