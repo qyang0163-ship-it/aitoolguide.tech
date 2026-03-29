@@ -232,7 +232,7 @@ if __name__ == "__main__":
     
     print(f"Generated {len(today_batch)} articles for today:")
     for article in today_batch:
-        print(f"\n📝 {article['title']}")
+        print(f"\n- {article['title']}")
         print(f"   Slug: {article['slug']}")
         print(f"   Lang: {article['lang']}")
         print(f"   Tool: {article['tool']}")
