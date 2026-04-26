@@ -1,1424 +1,409 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { toolData, categoryMap, formatIncome, getDifficultyStars } from '../data/tools.js';
-
-// Get current locale from URL or localStorage (handled by client-side JS)
-const title = "AIToolGuide - Make Money with AI Tools | 2026";
+import { IconSun, IconCpu, IconServer, IconShieldCheck, IconDatabase, IconCode, IconTerminal, IconRocket } from 'astro:icons';
 ---
 
-<Layout title={title}>
-  <!-- Urgency Banner -->
-  <div class="urgency-banner" data-i18n="urgencyBanner">
-    🔥 Limited Offer: First 100 users get the 'AI Money Toolkit' + Exclusive Freelance Channels
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <title>AI2424 // 硅基进化中枢</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="硅基进化中枢 — 国产算力适配 · P100魔改BIOS · 自主进化" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --void: #000000;
+      --void-card: #0a0a0a;
+      --void-border: #1a1a1a;
+      --green: #00ff41;
+      --green-dim: #00ff4133;
+      --cyan: #00e5ff;
+      --cyan-glow: #00e5ff22;
+      --white: #e0e0e0;
+      --gray: #555;
+      --mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', 'Menlo', 'Consolas', monospace;
+    }
+
+    body {
+      background: var(--void);
+      color: var(--white);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #matrix-rain {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 65, 0.01) 2px,
+        rgba(0, 255, 65, 0.01) 4px
+      );
+    }
+
+    .scanlines::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,255,65,0.02) 50%, transparent 100%);
+      animation: scanmove 8s linear infinite;
+    }
+
+    @keyframes scanmove { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+
+    .hub {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--void-card);
+      border: 1px solid var(--void-border);
+      border-radius: 6px 6px 0 0;
+      font-size: 12px;
+      color: var(--gray);
+      margin-bottom: -1px;
+    }
+
+    .terminal-bar .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+    .terminal-bar .title { margin-left: 0.75rem; letter-spacing: 0.1em; }
+
+    .terminal-body {
+      background: var(--void-card);
+      border: 1px solid var(--void-border);
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .terminal-body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      animation: glow-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes glow-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+    .sys-banner { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--void-border); }
+    .sys-banner .prompt-line { color: var(--gray); font-size: 12px; margin-bottom: 0.25rem; }
+    .sys-banner .prompt-line .prompt { color: var(--green); }
+    .sys-banner .prompt-line .cmd { color: var(--white); }
+
+    .hub-title {
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--green);
+      text-shadow: 0 0 10px var(--green-dim), 0 0 30px rgba(0,255,65,0.05);
+      margin: 1rem 0;
+      line-height: 1.2;
+    }
+
+    .hub-title .slash { color: var(--cyan); text-shadow: 0 0 10px var(--cyan-glow); margin: 0 0.15em; }
+
+    .hub-subtitle {
+      font-size: 13px;
+      color: var(--gray);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .hub-subtitle .blink { animation: blink 1s step-end infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .sys-status {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+      padding: 1.25rem;
+      background: var(--void);
+      border: 1px solid var(--void-border);
+      border-radius: 4px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .stat-item .stat-label { color: var(--gray); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .stat-item .stat-value { color: var(--green); font-size: 13px; margin-left: auto; }
+    .stat-item .stat-value.online { color: var(--green); text-shadow: 0 0 6px var(--green-dim); }
+    .stat-item .stat-value.cyan { color: var(--cyan); }
+
+    .entries { display: grid; gap: 1.25rem; margin-top: 2rem; }
+
+    .entry-card {
+      display: block;
+      text-decoration: none;
+      position: relative;
+      padding: 1.5rem 2rem;
+      background: var(--void-card);
+      border: 1px solid var(--void-border);
+      border-left: 3px solid var(--green);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .entry-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,255,65,0.02) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .entry-card:hover {
+      border-color: var(--green);
+      border-left-color: var(--green);
+      box-shadow: 0 0 20px var(--green-glow), inset 0 0 30px rgba(0,255,65,0.02);
+      transform: translateX(4px);
+    }
+
+    .entry-card:hover::before { opacity: 1; }
+
+    .entry-card.cyan-border { border-left-color: var(--cyan); }
+
+    .entry-card.cyan-border:hover {
+      border-color: var(--cyan);
+      border-left-color: var(--cyan);
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    .entry-card .entry-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.2em 0.6em;
+      border-radius: 2px;
+      margin-bottom: 0.75rem;
+    }
+
+    .entry-card .entry-tag.green { color: var(--green); border: 1px solid var(--green-dim); }
+    .entry-card .entry-tag.cyan { color: var(--cyan); border: 1px solid rgba(0,229,255,0.15); }
+
+    .entry-card .entry-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .entry-card .entry-desc {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .entry-card .entry-arrow {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--green);
+      font-size: 20px;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .entry-card:hover .entry-arrow { opacity: 1; right: 1rem; }
+    .entry-card.cyan-border:hover .entry-arrow { color: var(--cyan); }
+
+    .hub-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--void-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .hub-footer .footer-left { font-size: 11px; color: var(--gray); }
+    .hub-footer .footer-left .accent { color: var(--green); }
+    .hub-footer .footer-right { font-size: 11px; color: var(--gray); }
+
+    @media (max-width: 640px) {
+      .hub { padding: 1rem; }
+      .terminal-body { padding: 1.5rem; }
+      .entry-card { padding: 1.25rem; }
+      .entry-card .entry-arrow { display: none; }
+      .hub-footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    .glitch { position: relative; animation: glitch-anim 3s infinite; }
+    @keyframes glitch-anim {
+      0%, 90%, 100% { transform: none; }
+      92% { transform: translateX(-2px); }
+      94% { transform: translateX(2px); }
+      96% { transform: translateX(-1px); }
+      98% { transform: translateX(1px); }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix-rain"></canvas>
+  <div class="scanlines"></div>
+
+  <div class="hub">
+
+    <div class="terminal-bar">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+      <span class="title">ai2424@hub:~</span>
+    </div>
+
+    <div class="terminal-body">
+
+      <div class="sys-banner">
+        <div class="prompt-line">
+          <span class="prompt">┌──(sysroot@ai2424)</span> <span class="cmd">─[~/hub]</span>
+        </div>
+        <div class="prompt-line">
+          <span class="prompt">└─$</span> <span class="cmd">cat /etc/hub/banner.txt</span>
+        </div>
+        <h1 class="hub-title glitch">
+          <span>AI2424</span><span class="slash">//</span>硅基进化中枢
+        </h1>
+        <p class="hub-subtitle">
+          Silicon Evolution Hub <span class="blink">█</span>
+        </p>
+      </div>
+
+      <div class="sys-status">
+        <div class="stat-item">
+          <span class="stat-label">Status</span>
+          <span class="stat-value online">● ONLINE</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Node</span>
+          <span class="stat-value">ai2424.com</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Uptime</span>
+          <span class="stat-value online">99.97%</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Kernel</span>
+          <span class="stat-value cyan">v4.2.6-evolved</span>
+        </div>
+      </div>
+
+      <div class="entries">
+
+        <a href="/domestic-gpu-hub" class="entry-card">
+          <span class="entry-tag green">MODULE-01</span>
+          <h3 class="entry-title">[ 国产算力适配大厅 ]</h3>
+          <p class="entry-desc">
+            昇腾 · 寒武 · 海光 · 摩尔线程 — 全栈适配，一键编译。
+            让每一颗中国芯跑在最优轨道上。
+          </p>
+          <span class="entry-arrow">→</span>
+        </a>
+
+        <a href="/p100-mod" class="entry-card cyan-border">
+          <span class="entry-tag cyan">MODULE-02</span>
+          <h3 class="entry-title">[ P100 魔改 BIOS 实验室 ]</h3>
+          <p class="entry-desc">
+            解锁 Tesla P100 的隐藏算力。刷写定制 BIOS，
+            解锁 ECC、解锁功耗墙、解锁双倍内存带宽。
+          </p>
+          <span class="entry-arrow">→</span>
+        </a>
+
+      </div>
+
+      <div class="hub-footer">
+        <div class="footer-left">
+          <span class="accent">AI2424</span> © 2026 // All systems operational
+        </div>
+        <div class="footer-right">
+          <span>node ai2424.com | kernel evolved | mode autonomous</span>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <!-- Header -->
-  <header class="header">
-    <div class="container">
-      <nav class="nav">
-        <a href="/" class="logo">
-          <span class="logo-icon">💰</span>
-          <span class="logo-text">AIToolGuide</span>
-          <span class="logo-tag" data-i18n="heroBadge">💸 #1 Side Hustle</span>
-        </a>
-        <div class="nav-links">
-          <a href="#tools" data-i18n="navTools">Money Tools</a>
-          <a href="#methods" data-i18n="navMethods">Methods</a>
-          <a href="#stories" data-i18n="navStories">Success Stories</a>
-          <a href="/ai-tools-100" data-i18n="navTop100">Top 100 AI</a>
-          <a href="/domains" class="nav-invest"><span data-i18n="navDomains">Premium Domains</span> <span class="invest-badge">🔥</span></a>
-          <a href="#start" data-i18n="navStart">Get Started</a>
-        </div>
-        <div class="nav-actions">
-          <a href="#tools" class="btn btn-primary btn-small" data-i18n="navCta">Start Earning Free →</a>
-          <div id="user-menu" class="user-menu" style="display: none;">
-            <span class="user-email"></span>
-            <a href="/member" class="btn btn-secondary btn-small">Member Center</a>
-            <button onclick="signOut()" class="btn btn-ghost btn-small">Sign Out</button>
-          </div>
-          <a href="/sign-in" id="login-btn" class="btn btn-secondary btn-small">Sign In</a>
-          <!-- Language switcher will be inserted here by i18n.js -->
-        </div>
-      </nav>
-    </div>
-  </header>
+  <script is:dynamic>
+    // Matrix rain effect
+    const canvas = document.getElementById('matrix-rain');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) { return; }
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge-group">
-          <span class="hero-badge" data-i18n="heroBadge">💸 #1 Side Hustle Choice</span>
-          <span class="money-badge" data-i18n="heroSocial">Helped 10,000+ people</span>
-        </div>
-        <h1 class="hero-title">
-          <span data-i18n="heroTitle1">Make Money Easily</span>
-          <span class="gradient-text" data-i18n="heroTitle2">with AI Tools</span>
-          <br>
-          <span data-i18n="heroTitle3">Even Beginners Can Earn $1,000+/Month</span>
-        </h1>
-        <p class="hero-description">
-          <span data-i18n="heroDesc">No coding skills needed. No design experience required.</span>
-          <br>
-          <strong data-i18n="heroDescStrong">10 AI Money Tools + Step-by-Step Tutorials</strong>
-          <span data-i18n="heroDescEnd"> — We'll guide you!</span>
-        </p>
-        
-        <div class="hero-actions">
-          <a href="#tools" class="btn btn-urgent btn-large" data-i18n="heroCta1">🔥 Try Free Now</a>
-          <a href="#methods" class="btn btn-primary btn-large" data-i18n="heroCta2">See Methods →</a>
-          <a href="#stories" class="btn btn-secondary btn-large" data-i18n="heroCta3">Success Stories</a>
-        </div>
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
 
-        <div class="urgency-box">
-          <span class="urgency-icon">⏰</span>
-          <span>
-            <span data-i18n="urgencyText">This week</span>
-            <strong data-i18n="urgencyCount">1,247</strong>
-            <span data-i18n="urgencyPeople">people started earning</span>
-          </span>
-          <span class="urgency-countdown" data-i18n="urgencyLimit">Limited spots</span>
-        </div>
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロ0123456789ABCDEF';
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array.from({ length: columns }, () => Math.random() * -20);
 
-        <div class="live-users">
-          <span class="live-dot"></span>
-          <span id="live-user-count">127</span>
-          <span data-i18n="liveUsersText">people learning now</span>
-        </div>
+    const draw = () => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00ff41';
+      ctx.font = `${fontSize}px monospace`;
 
-        <div class="hero-stats">
-          <div class="stat">
-            <span class="stat-number" data-i18n="stat1Num">50+</span>
-            <span class="stat-label" data-i18n="stat1Label">AI Money Tools</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number" data-i18n="stat2Num">10K+</span>
-            <span class="stat-label" data-i18n="stat2Label">Success Cases</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number" data-i18n="stat3Num">$700</span>
-            <span class="stat-label" data-i18n="stat3Label">Avg Monthly Income</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number" data-i18n="stat4Num">98%</span>
-            <span class="stat-label" data-i18n="stat4Label">Beginner Success</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Steps Section -->
-  <section class="steps-section" id="start">
-    <div class="container">
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-icon">🎯</div>
-          <h3 data-i18n="step1Title">Pick a Tool</h3>
-          <p data-i18n="step1Desc">Choose the right AI tool</p>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-icon">📖</div>
-          <h3 data-i18n="step2Title">Learn Methods</h3>
-          <p data-i18n="step2Desc">Follow tutorials & cases</p>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-icon">💰</div>
-          <h3 data-i18n="step3Title">Start Earning</h3>
-          <p data-i18n="step3Desc">Take action, land first gig</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Tools Section -->
-  <section class="tools-section" id="tools">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge" data-i18n="sectionToolsBadge">💰 Tested & Proven</span>
-        <h2 class="section-title" data-i18n="sectionToolsTitle">Top 10 AI Money-Making Tools</h2>
-        <p class="section-description" data-i18n="sectionToolsDesc">Each tool comes with detailed tutorials</p>
-      </div>
-
-      <div class="tools-grid">
-        {toolData.map((tool, index) => (
-          <div class="tool-card" data-tool-id={tool.id}>
-            <div class="tool-header" style={`border-left-color: ${tool.color}`}>
-              <div class="tool-icon" style={`background: ${tool.color}15`}>
-                <span style={`color: ${tool.color}`}>{tool.icon}</span>
-              </div>
-              <div class="tool-info">
-                <h3 class="tool-name">{tool.name}</h3>
-                <span class="tool-category" data-i18n={categoryMap[tool.category]?.key || "catWriting"}>
-                  {categoryMap[tool.category]?.default || "AI Writing"}
-                </span>
-              </div>
-              <span class="income-badge" data-income-min={tool.incomeRange.min} data-income-max={tool.incomeRange.max}>
-                <!-- Income will be formatted by JS based on locale -->
-              </span>
-            </div>
-            
-            <p class="tool-description" data-i18n={`toolDesc_${tool.id}`}>
-              Tool description loading...
-            </p>
-            
-            <div class="tool-meta">
-              <div class="meta-item">
-                <span class="meta-label" data-i18n="earningMethod">Method:</span>
-                <span class="meta-value" data-i18n={`method_${tool.id}`}>Loading...</span>
-              </div>
-              <div class="meta-item">
-                <span class="meta-label" data-i18n="difficulty">Difficulty:</span>
-                <span class="meta-value difficulty-stars" data-difficulty={tool.difficulty}></span>
-              </div>
-            </div>
-            
-            <div class="tool-actions">
-              {tool.tier === 'commission' ? (
-                <>
-                  <a href={tool.url} target="_blank" class="btn btn-urgent" data-track={`tool_${tool.id}_try`}>
-                    <span data-i18n={tool.ctaKey}>{tool.ctaDefault}</span>
-                  </a>
-                  <span class="partner-badge" data-i18n="partnerPerks">🎁 Official Partner Perks</span>
-                </>
-              ) : (
-                <>
-                  <a href="/sign-in" class="btn btn-urgent tool-login-link" data-track={`tool_${tool.id}_unlock`}>
-                    <span data-i18n={tool.ctaKey}>{tool.ctaDefault}</span>
-                  </a>
-                  <a href={tool.externalUrl} target="_blank" class="btn btn-urgent tool-visit-link" style="display: none;" data-track={`tool_${tool.id}_try`}>
-                    <span data-i18n="tryFree">🚀 Try Free Now</span>
-                  </a>
-                </>
-              )}
-              <a href={`/tool/${tool.id}/`} class="btn btn-secondary" data-i18n="viewTutorial" data-track={`tool_${tool.id}_tutorial`}>
-                📖 View Tutorial
-              </a>
-            </div>
-            
-            {index < 3 && <span class="hot-badge" data-i18n="hotBadge">🔥 Trending</span>}
-          </div>
-        ))}
-      </div>
-
-      <div class="view-all">
-        <a href="/ai-tools-100" class="btn btn-primary btn-large" data-i18n="viewAllTools">
-          View All 50+ Money Tools →
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Smart Recommendations Section -->
-  <section class="recommendations-section" id="recommendations">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge">🤖 AI Recommended</span>
-        <h2 class="section-title">Personalized For You</h2>
-        <p class="section-description">Based on your interests and earning goals</p>
-      </div>
-      
-      <div class="recommendation-tabs">
-        <button class="tab-btn active" data-tab="trending" data-i18n="tabTrending">🔥 Trending</button>
-        <button class="tab-btn" data-tab="beginner" data-i18n="tabBeginner">🌱 Beginner Friendly</button>
-        <button class="tab-btn" data-tab="passive" data-i18n="tabPassive">💤 Passive Income</button>
-        <button class="tab-btn" data-tab="similar" data-i18n="tabSimilar">💡 You May Like</button>
-      </div>
-      
-      <div class="recommendations-grid" id="recommendations-grid">
-        <!-- Populated by JavaScript -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Categories Section -->
-  <section class="categories-section" id="methods">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge" data-i18n="sectionMethodsBadge">🎯 Choose Your Path</span>
-        <h2 class="section-title" data-i18n="sectionMethodsTitle">6 AI Monetization Tracks</h2>
-        <p class="section-description" data-i18n="sectionMethodsDesc">Find the best way to earn</p>
-      </div>
-
-      <div class="categories-grid">
-        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-writing')">
-          <span class="category-icon">✍️</span>
-          <h3 data-i18n="catWriting">AI Writing</h3>
-          <p data-i18n="catWritingDesc">Copywriting, content creation</p>
-          <span class="category-count">15 tools</span>
-          <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-          <span class="lock-icon">🔒</span>
-        </div>
-        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-art')">
-          <span class="category-icon">🎨</span>
-          <h3 data-i18n="catArt">AI Art</h3>
-          <p data-i18n="catArtDesc">Avatar customization, design orders</p>
-          <span class="category-count">12 tools</span>
-          <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-          <span class="lock-icon">🔒</span>
-        </div>
-        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-video')">
-          <span class="category-icon">🎬</span>
-          <h3 data-i18n="catVideo">Video Editing</h3>
-          <p data-i18n="catVideoDesc">Short videos, ad production</p>
-          <span class="category-count">8 tools</span>
-          <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-          <span class="lock-icon">🔒</span>
-        </div>
-        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-code')">
-          <span class="category-icon">💻</span>
-          <h3 data-i18n="catCode">Code & Tech</h3>
-          <p data-i18n="catCodeDesc">Development, script customization</p>
-          <span class="category-count">10 tools</span>
-          <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-          <span class="lock-icon">🔒</span>
-        </div>
-        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-knowledge')">
-          <span class="category-icon">📚</span>
-          <h3 data-i18n="catKnowledge">Knowledge</h3>
-          <p data-i18n="catKnowledgeDesc">Courses, templates, resources</p>
-          <span class="category-count">20 tools</span>
-          <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-          <span class="lock-icon">🔒</span>
-        </div>
-        <div class="category-card" onclick="checkAuthAndNavigate('/category/ai-productivity')">
-          <span class="category-icon">⚡</span>
-          <h3 data-i18n="catProductivity">Productivity</h3>
-          <p data-i18n="catProductivityDesc">Automation, efficiency boost</p>
-          <span class="category-count">6 tools</span>
-          <span class="category-cta" data-i18n="startEarning">Start Earning →</span>
-          <span class="lock-icon">🔒</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Learning Progress Section -->
-  <section class="progress-section" id="progress">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge">📊 Your Journey</span>
-        <h2 class="section-title">Learning Progress</h2>
-        <p class="section-description">Track your AI money-making journey</p>
-      </div>
-      
-      <div class="progress-dashboard">
-        <div class="progress-stats">
-          <div class="progress-stat">
-            <span class="progress-number" id="tools-viewed">0</span>
-            <span class="progress-label">Tools Explored</span>
-          </div>
-          <div class="progress-stat">
-            <span class="progress-number" id="categories-tried">0</span>
-            <span class="progress-label">Categories Tried</span>
-          </div>
-          <div class="progress-stat">
-            <span class="progress-number" id="user-level">Beginner</span>
-            <span class="progress-label">Current Level</span>
-          </div>
-          <div class="progress-stat">
-            <span class="progress-number" id="next-milestone">5</span>
-            <span class="progress-label">Next Milestone</span>
-          </div>
-        </div>
-        
-        <div class="progress-bar-container">
-          <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-          </div>
-          <p class="progress-text" id="progress-text">Start exploring tools to earn your first badge!</p>
-        </div>
-        
-        <div class="achievements">
-          <div class="achievement" id="badge-explorer" data-locked="true">
-            <span class="achievement-icon">🔍</span>
-            <span class="achievement-name">Explorer</span>
-            <span class="achievement-desc">View 3 tools</span>
-          </div>
-          <div class="achievement" id="badge-curious" data-locked="true">
-            <span class="achievement-icon">🧐</span>
-            <span class="achievement-name">Curious</span>
-            <span class="achievement-desc">Try 2 categories</span>
-          </div>
-          <div class="achievement" id="badge-learner" data-locked="true">
-            <span class="achievement-icon">📚</span>
-            <span class="achievement-name">Learner</span>
-            <span class="achievement-desc">View 5 tools</span>
-          </div>
-          <div class="achievement" id="badge-master" data-locked="true">
-            <span class="achievement-icon">🏆</span>
-            <span class="achievement-name">Master</span>
-            <span class="achievement-desc">Try 4 categories</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stories Section -->
-  <section class="stories-section" id="stories">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge" data-i18n="sectionStoriesBadge">⭐ Real Stories</span>
-        <h2 class="section-title" data-i18n="sectionStoriesTitle">They're All Making Money with AI</h2>
-        <p class="section-description" data-i18n="sectionStoriesDesc">Real success stories</p>
-      </div>
-
-      <div class="stories-grid">
-        <article class="story-card">
-          <div class="story-header">
-            <span class="story-tag beginner-friendly" data-i18n="tagBeginner">Beginner Friendly</span>
-            <span class="story-income" data-i18n="storyIncome1">$850/month</span>
-          </div>
-          <h3 data-i18n="storyTitle1">Student Earns $850/Month with ChatGPT Writing</h3>
-          <p data-i18n="storyDesc1">College student uses ChatGPT to help clients write copy and optimize resumes, earning steady $850/month in spare time</p>
-          <div class="story-footer">
-            <span class="story-date">2026-03-20</span>
-            <a href="/tool/chatgpt/" class="story-link" data-i18n="viewDetails">View Details →</a>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="story-header">
-            <span class="story-tag designer" data-i18n="tagDesigner">Designer Must-Read</span>
-            <span class="story-income" data-i18n="storyIncome2">$2,800/month</span>
-          </div>
-          <h3 data-i18n="storyTitle2">Designer Doubles Income with Midjourney</h3>
-          <p data-i18n="storyDesc2">Graphic designer uses Midjourney to assist design work, increasing order efficiency by 3x and monthly income exceeding $2,800</p>
-          <div class="story-footer">
-            <span class="story-date">2026-03-18</span>
-            <a href="/tool/midjourney/" class="story-link" data-i18n="viewDetails">View Details →</a>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="story-header">
-            <span class="story-tag passive" data-i18n="tagPassive">Passive Income</span>
-            <span class="story-income" data-i18n="storyIncome3">$700/month</span>
-          </div>
-          <h3 data-i18n="storyTitle3">Mom Earns $700/Month Passive Income with Notion Templates</h3>
-          <p data-i18n="storyDesc3">Full-time mom creates Notion templates and sells on social platforms, achieving passive income while balancing family and work</p>
-          <div class="story-footer">
-            <span class="story-date">2026-03-15</span>
-            <a href="/tool/notion/" class="story-link" data-i18n="viewDetails">View Details →</a>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="story-header">
-            <span class="story-tag beginner" data-i18n="tagBeginner">Beginner Friendly</span>
-            <span class="story-income" data-i18n="storyIncome4">$1,200/month</span>
-          </div>
-          <h3 data-i18n="storyTitle4">College Student Pays Tuition with ChatGPT Writing</h3>
-          <p data-i18n="storyDesc4">University student uses ChatGPT to help classmates with essays and assignments, earning $1,200/month part-time</p>
-          <div class="story-footer">
-            <span class="story-date">2026-03-10</span>
-            <a href="/category/ai-writing" class="story-link" data-i18n="viewDetails">View Details →</a>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="story-header">
-            <span class="story-tag designer" data-i18n="tagDesigner">Designer Must-Read</span>
-            <span class="story-income" data-i18n="storyIncome5">$3,500/month</span>
-          </div>
-          <h3 data-i18n="storyTitle5">Video Editor Scales to $3.5K with Runway AI</h3>
-          <p data-i18n="storyDesc5">Freelance video editor uses Runway AI to speed up editing workflow, taking on 3x more clients and scaling income</p>
-          <div class="story-footer">
-            <span class="story-date">2026-03-05</span>
-            <a href="/tool/runway/" class="story-link" data-i18n="viewDetails">View Details →</a>
-          </div>
-        </article>
-
-        <article class="story-card">
-          <div class="story-header">
-            <span class="story-tag passive" data-i18n="tagPassive">Passive Income</span>
-            <span class="story-income" data-i18n="storyIncome6">$450/month</span>
-          </div>
-          <h3 data-i18n="storyTitle6">Developer Sells AI Prompts for Recurring Revenue</h3>
-          <p data-i18n="storyDesc6">Software engineer packages and sells high-quality AI prompts, building a passive income stream with minimal maintenance</p>
-          <div class="story-footer">
-            <span class="story-date">2026-02-28</span>
-            <a href="/category/ai-knowledge" class="story-link" data-i18n="viewDetails">View Details →</a>
-          </div>
-        </article>
-      </div>
-
-      <div class="stories-footer">
-        <a href="#all-stories" class="btn btn-primary" data-i18n="viewAllStories">View All Success Stories →</a>
-        <a href="#submit" class="btn btn-secondary" data-i18n="shareYourStory">Share Your Story</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Latest News Section -->
-  <section class="news-section" id="news">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge">📰 Latest Updates</span>
-        <h2 class="section-title">AI Money Making News</h2>
-        <p class="section-description">Stay updated with the latest trends and opportunities</p>
-      </div>
-
-      <div class="news-grid">
-        <article class="news-card">
-          <span class="news-date">Mar 26, 2026</span>
-          <span class="news-tag">Trend</span>
-          <h3>ChatGPT-5 Released: New Opportunities</h3>
-          <p>OpenAI's latest model brings enhanced capabilities for content creators, opening new revenue streams in AI-assisted writing and consulting.</p>
-          <a href="#" class="news-link">Read More →</a>
-        </article>
-
-        <article class="news-card">
-          <span class="news-date">Mar 25, 2026</span>
-          <span class="news-tag">Success Story</span>
-          <h3>From $0 to $50K: Sarah's AI Journey</h3>
-          <p>How a former teacher built a six-figure AI content agency in just 8 months using the methods from our VIP program.</p>
-          <a href="/tool/chatgpt/" class="news-link">Read More →</a>
-        </article>
-
-        <article class="news-card">
-          <span class="news-date">Mar 24, 2026</span>
-          <span class="news-tag">Tool Update</span>
-          <h3>Midjourney V7: Better Images, More Profit</h3>
-          <p>The latest version delivers photorealistic results, making AI art services even more valuable for designers and agencies.</p>
-          <a href="/tool/midjourney/" class="news-link">Read More →</a>
-        </article>
-
-        <article class="news-card">
-          <span class="news-date">Mar 23, 2026</span>
-          <span class="news-tag">Opportunity</span>
-          <h3>AI Video Editing Boom: $10K/Month Potential</h3>
-          <p>New tools like Runway Gen-3 are creating massive demand for AI video editors. Learn how to capitalize on this trend.</p>
-          <a href="/category/ai-video" class="news-link">Read More →</a>
-        </article>
-      </div>
-
-      <div class="news-footer">
-        <a href="/blog" class="btn btn-secondary">View All News →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="cta-section" id="final-cta">
-    <div class="container">
-      <div class="cta-content">
-        <span class="cta-badge" data-i18n="ctaBadge">🎁 Limited Offer</span>
-        <h2 class="cta-title" data-i18n="ctaTitle">Still watching? Others are already earning!</h2>
-        <p class="cta-description">
-          <span data-i18n="ctaDesc1">Register now and get:</span><br>
-          <span data-i18n="ctaDesc2">✅ 'AI Money Toolkit' (Worth $40)</span><br>
-          <span data-i18n="ctaDesc3">✅ Exclusive freelance channels</span><br>
-          <span data-i18n="ctaDesc4">✅ 1-on-1 mentoring (first 100)</span>
-        </p>
-        
-        <div class="cta-actions">
-          <a href="#tools" class="btn btn-urgent btn-large" data-i18n="ctaCta1">🔥 Start Earning Now (Free)</a>
-          <a href="#tools" class="btn btn-primary btn-large" data-i18n="ctaCta2">💎 Get Toolkit</a>
-          <a href="#tools" class="btn btn-secondary btn-large" data-i18n="ctaCta3">📱 Join Community</a>
-        </div>
-        
-        <div class="cta-urgency">
-          <span data-i18n="ctaUrgency1">⏰</span>
-          <strong data-i18n="ctaUrgency2">12,847</strong>
-          <span data-i18n="ctaUrgency3">people joined |</span>
-          <strong data-i18n="ctaUrgency4">153</strong>
-          <span data-i18n="ctaUrgency5">spots remaining</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <div class="logo">
-            <span class="logo-icon">💰</span>
-            <span class="logo-text">AIToolGuide</span>
-            <span class="logo-tag" data-i18n="heroBadge">💸 #1 Side Hustle</span>
-          </div>
-          <p class="footer-description" data-i18n="footerDesc">AI tool monetization. Helping everyone create income with AI.</p>
-          <div class="footer-social">
-            <a href="#" aria-label="Twitter">𝕏</a>
-            <a href="#" aria-label="YouTube">▶️</a>
-            <a href="#" aria-label="Discord">💬</a>
-          </div>
-        </div>
-        
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4 data-i18n="footerTools">Money Tools</h4>
-            <a href="/tool/chatgpt" data-i18n="footerChatGPT">ChatGPT</a>
-            <a href="/tool/midjourney" data-i18n="footerMidjourney">Midjourney</a>
-            <a href="/tool/notion" data-i18n="footerNotion">Notion AI</a>
-            <a href="/tool/claude" data-i18n="footerClaude">Claude</a>
-          </div>
-          
-          <div class="footer-column">
-            <h4 data-i18n="footerGuides">Guides</h4>
-            <a href="/blog/ai-money-tools" data-i18n="footerBeginner">Beginner's Guide</a>
-            <a href="#" data-i18n="footerAdvanced">Advanced Tips</a>
-            <a href="#" data-i18n="footerPlatforms">Freelance Platforms</a>
-            <a href="#" data-i18n="footerPitfalls">Avoiding Pitfalls</a>
-          </div>
-          
-          <div class="footer-column">
-            <h4 data-i18n="footerAbout">About Us</h4>
-            <a href="/about" data-i18n="footerOurStory">Our Story</a>
-            <a href="/faq" data-i18n="footerFAQ">FAQ</a>
-            <a href="/contact" data-i18n="footerContact">Contact Us</a>
-            <a href="/privacy" data-i18n="footerPrivacy">Privacy Policy</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <p data-i18n="footerCopyright">© 2026 ai2424.com. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Client-side i18n initialization for dynamic content -->
-  <script is:inline>
-    // Format income based on current locale
-    function formatIncomeForLocale(min, max, locale) {
-      const currencyMap = {
-        'zh-CN': { symbol: '￥', rate: 1, suffix: '/月' },
-        'zh-TW': { symbol: 'NT$', rate: 4.5, suffix: '/月' },
-        'en': { symbol: '$', rate: 0.14, suffix: '/month' },
-        'es': { symbol: '€', rate: 0.13, suffix: '/mes' },
-        'ja': { symbol: '¥', rate: 21, suffix: '/月' },
-        'pt': { symbol: 'R$', rate: 0.72, suffix: '/mês' },
-        'vi': { symbol: '₫', rate: 3500, suffix: '/tháng' },
-        'th': { symbol: '฿', rate: 5, suffix: '/เดือน' },
-        'id': { symbol: 'Rp', rate: 2200, suffix: '/bulan' },
-        'hi': { symbol: '₹', rate: 12, suffix: '/महीना' },
-        'de': { symbol: '€', rate: 0.13, suffix: '/Monat' },
-        'fr': { symbol: '€', rate: 0.13, suffix: '/mois' },
-        'ko': { symbol: '₩', rate: 190, suffix: '/월' },
-        'ar': { symbol: 'د.إ', rate: 0.52, suffix: '/شهر' },
-        'ru': { symbol: '₽', rate: 13, suffix: '/мес' },
-        'tr': { symbol: '₺', rate: 4.8, suffix: '/ay' }
-      };
-      const config = currencyMap[locale] || currencyMap['en'];
-      const minLocal = Math.round(min * config.rate);
-      const maxLocal = Math.round(max * config.rate);
-      return config.symbol + minLocal.toLocaleString() + '-' + maxLocal.toLocaleString() + config.suffix;
-    }
-
-    // Get difficulty stars
-    function getDifficultyStars(level) {
-      return '⭐'.repeat(level);
-    }
-
-    // Update dynamic content when i18n is ready
-    function updateDynamicContent() {
-      const lang = localStorage.getItem('aitg_lang') || 'en';
-      
-      // Update income badges
-      document.querySelectorAll('[data-income-min]').forEach(el => {
-        const min = parseInt(el.dataset.incomeMin);
-        const max = parseInt(el.dataset.incomeMax);
-        el.textContent = formatIncomeForLocale(min, max, lang);
-      });
-      
-      // Update difficulty stars
-      document.querySelectorAll('[data-difficulty]').forEach(el => {
-        const level = parseInt(el.dataset.difficulty);
-        el.textContent = getDifficultyStars(level);
-      });
-    }
-
-    // Run on page load and when language changes
-    document.addEventListener('DOMContentLoaded', function() {
-      updateDynamicContent();
-      checkUserStatus();
-    });
-    window.addEventListener('storage', function(e) {
-      if (e.key === 'aitg_lang') updateDynamicContent();
-      if (e.key === 'aitg_current_user') checkUserStatus();
-    });
-
-    // Check user login status
-    function checkUserStatus() {
-      const currentUser = localStorage.getItem('aitg_current_user');
-      const userMenu = document.getElementById('user-menu');
-      const loginBtn = document.getElementById('login-btn');
-      
-      if (currentUser) {
-        const user = JSON.parse(currentUser);
-        if (userMenu) {
-          userMenu.style.display = 'flex';
-          userMenu.querySelector('.user-email').textContent = user.email;
+      for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
         }
-        if (loginBtn) loginBtn.style.display = 'none';
-      } else {
-        if (userMenu) userMenu.style.display = 'none';
-        if (loginBtn) loginBtn.style.display = 'inline-flex';
+        drops[i]++;
       }
-    }
+    };
 
-    // Sign out function
-    function signOut() {
-      localStorage.removeItem('aitg_current_user');
-      alert('👋 You have been signed out.');
-      window.location.reload();
-    }
-
-    // Update tool buttons based on login status
-    function updateToolButtons() {
-      const currentUser = localStorage.getItem('aitg_current_user');
-      const isLoggedIn = !!currentUser;
-      
-      document.querySelectorAll('.tool-actions').forEach(actions => {
-        const loginLink = actions.querySelector('.tool-login-link');
-        const visitLink = actions.querySelector('.tool-visit-link');
-        
-        if (loginLink && visitLink) {
-          if (isLoggedIn) {
-            loginLink.style.display = 'none';
-            visitLink.style.display = 'inline-flex';
-          } else {
-            loginLink.style.display = 'inline-flex';
-            visitLink.style.display = 'none';
-          }
-        }
-      });
-    }
-
-    // Run on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      updateDynamicContent();
-      checkUserStatus();
-      updateToolButtons();
-    });
-    window.addEventListener('storage', function(e) {
-      if (e.key === 'aitg_lang') updateDynamicContent();
-      if (e.key === 'aitg_current_user') {
-        checkUserStatus();
-        updateToolButtons();
-      }
-    });
+    setInterval(draw, 60);
   </script>
-</Layout>
-
-<style>
-  /* All existing styles preserved */
-  .urgency-banner { background: linear-gradient(90deg, #fef3c7, #fee2e2); padding: 10px; text-align: center; font-weight: 600; color: #92400e; font-size: 0.9rem; }
-  .header { position: fixed; top: 32px; left: 0; right: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border); }
-  .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; }
-  .logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.5rem; }
-  .logo-icon { font-size: 1.8rem; }
-  .logo-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .logo-tag { font-size: 0.7rem; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; padding: 4px 10px; border-radius: 12px; font-weight: 700; }
-  .nav-links { display: flex; gap: 30px; }
-  .nav-links a { font-weight: 600; color: var(--text-secondary); }
-  .nav-links a:hover { color: var(--primary); }
-  .nav-actions { display: flex; align-items: center; gap: 12px; flex-wrap: nowrap; }
-  #aitg-lang-switcher { margin-left: 8px; }
-  .user-menu { display: flex; align-items: center; gap: 12px; }
-  .user-email { font-size: 0.85rem; color: var(--text-secondary); max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
-  .btn-ghost:hover { background: var(--bg-secondary); }
-  .btn-small { padding: 10px 20px; font-size: 0.9rem; }
-  
-  .hero { padding: 140px 0 80px; text-align: center; }
-  .hero-badge-group { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
-  .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; font-weight: 700; font-size: 0.9rem; border-radius: 20px; }
-  .hero-title { font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 24px; }
-  .gradient-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .hero-description { font-size: 1.25rem; color: var(--gray); max-width: 600px; margin: 0 auto 32px; line-height: 1.8; }
-  .hero-actions { display: flex; gap: 16px; justify-content: center; margin-bottom: 32px; flex-wrap: wrap; }
-  .urgency-box { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; background: white; border: 2px solid var(--border); border-radius: 50px; font-size: 0.95rem; color: var(--gray); margin-bottom: 40px; }
-  .urgency-icon { font-size: 1.2rem; }
-  .urgency-countdown { color: #ef4444; font-weight: 700; }
-  .hero-stats { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
-  .stat { text-align: center; }
-  .stat-number { display: block; font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .stat-label { color: var(--gray); font-size: 0.9rem; }
-  
-  .steps-section { padding: 60px 0; background: #f8fafc; }
-  .steps { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-  .step { text-align: center; max-width: 200px; }
-  .step-number { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto 12px; }
-  .step-icon { font-size: 2.5rem; margin-bottom: 12px; }
-  .step h3 { font-size: 1.2rem; margin-bottom: 8px; }
-  .step p { color: var(--gray); font-size: 0.9rem; }
-  
-  .tools-section, .categories-section, .stories-section { padding: 80px 0; }
-  .section-header { text-align: center; margin-bottom: 50px; }
-  .section-badge { display: inline-block; padding: 8px 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-weight: 700; border-radius: 20px; margin-bottom: 16px; }
-  .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
-  .section-description { color: var(--gray); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
-  
-  .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; margin-bottom: 40px; }
-  .tool-card { background: white; border: 2px solid var(--border); border-radius: 20px; padding: 24px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; animation: fadeInUp 0.6s ease-out backwards; }
-  .tool-card:hover { border-color: var(--primary); transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15); }
-  .tool-card:nth-child(1) { animation-delay: 0.1s; }
-  .tool-card:nth-child(2) { animation-delay: 0.2s; }
-  .tool-card:nth-child(3) { animation-delay: 0.3s; }
-  .tool-card:nth-child(4) { animation-delay: 0.4s; }
-  .tool-card:nth-child(5) { animation-delay: 0.5s; }
-  .tool-card:nth-child(6) { animation-delay: 0.6s; }
-  .tool-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 2px solid var(--border); border-left: 4px solid; padding-left: 16px; }
-  .tool-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
-  .tool-info { flex: 1; }
-  .tool-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
-  .tool-category { font-size: 0.85rem; color: var(--gray); }
-  .income-badge { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; white-space: nowrap; }
-  .tool-description { color: #475569; margin-bottom: 16px; line-height: 1.6; }
-  .tool-meta { display: flex; gap: 20px; margin-bottom: 20px; font-size: 0.9rem; }
-  .meta-item { display: flex; gap: 6px; }
-  .meta-label { color: var(--gray); }
-  .meta-value { font-weight: 600; }
-  .tool-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-  .partner-badge { display: block; width: 100%; font-size: 0.7rem; color: #10b981; font-weight: 600; text-align: center; margin-top: 4px; }
-  .hot-badge { position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #ef4444, #f97316); color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
-  .view-all { text-align: center; }
-  
-  .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
-  .category-card { background: white; border: 2px solid var(--border); border-radius: 16px; padding: 30px; text-align: center; transition: all 0.3s; }
-  .category-card:hover { border-color: var(--primary); transform: translateY(-4px); }
-  .category-icon { font-size: 3rem; margin-bottom: 16px; }
-  .category-card h3 { font-size: 1.3rem; margin-bottom: 8px; }
-  .category-card p { color: var(--gray); margin-bottom: 12px; }
-  .category-count { display: inline-block; background: #f1f5f9; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; color: var(--gray); margin-bottom: 16px; }
-  .category-cta { display: block; color: var(--primary); font-weight: 600; }
-  .category-card { position: relative; cursor: pointer; }
-  .category-card .lock-icon { 
-    position: absolute; 
-    top: 16px; 
-    right: 16px; 
-    font-size: 1.2rem; 
-    opacity: 0.5;
-    transition: opacity 0.3s;
-  }
-  .category-card:hover .lock-icon { opacity: 1; }
-  
-  /* Login Modal */
-  .login-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-  }
-  .login-modal.active { display: flex; }
-  .login-modal-content {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    max-width: 500px;
-    text-align: center;
-    animation: modalSlideIn 0.3s;
-  }
-  @keyframes modalSlideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  .login-modal h3 { font-size: 1.5rem; margin-bottom: 16px; }
-  .login-modal p { color: #64748b; margin-bottom: 24px; }
-  .login-modal .btn { margin: 8px; }
-  .login-modal .close { 
-    position: absolute; 
-    top: 20px; 
-    right: 20px; 
-    font-size: 1.5rem; 
-    cursor: pointer;
-    color: #64748b;
-  }
-  
-  .stories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px; }
-  .story-card { background: white; border: 2px solid var(--border); border-radius: 16px; padding: 24px; }
-  .story-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  .story-tag { padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
-  .story-tag.beginner-friendly { background: #dcfce7; color: #166534; }
-  .story-tag.designer { background: #dbeafe; color: #1e40af; }
-  .story-tag.passive { background: #fce7f3; color: #9d174d; }
-  .story-income { color: #ef4444; font-weight: 700; }
-  .story-card h3 { font-size: 1.1rem; margin-bottom: 12px; }
-  .story-card p { color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px; }
-  .story-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--gray); }
-  .stories-footer { display: flex; gap: 16px; justify-content: center; }
-  
-  .cta-section { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); padding: 80px 0; text-align: center; }
-  .cta-content { max-width: 700px; margin: 0 auto; }
-  .cta-badge { display: inline-block; padding: 8px 20px; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; font-weight: 700; border-radius: 20px; margin-bottom: 20px; animation: pulse 2s infinite; }
-  .cta-title { color: white; font-size: 2.5rem; margin-bottom: 16px; }
-  .cta-description { color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 32px; line-height: 1.8; }
-  .cta-actions { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
-  .cta-urgency { color: rgba(255,255,255,0.6); }
-  .cta-urgency strong { color: #f59e0b; }
-  
-  .footer { background: #020617; color: white; padding: 60px 0 30px; }
-  .footer-content { display: flex; justify-content: space-between; margin-bottom: 40px; gap: 60px; flex-wrap: wrap; }
-  .footer-brand { max-width: 320px; }
-  .footer-brand .logo { margin-bottom: 16px; }
-  .footer-description { color: #94a3b8; line-height: 1.6; margin-bottom: 20px; }
-  .footer-social { display: flex; gap: 16px; }
-  .footer-social a { font-size: 1.5rem; }
-  .footer-links { display: flex; gap: 60px; flex-wrap: wrap; }
-  .footer-column h4 { margin-bottom: 20px; color: white; }
-  .footer-column a { display: block; color: #94a3b8; margin-bottom: 12px; font-size: 0.9rem; }
-  .footer-column a:hover { color: white; }
-  .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); color: #64748b; font-size: 0.875rem; }
-  
-  /* Animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  
-  .category-card { animation: fadeInUp 0.6s ease-out backwards; }
-  .category-card:nth-child(1) { animation-delay: 0.1s; }
-  .category-card:nth-child(2) { animation-delay: 0.15s; }
-  .category-card:nth-child(3) { animation-delay: 0.2s; }
-  .category-card:nth-child(4) { animation-delay: 0.25s; }
-  .category-card:nth-child(5) { animation-delay: 0.3s; }
-  .category-card:nth-child(6) { animation-delay: 0.35s; }
-  
-  .story-card { animation: fadeInUp 0.6s ease-out backwards; }
-  .story-card:nth-child(1) { animation-delay: 0.1s; }
-  .story-card:nth-child(2) { animation-delay: 0.2s; }
-  .story-card:nth-child(3) { animation-delay: 0.3s; }
-  
-  /* News Section Styles */
-  .news-section { padding: 80px 0; background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
-  .news-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 40px; }
-  .news-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.3s; }
-  .news-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
-  .news-date { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
-  .news-tag { display: inline-block; padding: 4px 12px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 0.75rem; font-weight: 600; border-radius: 12px; margin-bottom: 12px; }
-  .news-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--text-primary); }
-  .news-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px; }
-  .news-link { color: var(--primary); font-weight: 600; font-size: 0.9rem; }
-  .news-link:hover { text-decoration: underline; }
-  .news-footer { text-align: center; }
-  
-  @media (max-width: 768px) {
-    .hero { padding: 120px 20px 60px; }
-    .hero-title { font-size: 2rem; }
-    .hero-actions { flex-direction: column; align-items: center; }
-    .hero-actions .btn { width: 100%; max-width: 320px; justify-content: center; }
-    .hero-stats { gap: 30px; }
-    .tools-grid, .categories-grid, .stories-grid, .news-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-    .tool-header { flex-wrap: wrap; }
-    .income-badge { margin-left: auto; }
-    .cta-title { font-size: 1.8rem; }
-    .cta-actions { flex-direction: column; align-items: center; }
-    .cta-actions .btn { width: 100%; max-width: 320px; }
-    .footer-content { flex-direction: column; gap: 40px; }
-    .stories-footer { flex-direction: column; align-items: center; }
-  }
-
-  /* Login Intercept Modal */
-  .login-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-  }
-  .login-modal.active { display: flex; }
-  .login-modal-content {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    max-width: 500px;
-    text-align: center;
-    animation: modalSlideIn 0.3s;
-  }
-  @keyframes modalSlideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  .login-modal h3 { font-size: 1.5rem; margin-bottom: 16px; }
-  .login-modal p { color: #64748b; margin-bottom: 24px; }
-  .login-modal .btn { margin: 8px; }
-  .login-modal .close { 
-    position: absolute; 
-    top: 20px; 
-    right: 20px; 
-    font-size: 1.5rem; 
-    cursor: pointer;
-    color: #64748b;
-  }
-  
-  /* Recommendations Section */
-  .recommendations-section { padding: 80px 0; background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
-  .recommendation-tabs { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
-  .tab-btn { padding: 12px 24px; border: 2px solid var(--border); border-radius: 50px; background: white; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-  .tab-btn:hover { border-color: var(--primary); color: var(--primary); }
-  .tab-btn.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-color: transparent; }
-  .recommendations-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
-  .recommendation-card { background: white; border: 2px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.3s; position: relative; }
-  .recommendation-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
-  .rec-badge { position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; font-size: 0.75rem; font-weight: 700; border-radius: 12px; }
-  .rec-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .rec-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-  .rec-info h3 { font-size: 1.1rem; margin-bottom: 4px; }
-  .rec-category { font-size: 0.85rem; color: var(--text-muted); }
-  .rec-income { color: #ef4444; font-weight: 700; font-size: 1.1rem; margin-bottom: 12px; }
-  .rec-reason { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px; padding: 12px; background: var(--bg-secondary); border-radius: 8px; }
-  .rec-actions { display: flex; gap: 12px; }
-  .rec-actions .btn { flex: 1; }
-  
-  /* Progress Section */
-  .progress-section { padding: 80px 0; background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
-  .progress-dashboard { background: white; border-radius: 24px; padding: 40px; box-shadow: var(--shadow-lg); }
-  .progress-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px; }
-  .progress-stat { text-align: center; padding: 24px; background: var(--bg-secondary); border-radius: 16px; }
-  .progress-number { display: block; font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
-  .progress-label { font-size: 0.9rem; color: var(--text-muted); }
-  .progress-bar-container { margin-bottom: 40px; }
-  .progress-bar { height: 12px; background: var(--bg-secondary); border-radius: 6px; overflow: hidden; margin-bottom: 16px; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 6px; transition: width 0.5s ease; }
-  .progress-text { text-align: center; color: var(--text-secondary); font-size: 1.1rem; }
-  .achievements { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .achievement { text-align: center; padding: 24px; background: var(--bg-secondary); border-radius: 16px; transition: all 0.3s; }
-  .achievement[data-locked="true"] { opacity: 0.5; filter: grayscale(1); }
-  .achievement.unlocked { background: linear-gradient(135deg, #dcfce7, #bbf7d0); border: 2px solid #22c55e; }
-  .achievement-icon { display: block; font-size: 2.5rem; margin-bottom: 12px; }
-  .achievement-name { display: block; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
-  .achievement-desc { font-size: 0.85rem; color: var(--text-muted); }
-  
-  /* Floating CTA */
-  .floating-cta { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); z-index: 999; opacity: 0; transition: all 0.3s ease; }
-  .floating-cta.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
-  .floating-cta-btn { display: flex; flex-direction: column; align-items: center; padding: 12px 24px; background: linear-gradient(135deg, #ef4444, #f97316); color: white; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4); animation: pulse 2s infinite; }
-  .floating-cta-btn span { font-weight: 700; font-size: 1rem; }
-  .floating-cta-btn small { font-size: 0.75rem; opacity: 0.9; }
-  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-  
-  /* Nav Invest Badge */
-  .nav-invest { position: relative; }
-  .invest-badge { font-size: 0.7rem; margin-left: 4px; }
-  
-  @media (max-width: 1024px) {
-    .nav-links a { font-size: 0.85rem; }
-  }
-  
-  @media (max-width: 768px) {
-    .progress-stats { grid-template-columns: repeat(2, 1fr); }
-    .achievements { grid-template-columns: repeat(2, 1fr); }
-    .floating-cta-btn { padding: 10px 20px; }
-    .floating-cta-btn span { font-size: 0.9rem; }
-  }
-</style>
-
-<script is:inline>
-  // Check authentication status
-  function isAuthenticated() {
-    const user = localStorage.getItem('aitg_current_user');
-    return user && JSON.parse(user)?.isSignedIn === true;
-  }
-
-  // Check auth and navigate
-  function checkAuthAndNavigate(path) {
-    if (isAuthenticated()) {
-      window.location.href = path;
-    } else {
-      showLoginModal();
-      sessionStorage.setItem('postLoginRedirect', path);
-    }
-  }
-
-  function showLoginModal() {
-    document.getElementById('login-modal').classList.add('active');
-  }
-
-  function closeLoginModal() {
-    document.getElementById('login-modal').classList.remove('active');
-  }
-
-  function redirectToSignUp() {
-    closeLoginModal();
-    window.location.href = '/sign-up';
-  }
-
-  // Close modal on outside click
-  document.addEventListener('click', function(e) {
-    const modal = document.getElementById('login-modal');
-    if (e.target === modal) {
-      closeLoginModal();
-    }
-  });
-
-  // Auto-redirect after login
-  if (isAuthenticated() && sessionStorage.getItem('postLoginRedirect')) {
-    const redirect = sessionStorage.getItem('postLoginRedirect');
-    sessionStorage.removeItem('postLoginRedirect');
-    window.location.href = redirect;
-  }
-  
-  // Smart Recommendations System
-  const toolDatabase = [
-    { id: "chatgpt", name: "ChatGPT", icon: "💬", color: "#10a37f", category: "writing", difficulty: 2, incomeMin: 3000, incomeMax: 8000, tier: "private" },
-    { id: "midjourney", name: "Midjourney", icon: "🎨", color: "#6366f1", category: "art", difficulty: 3, incomeMin: 5000, incomeMax: 15000, tier: "private" },
-    { id: "claude", name: "Claude", icon: "🧠", color: "#d97706", category: "writing", difficulty: 2, incomeMin: 4000, incomeMax: 10000, tier: "private" },
-    { id: "notion", name: "Notion AI", icon: "📝", color: "#000000", category: "productivity", difficulty: 1, incomeMin: 2000, incomeMax: 6000, tier: "commission", partner: true },
-    { id: "runway", name: "Runway", icon: "🎬", color: "#ef4444", category: "video", difficulty: 3, incomeMin: 6000, incomeMax: 20000, tier: "commission", partner: true },
-    { id: "dalle3", name: "DALL-E 3", icon: "🖼️", color: "#8b5cf6", category: "art", difficulty: 2, incomeMin: 4000, incomeMax: 12000, tier: "private" },
-    { id: "perplexity", name: "Perplexity", icon: "🔍", color: "#14b8a6", category: "research", difficulty: 1, incomeMin: 2500, incomeMax: 7000, tier: "commission", partner: true },
-    { id: "copilot", name: "GitHub Copilot", icon: "👨‍💻", color: "#3b82f6", category: "code", difficulty: 4, incomeMin: 8000, incomeMax: 25000, tier: "private" },
-    { id: "gamma", name: "Gamma", icon: "📊", color: "#ec4899", category: "productivity", difficulty: 1, incomeMin: 3000, incomeMax: 9000, tier: "commission", partner: true },
-    { id: "claudecode", name: "Claude Code", icon: "💻", color: "#f97316", category: "code", difficulty: 4, incomeMin: 10000, incomeMax: 30000, tier: "private" }
-  ];
-  
-  function getTrendingTools() {
-    return [...toolDatabase].sort((a, b) => b.incomeMax - a.incomeMax).slice(0, 4);
-  }
-  
-  function getBeginnerTools() {
-    return toolDatabase.filter(t => t.difficulty <= 2).sort((a, b) => b.incomeMax - a.incomeMax).slice(0, 4);
-  }
-  
-  function getPassiveTools() {
-    const passiveCats = ['art', 'productivity', 'research'];
-    return toolDatabase.filter(t => passiveCats.includes(t.category)).sort((a, b) => b.incomeMax - a.incomeMax).slice(0, 4);
-  }
-  
-  function getPersonalizedTools() {
-    const viewed = JSON.parse(localStorage.getItem('viewedTools') || '[]');
-    if (viewed.length === 0) return getTrendingTools();
-    const viewedCats = viewed.map(id => toolDatabase.find(t => t.id === id)?.category).filter(Boolean);
-    const uniqueCats = [...new Set(viewedCats)];
-    return toolDatabase.filter(t => !viewed.includes(t.id) && uniqueCats.includes(t.category)).slice(0, 4);
-  }
-  
-  function renderRecommendationCard(tool, reason) {
-    const badge = tool.tier === 'commission' ? '<span class="partner-badge-small">💰 Partner</span>' : '';
-    const btnText = tool.tier === 'commission' ? 'Try Free' : 'Unlock Guide';
-    const btnClass = tool.tier === 'commission' ? 'btn-urgent' : 'btn-primary';
-    return `
-      <div class="recommendation-card" data-tool-id="${tool.id}">
-        <span class="rec-badge">${reason}</span>
-        <div class="rec-header">
-          <div class="rec-icon" style="background: ${tool.color}20; color: ${tool.color}">${tool.icon}</div>
-          <div class="rec-info">
-            <h3>${tool.name}</h3>
-            <span class="rec-category">${tool.category}</span>
-          </div>
-        </div>
-        <div class="rec-income">$${tool.incomeMin.toLocaleString()}-$${tool.incomeMax.toLocaleString()}/mo</div>
-        <div class="rec-reason">${getRecommendationReason(tool)}</div>
-        <div class="rec-actions">
-          <a href="/tool/${tool.id}/" class="btn ${btnClass}">${btnText}</a>
-          ${badge}
-        </div>
-      </div>
-    `;
-  }
-  
-  function getRecommendationReason(tool) {
-    if (tool.difficulty === 1) return "✨ Perfect for beginners - start earning today!";
-    if (tool.incomeMax > 15000) return "🚀 High income potential - top earners choice!";
-    if (tool.tier === 'commission') return "💎 Partner tool - exclusive perks included!";
-    return "💡 Popular choice among successful users";
-  }
-  
-  function loadRecommendations(type) {
-    const grid = document.getElementById('recommendations-grid');
-    if (!grid) return;
-    
-    let tools = [];
-    let reason = "";
-    
-    switch(type) {
-      case 'trending':
-        tools = getTrendingTools();
-        reason = "🔥 Hot";
-        break;
-      case 'beginner':
-        tools = getBeginnerTools();
-        reason = "🌱 Easy";
-        break;
-      case 'passive':
-        tools = getPassiveTools();
-        reason = "💤 Passive";
-        break;
-      case 'similar':
-        tools = getPersonalizedTools();
-        reason = "💡 For You";
-        break;
-    }
-    
-    grid.innerHTML = tools.map(t => renderRecommendationCard(t, reason)).join('');
-  }
-  
-  // Tab switching
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      loadRecommendations(this.dataset.tab);
-    });
-  });
-  
-  // Load initial recommendations
-  document.addEventListener('DOMContentLoaded', () => {
-    loadRecommendations('trending');
-  });
-  
-  // Track tool views
-  document.querySelectorAll('.tool-card, .recommendation-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const toolId = card.dataset.toolId;
-      if (toolId) {
-        const viewed = JSON.parse(localStorage.getItem('viewedTools') || '[]');
-        if (!viewed.includes(toolId)) {
-          viewed.push(toolId);
-          localStorage.setItem('viewedTools', JSON.stringify(viewed));
-        }
-        // Update user profile
-        updateUserProfile(toolId);
-      }
-    });
-  });
-  
-  // Advanced User Profile System
-  function updateUserProfile(toolId) {
-    const tool = toolDatabase.find(t => t.id === toolId);
-    if (!tool) return;
-    
-    let profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-    
-    // Initialize profile if empty
-    if (!profile.categories) profile.categories = {};
-    if (!profile.difficultyPreference) profile.difficultyPreference = [];
-    if (!profile.incomeInterest) profile.incomeInterest = [];
-    if (!profile.visitCount) profile.visitCount = 0;
-    if (!profile.lastVisit) profile.lastVisit = null;
-    
-    // Update category interest
-    profile.categories[tool.category] = (profile.categories[tool.category] || 0) + 1;
-    
-    // Update difficulty preference
-    profile.difficultyPreference.push(tool.difficulty);
-    if (profile.difficultyPreference.length > 10) {
-      profile.difficultyPreference.shift();
-    }
-    
-    // Update income interest
-    profile.incomeInterest.push(tool.incomeMax);
-    if (profile.incomeInterest.length > 10) {
-      profile.incomeInterest.shift();
-    }
-    
-    // Update visit stats
-    profile.visitCount++;
-    profile.lastVisit = new Date().toISOString();
-    
-    // Calculate user type
-    profile.userType = calculateUserType(profile);
-    
-    localStorage.setItem('userProfile', JSON.stringify(profile));
-  }
-  
-  function calculateUserType(profile) {
-    const avgDifficulty = profile.difficultyPreference.reduce((a, b) => a + b, 0) / profile.difficultyPreference.length;
-    const avgIncome = profile.incomeInterest.reduce((a, b) => a + b, 0) / profile.incomeInterest.length;
-    
-    if (avgDifficulty <= 1.5 && avgIncome < 8000) return 'beginner';
-    if (avgDifficulty >= 3 && avgIncome > 15000) return 'advanced';
-    if (avgIncome > 20000) return 'ambitious';
-    return 'balanced';
-  }
-  
-  function getSmartRecommendations() {
-    const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-    const viewed = JSON.parse(localStorage.getItem('viewedTools') || '[]');
-    
-    if (!profile.categories || Object.keys(profile.categories).length === 0) {
-      return getTrendingTools();
-    }
-    
-    // Find top category
-    const topCategory = Object.entries(profile.categories)
-      .sort((a, b) => b[1] - a[1])[0][0];
-    
-    // Calculate average difficulty preference
-    const avgDifficulty = profile.difficultyPreference.reduce((a, b) => a + b, 0) / profile.difficultyPreference.length;
-    
-    // Score all unviewed tools
-    let scoredTools = toolDatabase
-      .filter(t => !viewed.includes(t.id))
-      .map(tool => {
-        let score = 0;
-        
-        // Category match (highest weight)
-        if (tool.category === topCategory) score += 50;
-        
-        // Difficulty match
-        const diffDiff = Math.abs(tool.difficulty - avgDifficulty);
-        score += Math.max(0, 30 - diffDiff * 10);
-        
-        // Income potential
-        score += (tool.incomeMax / 1000) * 2;
-        
-        // User type bonus
-        if (profile.userType === 'beginner' && tool.difficulty <= 2) score += 20;
-        if (profile.userType === 'advanced' && tool.difficulty >= 3) score += 20;
-        if (profile.userType === 'ambitious' && tool.incomeMax > 15000) score += 25;
-        
-        return { ...tool, score };
-      });
-    
-    return scoredTools.sort((a, b) => b.score - a.score).slice(0, 4);
-  }
-  
-  // Add smart recommendations tab
-  document.addEventListener('DOMContentLoaded', () => {
-    // Add Smart tab if user has profile
-    const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-    if (profile.categories && Object.keys(profile.categories).length > 0) {
-      const tabsContainer = document.querySelector('.recommendation-tabs');
-      if (tabsContainer) {
-        const smartTab = document.createElement('button');
-        smartTab.className = 'tab-btn';
-        smartTab.dataset.tab = 'smart';
-        smartTab.innerHTML = '🎯 Smart Match';
-        tabsContainer.appendChild(smartTab);
-        
-        smartTab.addEventListener('click', function() {
-          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-          const tools = getSmartRecommendations();
-          const grid = document.getElementById('recommendations-grid');
-          grid.innerHTML = tools.map(t => renderRecommendationCard(t, '🎯 Best Match')).join('');
-        });
-      }
-    }
-  });
-  
-  // Learning Progress Tracker
-  function updateProgressDisplay() {
-    const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-    const viewed = JSON.parse(localStorage.getItem('viewedTools') || '[]');
-    
-    // Update stats
-    document.getElementById('tools-viewed').textContent = viewed.length;
-    
-    const categories = profile.categories ? Object.keys(profile.categories).length : 0;
-    document.getElementById('categories-tried').textContent = categories;
-    
-    // Calculate level
-    let level = 'Beginner';
-    let milestone = 5;
-    let progress = 0;
-    
-    if (viewed.length >= 10 && categories >= 4) {
-      level = 'Master';
-      milestone = 'Max';
-      progress = 100;
-    } else if (viewed.length >= 7 && categories >= 3) {
-      level = 'Expert';
-      milestone = 10;
-      progress = 75;
-    } else if (viewed.length >= 5 && categories >= 2) {
-      level = 'Advanced';
-      milestone = 7;
-      progress = 50;
-    } else if (viewed.length >= 3 && categories >= 1) {
-      level = 'Intermediate';
-      milestone = 5;
-      progress = 25;
-    }
-    
-    document.getElementById('user-level').textContent = level;
-    document.getElementById('next-milestone').textContent = milestone;
-    document.getElementById('progress-fill').style.width = progress + '%';
-    
-    // Update achievements
-    if (viewed.length >= 3) unlockAchievement('badge-explorer');
-    if (categories >= 2) unlockAchievement('badge-curious');
-    if (viewed.length >= 5) unlockAchievement('badge-learner');
-    if (categories >= 4) unlockAchievement('badge-master');
-    
-    // Update progress text
-    const texts = [
-      "Start exploring tools to earn your first badge!",
-      "Great start! Keep exploring to unlock more badges.",
-      "You're making progress! Try different categories.",
-      "Almost there! You're becoming an AI expert.",
-      "Congratulations! You're a Master of AI tools!"
-    ];
-    const textIndex = Math.min(Math.floor(progress / 25), 4);
-    document.getElementById('progress-text').textContent = texts[textIndex];
-  }
-  
-  function unlockAchievement(id) {
-    const badge = document.getElementById(id);
-    if (badge && badge.dataset.locked === 'true') {
-      badge.dataset.locked = 'false';
-      badge.classList.add('unlocked');
-      badge.querySelector('.achievement-icon').textContent += ' ✓';
-    }
-  }
-  
-  // Initialize progress on load
-  document.addEventListener('DOMContentLoaded', () => {
-    updateProgressDisplay();
-    
-    // Show floating CTA after scrolling
-    const floatingCta = document.getElementById('floating-cta');
-    if (floatingCta) {
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 500) {
-          floatingCta.classList.add('visible');
-        } else {
-          floatingCta.classList.remove('visible');
-        }
-      });
-    }
-  });
-  
-  // Update progress when tools are clicked
-  document.querySelectorAll('.tool-card, .recommendation-card').forEach(card => {
-    card.addEventListener('click', () => {
-      setTimeout(updateProgressDisplay, 100);
-    });
-  });
-</script>
-
-<!-- Floating CTA -->
-<div id="floating-cta" class="floating-cta">
-  <a href="#tools" class="floating-cta-btn">
-    <span>🔥 Start Earning Now</span>
-    <small>Free to try</small>
-  </a>
-</div>
-</Layout>
+</body>
+</html>
