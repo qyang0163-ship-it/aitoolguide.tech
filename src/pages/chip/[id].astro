@@ -1,0 +1,656 @@
+---
+/**
+ * 芯片详情页面 - 完整对比分析
+ */
+import Layout from '../../layouts/Layout.astro';
+import { chipDatabase, getChipById, type ChipReplacement, type Alternative } from '../../data/chips/chip-database';
+
+const url = Astro.url;
+const chipId = url.pathname.split('/').pop()?.replace('.html', '') || '';
+const locale = url.searchParams.get('locale') || 'zh';
+
+const chip = getChipById(chipId);
+
+if (!chip) {
+  return Astro.redirect(`/search?locale=${locale}`);
+}
+
+const t = {
+  zh: {
+    title: `${chip.original.model} - 芯片替代方案`,
+    overview: '芯片概述',
+    description: '功能描述',
+    specifications: '详细规格',
+    alternatives: '替代方案',
+    altTitle: '国产替代对比',
+    compatibility: '兼容性',
+    advantages: '优势',
+    disadvantages: '劣势',
+    priceAdvantage: '价格优势',
+   供货: '供货情况',
+    pinCompatible: '引脚兼容',
+    compatible: '兼容',
+    similar: '相似',
+    datasheet: '数据手册',
+    backToSearch: '返回搜索',
+    compareAll: '对比所有方案',
+    notes: '使用说明',
+    addToCompare: '加入对比'
+  },
+  en: {
+    title: `${chip.original.model} - Chip Alternatives`,
+    overview: 'Overview',
+    description: 'Description',
+    specifications: 'Specifications',
+    alternatives: 'Alternatives',
+    altTitle: 'Chinese Alternative Comparison',
+    compatibility: 'Compatibility',
+    advantages: 'Advantages',
+    disadvantages: 'Disadvantages',
+    priceAdvantage: 'Price Advantage',
+   供货: 'Supply',
+    pinCompatible: 'Pin-compatible',
+    compatible: 'Compatible',
+    similar: 'Similar',
+    datasheet: 'Datasheet',
+    backToSearch: 'Back to Search',
+    compareAll: 'Compare All',
+    notes: 'Notes',
+    addToCompare: 'Add to Compare'
+  }
+};
+
+const text = t[locale];
+
+function getCompatLevel(level: string) {
+  return { 'pin-compatible': text.pinCompatible, 'compatible': text.compatible, 'similar': text.similar }[level] || level;
+}
+
+function getCompatClass(level: string) {
+  return level.replace('-', '-');
+}
+---
+
+<Layout title={text.title}>
+  <main class="chip-detail">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href={`/?locale=${locale}`}>{locale === 'zh' ? '首页' : 'Home'}</a>
+        <span>/</span>
+        <a href={`/search?locale=${locale}`}>{locale === 'zh' ? '搜索' : 'Search'}</a>
+        <span>/</span>
+        <span class="current">{chip.original.model}</span>
+      </nav>
+
+      <!-- Original Chip Header -->
+      <header class="chip-header">
+        <div class="header-left">
+          <span class="brand-badge">{chip.original.brand}</span>
+          <h1 class="chip-model">{chip.original.model}</h1>
+          <div class="chip-meta">
+            <span class="category-badge">{locale === 'zh' ? chip.original.categoryZh : chip.original.category}</span>
+            <span class="package-badge">{chip.original.package}</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="price-tag">
+            <span class="label">{locale === 'zh' ? '参考价格' : 'Reference Price'}</span>
+            <span class="value">{chip.original.price}</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Description -->
+      <section class="section">
+        <h2>{text.description}</h2>
+        <p class="description-text">{locale === 'zh' ? chip.original.descriptionZh : chip.original.description}</p>
+      </section>
+
+      <!-- Specifications -->
+      <section class="section">
+        <h2>{text.specifications}</h2>
+        <div class="specs-grid">
+          {Object.entries(chip.original.specs).map(([key, value]) => (
+            <div class="spec-item">
+              <span class="spec-key">{key}</span>
+              <span class="spec-value">{value}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Alternatives Comparison -->
+      <section class="alternatives-section">
+        <h2>{text.altTitle}</h2>
+        <p class="alt-subtitle">{locale === 'zh' 
+          ? `以下 ${chip.alternatives.length} 个国产替代方案供参考` 
+          : `${chip.alternatives.length} Chinese alternatives for your reference`}</p>
+        
+        <div class="alt-comparison">
+          {chip.alternatives.map((alt: Alternative, idx: number) => (
+            <article class="alt-detail-card">
+              <!-- Header -->
+              <div class="alt-header" style={`background: linear-gradient(135deg, hsl(${idx * 40 + 150}, 70%, 50%), hsl(${idx * 40 + 180}, 70%, 40%))`}>
+                <div class="alt-rank">#{idx + 1}</div>
+                <div class="alt-brand-model">
+                  <span class="alt-brand">{alt.brand}</span>
+                  <span class="alt-model">{alt.model}</span>
+                </div>
+                <div class={`compat-badge ${alt.compatibility}`}>
+                  {getCompatLevel(alt.compatibility)}
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div class="alt-content">
+                <!-- Manufacturer -->
+                <div class="info-row">
+                  <span class="info-label">{locale === 'zh' ? '厂商' : 'Manufacturer'}:</span>
+                  <span class="info-value">{alt.manufacturer}</span>
+                </div>
+
+                <!-- Price & Supply -->
+                <div class="badges-row">
+                  <span class="price-badge">{alt.priceAdvantage}</span>
+                  <span class="supply-badge">{alt.availabilityAdvantage}</span>
+                </div>
+
+                <!-- Advantages -->
+                <div class="pros-cons">
+                  <div class="pros">
+                    <h4>✅ {text.advantages}</h4>
+                    <p>{locale === 'zh' ? alt.advantages.zh : alt.advantages.en}</p>
+                  </div>
+                  <div class="cons">
+                    <h4>⚠️ {text.disadvantages}</h4>
+                    <p>{locale === 'zh' ? alt.disadvantages.zh : alt.disadvantages.en}</p>
+                  </div>
+                </div>
+
+                <!-- Specs Comparison -->
+                <div class="specs-compare">
+                  <h4>{text.specifications}</h4>
+                  <div class="compare-table">
+                    <div class="compare-row header">
+                      <span>{locale === 'zh' ? '参数' : 'Spec'}</span>
+                      <span>{chip.original.model}</span>
+                      <span>{alt.model}</span>
+                    </div>
+                    {Object.entries(chip.original.specs).slice(0, 5).map(([key, val]) => (
+                      <div class="compare-row">
+                        <span class="spec-name">{key}</span>
+                        <span class="orig-val">{val}</span>
+                        <span class="alt-val">{alt.specs[key] || '-'}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="alt-actions">
+                  {alt.datasheet && (
+                    <a href={alt.datasheet} target="_blank" class="datasheet-btn">
+                      📄 {text.datasheet}
+                    </a>
+                  )}
+                  <button class="compare-btn" data-chip={chip.id} data-alt={idx}>
+                    {text.addToCompare}
+                  </button>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Notes -->
+      <section class="section notes-section">
+        <h2>📝 {text.notes}</h2>
+        <p>{locale === 'zh' ? chip.notes.zh : chip.notes.en}</p>
+      </section>
+
+      <!-- Back Link -->
+      <div class="back-section">
+        <a href={`/search?locale=${locale}`} class="back-btn">← {text.backToSearch}</a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .chip-detail {
+    min-height: 100vh;
+    background: #f5f7fa;
+    padding: 30px 20px 60px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .breadcrumb {
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .breadcrumb a {
+    color: #667eea;
+    text-decoration: none;
+  }
+  
+  .breadcrumb span {
+    margin: 0 8px;
+  }
+  
+  .breadcrumb .current {
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .chip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  
+  .brand-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .chip-model {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .chip-meta {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .category-badge {
+    background: #e3f2fd;
+    color: #1565c0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+  }
+  
+  .package-badge {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+  }
+  
+  .header-right {
+    text-align: right;
+  }
+  
+  .price-tag {
+    background: #fff3e0;
+    padding: 15px 25px;
+    border-radius: 15px;
+  }
+  
+  .price-tag .label {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  .price-tag .value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #e65100;
+  }
+  
+  .section {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  
+  .section h2 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  
+  .description-text {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+  }
+  
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .spec-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .spec-key {
+    font-size: 0.85rem;
+    color: #666;
+  }
+  
+  .spec-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .alternatives-section {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  
+  .alternatives-section h2 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .alt-subtitle {
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .alt-comparison {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 25px;
+  }
+  
+  .alt-detail-card {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .alt-detail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  }
+  
+  .alt-header {
+    padding: 25px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .alt-rank {
+    font-size: 1.5rem;
+    font-weight: 700;
+    opacity: 0.8;
+  }
+  
+  .alt-brand-model {
+    flex: 1;
+  }
+  
+  .alt-brand {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+  
+  .alt-model {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  
+  .compat-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.25);
+  }
+  
+  .alt-content {
+    padding: 25px;
+    background: #fff;
+  }
+  
+  .info-row {
+    margin-bottom: 15px;
+  }
+  
+  .info-label {
+    color: #666;
+    font-size: 0.85rem;
+    margin-right: 8px;
+  }
+  
+  .info-value {
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .badges-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .price-badge {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  .supply-badge {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+  }
+  
+  .pros-cons {
+    margin-bottom: 20px;
+  }
+  
+  .pros, .cons {
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .pros {
+    background: #e8f5e9;
+  }
+  
+  .cons {
+    background: #fff3e0;
+  }
+  
+  .pros h4, .cons h4 {
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .pros p, .cons p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0;
+    line-height: 1.5;
+  }
+  
+  .specs-compare h4 {
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 12px;
+  }
+  
+  .compare-table {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.85rem;
+  }
+  
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .compare-row:last-child {
+    border-bottom: none;
+  }
+  
+  .compare-row.header {
+    background: #f5f5f5;
+    font-weight: 600;
+  }
+  
+  .compare-row span {
+    padding: 10px 12px;
+    border-right: 1px solid #eee;
+  }
+  
+  .compare-row span:last-child {
+    border-right: none;
+  }
+  
+  .spec-name {
+    color: #666;
+  }
+  
+  .orig-val {
+    color: #666;
+    font-style: italic;
+  }
+  
+  .alt-val {
+    color: #2e7d32;
+    font-weight: 500;
+  }
+  
+  .alt-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .datasheet-btn, .compare-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+  }
+  
+  .datasheet-btn {
+    background: #f0f0f0;
+    color: #333;
+  }
+  
+  .datasheet-btn:hover {
+    background: #e0e0e0;
+  }
+  
+  .compare-btn {
+    background: #667eea;
+    color: white;
+  }
+  
+  .compare-btn:hover {
+    background: #5a6fd6;
+  }
+  
+  .notes-section {
+    background: #fff8e1;
+    border-left: 4px solid #ffc107;
+  }
+  
+  .notes-section p {
+    color: #555;
+    line-height: 1.7;
+  }
+  
+  .back-section {
+    text-align: center;
+  }
+  
+  .back-btn {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  
+  .back-btn:hover {
+    background: #5a6fd6;
+  }
+  
+  @media (max-width: 768px) {
+    .chip-header {
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .header-right {
+      text-align: left;
+    }
+    
+    .chip-model {
+      font-size: 1.8rem;
+    }
+    
+    .alt-comparison {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -4,9 +4,9 @@ interface Props {
 	lang?: string;
 }
 
-const { title, lang = 'en' } = Astro.props;
+const { title, lang = 'zh' } = Astro.props;
 
-const locales = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar', 'hi', 'th', 'tr', 'vi', 'id'];
+const locales = ['en', 'zh-CN', 'zh-TW'];
 const currentPath = Astro.url.pathname;
 ---
 
@@ -14,27 +14,27 @@ const currentPath = Astro.url.pathname;
 <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} id="html-root">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="AIToolGuide - The most practical AI money-making tools directory in 2026. Learn how to use AI tools for side hustles, freelance work, and income growth." />
-		<meta name="keywords" content="AI tools,make money with AI,ChatGPT,Midjourney,AI side hustle,AI writing,AI design,freelance" />
-		<meta name="author" content="AIToolGuide Team" />
+		<meta name="description" content="ChipAlters - 芯片替代平台。输入美国芯片型号，快速查找可靠的国产替代方案。支持STM32、LM358等主流芯片的中美替代对照。" />
+		<meta name="keywords" content="芯片替代,国产替代,STM32替代,LM358替代,国产芯片,芯片对比,替代方案,电子元器件,硬件工程师" />
+		<meta name="author" content="ChipAlters Team" />
 		<meta name="robots" content="index, follow" />
 		<meta name="googlebot" content="index, follow" />
 		<meta name="bingbot" content="index, follow" />
 		
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://www.ai2424.com/" />
+		<meta property="og:url" content="https://ai2424.com/" />
 		<meta property="og:title" content={title} />
-		<meta property="og:description" content="The most practical AI money-making tools directory in 2026. Learn how to use AI tools for side hustles, freelance work, and income growth." />
-		<meta property="og:image" content="https://www.ai2424.com/og-image.jpg" />
-		<meta property="og:locale" content={lang.replace('-', '_')} />
+		<meta property="og:description" content="芯片替代平台。输入美国芯片型号，快速查找可靠的国产替代方案。" />
+		<meta property="og:image" content="https://ai2424.com/og-image.jpg" />
+		<meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
 		
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="https://www.ai2424.com/" />
+		<meta property="twitter:url" content="https://ai2424.com/" />
 		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content="The most practical AI money-making tools directory in 2026. Learn how to use AI tools for side hustles, freelance work, and income growth." />
-		<meta property="twitter:image" content="https://www.ai2424.com/og-image.jpg" />
+		<meta property="twitter:description" content="芯片替代平台。输入美国芯片型号，快速查找可靠的国产替代方案。" />
+		<meta property="twitter:image" content="https://ai2424.com/og-image.jpg" />
 		
 		<!-- Canonical URL -->
 		<link rel="canonical" href={`https://www.ai2424.com${currentPath}`} />
@@ -50,12 +50,13 @@ const currentPath = Astro.url.pathname;
 		{
 			"@context": "https://schema.org",
 			"@type": "WebSite",
-			"name": "AIToolGuide",
-			"url": "https://www.ai2424.com",
-			"description": "The most practical AI money-making tools directory in 2026",
+			"name": "ChipAlters 芯片替代平台",
+			"alternateName": "ChipAlters",
+			"url": "https://ai2424.com",
+			"description": "输入美国芯片型号，查找可靠的国产替代方案",
 			"potentialAction": {
 				"@type": "SearchAction",
-				"target": "https://www.ai2424.com/search?q={search_term_string}",
+				"target": "https://ai2424.com/search?q={search_term_string}",
 				"query-input": "required name=search_term_string"
 			}
 		}

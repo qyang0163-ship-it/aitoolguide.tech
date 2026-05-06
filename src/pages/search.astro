@@ -1,370 +1,432 @@
 ---
+/**
+ * 搜索结果页面
+ */
 import Layout from '../layouts/Layout.astro';
+import { chipDatabase, searchChips, type ChipReplacement } from '../data/chips/chip-database';
 
-const tools = [
-  { id: 'chatgpt', name: 'ChatGPT', icon: '💬', color: '#10a37f', category: 'writing', tier: 'private' },
-  { id: 'midjourney', name: 'Midjourney', icon: '🎨', color: '#6366f1', category: 'art', tier: 'private' },
-  { id: 'claude', name: 'Claude', icon: '🧠', color: '#d97706', category: 'writing', tier: 'private' },
-  { id: 'notion', name: 'Notion AI', icon: '📝', color: '#000000', category: 'productivity', tier: 'commission' },
-  { id: 'runway', name: 'Runway', icon: '🎬', color: '#ec4899', category: 'video', tier: 'commission' },
-  { id: 'dalle3', name: 'DALL-E 3', icon: '🖼️', color: '#8b5cf6', category: 'art', tier: 'private' },
-  { id: 'perplexity', name: 'Perplexity', icon: '🔍', color: '#10b981', category: 'research', tier: 'commission' },
-  { id: 'copilot', name: 'GitHub Copilot', icon: '💻', color: '#6b7280', category: 'code', tier: 'private' },
-  { id: 'gamma', name: 'Gamma', icon: '📊', color: '#f97316', category: 'productivity', tier: 'commission' },
-  { id: 'claude-code', name: 'Claude Code', icon: '⚡', color: '#dc2626', category: 'code', tier: 'private' }
-];
+const url = Astro.url;
+const query = url.searchParams.get('q') || '';
+const locale = url.searchParams.get('locale') || 'zh';
+
+const results = query ? searchChips(query) : [];
+
+const t = {
+  zh: {
+    title: `搜索: ${query} - 芯片替代平台`,
+    results: '搜索结果',
+    noResults: '未找到相关芯片替代方案',
+    noResultsTip: '尝试搜索其他型号，或浏览以下热门芯片',
+    alternatives: '替代方案',
+    viewDetails: '查看详情',
+    compatibility: '兼容性',
+    pinCompatible: '引脚兼容',
+    compatible: '兼容',
+    similar: '相似',
+    priceAdvantage: '价格优势',
+    backHome: '返回首页',
+    relatedSearches: '相关搜索'
+  },
+  en: {
+    title: `Search: ${query} - ChipAlters`,
+    results: 'Search Results',
+    noResults: 'No chip alternatives found',
+    noResultsTip: 'Try searching other models, or browse popular chips below',
+    alternatives: 'Alternatives',
+    viewDetails: 'View Details',
+    compatibility: 'Compatibility',
+    pinCompatible: 'Pin-compatible',
+    compatible: 'Compatible',
+    similar: 'Similar',
+    priceAdvantage: 'Price Advantage',
+    backHome: 'Back to Home',
+    relatedSearches: 'Related Searches'
+  }
+};
+
+const text = t[locale];
+const popularChips = ['STM32F103', 'LM358', 'ESP8266', 'LM7805', 'W25Q128', 'AT24C256', 'NE555', 'LM393'];
+
+function getCompatibilityText(level: string): string {
+  const map = {
+    'pin-compatible': text.pinCompatible,
+    'compatible': text.compatible,
+    'similar': text.similar
+  };
+  return map[level] || level;
+}
 ---
 
-<Layout title="Search AI Tools - AIToolGuide">
-  <div class="search-page">
-    <!-- Header -->
-    <header class="header">
-      <div class="container">
-        <nav class="nav">
-          <a href="/" class="logo">
-            <span class="logo-icon">💰</span>
-            <span class="logo-text">AIToolGuide</span>
-          </a>
-          <div class="nav-actions">
-            <a href="/" class="back-link">← Back to Home</a>
-          </div>
-        </nav>
+<Layout title={text.title}>
+  <main class="search-page">
+    <div class="container">
+      <!-- Search Header -->
+      <div class="search-header">
+        <a href={`/?locale=${locale}`} class="back-link">← {text.backHome}</a>
+        <h1>{text.results}: <span class="query">{query}</span></h1>
+        <p class="result-count">{results.length} {locale === 'zh' ? '个匹配结果' : 'matches found'}</p>
       </div>
-    </header>
 
-    <!-- Search Hero -->
-    <section class="search-hero">
-      <div class="container">
-        <h1>Search AI Tools</h1>
-        <p>Find the perfect AI tool for your needs</p>
-        
-        <div class="search-box">
-          <input 
-            type="text" 
-            id="search-input" 
-            placeholder="Search tools, categories, or use cases..."
-            autocomplete="off"
-          />
-          <button class="search-btn">🔍</button>
-        </div>
-
-        <div class="search-filters">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="writing">Writing</button>
-          <button class="filter-btn" data-filter="art">Art</button>
-          <button class="filter-btn" data-filter="video">Video</button>
-          <button class="filter-btn" data-filter="code">Code</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Results -->
-    <section class="results-section">
-      <div class="container">
-        <div id="results-count" class="results-count">Showing all {tools.length} tools</div>
-        
-        <div id="results-grid" class="results-grid">
-          {tools.map(tool => (
-            <a href={`/tool/${tool.id}/`} class="result-card" data-category={tool.category} data-name={tool.name.toLowerCase()}>
-              <div class="result-icon" style={`background: ${tool.color}20; color: ${tool.color}`}>
-                {tool.icon}
+      {results.length > 0 ? (
+        <div class="results-list">
+          {results.map((chip: ChipReplacement) => (
+            <article class="chip-card">
+              <!-- Original Chip -->
+              <div class="chip-original">
+                <div class="chip-header">
+                  <span class="brand">{chip.original.brand}</span>
+                  <span class="model">{chip.original.model}</span>
+                </div>
+                <div class="chip-info">
+                  <span class="category">{locale === 'zh' ? chip.original.categoryZh : chip.original.category}</span>
+                  <span class="package">{chip.original.package}</span>
+                </div>
+                <p class="description">{locale === 'zh' ? chip.original.descriptionZh : chip.original.description}</p>
+                <div class="specs-mini">
+                  <span class="spec-item">📊 {Object.values(chip.original.specs)[0]}</span>
+                  <span class="spec-item">⚡ {chip.original.price}</span>
+                </div>
               </div>
-              <div class="result-info">
-                <h3>{tool.name}</h3>
-                <span class="result-category">{tool.category}</span>
-                <p class="result-desc">{tool.tier === 'commission' ? 'Partner Tool' : 'Premium Tool'}</p>
+
+              <!-- Alternatives -->
+              <div class="alternatives-section">
+                <h3>{text.alternatives} ({chip.alternatives.length})</h3>
+                <div class="alt-grid">
+                  {chip.alternatives.map((alt, idx) => (
+                    <div class="alt-card" style={`animation-delay: ${idx * 100}ms`}>
+                      <div class="alt-header">
+                        <span class="alt-brand">{alt.brand}</span>
+                        <span class="alt-model">{alt.model}</span>
+                      </div>
+                      <div class="alt-meta">
+                        <span class={`compat-badge ${alt.compatibility}`}>
+                          {getCompatibilityText(alt.compatibility)}
+                        </span>
+                        <span class="manufacturer">{alt.manufacturer}</span>
+                      </div>
+                      <div class="alt-advantages">
+                        <p class="advantage-text">{locale === 'zh' ? alt.advantages.zh : alt.advantages.en}</p>
+                        <span class="price-badge">{alt.priceAdvantage}</span>
+                      </div>
+                      <a href={`/chip/${chip.id}?locale=${locale}`} class="view-btn">
+                        {text.viewDetails} →
+                      </a>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <span class="result-arrow">→</span>
-            </a>
+            </article>
           ))}
         </div>
-
-        <div id="no-results" class="no-results" style="display: none;">
-          <span class="no-results-icon">🔍</span>
-          <h3>No tools found</h3>
-          <p>Try different keywords or browse all tools</p>
-          <a href="/ai-tools-100" class="btn">Browse Top 100 →</a>
+      ) : (
+        <div class="no-results">
+          <div class="no-results-icon">🔍</div>
+          <h2>{text.noResults}</h2>
+          <p>{text.noResultsTip}</p>
+          <div class="related-searches">
+            <h3>{text.relatedSearches}:</h3>
+            <div class="related-list">
+              {popularChips.map(chip => (
+                <a href={`/search?q=${chip}&locale=${locale}`} class="related-chip">{chip}</a>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
-
-  <script is:inline>
-    const searchInput = document.getElementById('search-input');
-    const resultsGrid = document.getElementById('results-grid');
-    const resultsCount = document.getElementById('results-count');
-    const noResults = document.getElementById('no-results');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const resultCards = document.querySelectorAll('.result-card');
-
-    let currentFilter = 'all';
-
-    // Search functionality
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase();
-      filterResults(query, currentFilter);
-    });
-
-    // Filter buttons
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.dataset.filter;
-        filterResults(searchInput.value.toLowerCase(), currentFilter);
-      });
-    });
-
-    function filterResults(query, filter) {
-      let visibleCount = 0;
-
-      resultCards.forEach(card => {
-        const name = card.dataset.name;
-        const category = card.dataset.category;
-        
-        const matchesQuery = name.includes(query);
-        const matchesFilter = filter === 'all' || category === filter;
-
-        if (matchesQuery && matchesFilter) {
-          card.style.display = 'flex';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      resultsCount.textContent = `Showing ${visibleCount} tool${visibleCount !== 1 ? 's' : ''}`;
-      
-      if (visibleCount === 0) {
-        resultsGrid.style.display = 'none';
-        noResults.style.display = 'block';
-      } else {
-        resultsGrid.style.display = 'grid';
-        noResults.style.display = 'none';
-      }
-    }
-
-    // Focus search on load
-    searchInput.focus();
-  </script>
-
-  <style>
-    .search-page {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-    }
-
-    .header {
-      padding: 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 800;
-      font-size: 1.5rem;
-      text-decoration: none;
-      color: white;
-    }
-
-    .back-link {
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-    }
-
-    .search-hero {
-      padding: 60px 20px 40px;
-      text-align: center;
-      color: white;
-    }
-
-    .search-hero h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    .search-hero p {
-      opacity: 0.8;
-      margin-bottom: 32px;
-    }
-
-    .search-box {
-      display: flex;
-      max-width: 600px;
-      margin: 0 auto 24px;
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    }
-
-    .search-box input {
-      flex: 1;
-      padding: 20px 24px;
-      border: none;
-      font-size: 1.1rem;
-      outline: none;
-    }
-
-    .search-btn {
-      padding: 0 24px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .search-filters {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      padding: 10px 20px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 25px;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .filter-btn.active,
-    .filter-btn:hover {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border-color: transparent;
-    }
-
-    .results-section {
-      padding: 40px 20px 80px;
-    }
-
-    .results-count {
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 20px;
-      font-size: 0.95rem;
-    }
-
-    .results-grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    .result-card {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 20px;
-      text-decoration: none;
-      color: white;
-      transition: all 0.3s;
-    }
-
-    .result-card:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateX(8px);
-    }
-
-    .result-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.75rem;
-      flex-shrink: 0;
-    }
-
-    .result-info {
-      flex: 1;
-    }
-
-    .result-info h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .result-category {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      margin-bottom: 4px;
-    }
-
-    .result-desc {
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-
-    .result-arrow {
-      font-size: 1.5rem;
-      opacity: 0.5;
-    }
-
-    .no-results {
-      text-align: center;
-      padding: 60px 20px;
-      color: white;
-    }
-
-    .no-results-icon {
-      font-size: 4rem;
-      display: block;
-      margin-bottom: 16px;
-    }
-
-    .no-results h3 {
-      font-size: 1.5rem;
-      margin-bottom: 8px;
-    }
-
-    .no-results p {
-      opacity: 0.7;
-      margin-bottom: 24px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 28px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-
-    @media (max-width: 640px) {
-      .search-hero h1 {
-        font-size: 1.75rem;
-      }
-
-      .search-box input {
-        padding: 16px 20px;
-      }
-    }
-  </style>
+      )}
+    </div>
+  </main>
 </Layout>
+
+<style>
+  .search-page {
+    min-height: 100vh;
+    background: #f5f7fa;
+    padding: 40px 20px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .search-header {
+    margin-bottom: 40px;
+  }
+  
+  .back-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 15px;
+    display: inline-block;
+  }
+  
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  
+  .search-header h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .query {
+    color: #667eea;
+  }
+  
+  .result-count {
+    color: #666;
+  }
+  
+  .chip-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  
+  .chip-original {
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+  }
+  
+  .chip-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .brand {
+    background: #667eea;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  
+  .model {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .chip-info {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .category {
+    background: #f0f0f0;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+  }
+  
+  .package {
+    background: #e8f4ea;
+    color: #2e7d32;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+  }
+  
+  .description {
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .specs-mini {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .spec-item {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .alternatives-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .alt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  .alt-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    border: 2px solid transparent;
+    transition: border-color 0.3s, transform 0.3s;
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .alt-card:hover {
+    border-color: #667eea;
+    transform: translateY(-3px);
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .alt-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  
+  .alt-brand {
+    background: #4caf50;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .alt-model {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .alt-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .compat-badge {
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .compat-badge.pin-compatible {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .compat-badge.compatible {
+    background: #fff3e0;
+    color: #e65100;
+  }
+  
+  .compat-badge.similar {
+    background: #e3f2fd;
+    color: #1565c0;
+  }
+  
+  .manufacturer {
+    font-size: 0.8rem;
+    color: #888;
+  }
+  
+  .alt-advantages {
+    margin-bottom: 15px;
+  }
+  
+  .advantage-text {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  
+  .price-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+  .view-btn {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+  
+  .view-btn:hover {
+    background: #5a6fd6;
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 20px;
+  }
+  
+  .no-results-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+  }
+  
+  .no-results h2 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .no-results > p {
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .related-searches h3 {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .related-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .related-chip {
+    background: #f0f0f0;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  
+  .related-chip:hover {
+    background: #667eea;
+    color: white;
+  }
+</style>
