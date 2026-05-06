@@ -1,409 +1,118 @@
 ---
-import { IconSun, IconCpu, IconServer, IconShieldCheck, IconDatabase, IconCode, IconTerminal, IconRocket } from 'astro:icons';
+import chipsData, { chipCategories } from '../data/chips_db.js';
 ---
 
 <html lang="zh-CN" class="dark">
 <head>
   <meta charset="utf-8" />
-  <title>AI2424 // 硅基进化中枢</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="硅基进化中枢 — 国产算力适配 · P100魔改BIOS · 自主进化" />
+  <title>芯替代 — 芯片国产替代评测知识库</title>
+  <meta name="description" content="美国受限芯片 vs 国产替代方案对比评测" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --void: #000000;
-      --void-card: #0a0a0a;
-      --void-border: #1a1a1a;
-      --green: #00ff41;
-      --green-dim: #00ff4133;
-      --cyan: #00e5ff;
-      --cyan-glow: #00e5ff22;
-      --white: #e0e0e0;
-      --gray: #555;
-      --mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', 'Menlo', 'Consolas', monospace;
+      --void: #000000; --void-card: #0a0a0a; --void-border: #1a1a1a;
+      --green: #00ff41; --green-dim: #00ff4133;
+      --cyan: #00e5ff; --cyan-glow: #00e5ff22;
+      --red: #ff4444; --red-dim: #ff444433;
+      --white: #e0e0e0; --gray: #555;
+      --mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', 'Menlo', Consolas, monospace;
     }
-
-    body {
-      background: var(--void);
-      color: var(--white);
-      font-family: var(--mono);
-      font-size: 14px;
-      line-height: 1.7;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    #matrix-rain {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      opacity: 0.05;
-      pointer-events: none;
-    }
-
-    .scanlines {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 255, 65, 0.01) 2px,
-        rgba(0, 255, 65, 0.01) 4px
-      );
-    }
-
-    .scanlines::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 0%, rgba(0,255,65,0.02) 50%, transparent 100%);
-      animation: scanmove 8s linear infinite;
-    }
-
-    @keyframes scanmove { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-
-    .hub {
-      position: relative;
-      z-index: 2;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .terminal-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: var(--void-card);
-      border: 1px solid var(--void-border);
-      border-radius: 6px 6px 0 0;
-      font-size: 12px;
-      color: var(--gray);
-      margin-bottom: -1px;
-    }
-
+    body { background: var(--void); color: var(--white); font-family: var(--mono); font-size: 14px; line-height: 1.7; min-height: 100vh; overflow-x: hidden; }
+    .scanlines { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.01) 2px, rgba(0,255,65,0.01) 4px); }
+    .hub { position: relative; z-index: 2; max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .terminal-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--void-card); border: 1px solid var(--void-border); border-radius: 6px 6px 0 0; font-size: 12px; color: var(--gray); margin-bottom: -1px; }
     .terminal-bar .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-    .dot.red { background: #ff5f56; }
-    .dot.yellow { background: #ffbd2e; }
-    .dot.green { background: #27c93f; }
+    .dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
     .terminal-bar .title { margin-left: 0.75rem; letter-spacing: 0.1em; }
-
-    .terminal-body {
-      background: var(--void-card);
-      border: 1px solid var(--void-border);
-      border-top: none;
-      border-radius: 0 0 6px 6px;
-      padding: 2rem;
-      margin-bottom: 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .terminal-body::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--green), transparent);
-      animation: glow-pulse 3s ease-in-out infinite;
-    }
-
-    @keyframes glow-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
-
-    .sys-banner { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--void-border); }
-    .sys-banner .prompt-line { color: var(--gray); font-size: 12px; margin-bottom: 0.25rem; }
-    .sys-banner .prompt-line .prompt { color: var(--green); }
-    .sys-banner .prompt-line .cmd { color: var(--white); }
-
-    .hub-title {
-      font-size: clamp(1.5rem, 5vw, 2.2rem);
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      color: var(--green);
-      text-shadow: 0 0 10px var(--green-dim), 0 0 30px rgba(0,255,65,0.05);
-      margin: 1rem 0;
-      line-height: 1.2;
-    }
-
-    .hub-title .slash { color: var(--cyan); text-shadow: 0 0 10px var(--cyan-glow); margin: 0 0.15em; }
-
-    .hub-subtitle {
-      font-size: 13px;
-      color: var(--gray);
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-    }
-
-    .hub-subtitle .blink { animation: blink 1s step-end infinite; }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-    .sys-status {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
-      margin: 1.5rem 0;
-      padding: 1.25rem;
-      background: var(--void);
-      border: 1px solid var(--void-border);
-      border-radius: 4px;
-    }
-
-    .stat-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
+    .terminal-body { background: var(--void-card); border: 1px solid var(--void-border); border-top: none; border-radius: 0 0 6px 6px; padding: 2rem; margin-bottom: 2rem; position: relative; overflow: hidden; }
+    .terminal-body::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--green), transparent); animation: glow-pulse 3s ease-in-out infinite; }
+    @keyframes glow-pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+    .hub-title { font-size: clamp(1.5rem,5vw,2.4rem); font-weight: 700; letter-spacing: 0.15em; color: var(--green); text-shadow: 0 0 10px var(--green-dim); margin: 0.5rem 0; }
+    .hub-subtitle { font-size: 13px; color: var(--gray); letter-spacing: 0.3em; }
+    .sys-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1.5rem 0; padding: 1.25rem; background: var(--void); border: 1px solid var(--void-border); border-radius: 4px; }
+    .stat-item { display: flex; align-items: center; gap: 0.5rem; }
     .stat-item .stat-label { color: var(--gray); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
     .stat-item .stat-value { color: var(--green); font-size: 13px; margin-left: auto; }
-    .stat-item .stat-value.online { color: var(--green); text-shadow: 0 0 6px var(--green-dim); }
     .stat-item .stat-value.cyan { color: var(--cyan); }
-
-    .entries { display: grid; gap: 1.25rem; margin-top: 2rem; }
-
-    .entry-card {
-      display: block;
-      text-decoration: none;
-      position: relative;
-      padding: 1.5rem 2rem;
-      background: var(--void-card);
-      border: 1px solid var(--void-border);
-      border-left: 3px solid var(--green);
-      border-radius: 4px;
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
-
-    .entry-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0,255,65,0.02) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .entry-card:hover {
-      border-color: var(--green);
-      border-left-color: var(--green);
-      box-shadow: 0 0 20px var(--green-glow), inset 0 0 30px rgba(0,255,65,0.02);
-      transform: translateX(4px);
-    }
-
-    .entry-card:hover::before { opacity: 1; }
-
-    .entry-card.cyan-border { border-left-color: var(--cyan); }
-
-    .entry-card.cyan-border:hover {
-      border-color: var(--cyan);
-      border-left-color: var(--cyan);
-      box-shadow: 0 0 20px var(--cyan-glow);
-    }
-
-    .entry-card .entry-tag {
-      display: inline-block;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.2em 0.6em;
-      border-radius: 2px;
-      margin-bottom: 0.75rem;
-    }
-
-    .entry-card .entry-tag.green { color: var(--green); border: 1px solid var(--green-dim); }
-    .entry-card .entry-tag.cyan { color: var(--cyan); border: 1px solid rgba(0,229,255,0.15); }
-
-    .entry-card .entry-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.05em;
-    }
-
-    .entry-card .entry-desc {
-      font-size: 12px;
-      color: var(--gray);
-      line-height: 1.6;
-    }
-
-    .entry-card .entry-arrow {
-      position: absolute;
-      right: 1.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--green);
-      font-size: 20px;
-      opacity: 0;
-      transition: all 0.3s ease;
-    }
-
-    .entry-card:hover .entry-arrow { opacity: 1; right: 1rem; }
-    .entry-card.cyan-border:hover .entry-arrow { color: var(--cyan); }
-
-    .hub-footer {
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--void-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .hub-footer .footer-left { font-size: 11px; color: var(--gray); }
-    .hub-footer .footer-left .accent { color: var(--green); }
-    .hub-footer .footer-right { font-size: 11px; color: var(--gray); }
-
-    @media (max-width: 640px) {
-      .hub { padding: 1rem; }
-      .terminal-body { padding: 1.5rem; }
-      .entry-card { padding: 1.25rem; }
-      .entry-card .entry-arrow { display: none; }
-      .hub-footer { flex-direction: column; align-items: flex-start; }
-    }
-
-    .glitch { position: relative; animation: glitch-anim 3s infinite; }
-    @keyframes glitch-anim {
-      0%, 90%, 100% { transform: none; }
-      92% { transform: translateX(-2px); }
-      94% { transform: translateX(2px); }
-      96% { transform: translateX(-1px); }
-      98% { transform: translateX(1px); }
-    }
+    .chip-list { display: grid; gap: 1.25rem; margin-top: 2rem; }
+    .chip-card { position: relative; padding: 1.5rem 2rem; background: var(--void-card); border: 1px solid var(--void-border); border-left: 3px solid var(--green); border-radius: 4px; transition: all 0.3s ease; }
+    .chip-card:hover { border-color: var(--green); box-shadow: 0 0 20px var(--green-dim); transform: translateX(4px); }
+    .chip-card .chip-id { font-size: 10px; color: var(--gray); letter-spacing: 0.15em; }
+    .chip-card .chip-vs { display: flex; align-items: center; justify-content: center; gap: 2rem; margin: 1rem 0; flex-wrap: wrap; }
+    .chip-card .chip-side { text-align: center; flex: 1; min-width: 200px; }
+    .chip-card .chip-side .vendor { font-size: 11px; color: var(--gray); }
+    .chip-card .chip-side .name { font-size: 1rem; font-weight: 600; margin: 0.25rem 0; }
+    .chip-card .chip-side.us .name { color: var(--red); }
+    .chip-card .chip-side.cn .name { color: var(--green); }
+    .chip-card .chip-side .specs { font-size: 11px; color: var(--gray); margin-top: 0.5rem; }
+    .vs-badge { font-size: 12px; font-weight: 700; color: var(--cyan); padding: 0.25rem 0.75rem; border: 1px solid var(--cyan); border-radius: 50%; flex-shrink: 0; }
+    .chip-card .chip-match { display: inline-block; font-size: 11px; padding: 0.25rem 0.75rem; border-radius: 3px; margin-top: 0.75rem; }
+    .chip-match.high { color: var(--green); border: 1px solid var(--green-dim); }
+    .chip-match.mid { color: #ffbd2e; border: 1px solid #ffbd2e33; }
+    .chip-match.low { color: var(--red); border: 1px solid var(--red-dim); }
+    .chip-card .chip-actions { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+    .chip-card .chip-actions a { font-size: 11px; padding: 0.3rem 0.75rem; border: 1px solid var(--void-border); border-radius: 3px; text-decoration: none; color: var(--gray); transition: all 0.3s; }
+    .chip-card .chip-actions a:hover { border-color: var(--green); color: var(--green); }
+    .chip-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 2rem; }
+    .chip-tags a { font-size: 10px; padding: 0.25rem 0.6rem; border: 1px solid var(--void-border); border-radius: 3px; text-decoration: none; color: var(--gray); letter-spacing: 0.1em; }
+    .chip-tags a:hover { border-color: var(--cyan); color: var(--cyan); }
+    .hub-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--void-border); font-size: 11px; color: var(--gray); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .hub-footer .accent { color: var(--green); }
+    @media(max-width:640px){ .hub{padding:1rem} .terminal-body{padding:1.25rem} .chip-card{padding:1.25rem} .chip-card .chip-vs{gap:1rem} .hub-footer{flex-direction:column} }
   </style>
 </head>
 <body>
-  <canvas id="matrix-rain"></canvas>
   <div class="scanlines"></div>
-
   <div class="hub">
-
     <div class="terminal-bar">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green"></span>
-      <span class="title">ai2424@hub:~</span>
+      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      <span class="title">chip-platform@hub:~</span>
     </div>
-
     <div class="terminal-body">
-
-      <div class="sys-banner">
-        <div class="prompt-line">
-          <span class="prompt">┌──(sysroot@ai2424)</span> <span class="cmd">─[~/hub]</span>
-        </div>
-        <div class="prompt-line">
-          <span class="prompt">└─$</span> <span class="cmd">cat /etc/hub/banner.txt</span>
-        </div>
-        <h1 class="hub-title glitch">
-          <span>AI2424</span><span class="slash">//</span>硅基进化中枢
-        </h1>
-        <p class="hub-subtitle">
-          Silicon Evolution Hub <span class="blink">█</span>
-        </p>
-      </div>
+      <h1 class="hub-title">芯替代 // CHIP_REPLACE</h1>
+      <p class="hub-subtitle">国产芯片替代评测知识库 <span style="animation:blink 1s step-end infinite">█</span></p>
 
       <div class="sys-status">
-        <div class="stat-item">
-          <span class="stat-label">Status</span>
-          <span class="stat-value online">● ONLINE</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Node</span>
-          <span class="stat-value">ai2424.com</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Uptime</span>
-          <span class="stat-value online">99.97%</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Kernel</span>
-          <span class="stat-value cyan">v4.2.6-evolved</span>
-        </div>
+        <div class="stat-item"><span class="stat-label">Status</span><span class="stat-value">● ONLINE</span></div>
+        <div class="stat-item"><span class="stat-label">Chips</span><span class="stat-value">${chipsData.length} pairs</span></div>
+        <div class="stat-item"><span class="stat-label">Locale</span><span class="stat-value cyan">zh-CN / en</span></div>
+        <div class="stat-item"><span class="stat-label">API</span><span class="stat-value">/api/search</span></div>
       </div>
 
-      <div class="entries">
+      <div class="chip-list">
+        {chipsData.map(chip => (
+          <div class="chip-card">
+            <span class="chip-id">[{chip.id}] Match: {chip.match_score}%</span>
+            <div class="chip-vs">
+              <div class="chip-side us">
+                <span class="vendor">{chip.us_chip.vendor}</span>
+                <div class="name">{chip.us_chip.name}</div>
+                <div class="specs">{chip.us_chip.specs.tpu || chip.us_chip.specs.cpu || chip.us_chip.specs.logic_cells} · {chip.us_chip.specs.memory}</div>
+              </div>
+              <div class="vs-badge">VS</div>
+              <div class="chip-side cn">
+                <span class="vendor">{chip.domestic_alternative.vendor}</span>
+                <div class="name">{chip.domestic_alternative.name}</div>
+                <div class="specs">{chip.domestic_alternative.specs.tpu || chip.domestic_alternative.specs.cpu || chip.domestic_alternative.specs.logic_cells} · {chip.domestic_alternative.specs.memory}</div>
+              </div>
+            </div>
+            <div class="chip-match {chip.match_score >= 85 ? 'high' : chip.match_score >= 70 ? 'mid' : 'low'}">
+              替代匹配度: {chip.match_score}%
+            </div>
+          </div>
+        ))}
+      </div>
 
-        <a href="/domestic-gpu-hub" class="entry-card">
-          <span class="entry-tag green">MODULE-01</span>
-          <h3 class="entry-title">[ 国产算力适配大厅 ]</h3>
-          <p class="entry-desc">
-            昇腾 · 寒武 · 海光 · 摩尔线程 — 全栈适配，一键编译。
-            让每一颗中国芯跑在最优轨道上。
-          </p>
-          <span class="entry-arrow">→</span>
-        </a>
-
-        <a href="/p100-mod" class="entry-card cyan-border">
-          <span class="entry-tag cyan">MODULE-02</span>
-          <h3 class="entry-title">[ P100 魔改 BIOS 实验室 ]</h3>
-          <p class="entry-desc">
-            解锁 Tesla P100 的隐藏算力。刷写定制 BIOS，
-            解锁 ECC、解锁功耗墙、解锁双倍内存带宽。
-          </p>
-          <span class="entry-arrow">→</span>
-        </a>
-
+      <div class="chip-tags">
+        {chipCategories.map(cat => <a href={`/category/${cat.id}`}>{cat.icon} {cat.label}</a>)}
       </div>
 
       <div class="hub-footer">
-        <div class="footer-left">
-          <span class="accent">AI2424</span> © 2026 // All systems operational
-        </div>
-        <div class="footer-right">
-          <span>node ai2424.com | kernel evolved | mode autonomous</span>
-        </div>
+        <div><span class="accent">芯替代</span> © 2026 // CHIP_REPLACE PLATFORM</div>
+        <div>backend: FastAPI + SQLite · frontend: Astro</div>
       </div>
-
     </div>
   </div>
-
-  <script is:dynamic>
-    // Matrix rain effect
-    const canvas = document.getElementById('matrix-rain');
-    const ctx = canvas.getContext('2d');
-    if (!ctx) { return; }
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロ0123456789ABCDEF';
-    const fontSize = 14;
-    const columns = Math.floor(canvas.width / fontSize);
-    const drops = Array.from({ length: columns }, () => Math.random() * -20);
-
-    const draw = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#00ff41';
-      ctx.font = `${fontSize}px monospace`;
-
-      for (let i = 0; i < drops.length; i++) {
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    };
-
-    setInterval(draw, 60);
-  </script>
 </body>
 </html>

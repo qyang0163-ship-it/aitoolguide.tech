@@ -1,480 +1,73 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-// Tool data - base info only, translations come from i18n
-const toolData = {
-  'chatgpt': {
-    name: 'ChatGPT',
-    icon: '💬',
-    color: '#10a37f',
-    categoryKey: 'catWriting',
-    url: '/go/chatgpt'
-  },
-  'midjourney': {
-    name: 'Midjourney',
-    icon: '🎨',
-    color: '#6366f1',
-    categoryKey: 'catArt',
-    url: '/go/midjourney'
-  },
-  'claude': {
-    name: 'Claude',
-    icon: '🧠',
-    color: '#d97757',
-    categoryKey: 'catWriting',
-    url: '/go/claude'
-  },
-  'notion': {
-    name: 'Notion AI',
-    icon: '📝',
-    color: '#000000',
-    categoryKey: 'catProductivity',
-    url: '/go/notion'
-  },
-  'runway': {
-    name: 'Runway',
-    icon: '🎬',
-    color: '#ec4899',
-    categoryKey: 'catVideo',
-    url: '/go/runway'
-  },
-  'dalle3': {
-    name: 'DALL-E 3',
-    icon: '🖼️',
-    color: '#8b5cf6',
-    categoryKey: 'catArt',
-    url: '/go/dalle3'
-  },
-  'perplexity': {
-    name: 'Perplexity',
-    icon: '🔍',
-    color: '#10b981',
-    categoryKey: 'catResearch',
-    url: '/go/perplexity'
-  },
-  'copilot': {
-    name: 'GitHub Copilot',
-    icon: '💻',
-    color: '#6b7280',
-    categoryKey: 'catCode',
-    url: '/go/copilot'
-  },
-  'gamma': {
-    name: 'Gamma',
-    icon: '📊',
-    color: '#f59e0b',
-    categoryKey: 'catProductivity',
-    url: '/go/gamma'
-  },
-  'claude-code': {
-    name: 'Claude Code',
-    icon: '⚡',
-    color: '#dc2626',
-    categoryKey: 'catCode',
-    url: '/go/claude-code'
-  }
-};
+import chipsData from '../../data/chips_db.js';
 
 export function getStaticPaths() {
-  const tools = ['chatgpt','midjourney','claude','notion','runway','dalle3','perplexity','copilot','gamma','claude-code'];
-  return tools.map(tool => ({
-    params: { tool }
+  return chipsData.map(chip => ({
+    params: { tool: chip.id }
   }));
 }
 
 const { tool } = Astro.params;
-const data = toolData[tool] || toolData['chatgpt'];
+const chip = chipsData.find(c => c.id === tool) || chipsData[0];
 ---
 
-<Layout title={`${data.name} - AI Money Guide`}>
-  <div class="urgency-banner" data-i18n="toolPageUrgency">
-    🔥 Limited: First 100 users get exclusive toolkit
+<Layout title={`${chip.us_chip.name} → ${chip.domestic_alternative.name}`}>
+  <div class="hub" style="max-width:960px;margin:0 auto;padding:2rem 1.5rem;">
+    <div class="terminal-bar" style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:6px 6px 0 0;font-size:12px;color:#555;margin-bottom:-1px;">
+      <span class="dot" style="width:8px;height:8px;border-radius:50%;display:inline-block;background:#ff5f56;"></span>
+      <span class="dot" style="width:8px;height:8px;border-radius:50%;display:inline-block;background:#ffbd2e;"></span>
+      <span class="dot" style="width:8px;height:8px;border-radius:50%;display:inline-block;background:#27c93f;"></span>
+      <span style="margin-left:0.75rem;letter-spacing:0.1em;">chip-detail@platform:~</span>
+    </div>
+    <div class="terminal-body" style="background:#0a0a0a;border:1px solid #1a1a1a;border-top:none;border-radius:0 0 6px 6px;padding:2rem;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#00ff41,transparent);animation:glow-pulse 3s ease-in-out infinite;"></div>
+      @keyframes glow-pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid #1a1a1a;">
+        <span style="font-size:10px;color:#555;letter-spacing:0.15em;">[{chip.id}]</span>
+        <span class="match-score" style="font-size:12px;padding:0.25rem 0.75rem;border-radius:3px;color:${chip.match_score >= 85 ? '#00ff41' : chip.match_score >= 70 ? '#ffbd2e' : '#ff4444'};border:1px solid ${chip.match_score >= 85 ? '#00ff4133' : chip.match_score >= 70 ? '#ffbd2e33' : '#ff444433'};">匹配度: {chip.match_score}%</span>
+        <span style="font-size:11px;color:#555;">{chip.last_updated}</span>
+      </div>
+
+      <div class="chip-vs" style="display:flex;align-items:center;justify-content:center;gap:2rem;margin:2rem 0;flex-wrap:wrap;">
+        <div class="chip-side us" style="text-align:center;flex:1;min-width:250px;">
+          <span style="font-size:11px;color:#ff4444;">⛔ RESTRICTED</span>
+          <h2 style="font-size:1.5rem;font-weight:700;color:#ff4444;margin:0.5rem 0;">{chip.us_chip.name}</h2>
+          <div style="font-size:12px;color:#555;">{chip.us_chip.vendor} · {chip.us_chip.tier} 级</div>
+          <div style="font-size:11px;color:#555;margin-top:0.75rem;padding:0.75rem;background:#000;border:1px solid #1a1a1a;border-radius:4px;text-align:left;">
+            {Object.entries(chip.us_chip.specs).map(([k, v]) => <div><span style="color:#ff4444;">{k}:</span> {v}</div>)}
+          </div>
+          <div style="margin-top:0.75rem;padding:0.75rem;background:#000;border:1px solid #1a1a1a;border-radius:4px;text-align:left;">
+            <div style="color:#ff4444;font-size:11px;margin-bottom:0.5rem;">限制条款:</div>
+            {chip.us_chip.restrictions.map(r => <div style="color:#555;font-size:11px;">▸ {r}</div>)}
+          </div>
+          <div style="margin-top:0.5rem;color:#555;font-size:12px;">报价: {chip.us_chip.price_per_unit}</div>
+        </div>
+        <div style="font-size:14px;font-weight:700;color:#00e5ff;padding:0.25rem 1rem;border:1px solid #00e5ff;border-radius:50%;flex-shrink:0;">VS</div>
+        <div class="chip-side cn" style="text-align:center;flex:1;min-width:250px;">
+          <span style="font-size:11px;color:#00ff41;">✓ AVAILABLE</span>
+          <h2 style="font-size:1.5rem;font-weight:700;color:#00ff41;margin:0.5rem 0;">{chip.domestic_alternative.name}</h2>
+          <div style="font-size:12px;color:#555;">{chip.domestic_alternative.vendor} · {chip.domestic_alternative.tier} 级</div>
+          <div style="font-size:11px;color:#555;margin-top:0.75rem;padding:0.75rem;background:#000;border:1px solid #1a1a1a;border-radius:4px;text-align:left;">
+            {Object.entries(chip.domestic_alternative.specs).map(([k, v]) => <div><span style="color:#00ff41;">{k}:</span> {v}</div>)}
+          </div>
+          <div style="margin-top:0.75rem;padding:0.75rem;background:#000;border:1px solid #1a1a1a;border-radius:4px;text-align:left;">
+            <div style="color:#00ff41;font-size:11px;margin-bottom:0.5rem;">替代优势:</div>
+            {chip.domestic_alternative.advantages.map(a => <div style="color:#555;font-size:11px;">▸ {a}</div>)}
+          </div>
+          <div style="margin-top:0.5rem;color:#00ff41;font-size:12px;">报价: {chip.domestic_alternative.price_per_unit} · {chip.domestic_alternative.availability}</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:0.75rem;margin-top:1.5rem;flex-wrap:wrap;">
+        <a href="/" style="font-size:12px;padding:0.5rem 1rem;border:1px solid #1a1a1a;border-radius:4px;text-decoration:none;color:#00ff41;">← 返回总览</a>
+        <a href="/api/search?q={chip.us_chip.name}" style="font-size:12px;padding:0.5rem 1rem;border:1px solid #1a1a1a;border-radius:4px;text-decoration:none;color:#00e5ff;">🔗 API 查询</a>
+      </div>
+    </div>
   </div>
-
-  <header class="header">
-    <div class="container">
-      <nav class="nav">
-        <a href="/" class="logo">
-          <span class="logo-icon">💰</span>
-          <span class="logo-text">AIToolGuide</span>
-        </a>
-        <div class="nav-links">
-          <a href="/#tools" data-i18n="navTools">Tools</a>
-          <a href="/#methods" data-i18n="navMethods">Methods</a>
-          <a href="/#stories" data-i18n="navStories">Stories</a>
-        </div>
-        <a href={data.url} target="_blank" class="btn btn-primary btn-small">
-          <span data-i18n="tryFree">Try Free</span> →
-        </a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="hero" style={`background: linear-gradient(135deg, ${data.color}10, ${data.color}05)`}>
-    <div class="container">
-      <div class="tool-badge" style={`background: ${data.color}20; color: ${data.color}`}>
-        <span class="tool-icon-large">{data.icon}</span>
-        <span data-i18n={data.categoryKey}>{data.categoryKey}</span>
-      </div>
-      <h1 class="hero-title" data-i18n={`toolHeadline_${tool}`}>Make Money with {data.name}</h1>
-      <p class="hero-description" data-i18n={`toolDesc_${tool}`}>Tool description loading...</p>
-      
-      <div class="hero-stats">
-        <div class="stat-card">
-          <span class="stat-value" data-i18n={`toolIncome_${tool}`}>$500-1,500/month</span>
-          <span class="stat-label" data-i18n="toolPageIncomeLabel">Expected Income</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-value" data-i18n={`toolDifficulty_${tool}`}>⭐⭐</span>
-          <span class="stat-label" data-i18n="toolPageDifficultyLabel">Difficulty</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-value" data-i18n={`toolTime_${tool}`}>1-3 days</span>
-          <span class="stat-label" data-i18n="toolPageTimeLabel">First Income</span>
-        </div>
-      </div>
-      
-      <div class="hero-actions">
-        <a href={data.url} target="_blank" class="btn btn-urgent btn-large">
-          <span data-i18n="toolPageTryFree">🔥 Try Free Now</span>
-        </a>
-        <a href="/" class="btn btn-primary btn-large" data-i18n="toolPageViewAll">💎 View All Tools</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-badge" data-i18n="toolPageTutorialBadge">📖 Tutorial</span>
-        <h2 class="section-title" data-i18n="toolPageTutorialTitle">Complete Money Making Guide</h2>
-        <p class="section-description" data-i18n="toolPageTutorialDesc">Step-by-step methods to monetize this tool</p>
-      </div>
-
-      <div class="methods-grid">
-        <div class="method-card">
-          <div class="method-number">1</div>
-          <h3 data-i18n="toolPageMethod1Title">Method 1: Freelance Services</h3>
-          <p data-i18n="toolPageMethod1Desc">Offer your skills on Upwork, Fiverr, and Freelancer</p>
-        </div>
-        <div class="method-card">
-          <div class="method-number">2</div>
-          <h3 data-i18n="toolPageMethod2Title">Method 2: Content Creation</h3>
-          <p data-i18n="toolPageMethod2Desc">Create YouTube videos, blog posts, and social media content</p>
-        </div>
-        <div class="method-card">
-          <div class="method-number">3</div>
-          <h3 data-i18n="toolPageMethod3Title">Method 3: Digital Products</h3>
-          <p data-i18n="toolPageMethod3Desc">Sell templates, courses, and digital assets</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta">
-    <div class="container">
-      <div class="cta-content">
-        <span class="cta-badge" data-i18n="toolPageCtaBadge">🎁 Limited Offer</span>
-        <h2 class="cta-title" data-i18n="toolPageCtaTitle">Ready to start earning?</h2>
-        <p class="cta-description" data-i18n="toolPageCtaDesc">
-          Join thousands already making money with AI tools
-        </p>
-        <div class="cta-actions">
-          <a href={data.url} target="_blank" class="btn btn-urgent btn-large">
-            <span data-i18n="toolPageTryFree">🔥 Start Earning Now (Free)</span>
-          </a>
-          <a href="/" class="btn btn-primary btn-large" data-i18n="toolPageViewAll">💎 View All Tools</a>
-        </div>
-      </div>
-    </div>
-  </section>
 </Layout>
 
 <style>
-  .urgency-banner {
-    background: linear-gradient(90deg, #fef3c7, #fee2e2);
-    padding: 12px;
-    text-align: center;
-    font-weight: 600;
-    color: #92400e;
-    font-size: 0.9rem;
-  }
-  
-  .header {
-    position: fixed;
-    top: 36px;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 70px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 800;
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .logo-icon { font-size: 1.8rem; }
-  .logo-text {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 30px;
-  }
-  
-  .nav-links a {
-    font-weight: 600;
-    color: #6b7280;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .nav-links a:hover { color: #667eea; }
-  
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.3s;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .btn-small { padding: 10px 20px; font-size: 0.9rem; }
-  .btn-large { padding: 18px 36px; font-size: 1.1rem; }
-  
-  .btn-primary {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-  }
-  
-  .btn-urgent {
-    background: linear-gradient(135deg, #f093fb, #f5576c);
-    color: white;
-    animation: pulse 2s infinite;
-  }
-  
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-  }
-  
-  .hero {
-    padding: 140px 20px 80px;
-    text-align: center;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .tool-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-weight: 600;
-    margin-bottom: 24px;
-  }
-  
-  .tool-icon-large { font-size: 1.5rem; }
-  
-  .hero-title {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, #1a1a2e, #16213e);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .hero-description {
-    font-size: 1.25rem;
-    color: #6b7280;
-    max-width: 600px;
-    margin: 0 auto 40px;
-    line-height: 1.6;
-  }
-  
-  .hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-  }
-  
-  .stat-card {
-    text-align: center;
-  }
-  
-  .stat-value {
-    display: block;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin-bottom: 4px;
-  }
-  
-  .stat-label {
-    font-size: 0.9rem;
-    color: #6b7280;
-  }
-  
-  .hero-actions {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  
-  .section {
-    padding: 80px 20px;
-    background: #f8fafc;
-  }
-  
-  .section-header {
-    text-align: center;
-    margin-bottom: 48px;
-  }
-  
-  .section-badge {
-    display: inline-block;
-    padding: 8px 16px;
-    background: linear-gradient(135deg, #667eea20, #764ba220);
-    color: #667eea;
-    font-weight: 600;
-    font-size: 0.9rem;
-    border-radius: 20px;
-    margin-bottom: 16px;
-  }
-  
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #1a1a2e;
-  }
-  
-  .section-description {
-    font-size: 1.1rem;
-    color: #6b7280;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .methods-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  .method-card {
-    background: white;
-    padding: 32px;
-    border-radius: 16px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .method-number {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 700;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 16px;
-  }
-  
-  .method-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #1a1a2e;
-  }
-  
-  .method-card p {
-    color: #6b7280;
-    line-height: 1.6;
-  }
-  
-  .cta {
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #1a1a2e, #16213e);
-    color: white;
-    text-align: center;
-  }
-  
-  .cta-badge {
-    display: inline-block;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fbbf24;
-    font-weight: 600;
-    font-size: 0.9rem;
-    border-radius: 20px;
-    margin-bottom: 16px;
-  }
-  
-  .cta-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
-  
-  .cta-description {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    max-width: 600px;
-    margin: 0 auto 32px;
-  }
-  
-  .cta-actions {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  
-  @media (max-width: 768px) {
-    .hero-title { font-size: 2rem; }
-    .section-title { font-size: 1.75rem; }
-    .cta-title { font-size: 1.75rem; }
-    .hero-stats { gap: 24px; }
-    .methods-grid { grid-template-columns: 1fr; }
-  }
+  .terminal-bar .dot{width:8px;height:8px;border-radius:50%;display:inline-block}.dot.red{background:#ff5f56}.dot.yellow{background:#ffbd2e}.dot.green{background:#27c93f}
 </style>
