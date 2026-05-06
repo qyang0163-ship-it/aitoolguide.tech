@@ -1004,6 +1004,405 @@ export const chipDatabase: ChipReplacement[] = [
       en: '74HC4052 is standard analog switch. Chinese versions are fully compatible.',
       zh: '74HC4052是标准模拟开关，国产版本完全兼容。'
     }
+  },
+
+  // ==================== USB转串口CH340 ====================
+  {
+    id: 'ch340g',
+    original: {
+      brand: 'WCH',
+      model: 'CH340G',
+      category: 'USB to Serial Chip',
+      categoryZh: 'USB转串口芯片',
+      package: 'SOP-16',
+      description: 'USB to Serial converter, supports common baud rates',
+      descriptionZh: 'USB转串口芯片，支持常用波特率',
+      specs: {
+        'Interface': 'USB 2.0',
+        'UART': 'Full modem signals',
+        'Baud Rate': '50 bps - 2 Mbps',
+        'Voltage': '5V or 3.3V',
+        'Drivers': 'Windows, Linux, Mac'
+      },
+      price: '$0.30 - $0.50',
+      availability: 'Good'
+    },
+    alternatives: [
+      {
+        brand: '沁恒微',
+        model: 'CH340C',
+        manufacturer: 'WCH (WinChipHead)',
+        country: 'China',
+        compatibility: 'pin-compatible',
+        package: 'SOP-16',
+        advantages: {
+          en: 'Same manufacturer, built-in crystal, more stable',
+          zh: '同厂出品，内置晶振，更稳定'
+        },
+        disadvantages: {
+          en: 'Same price range',
+          zh: '价格区间相同'
+        },
+        priceAdvantage: '相同',
+        availabilityAdvantage: '供货充足',
+        specs: {
+          'Interface': 'USB 2.0',
+          'UART': 'Full modem signals',
+          'Crystal': 'Built-in'
+        },
+        datasheet: ''
+      }
+    ],
+    notes: {
+      en: 'CH340 is the most popular USB-Serial chip in China market.',
+      zh: 'CH340是中国市场最流行的USB转串口芯片。'
+    }
+  },
+
+  // ==================== 三轴加速度计MPU6050 ====================
+  {
+    id: 'mpu6050',
+    original: {
+      brand: 'InvenSense (TDK)',
+      model: 'MPU-6050',
+      category: '6-Axis IMU',
+      categoryZh: '六轴惯性测量单元',
+      package: 'QFN-24',
+      description: '6-axis accelerometer and gyroscope module',
+      descriptionZh: '六轴加速度计和陀螺仪模块',
+      specs: {
+        'Accelerometer': '16-bit',
+        'Gyroscope': '16-bit',
+        'Ranges': '±2/4/8/16g, ±250/500/1000/2000°/s',
+        'Interface': 'I2C, SPI',
+        'Voltage': '2.375V to 3.46V'
+      },
+      price: '$1.50 - $3.00',
+      availability: 'Moderate'
+    },
+    alternatives: [
+      {
+        brand: '敏芯微',
+        model: 'MSA300',
+        manufacturer: 'Memsic Semiconductor',
+        country: 'China',
+        compatibility: 'compatible',
+        package: 'LGA-12',
+        advantages: {
+          en: 'Cost-effective 3-axis accelerometer, good for basic motion detection',
+          zh: '性价比高三轴加速度计，适合基础运动检测'
+        },
+        disadvantages: {
+          en: 'No gyroscope, different pinout',
+          zh: '无陀螺仪，引脚不同'
+        },
+        priceAdvantage: '低40-50%',
+        availabilityAdvantage: '供货充足',
+        specs: {
+          'Accelerometer': '12-bit',
+          'Ranges': '±2/4/8/16g',
+          'Interface': 'I2C'
+        },
+        datasheet: ''
+      }
+    ],
+    notes: {
+      en: 'MPU6050 is widely used in drones, RC vehicles, and motion detection.',
+      zh: 'MPU6050广泛应用于无人机、遥控车和运动检测领域。'
+    }
+  },
+
+  // ==================== 蓝牙模块HC05 ====================
+  {
+    id: 'hc05',
+    original: {
+      brand: 'Various',
+      model: 'HC-05',
+      category: 'Bluetooth SPP Module',
+      categoryZh: '蓝牙串口模块',
+      package: 'Module',
+      description: 'Bluetooth 2.0 SPP module, master/slave mode',
+      descriptionZh: '蓝牙2.0 SPP模块，支持主从模式',
+      specs: {
+        'Bluetooth': '2.0 + EDR',
+        'Range': '10 meters',
+        'Interface': 'UART',
+        'Baud Rate': '9600 (default)',
+        'Voltage': '3.3V',
+        'Modes': 'Master / Slave'
+      },
+      price: '$2.00 - $4.00',
+      availability: 'Good'
+    },
+    alternatives: [
+      {
+        brand: '乐鑫科技',
+        model: 'ESP32-WROOM',
+        manufacturer: 'Espressif Systems',
+        country: 'China',
+        compatibility: 'similar',
+        package: 'Module',
+        advantages: {
+          en: 'Bluetooth 5.0, WiFi included, more powerful MCU',
+          zh: '蓝牙5.0，集成WiFi，MCU更强大'
+        },
+        disadvantages: {
+          en: 'Higher power consumption, more complex programming',
+          zh: '功耗较高，编程更复杂'
+        },
+        priceAdvantage: '相近',
+        availabilityAdvantage: '供货充足',
+        specs: {
+          'Bluetooth': '5.0 + BLE',
+          'WiFi': '802.11 b/g/n',
+          'MCU': '240MHz dual-core',
+          'Interface': 'UART, SPI, I2C'
+        },
+        datasheet: ''
+      }
+    ],
+    notes: {
+      en: 'HC-05 is popular for simple Bluetooth projects. For new designs, consider BLE solutions.',
+      zh: 'HC-05在简单的蓝牙项目中很受欢迎。新设计建议考虑BLE方案。'
+    }
+  },
+
+  // ==================== TFT LCD驱动ILI9341 ====================
+  {
+    id: 'ili9341',
+    original: {
+      brand: 'ILITEK',
+      model: 'ILI9341',
+      category: 'TFT LCD Driver',
+      categoryZh: 'TFT液晶驱动芯片',
+      package: 'LQFP-48',
+      description: '240x320 TFT LCD driver with SPI interface',
+      descriptionZh: '240x320 TFT液晶驱动芯片，SPI接口',
+      specs: {
+        'Resolution': '240 x 320',
+        'Interface': 'SPI',
+        'Colors': '262K',
+        'Voltage': '2.4V - 3.3V',
+        'Backlight': 'LED'
+      },
+      price: '$2.00 - $5.00',
+      availability: 'Good'
+    },
+    alternatives: [
+      {
+        brand: '晶门科技',
+        model: 'SSD1283A',
+        manufacturer: 'Solomon Systech',
+        country: 'China',
+        compatibility: 'compatible',
+        package: 'LQFP-48',
+        advantages: {
+          en: 'Similar specifications, widely available',
+          zh: '规格相似，供货广泛'
+        },
+        disadvantages: {
+          en: 'Different register settings',
+          zh: '寄存器设置不同'
+        },
+        priceAdvantage: '低15-25%',
+        availabilityAdvantage: '供货充足',
+        specs: {
+          'Resolution': '240 x 320',
+          'Interface': 'SPI / RGB',
+          'Colors': '262K'
+        },
+        datasheet: ''
+      }
+    ],
+    notes: {
+      en: 'ILI9341 is the most common TFT driver. Consider using complete display modules for easier integration.',
+      zh: 'ILI9341是最常见的TFT驱动芯片。建议使用完整显示模块便于集成。'
+    }
+  },
+
+  // ==================== 小信号MOSFET ====================
+  {
+    id: '2n7000',
+    original: {
+      brand: 'ON Semiconductor',
+      model: '2N7000',
+      category: 'N-Channel MOSFET',
+      categoryZh: 'N沟道MOSFET',
+      package: 'TO-92',
+      description: 'N-channel small signal MOSFET, 200mA',
+      descriptionZh: 'N沟道小信号MOSFET，200mA',
+      specs: {
+        'Vdss': '60V',
+        'Id': '200mA',
+        'Rds(on)': '1.8 Ohm',
+        'Vgs(th)': '0.8V - 3V',
+        'Package': 'TO-92'
+      },
+      price: '$0.05 - $0.15',
+      availability: 'Good'
+    },
+    alternatives: [
+      {
+        brand: '长电科技',
+        model: 'CJ2301',
+        manufacturer: 'Changjiang Electronics',
+        country: 'China',
+        compatibility: 'pin-compatible',
+        package: 'TO-92 / SOT-23',
+        advantages: {
+          en: 'Direct replacement, same specifications',
+          zh: '直接替代，规格相同'
+        },
+        disadvantages: {
+          en: 'Quality varies by manufacturer',
+          zh: '不同厂商质量有差异'
+        },
+        priceAdvantage: '低40-60%',
+        availabilityAdvantage: '供货充足',
+        specs: {
+          'Vdss': '60V',
+          'Id': '200mA',
+          'Rds(on)': '1.8 Ohm'
+        },
+        datasheet: ''
+      }
+    ],
+    notes: {
+      en: '2N7000 is a standard small signal MOSFET. Chinese alternatives are widely available.',
+      zh: '2N7000是标准小信号MOSFET，国产替代品供货充足。'
+    }
+  },
+
+  // ==================== 舵机驱动PCA9685 ====================
+  {
+    id: 'pca9685',
+    original: {
+      brand: 'NXP',
+      model: 'PCA9685',
+      category: '16-Channel PWM Controller',
+      categoryZh: '16通道PWM控制器',
+      package: 'TSSOP-28',
+      description: '16-channel 12-bit PWM controller with I2C interface',
+      descriptionZh: '16通道12位PWM控制器，I2C接口',
+      specs: {
+        'Channels': '16',
+        'Resolution': '12-bit (4096 steps)',
+        'Interface': 'I2C',
+        'Frequency': '24 Hz to 1526 Hz',
+        'Voltage': '2.3V to 5.5V',
+        'Address': 'A0-A5 selectable'
+      },
+      price: '$1.50 - $3.00',
+      availability: 'Good'
+    },
+    alternatives: [
+      {
+        brand: '中微集成',
+        model: 'CMS8S6889',
+        manufacturer: 'Chipon Microelectronics',
+        country: 'China',
+        compatibility: 'compatible',
+        package: 'TSSOP-28',
+        advantages: {
+          en: 'Similar functionality, cost-effective',
+          zh: '功能相似，性价比高'
+        },
+        disadvantages: {
+          en: 'Different I2C address layout',
+          zh: 'I2C地址布局不同'
+        },
+        priceAdvantage: '低30-40%',
+        availabilityAdvantage: '供货充足',
+        specs: {
+          'Channels': '16',
+          'Resolution': '12-bit',
+          'Interface': 'I2C'
+        },
+        datasheet: ''
+      }
+    ],
+    notes: {
+      en: 'PCA9685 is perfect for robot servo control and LED dimming.',
+      zh: 'PCA9685非常适合机器人舵机控制和LED调光。'
+    }
+  },
+
+  // ==================== 单总线温度传感器DS18B20 ====================
+  {
+    id: 'ds18b20',
+    original: {
+      brand: 'Maxim (ADI)',
+      model: 'DS18B20',
+      category: 'Digital Temperature Sensor',
+      categoryZh: '数字温度传感器',
+      package: 'TO-92 / DS18B20+',
+      description: 'Programmable resolution 1-Wire digital thermometer',
+      descriptionZh: '可编程分辨率单总线数字温度计',
+      specs: {
+        'Range': '-55°C to +125°C',
+        'Resolution': '9 to 12 bits',
+        'Accuracy': '±0.5°C',
+        'Interface': '1-Wire',
+        'Voltage': '3.0V to 5.5V'
+      },
+      price: '$1.00 - $2.50',
+      availability: 'Good'
+    },
+    alternatives: [
+      {
+        brand: '华芯微特',
+        model: 'HS18B20',
+        manufacturer: 'Hiliwo Semiconductor',
+        country: 'China',
+        compatibility: 'pin-compatible',
+        package: 'TO-92',
+        advantages: {
+          en: 'Pin-compatible, reliable accuracy, cost-effective',
+          zh: '引脚兼容，精度可靠，性价比高'
+        },
+        disadvantages: {
+          en: 'Limited temperature range for some applications',
+          zh: '部分应用温度范围有限'
+        },
+        priceAdvantage: '低30-40%',
+        availabilityAdvantage: '供货充足',
+        specs: {
+          'Range': '-55°C to +125°C',
+          'Resolution': '9 to 12 bits',
+          'Accuracy': '±0.5°C',
+          'Interface': '1-Wire'
+        },
+        datasheet: ''
+      },
+      {
+        brand: '晶宏科技',
+        model: 'ST18B20',
+        manufacturer: 'Santai Microelectronics',
+        country: 'China',
+        compatibility: 'pin-compatible',
+        package: 'TO-92 / SOP-8',
+        advantages: {
+          en: 'Multiple package options, stable performance',
+          zh: '多种封装可选，性能稳定'
+        },
+        disadvantages: {
+          en: 'Slightly lower accuracy at extremes',
+          zh: '极端温度下精度略低'
+        },
+        priceAdvantage: '低35-45%',
+        availabilityAdvantage: '供货充足',
+        specs: {
+          'Range': '-55°C to +125°C',
+          'Resolution': '9 to 12 bits',
+          'Accuracy': '±0.75°C'
+        },
+        datasheet: ''
+      }
+    ],
+    notes: {
+      en: 'DS18B20 is the most popular digital temperature sensor for DIY and industrial applications.',
+      zh: 'DS18B20是DIY和工业应用中最流行的数字温度传感器。'
+    }
   }
 ];
 
