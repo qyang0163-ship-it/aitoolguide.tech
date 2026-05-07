@@ -33,15 +33,19 @@ const categoryKeywords: Record<string, string[]> = {
   'display': ['LCD', 'TFT', 'Display', '显示']
 };
 
-// 根据分类筛选芯片
+// 根据分类筛选芯片（已修复：添加 null/undefined 检查）
 const getCategoryChips = (catKey: string): ChipReplacement[] => {
   const keywords = categoryKeywords[catKey] || [];
-  return chipDatabase.filter(chip => 
-    keywords.some(kw => 
-      chip.original.category.toLowerCase().includes(kw.toLowerCase()) ||
-      chip.original.categoryZh.includes(kw)
-    )
-  );
+  return chipDatabase.filter(chip => {
+    const original = chip.original;
+    if (!original || !original.category) return false;
+    const catLower = original.category.toLowerCase();
+    const catZh = original.categoryZh || '';
+    return keywords.some(kw => 
+      catLower.includes(kw.toLowerCase()) ||
+      catZh.includes(kw)
+    );
+  });
 };
 
 const currentCategory = categories.find(c => c.key === category);
@@ -118,14 +122,14 @@ const text = t[locale];
               {chips.map((chip: ChipReplacement) => (
                 <article class="chip-card">
                   <div class="chip-header">
-                    <span class="brand">{chip.original.brand}</span>
-                    <span class="model">{chip.original.model}</span>
+                    <span class="brand">{chip.original?.brand || 'N/A'}</span>
+                    <span class="model">{chip.original?.model || 'N/A'}</span>
                   </div>
                   <div class="chip-meta">
-                    <span class="category">{locale === 'zh' ? chip.original.categoryZh : chip.original.category}</span>
-                    <span class="package">{chip.original.package}</span>
+                    <span class="category">{locale === 'zh' ? chip.original?.categoryZh || 'N/A' : chip.original?.category || 'N/A'}</span>
+                    <span class="package">{chip.original?.package || 'N/A'}</span>
                   </div>
-                  <p class="description">{locale === 'zh' ? chip.original.descriptionZh : chip.original.description}</p>
+                  <p class="description">{locale === 'zh' ? chip.original?.descriptionZh || 'N/A' : chip.original?.description || 'N/A'}</p>
                   <div class="chip-footer">
                     <span class="alt-count">{chip.alternatives.length} {locale === 'zh' ? '个替代方案' : 'alternatives'}</span>
                     <a href={`/chip/${chip.id}?locale=${locale}`} class="view-btn">{text.viewAll} →</a>
