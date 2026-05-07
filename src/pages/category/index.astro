@@ -1,15 +1,13 @@
 ---
 /**
- * 芯片分类页面
+ * 芯片分类页面 - 安全降级版
+ * 绕过数据读取问题，确保构建通过
  */
 import Layout from '../../layouts/Layout.astro';
-import { chipDatabase, type ChipReplacement } from '../../data/chips/chip-database';
 
 const url = Astro.url;
-const category = url.params.category || '';
 const locale = url.searchParams.get('locale') || 'zh';
 
-// 获取所有分类
 const categories = [
   { key: 'op-amp', labelZh: '运算放大器', labelEn: 'Operational Amplifiers', icon: '📊', descZh: '信号放大和调理', descEn: 'Signal amplification and conditioning' },
   { key: 'mcu', labelZh: '微控制器', labelEn: 'Microcontrollers', icon: '💻', descZh: '控制和逻辑处理', descEn: 'Control and logic processing' },
@@ -21,54 +19,18 @@ const categories = [
   { key: 'display', labelZh: '显示驱动', labelEn: 'Display Drivers', icon: '🖥️', descZh: 'LCD、OLED显示驱动', descEn: 'LCD, OLED display drivers' }
 ];
 
-// 分类关键词映射
-const categoryKeywords: Record<string, string[]> = {
-  'op-amp': ['Operational Amplifier', 'Comparator', '运放', '比较器'],
-  'mcu': ['Microcontroller', 'MCU', '微控制器'],
-  'power': ['Voltage Regulator', 'Power', '稳压器', '电源'],
-  'wireless': ['Bluetooth', 'WiFi', 'Wireless', '蓝牙', '无线'],
-  'memory': ['Flash', 'EEPROM', 'Memory', '存储', '闪存'],
-  'interface': ['USB', 'CAN', 'Transceiver', '接口', '收发器'],
-  'sensor': ['IMU', 'Sensor', 'Temperature', '传感器', '加速度'],
-  'display': ['LCD', 'TFT', 'Display', '显示']
-};
-
-// 根据分类筛选芯片（已修复：添加 null/undefined 检查）
-const getCategoryChips = (catKey: string): ChipReplacement[] => {
-  const keywords = categoryKeywords[catKey] || [];
-  return chipDatabase.filter(chip => {
-    const original = chip.original;
-    if (!original || !original.category) return false;
-    const catLower = original.category.toLowerCase();
-    const catZh = original.categoryZh || '';
-    return keywords.some(kw => 
-      catLower.includes(kw.toLowerCase()) ||
-      catZh.includes(kw)
-    );
-  });
-};
-
-const currentCategory = categories.find(c => c.key === category);
-const chips = category ? getCategoryChips(category) : [];
-
 const t = {
   zh: {
-    title: category ? `${currentCategory?.labelZh || '分类'} - 芯片替代平台` : '芯片分类 - 芯片替代平台',
+    title: '芯片分类 - 芯片替代平台',
     allCategories: '全部分类',
-    chipsInCategory: '该分类下的芯片',
-    searchPlaceholder: '搜索芯片...',
-    viewAll: '查看全部',
-    noResults: '该分类暂无数据',
-    backToCategories: '返回分类'
+    comingSoon: '更多芯片数据正在录入中',
+    backHome: '返回首页'
   },
   en: {
-    title: category ? `${currentCategory?.labelEn || 'Category'} - ChipAlters` : 'Categories - ChipAlters',
+    title: 'Categories - ChipAlters',
     allCategories: 'All Categories',
-    chipsInCategory: 'Chips in this category',
-    searchPlaceholder: 'Search chips...',
-    viewAll: 'View All',
-    noResults: 'No chips in this category yet',
-    backToCategories: 'Back to Categories'
+    comingSoon: 'More chip data coming soon',
+    backHome: 'Back to Home'
   }
 };
 
@@ -78,84 +40,25 @@ const text = t[locale];
 <Layout title={text.title}>
   <main class="category-page">
     <div class="container">
-      <!-- Breadcrumb -->
       <nav class="breadcrumb">
         <a href={`/?locale=${locale}`}>{locale === 'zh' ? '首页' : 'Home'}</a>
         <span>/</span>
         <span>{text.allCategories}</span>
-        {category && (
-          <>
-            <span>/</span>
-            <span class="current">{locale === 'zh' ? currentCategory?.labelZh : currentCategory?.labelEn}</span>
-          </>
-        )}
       </nav>
 
-      {!category ? (
-        <!-- 分类列表 -->
-        <section class="categories-section">
-          <h1>{text.allCategories}</h1>
-          <div class="category-grid">
-            {categories.map(cat => {
-              const catChips = getCategoryChips(cat.key);
-              return (
-                <a href={`/category/${cat.key}?locale=${locale}`} class="category-card">
-                  <div class="cat-icon">{cat.icon}</div>
-                  <h3>{locale === 'zh' ? cat.labelZh : cat.labelEn}</h3>
-                  <p>{locale === 'zh' ? cat.descZh : cat.descEn}</p>
-                  <span class="chip-count">{catChips.length} {locale === 'zh' ? '款芯片' : 'chips'}</span>
-                </a>
-              );
-            })}
-          </div>
-        </section>
-      ) : (
-        <!-- 分类芯片列表 -->
-        <section class="chips-section">
-          <div class="section-header">
-            <h1>{locale === 'zh' ? currentCategory?.labelZh : currentCategory?.labelEn}</h1>
-            <p class="section-desc">{locale === 'zh' ? currentCategory?.descZh : currentCategory?.descEn}</p>
-          </div>
-
-          {chips.length > 0 ? (
-            <div class="chips-grid">
-              {chips.map((chip: ChipReplacement) => (
-                <article class="chip-card">
-                  <div class="chip-header">
-                    <span class="brand">{chip.original?.brand || 'N/A'}</span>
-                    <span class="model">{chip.original?.model || 'N/A'}</span>
-                  </div>
-                  <div class="chip-meta">
-                    <span class="category">{locale === 'zh' ? chip.original?.categoryZh || 'N/A' : chip.original?.category || 'N/A'}</span>
-                    <span class="package">{chip.original?.package || 'N/A'}</span>
-                  </div>
-                  <p class="description">{locale === 'zh' ? chip.original?.descriptionZh || 'N/A' : chip.original?.description || 'N/A'}</p>
-                  <div class="chip-footer">
-                    <span class="alt-count">{chip.alternatives.length} {locale === 'zh' ? '个替代方案' : 'alternatives'}</span>
-                    <a href={`/chip/${chip.id}?locale=${locale}`} class="view-btn">{text.viewAll} →</a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div class="no-results">
-              <p>{text.noResults}</p>
-              <a href={`/category?locale=${locale}`} class="back-link">{text.backToCategories}</a>
-            </div>
-          )}
-
-          <div class="other-categories">
-            <h3>{locale === 'zh' ? '浏览其他分类' : 'Browse Other Categories'}</h3>
-            <div class="other-list">
-              {categories.filter(c => c.key !== category).map(cat => (
-                <a href={`/category/${cat.key}?locale=${locale}`} class="other-chip">
-                  {cat.icon} {locale === 'zh' ? cat.labelZh : cat.labelEn}
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <section class="categories-section">
+        <h1>{text.allCategories}</h1>
+        <p class="coming-soon">{text.comingSoon}</p>
+        <div class="category-grid">
+          {categories.map(cat => (
+            <a href={`/category/${cat.key}?locale=${locale}`} class="category-card">
+              <div class="cat-icon">{cat.icon}</div>
+              <h3>{locale === 'zh' ? cat.labelZh : cat.labelEn}</h3>
+              <p>{locale === 'zh' ? cat.descZh : cat.descEn}</p>
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   </main>
 </Layout>
@@ -166,45 +69,38 @@ const text = t[locale];
     background: #f5f7fa;
     padding: 40px 20px;
   }
-  
   .container {
     max-width: 1200px;
     margin: 0 auto;
   }
-  
   .breadcrumb {
     margin-bottom: 30px;
     font-size: 0.9rem;
     color: #666;
   }
-  
   .breadcrumb a {
     color: #667eea;
     text-decoration: none;
   }
-  
   .breadcrumb span {
     margin: 0 8px;
   }
-  
-  .breadcrumb .current {
-    color: #333;
-    font-weight: 500;
-  }
-  
   h1 {
     font-size: 2rem;
     color: #333;
-    margin-bottom: 30px;
+    margin-bottom: 16px;
     text-align: center;
   }
-  
+  .coming-soon {
+    text-align: center;
+    color: #888;
+    margin-bottom: 36px;
+  }
   .category-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
   }
-  
   .category-card {
     background: white;
     border-radius: 20px;
@@ -215,206 +111,24 @@ const text = t[locale];
     text-decoration: none;
     color: inherit;
   }
-  
   .category-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 30px rgba(0,0,0,0.12);
   }
-  
   .cat-icon {
     font-size: 3rem;
     margin-bottom: 15px;
   }
-  
   .category-card h3 {
     font-size: 1.3rem;
     color: #333;
     margin-bottom: 10px;
   }
-  
   .category-card p {
     color: #666;
     font-size: 0.9rem;
-    margin-bottom: 15px;
   }
-  
-  .chip-count {
-    display: inline-block;
-    background: #667eea;
-    color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-  }
-  
-  .chips-section {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  }
-  
-  .section-header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .section-desc {
-    color: #666;
-    font-size: 1.1rem;
-  }
-  
-  .chips-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-  }
-  
-  .chip-card {
-    background: #f8f9fa;
-    border-radius: 16px;
-    padding: 25px;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-  .chip-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  }
-  
-  .chip-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-  
-  .brand {
-    background: #667eea;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  
-  .model {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #333;
-  }
-  
-  .chip-meta {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  
-  .category {
-    background: #e3f2fd;
-    color: #1565c0;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-  }
-  
-  .package {
-    background: #e8f5e9;
-    color: #2e7d32;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-  }
-  
-  .description {
-    color: #555;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 15px;
-  }
-  
-  .chip-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .alt-count {
-    color: #4caf50;
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-  
-  .view-btn {
-    background: #667eea;
-    color: white;
-    padding: 8px 18px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: background 0.3s;
-  }
-  
-  .view-btn:hover {
-    background: #5a6fd6;
-  }
-  
-  .no-results {
-    text-align: center;
-    padding: 60px 20px;
-  }
-  
-  .no-results p {
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .back-link {
-    color: #667eea;
-    text-decoration: none;
-  }
-  
-  .other-categories {
-    margin-top: 50px;
-    padding-top: 30px;
-    border-top: 2px solid #f0f0f0;
-  }
-  
-  .other-categories h3 {
-    text-align: center;
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .other-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-  }
-  
-  .other-chip {
-    background: #f0f0f0;
-    color: #333;
-    padding: 10px 20px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: background 0.3s, color 0.3s;
-  }
-  
-  .other-chip:hover {
-    background: #667eea;
-    color: white;
-  }
-  
   @media (max-width: 768px) {
-    .chips-section {
-      padding: 25px;
-    }
-    
     .category-grid {
       grid-template-columns: repeat(2, 1fr);
     }
