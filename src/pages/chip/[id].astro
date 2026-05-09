@@ -41,6 +41,112 @@ const pageDescription = `${manufacturer} ${id} 的国产替代方案查询。${a
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
+  <!-- VIP Lead Gen Modal -->
+  <div id="vipModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <!-- Backdrop with heavy blur -->
+    <div class="fixed inset-0 bg-gray-900/80 backdrop-blur-xl transition-opacity opacity-0" id="modalBackdrop"></div>
+    
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+      <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+        <!-- Modal panel -->
+        <div class="relative transform overflow-hidden rounded-2xl bg-gray-800 border border-gray-600 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg opacity-0 scale-95" id="modalPanel">
+          <!-- Close button -->
+          <button id="closeModalBtn" class="absolute right-4 top-4 text-gray-400 hover:text-white transition-colors z-10">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+          
+          <!-- Header -->
+          <div class="bg-gradient-to-r from-blue-900/50 to-emerald-900/50 px-6 py-6 border-b border-gray-700">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white" id="modal-title">获取原厂级《国产替代评估与测试报告》</h3>
+            </div>
+            <p class="text-gray-300 text-sm mt-2">
+              <span class="text-amber-400 font-medium">⚠️ 该型号替代存在隐蔽坑点</span>，已为您准备完整的引脚差异与底层寄存器兼容性深度报告。
+            </p>
+          </div>
+          
+          <!-- Content -->
+          <div class="px-6 py-6">
+            <!-- QR Code Section -->
+            <div class="bg-gray-900/50 rounded-xl border border-gray-700 p-4 mb-6">
+              <div class="flex items-start gap-4">
+                <!-- QR Placeholder -->
+                <div class="w-24 h-24 bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div class="text-center">
+                    <svg class="w-8 h-8 text-gray-500 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
+                    </svg>
+                    <span class="text-xs text-gray-500">扫码添加</span>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="text-white font-semibold mb-1">扫码添加技术专家企业微信</h4>
+                  <p class="text-gray-400 text-sm">获取 {id} 完整替代方案评估报告</p>
+                  <div class="flex items-center gap-2 mt-2">
+                    <span class="inline-flex items-center gap-1 text-emerald-400 text-xs">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      50+ 页深度报告
+                    </span>
+                    <span class="inline-flex items-center gap-1 text-emerald-400 text-xs">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      引脚对比图
+                    </span>
+                    <span class="inline-flex items-center gap-1 text-emerald-400 text-xs">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      寄存器映射表
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Form -->
+            <form id="leadForm" class="space-y-4">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-300 mb-1">姓名</label>
+                <input type="text" id="name" name="name" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="请输入您的姓名">
+              </div>
+              <div>
+                <label for="company" class="block text-sm font-medium text-gray-300 mb-1">公司</label>
+                <input type="text" id="company" name="company" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="请输入公司名称">
+              </div>
+              <div>
+                <label for="contact" class="block text-sm font-medium text-gray-300 mb-1">手机号 / 邮箱</label>
+                <input type="text" id="contact" name="contact" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors" placeholder="请输入手机号或邮箱">
+              </div>
+              <div class="pt-2">
+                <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold py-3 rounded-lg transition-all shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                  立即获取完整报告
+                </button>
+              </div>
+            </form>
+            
+            <!-- Not now button -->
+            <button id="notNowBtn" class="w-full mt-3 text-gray-500 hover:text-gray-300 text-sm font-medium transition-colors">
+              暂不需要
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Industrial Header -->
   <header class="sticky top-0 z-50 bg-gray-900/95 backdrop-blur border-b border-gray-700">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,13 +212,13 @@ const pageDescription = `${manufacturer} ${id} 的国产替代方案查询。${a
           
           <!-- VIP CTA -->
           <div class="flex flex-col gap-3">
-            <button class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2 shadow-lg shadow-amber-600/20">
+            <button id="vipBtn1" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2 shadow-lg shadow-amber-600/20 cursor-pointer">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
               </svg>
               解锁完整参数对比表
             </button>
-            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2">
+            <button id="vipBtn2" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2 cursor-pointer">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
               </svg>
@@ -236,10 +342,10 @@ const pageDescription = `${manufacturer} ${id} 的国产替代方案查询。${a
                 </div>
                 
                 <div class="flex items-center gap-3">
-                  <button class="text-sm text-blue-400 hover:text-blue-300 font-medium transition-colors">
+                  <button class="vip-download-btn text-sm text-blue-400 hover:text-blue-300 font-medium transition-colors cursor-pointer" data-chip={id}>
                     详细对比
                   </button>
-                  <button class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2">
+                  <button class="vip-download-btn bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 cursor-pointer" data-chip={id}>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
@@ -259,7 +365,7 @@ const pageDescription = `${manufacturer} ${id} 的国产替代方案查询。${a
             <h3 class="text-lg font-bold text-white mb-2">国产原厂直供通道</h3>
             <p class="text-gray-400 text-sm">兆易创新、极海半导体、沁恒微等原厂认证代理，批量采购专属优惠</p>
           </div>
-          <button class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+          <button id="contactOemBtn" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-medium transition-colors cursor-pointer">
             联系原厂销售
           </button>
         </div>
@@ -310,4 +416,90 @@ const pageDescription = `${manufacturer} ${id} 的国产替代方案查询。${a
       </div>
     </div>
   </footer>
+
+  <!-- Client-side Modal Script -->
+  <script is:inline>
+    (function() {
+      const modal = document.getElementById('vipModal');
+      const backdrop = document.getElementById('modalBackdrop');
+      const panel = document.getElementById('modalPanel');
+      const closeBtn = document.getElementById('closeModalBtn');
+      const notNowBtn = document.getElementById('notNowBtn');
+      const leadForm = document.getElementById('leadForm');
+      
+      // VIP buttons that trigger modal
+      const vipBtns = [
+        document.getElementById('vipBtn1'),
+        document.getElementById('vipBtn2'),
+        document.getElementById('contactOemBtn'),
+        ...document.querySelectorAll('.vip-download-btn')
+      ];
+      
+      function openModal() {
+        modal.classList.remove('hidden');
+        // Trigger animation
+        setTimeout(() => {
+          backdrop.classList.remove('opacity-0');
+          panel.classList.remove('opacity-0', 'scale-95');
+          panel.classList.add('opacity-100', 'scale-100');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeModal() {
+        backdrop.classList.add('opacity-0');
+        panel.classList.remove('opacity-100', 'scale-100');
+        panel.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }, 300);
+      }
+      
+      // Attach click handlers
+      vipBtns.forEach(btn => {
+        if (btn) btn.addEventListener('click', openModal);
+      });
+      
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (notNowBtn) notNowBtn.addEventListener('click', closeModal);
+      
+      // Close on backdrop click
+      if (backdrop) {
+        backdrop.addEventListener('click', closeModal);
+      }
+      
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          closeModal();
+        }
+      });
+      
+      // Form submission
+      if (leadForm) {
+        leadForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const formData = new FormData(leadForm);
+          const data = {
+            name: formData.get('name'),
+            company: formData.get('company'),
+            contact: formData.get('contact'),
+            chip: '{id}',
+            timestamp: new Date().toISOString()
+          };
+          
+          // Store in localStorage for demo
+          const leads = JSON.parse(localStorage.getItem('chipalt_leads') || '[]');
+          leads.push(data);
+          localStorage.setItem('chipalt_leads', JSON.stringify(leads));
+          
+          // Show success message
+          alert('提交成功！我们的技术专家将在24小时内联系您。');
+          closeModal();
+          leadForm.reset();
+        });
+      }
+    })();
+  </script>
 </Layout>
