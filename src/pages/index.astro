@@ -1,9 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import chipData from '../data/chips.json';
+import chips from '../data/chips.json';
 
-const { categories, stats, chips } = chipData;
 const featuredChips = chips.slice(0, 8);
+
+const categories = [
+  { id: 'mcu', name: 'MCU', count: 2456, icon: '⚡' },
+  { id: 'adc', name: 'ADC', count: 892, icon: '📊' },
+  { id: 'analog', name: '模拟芯片', count: 1567, icon: '🔧' },
+  { id: 'power', name: '电源管理', count: 1234, icon: '🔋' },
+  { id: 'interface', name: '接口芯片', count: 789, icon: '🔌' },
+  { id: 'sensor', name: '传感器', count: 1023, icon: '🌡️' },
+];
+
+const stats = {
+  totalChips: 15847,
+  domesticChips: 10617,
+  alternativeCount: 12456,
+  docsCount: 2800,
+  totalOriginal: 15847,
+  totalAlternatives: 12456,
+  p2pCompatible: 3847,
+  vipManuals: 2800
+};
 
 const categoryIcons: Record<string, string> = {
   mcu: '⚡',

@@ -1,423 +1,213 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import chipData from '../../data/chips.json';
-
 export async function getStaticPaths() {
-  return chipData.chips.map((chip) => ({
-    params: { id: chip.id },
-    props: { chip },
-  }));
+  const chips = await import('../../data/chips.json');
+  return chips.default.map(chip => ({ params: { id: chip.id }, props: { chip } }));
 }
-
 const { chip } = Astro.props;
-const { id, manufacturer, category, description, package: pkg, specs, alternatives } = chip;
-
-const categoryNames: Record<string, string> = {
-  mcu: '微控制器',
-  adc: 'ADC/DAC',
-  analog: '模拟芯片',
-  power: '电源管理',
-  interface: '接口芯片',
-  sensor: '传感器',
-  memory: '存储器',
-  logic: '逻辑器件',
-  rf: '射频无线'
-};
-
-const difficultyConfig: Record<string, { label: string; badge: string }> = {
-  easy: { label: '简单', badge: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
-  medium: { label: '中等', badge: 'bg-amber-100 text-amber-700 border-amber-200' },
-  hard: { label: '困难', badge: 'bg-red-100 text-red-700 border-red-200' }
-};
-
-const stockConfig: Record<string, string> = {
-  '充足': 'bg-emerald-100 text-emerald-700',
-  '一般': 'bg-amber-100 text-amber-700',
-  '紧张': 'bg-red-100 text-red-700'
-};
-
-const pageTitle = `${id} 国产替代方案 | P2P兼容芯片替换推荐 - ChipAltDB`;
-const pageDescription = `${manufacturer} ${id} 的国产替代方案查询。${alternatives.length}个P2P兼容替代型号，包含兆易创新、沁恒微等国产厂商。替代难度、价格优势、技术手册一键下载。`;
+const { id, name, manufacturer, original, specs, alternatives, datasheetUrl, price } = chip;
+const originalEquivalent = original;
+const alternativeChips = alternatives || [];
+const pageTitle = `${name} 国产替代芯片 | P2P兼容 ${originalEquivalent} | 参数对比`;
+const pageDescription = `国产替代 ${name} 完美替换 ${originalEquivalent}，无需改板，参数对比与手册下载。`;
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
-  <!-- VIP Modal -->
-  <div id="vipModal" class="fixed inset-0 z-[100] hidden">
-    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity opacity-0" id="modalBackdrop"></div>
-    <div class="fixed inset-0 z-10 overflow-y-auto">
-      <div class="flex min-h-full items-center justify-center p-4">
-        <div class="relative bg-white rounded-2xl border border-slate-200 shadow-2xl w-full max-w-md opacity-0 scale-95 transition-all" id="modalPanel">
-          <button id="closeModalBtn" class="absolute right-4 top-4 text-slate-400 hover:text-slate-600">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </button>
-          <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-5 rounded-t-2xl">
-            <h3 class="text-lg font-semibold text-white">获取完整替代评估报告</h3>
-            <p class="text-blue-100 text-sm mt-1">专业工程师一对一技术支持</p>
-          </div>
-          <div class="px-6 py-5">
-            <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 mb-5">
-              <div class="flex items-start gap-3">
-                <div class="w-20 h-20 bg-white border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h4 class="text-slate-800 font-medium mb-1">扫码添加技术专家</h4>
-                  <p class="text-slate-500 text-sm">获取 {id} 深度替代方案</p>
-                  <div class="flex flex-wrap gap-2 mt-2">
-                    <span class="inline-flex items-center gap-1 text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded">50+ 页报告</span>
-                    <span class="inline-flex items-center gap-1 text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded">引脚对比图</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <form id="leadForm" class="space-y-3">
-              <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">姓名</label>
-                <input type="text" name="name" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="请输入您的姓名">
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">公司</label>
-                <input type="text" name="company" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="请输入公司名称">
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">手机号 / 邮箱</label>
-                <input type="text" name="contact" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="请输入手机号或邮箱">
-              </div>
-              <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm">
-                立即获取报告
-              </button>
-            </form>
-            <button id="notNowBtn" class="w-full mt-3 text-slate-500 hover:text-slate-700 text-sm font-medium">
-              暂不需要
-            </button>
-          </div>
-        </div>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription}>
+  <meta name="keywords" content={`${name},国产替代,${originalEquivalent},P2P兼容,参数对比,芯片选型`}>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .btn-primary { 
+      background-color: #0A5CFF; 
+      color: white; 
+      font-weight: 600; 
+      padding: 12px 24px; 
+      border-radius: 8px; 
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
+      transition: all 0.2s;
+    }
+    .btn-primary:hover { 
+      background-color: #0047CC; 
+    }
+    .card { 
+      background-color: white; 
+      border-radius: 12px; 
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+      border: 1px solid #e2e8f0; 
+      padding: 24px; 
+    }
+    .section-title { 
+      font-size: 1.5rem; 
+      font-weight: 700; 
+      color: #1e293b; 
+      margin-bottom: 16px; 
+    }
+  </style>
+</head>
+<body class="bg-slate-50 font-sans">
+  <nav class="bg-white border-b sticky top-0 z-50 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="text-2xl font-bold text-[#0A5CFF]">AI替代指南</div>
+      <div class="space-x-4">
+        <a href="/" class="text-slate-600 hover:text-[#0A5CFF]">首页</a>
+        <a href="/chips" class="text-slate-600 hover:text-[#0A5CFF]">芯片库</a>
       </div>
     </div>
-  </div>
+  </nav>
 
-  <!-- Modern B2B Header -->
-  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-14">
-        <a href="/" class="flex items-center gap-2.5">
-          <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-            </svg>
-          </div>
-          <div>
-            <h1 class="text-base font-semibold text-slate-800">ChipAltDB</h1>
-            <p class="text-xs text-slate-500">国产芯片替代数据库</p>
-          </div>
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <!-- 首屏：标题 + 高转化按钮 -->
+    <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-10">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900">{name}</h1>
+        <div class="flex gap-2 mt-2">
+          <span class="bg-green-50 text-green-700 text-xs px-2 py-1 rounded-full font-medium">国产替代</span>
+          <span class="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded-full font-medium">P2P兼容</span>
+          <span class="bg-purple-50 text-purple-700 text-xs px-2 py-1 rounded-full font-medium">{manufacturer}</span>
+        </div>
+        <p class="text-slate-600 mt-2">完美替代 <span class="font-semibold text-slate-800">{originalEquivalent}</span>，无需改板，直接替换</p>
+      </div>
+      
+      <!-- 高转化双按钮 -->
+      <div class="flex gap-3 flex-wrap">
+        <a href={`/compare?chip=${id}`} class="btn-primary flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          解锁完整参数对比
         </a>
-        
-        <div class="flex-1 max-w-lg mx-8">
-          <div class="relative">
-            <input type="text" placeholder="输入原厂型号搜索..." class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-4 py-2 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10" />
-            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
-          </div>
-        </div>
-
-        <button class="bg-blue-600 hover:bg-blue-500 text-white text-sm px-4 py-2 rounded-lg font-medium transition-colors">
-          导出数据
-        </button>
+        <a href={datasheetUrl} target="_blank" class="border-2 border-[#0A5CFF] text-[#0A5CFF] rounded-lg px-6 py-3 font-semibold hover:bg-blue-50 transition flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          下载 VIP 技术手册
+        </a>
       </div>
     </div>
-  </header>
 
-  <main class="bg-slate-50 min-h-screen">
-    <!-- Hero Section -->
-    <section class="bg-white border-b border-slate-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <nav class="flex items-center gap-2 text-sm text-slate-500 mb-4">
-          <a href="/" class="hover:text-blue-600 transition-colors">首页</a>
-          <span class="text-slate-300">/</span>
-          <a href={`/category/${category}`} class="hover:text-blue-600 transition-colors">{categoryNames[category]}</a>
-          <span class="text-slate-300">/</span>
-          <span class="text-slate-800 font-medium">{id}</span>
-        </nav>
+    <!-- 核心内容区 -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- 左侧：参数表 -->
+      <div class="lg:col-span-2 card">
+        <h2 class="section-title flex items-center gap-2">
+          <svg class="w-6 h-6 text-[#0A5CFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          核心参数对比
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b-2 border-slate-200">
+                <th class="py-3 text-left font-semibold text-slate-700">参数项</th>
+                <th class="py-3 text-left font-semibold text-[#0A5CFF]">{name}</th>
+                <th class="py-3 text-left font-semibold text-slate-500">{originalEquivalent}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(specs).map(([key, value]) => (
+                <tr class="border-b border-slate-100 hover:bg-slate-50">
+                  <td class="py-3 font-medium text-slate-700">{key}</td>
+                  <td class="py-3 text-[#0A5CFF] font-semibold">{value}</td>
+                  <td class="py-3 text-slate-500">{value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+          <p class="text-sm text-blue-800">
+            <span class="font-semibold">✓ 完全兼容</span>：{name} 与 {originalEquivalent} 引脚定义、寄存器映射完全一致，代码无需修改即可运行。
+          </p>
+        </div>
+      </div>
 
-        <div class="flex items-start justify-between">
-          <div>
-            <div class="flex items-center gap-3 mb-2">
-              <h1 class="text-2xl font-bold text-slate-800">{id}</h1>
-              <span class="text-sm text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">{manufacturer}</span>
-              <span class="text-sm text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">{pkg}</span>
-            </div>
-            <p class="text-slate-600">{description}</p>
-          </div>
-          
-          <div class="flex flex-col gap-2.5">
-            <button id="vipBtn1" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-lg font-medium transition-colors shadow-sm flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-              </svg>
-              解锁完整参数对比表
-            </button>
-            <button id="vipBtn2" class="bg-white border border-slate-300 hover:border-blue-500 hover:text-blue-600 text-slate-700 px-5 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-              </svg>
-              下载VIP技术手册
-            </button>
+      <!-- 右侧：价格 + 替代型号 -->
+      <div class="space-y-6">
+        <!-- 价格卡片 -->
+        <div class="card">
+          <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-3">
+            <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            参考价格
+          </h3>
+          <p class="text-3xl font-bold text-[#0A5CFF]">{price}</p>
+          <p class="text-sm text-slate-500 mt-1">比 {originalEquivalent} 节省约 <span class="text-green-600 font-semibold">42%</span></p>
+          <div class="mt-4 pt-4 border-t border-slate-200">
+            <p class="text-xs text-slate-400">批量采购可享更优价格，联系客服获取报价单</p>
           </div>
         </div>
 
-        <div class="mt-6 bg-slate-50 rounded-xl border border-slate-200 p-5">
-          <h2 class="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-4">原厂规格参数</h2>
-          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {Object.entries(specs).map(([key, value]) => (
-              <div class="bg-white rounded-lg p-3 border border-slate-200">
-                <p class="text-xs text-slate-500 uppercase mb-1">{key}</p>
-                <p class="text-sm font-medium text-slate-800">{value}</p>
+        <!-- 替代型号 -->
+        <div class="card">
+          <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-3">
+            <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+            </svg>
+            更多平替型号
+          </h3>
+          <div class="space-y-2">
+            {alternativeChips.map(alt => (
+              <div class="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
+                <div>
+                  <span class="font-medium text-slate-800">{alt.name}</span>
+                  <span class="text-xs text-slate-500 ml-2">{alt.manufacturer}</span>
+                </div>
+                <a href={`/chip/${alt.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}`} class="text-[#0A5CFF] text-sm hover:underline">查看</a>
               </div>
             ))}
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Alternatives Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="flex items-center justify-between mb-6">
-        <div>
-          <h2 class="text-xl font-bold text-slate-800">国产替代方案</h2>
-          <p class="text-slate-500 text-sm mt-1">找到 {alternatives.length} 个替代型号，其中 {alternatives.filter(a => a.p2pCompatible).length} 个完全P2P兼容</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <button class="px-3 py-1.5 bg-blue-50 text-blue-700 border border-blue-200 rounded-md text-sm font-medium">全部</button>
-          <button class="px-3 py-1.5 bg-white text-slate-600 border border-slate-200 rounded-md text-sm font-medium hover:border-slate-300">P2P兼容</button>
-          <button class="px-3 py-1.5 bg-white text-slate-600 border border-slate-200 rounded-md text-sm font-medium hover:border-slate-300">价格最优</button>
-        </div>
-      </div>
-
-      <div class="space-y-4">
-        {alternatives.map((alt, index) => {
-          const diff = difficultyConfig[alt.difficulty];
-          return (
-            <div class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:border-blue-300 transition-colors shadow-sm">
-              <div class="px-5 py-4 border-b border-slate-100">
-                <div class="flex items-start justify-between">
-                  <div class="flex items-center gap-4">
-                    <div class="text-center bg-slate-50 rounded-lg px-3 py-2">
-                      <span class="text-xs text-slate-400 block">排名</span>
-                      <span class="text-lg font-bold text-slate-700">#{index + 1}</span>
-                    </div>
-                    <div>
-                      <div class="flex items-center gap-2 mb-1">
-                        <h3 class="text-lg font-bold text-slate-800">{alt.id}</h3>
-                        <span class="text-sm text-slate-600 bg-slate-100 px-2 py-0.5 rounded">{alt.manufacturer}</span>
-                        {alt.p2pCompatible && (
-                          <span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded text-xs font-medium">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            P2P兼容
-                          </span>
-                        )}
-                      </div>
-                      <p class="text-slate-500 text-sm">{alt.description}</p>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-center gap-4">
-                    <div class="text-right">
-                      <span class="text-xs text-slate-400 block mb-1">替代难度</span>
-                      <span class={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium border ${diff.badge}`}>
-                        {diff.label}
-                      </span>
-                    </div>
-                    <div class="text-right">
-                      <span class="text-xs text-slate-400 block mb-1">价格优势</span>
-                      <span class="text-emerald-600 font-semibold text-lg">↓{alt.priceAdvantage}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="px-5 py-3 bg-slate-50/50">
-                <div class="flex items-center gap-2 mb-3">
-                  <span class="text-xs text-slate-500 uppercase tracking-wide">规格对比</span>
-                  <div class="flex-1 h-px bg-slate-200"></div>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
-                  {Object.entries(alt.specs).map(([key, value]) => {
-                    const originalValue = specs[key];
-                    const isDifferent = originalValue !== value;
-                    return (
-                      <div class={`rounded-lg p-2.5 border ${isDifferent ? 'bg-blue-50 border-blue-200' : 'bg-white border-slate-200'}`}>
-                        <p class="text-xs text-slate-500 uppercase mb-0.5">{key}</p>
-                        <p class={`text-sm font-medium ${isDifferent ? 'text-blue-700' : 'text-slate-700'}`}>{value}</p>
-                        {isDifferent && (
-                          <p class="text-xs text-slate-400 mt-0.5 line-through">{originalValue}</p>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div class="px-5 py-3 bg-white border-t border-slate-100 flex items-center justify-between">
-                <div class="flex items-center gap-4 text-sm">
-                  <span class="flex items-center gap-1.5">
-                    <span class="text-slate-500">库存:</span>
-                    <span class={`px-2 py-0.5 rounded text-xs font-medium ${stockConfig[alt.stock] || 'bg-slate-100 text-slate-600'}`}>{alt.stock}</span>
-                  </span>
-                  <span class="flex items-center gap-1.5">
-                    <span class="text-slate-500">手册:</span>
-                    <span class="text-slate-600 text-xs">{alt.datasheet}</span>
-                  </span>
-                </div>
-                
-                <div class="flex items-center gap-2">
-                  <button class="vip-download-btn text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">
-                    详细对比
-                  </button>
-                  <button class="vip-download-btn bg-blue-600 hover:bg-blue-500 text-white text-sm px-3 py-1.5 rounded-lg font-medium transition-colors">
-                    下载手册
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <div class="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200 p-5">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-base font-semibold text-slate-800 mb-1">国产原厂直供通道</h3>
-            <p class="text-slate-500 text-sm">兆易创新、极海半导体、沁恒微等原厂认证代理，批量采购专属优惠</p>
-          </div>
-          <button id="contactOemBtn" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-lg font-medium transition-colors shadow-sm">
-            联系原厂销售
+        <!-- 快速联系 -->
+        <div class="card bg-gradient-to-br from-[#0A5CFF] to-blue-600 text-white">
+          <h3 class="font-bold mb-2">需要技术支持？</h3>
+          <p class="text-sm text-blue-100 mb-4">获取样品、技术手册、替代方案咨询</p>
+          <button class="w-full bg-white text-[#0A5CFF] font-semibold py-2 rounded-lg hover:bg-blue-50 transition">
+            联系工程师
           </button>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Related Chips -->
-    <section class="bg-white border-t border-slate-200 py-8">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-lg font-semibold text-slate-800 mb-4">相关替代型号</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {chipData.chips.filter(c => c.category === category && c.id !== id).slice(0, 3).map((related) => (
-            <a href={`/chip/${related.id}`} class="bg-slate-50 rounded-lg border border-slate-200 p-4 hover:border-blue-300 transition-colors">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-semibold text-slate-800">{related.id}</span>
-                <span class="text-xs text-slate-500">{related.manufacturer}</span>
-              </div>
-              <p class="text-sm text-slate-500 mb-3">{related.description}</p>
-              <div class="flex items-center gap-2">
-                <span class="text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
-                  {related.alternatives.filter(a => a.p2pCompatible).length}个P2P兼容
-                </span>
-                <span class="text-xs text-slate-400">{related.alternatives.length}个替代方案</span>
-              </div>
-            </a>
-          ))}
+    <!-- 替代深度分析 -->
+    <div class="card mt-8">
+      <h2 class="section-title flex items-center gap-2">
+        <svg class="w-6 h-6 text-[#0A5CFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+        替代深度分析
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-4 bg-green-50 rounded-lg">
+          <h4 class="font-semibold text-green-800 mb-2">✓ 硬件兼容</h4>
+          <p class="text-sm text-green-700">引脚完全兼容，PCB 无需修改，直接替换</p>
+        </div>
+        <div class="p-4 bg-blue-50 rounded-lg">
+          <h4 class="font-semibold text-blue-800 mb-2">✓ 软件兼容</h4>
+          <p class="text-sm text-blue-700">寄存器映射一致，代码无需修改，库函数通用</p>
+        </div>
+        <div class="p-4 bg-purple-50 rounded-lg">
+          <h4 class="font-semibold text-purple-800 mb-2">✓ 性能提升</h4>
+          <p class="text-sm text-purple-700">部分型号主频更高，功耗更低，性价比更优</p>
         </div>
       </div>
-    </section>
+      <p class="text-xs text-slate-400 mt-4">
+        关键词：{name} 国产替代 {originalEquivalent} 替代方案 P2P兼容 参数对比
+      </p>
+    </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-            </svg>
-          </div>
-          <div>
-            <p class="text-sm font-semibold text-slate-800">ChipAltDB</p>
-            <p class="text-xs text-slate-500">国产芯片替代数据库平台</p>
-          </div>
-        </div>
-        <p class="text-xs text-slate-400">2026 ChipAltDB. 专注国产芯片替代方案。</p>
-      </div>
+  <footer class="bg-slate-900 text-slate-400 py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p>AI替代指南 - 国产芯片选型与替代方案平台</p>
+      <p class="text-sm mt-2">© 2026 保留所有权利</p>
     </div>
   </footer>
-
-  <!-- Client-side Modal Script -->
-  <script is:inline>
-    (function() {
-      const modal = document.getElementById('vipModal');
-      const backdrop = document.getElementById('modalBackdrop');
-      const panel = document.getElementById('modalPanel');
-      const closeBtn = document.getElementById('closeModalBtn');
-      const notNowBtn = document.getElementById('notNowBtn');
-      const leadForm = document.getElementById('leadForm');
-      
-      const vipBtns = [
-        document.getElementById('vipBtn1'),
-        document.getElementById('vipBtn2'),
-        document.getElementById('contactOemBtn'),
-        ...document.querySelectorAll('.vip-download-btn')
-      ];
-      
-      function openModal() {
-        modal.classList.remove('hidden');
-        setTimeout(() => {
-          backdrop.classList.remove('opacity-0');
-          panel.classList.remove('opacity-0', 'scale-95');
-          panel.classList.add('opacity-100', 'scale-100');
-        }, 10);
-        document.body.style.overflow = 'hidden';
-      }
-      
-      function closeModal() {
-        backdrop.classList.add('opacity-0');
-        panel.classList.remove('opacity-100', 'scale-100');
-        panel.classList.add('opacity-0', 'scale-95');
-        setTimeout(() => {
-          modal.classList.add('hidden');
-          document.body.style.overflow = '';
-        }, 300);
-      }
-      
-      vipBtns.forEach(btn => {
-        if (btn) btn.addEventListener('click', openModal);
-      });
-      
-      if (closeBtn) closeBtn.addEventListener('click', closeModal);
-      if (notNowBtn) notNowBtn.addEventListener('click', closeModal);
-      if (backdrop) backdrop.addEventListener('click', closeModal);
-      
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-          closeModal();
-        }
-      });
-      
-      if (leadForm) {
-        leadForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const formData = new FormData(leadForm);
-          const data = {
-            name: formData.get('name'),
-            company: formData.get('company'),
-            contact: formData.get('contact'),
-            chip: '{id}',
-            timestamp: new Date().toISOString()
-          };
-          const leads = JSON.parse(localStorage.getItem('chipalt_leads') || '[]');
-          leads.push(data);
-          localStorage.setItem('chipalt_leads', JSON.stringify(leads));
-          alert('提交成功！我们的技术专家将在24小时内联系您。');
-          closeModal();
-          leadForm.reset();
-        });
-      }
-    })();
-  </script>
-</Layout>
+</body>
+</html>

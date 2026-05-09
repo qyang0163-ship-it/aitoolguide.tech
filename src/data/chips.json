@@ -1,864 +1,163 @@
-{
-  "categories": [
-    { "id": "mcu", "name": "微控制器", "count": 2847 },
-    { "id": "adc", "name": "ADC/DAC", "count": 523 },
-    { "id": "analog", "name": "模拟芯片", "count": 1523 },
-    { "id": "power", "name": "电源管理", "count": 1986 },
-    { "id": "interface", "name": "接口芯片", "count": 1245 },
-    { "id": "sensor", "name": "传感器", "count": 967 },
-    { "id": "memory", "name": "存储器", "count": 756 },
-    { "id": "logic", "name": "逻辑器件", "count": 2134 },
-    { "id": "rf", "name": "射频无线", "count": 432 }
-  ],
-  "stats": {
-    "totalOriginal": 15847,
-    "totalAlternatives": 12456,
-    "p2pCompatible": 8934,
-    "vipManuals": 234
+[
+  {
+    "id": "stm32f103c8t6",
+    "name": "APM32F103C8T6",
+    "manufacturer": "极海半导体",
+    "original": "STM32F103C8T6",
+    "originalManufacturer": "STMicroelectronics",
+    "category": "mcu",
+    "specs": {
+      "内核": "ARM Cortex-M3",
+      "主频": "72MHz",
+      "Flash": "64KB"
+    },
+    "alternatives": [
+      { "name": "MM32F103C8T6", "manufacturer": "灵动微", "p2pCompatible": true },
+      { "name": "CKS32F103C8T6", "manufacturer": "中科芯", "p2pCompatible": true }
+    ],
+    "price": 2.35,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "/docs/apm32f103.pdf"
   },
-  "chips": [
-    {
-      "id": "STM32F103C8T6",
-      "manufacturer": "ST",
-      "category": "mcu",
-      "description": "ARM Cortex-M3 72MHz MCU, 64KB Flash, 20KB SRAM",
-      "package": "LQFP-48",
-      "specs": {
-        "core": "ARM Cortex-M3",
-        "flash": "64KB",
-        "sram": "20KB",
-        "frequency": "72MHz",
-        "gpio": "37",
-        "adc": "2×12-bit",
-        "timers": "3×16-bit",
-        "interfaces": "USART×3, SPI×2, I2C×2, CAN×1, USB×1"
-      },
-      "alternatives": [
-        {
-          "id": "GD32F103C8T6",
-          "manufacturer": "兆易创新(GigaDevice)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "35%",
-          "stock": "充足",
-          "datasheet": "gd32f103.pdf",
-          "description": "完全P2P兼容，寄存器级兼容，可直接替换",
-          "specs": {
-            "core": "ARM Cortex-M3",
-            "flash": "64KB",
-            "sram": "20KB",
-            "frequency": "108MHz",
-            "gpio": "37",
-            "adc": "2×12-bit",
-            "timers": "3×16-bit",
-            "interfaces": "USART×3, SPI×2, I2C×2, CAN×1, USB×1"
-          }
-        },
-        {
-          "id": "CH32F103C8T6",
-          "manufacturer": "沁恒微(WCH)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "45%",
-          "stock": "充足",
-          "datasheet": "ch32f103.pdf",
-          "description": "P2P兼容，部分外设时序需微调",
-          "specs": {
-            "core": "ARM Cortex-M3",
-            "flash": "64KB",
-            "sram": "20KB",
-            "frequency": "72MHz",
-            "gpio": "37",
-            "adc": "2×12-bit",
-            "timers": "3×16-bit",
-            "interfaces": "USART×3, SPI×2, I2C×2, CAN×1, USB×1"
-          }
-        },
-        {
-          "id": "HK32F103C8T6",
-          "manufacturer": "航顺(HK)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 2,
-          "priceAdvantage": "50%",
-          "stock": "一般",
-          "datasheet": "hk32f103.pdf",
-          "description": "P2P兼容，时钟配置略有差异",
-          "specs": {
-            "core": "ARM Cortex-M3",
-            "flash": "64KB",
-            "sram": "20KB",
-            "frequency": "72MHz",
-            "gpio": "37",
-            "adc": "2×12-bit",
-            "timers": "3×16-bit",
-            "interfaces": "USART×3, SPI×2, I2C×2, CAN×1, USB×1"
-          }
-        }
-      ]
+  {
+    "id": "gd32f103c8t6",
+    "name": "GD32F103C8T6",
+    "manufacturer": "兆易创新",
+    "original": "STM32F103C8T6",
+    "originalManufacturer": "STMicroelectronics",
+    "category": "mcu",
+    "specs": {
+      "内核": "ARM Cortex-M3",
+      "主频": "108MHz",
+      "Flash": "64KB"
     },
-    {
-      "id": "AD7606",
-      "manufacturer": "ADI",
-      "category": "adc",
-      "description": "8通道同步采样16位ADC, ±10V/±5V输入",
-      "package": "LQFP-64",
-      "specs": {
-        "resolution": "16-bit",
-        "channels": "8",
-        "sampleRate": "200kSPS",
-        "inputRange": "±10V, ±5V",
-        "interface": "SPI/Parallel",
-        "power": "5V/3.3V",
-        "snr": "90dB"
-      },
-      "alternatives": [
-        {
-          "id": "BL7606",
-          "manufacturer": "贝岭(Belling)",
-          "p2pCompatible": false,
-          "difficulty": "medium",
-          "difficultyScore": 3,
-          "priceAdvantage": "55%",
-          "stock": "充足",
-          "datasheet": "bl7606.pdf",
-          "description": "功能兼容，寄存器需适配，时序略有差异",
-          "specs": {
-            "resolution": "16-bit",
-            "channels": "8",
-            "sampleRate": "200kSPS",
-            "inputRange": "±10V, ±5V",
-            "interface": "SPI",
-            "power": "5V/3.3V",
-            "snr": "88dB"
-          }
-        },
-        {
-          "id": "SC1467",
-          "manufacturer": "芯海科技(ChipSea)",
-          "p2pCompatible": false,
-          "difficulty": "medium",
-          "difficultyScore": 3,
-          "priceAdvantage": "50%",
-          "stock": "充足",
-          "datasheet": "sc1467.pdf",
-          "description": "功能兼容，驱动需重写",
-          "specs": {
-            "resolution": "16-bit",
-            "channels": "8",
-            "sampleRate": "200kSPS",
-            "inputRange": "±10V",
-            "interface": "SPI",
-            "power": "5V",
-            "snr": "89dB"
-          }
-        }
-      ]
+    "alternatives": [
+      { "name": "APM32F103C8T6", "manufacturer": "极海半导体", "p2pCompatible": true }
+    ],
+    "price": 2.85,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "/docs/gd32f103.pdf"
+  },
+  {
+    "id": "ch32v307vct6",
+    "name": "CH32V307VCT6",
+    "manufacturer": "沁恒微",
+    "original": "STM32F407VGT6",
+    "originalManufacturer": "STMicroelectronics",
+    "category": "mcu",
+    "specs": {
+      "内核": "RISC-V4F",
+      "主频": "144MHz",
+      "Flash": "256KB"
     },
-    {
-      "id": "TPS5430DDAR",
-      "manufacturer": "TI",
-      "category": "power",
-      "description": "3A 降压DC-DC转换器, 5.5V-36V输入",
-      "package": "SOIC-8",
-      "specs": {
-        "topology": "Buck",
-        "inputVoltage": "5.5V~36V",
-        "outputVoltage": "1.22V~VIN",
-        "maxCurrent": "3A",
-        "switchFreq": "500kHz",
-        "efficiency": "95%"
-      },
-      "alternatives": [
-        {
-          "id": "MP1584EN",
-          "manufacturer": "MPS/矽力杰",
-          "p2pCompatible": false,
-          "difficulty": "medium",
-          "difficultyScore": 3,
-          "priceAdvantage": "40%",
-          "stock": "充足",
-          "datasheet": "mp1584.pdf",
-          "description": "功能兼容，外围电路需重新设计",
-          "specs": {
-            "topology": "Buck",
-            "inputVoltage": "4.5V~28V",
-            "outputVoltage": "0.8V~VIN",
-            "maxCurrent": "3A",
-            "switchFreq": "1.5MHz",
-            "efficiency": "96%"
-          }
-        },
-        {
-          "id": "XL1509",
-          "manufacturer": "芯龙(XLSEMI)",
-          "p2pCompatible": false,
-          "difficulty": "medium",
-          "difficultyScore": 3,
-          "priceAdvantage": "60%",
-          "stock": "充足",
-          "datasheet": "xl1509.pdf",
-          "description": "国产替代方案，外围简单",
-          "specs": {
-            "topology": "Buck",
-            "inputVoltage": "4.5V~40V",
-            "outputVoltage": "1.23V~37V",
-            "maxCurrent": "2A",
-            "switchFreq": "150kHz",
-            "efficiency": "90%"
-          }
-        }
-      ]
+    "alternatives": [
+      { "name": "GD32F407VGT6", "manufacturer": "兆易创新", "p2pCompatible": false }
+    ],
+    "price": 4.50,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "/docs/ch32v307.pdf"
+  },
+  {
+    "id": "ads1115",
+    "name": "ADS1115",
+    "manufacturer": "Texas Instruments",
+    "original": "ADS1115",
+    "originalManufacturer": "Texas Instruments",
+    "category": "adc",
+    "specs": {
+      "分辨率": "16-bit",
+      "采样率": "860SPS",
+      "通道": "4"
     },
-    {
-      "id": "LM358",
-      "manufacturer": "TI",
-      "category": "analog",
-      "description": "双路低功耗运算放大器",
-      "package": "SOIC-8",
-      "specs": {
-        "channels": "2",
-        "supplyVoltage": "3V~32V",
-        "gbw": "1MHz",
-        "slewRate": "0.3V/μs",
-        "inputOffset": "2mV",
-        "quiescentCurrent": "700μA"
-      },
-      "alternatives": [
-        {
-          "id": "LM358DR",
-          "manufacturer": "圣邦微(SGM)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "55%",
-          "stock": "充足",
-          "datasheet": "sgm358.pdf",
-          "description": "完全P2P兼容，参数更优",
-          "specs": {
-            "channels": "2",
-            "supplyVoltage": "2.5V~36V",
-            "gbw": "1MHz",
-            "slewRate": "0.5V/μs",
-            "inputOffset": "1mV",
-            "quiescentCurrent": "500μA"
-          }
-        },
-        {
-          "id": "LM358M",
-          "manufacturer": "华润微(CRM)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "65%",
-          "stock": "充足",
-          "datasheet": "crm358.pdf",
-          "description": "完全P2P兼容",
-          "specs": {
-            "channels": "2",
-            "supplyVoltage": "3V~32V",
-            "gbw": "1MHz",
-            "slewRate": "0.3V/μs",
-            "inputOffset": "2mV",
-            "quiescentCurrent": "700μA"
-          }
-        }
-      ]
+    "alternatives": [
+      { "name": "BL1115", "manufacturer": "贝岭", "p2pCompatible": true }
+    ],
+    "price": 8.50,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "/docs/ads1115.pdf"
+  },
+  {
+    "id": "tps5430",
+    "name": "TPS5430",
+    "manufacturer": "Texas Instruments",
+    "original": "TPS5430",
+    "originalManufacturer": "Texas Instruments",
+    "category": "power",
+    "specs": {
+      "输入": "5.5-36V",
+      "输出": "3A",
+      "拓扑": "Buck"
     },
-    {
-      "id": "ADS1115IDGSR",
-      "manufacturer": "TI",
-      "category": "adc",
-      "description": "16位ADC 4通道 I2C接口",
-      "package": "VSSOP-10",
-      "specs": {
-        "resolution": "16-bit",
-        "channels": "4",
-        "sampleRate": "860SPS",
-        "interface": "I2C",
-        "inputRange": "±6.144V",
-        "power": "2.0V~5.5V"
-      },
-      "alternatives": [
-        {
-          "id": "BL5372",
-          "manufacturer": "贝岭(Belling)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 2,
-          "priceAdvantage": "55%",
-          "stock": "充足",
-          "datasheet": "bl5372.pdf",
-          "description": "P2P兼容，精度略低",
-          "specs": {
-            "resolution": "16-bit",
-            "channels": "4",
-            "sampleRate": "860SPS",
-            "interface": "I2C",
-            "inputRange": "±6.144V",
-            "power": "2.0V~5.5V"
-          }
-        }
-      ]
+    "alternatives": [
+      { "name": "MP1584", "manufacturer": "MPS", "p2pCompatible": false }
+    ],
+    "price": 12.80,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "/docs/tps5430.pdf"
+  },
+  {
+    "id": "mcp2515",
+    "name": "MCP2515",
+    "manufacturer": "Microchip",
+    "original": "MCP2515",
+    "originalManufacturer": "Microchip",
+    "category": "interface",
+    "specs": {
+      "协议": "CAN 2.0B",
+      "接口": "SPI",
+      "速率": "1Mbps"
     },
-    {
-      "id": "ESP32-WROOM-32",
-      "manufacturer": "Espressif",
-      "category": "rf",
-      "description": "Wi-Fi + BLE 双模模组",
-      "package": "SMD-38",
-      "specs": {
-        "wifi": "802.11 b/g/n",
-        "bluetooth": "BLE 4.2/5.0",
-        "cpu": "Xtensa dual-core 240MHz",
-        "sram": "520KB",
-        "flash": "4MB",
-        "interfaces": "SPI, I2C, UART, SDIO, PWM"
-      },
-      "alternatives": [
-        {
-          "id": "BL602",
-          "manufacturer": "博通集成(Beken)",
-          "p2pCompatible": false,
-          "difficulty": "hard",
-          "difficultyScore": 4,
-          "priceAdvantage": "30%",
-          "stock": "充足",
-          "datasheet": "bl602.pdf",
-          "description": "WiFi+BLE Combo，需重写固件",
-          "specs": {
-            "wifi": "802.11 b/g/n",
-            "bluetooth": "BLE 5.0",
-            "cpu": "RISC-V 192MHz",
-            "sram": "276KB",
-            "flash": "External",
-            "interfaces": "SPI, I2C, UART, PWM"
-          }
-        },
-        {
-          "id": "W801",
-          "manufacturer": "联盛德(WinnerMicro)",
-          "p2pCompatible": false,
-          "difficulty": "hard",
-          "difficultyScore": 4,
-          "priceAdvantage": "35%",
-          "stock": "一般",
-          "datasheet": "w801.pdf",
-          "description": "WiFi+BLE，SDK差异较大",
-          "specs": {
-            "wifi": "802.11 b/g/n",
-            "bluetooth": "BLE 5.0",
-            "cpu": "XT804 240MHz",
-            "sram": "288KB",
-            "flash": "2MB",
-            "interfaces": "SPI, I2C, UART, SDIO, PWM"
-          }
-        }
-      ]
+    "alternatives": [
+      { "name": "SIT2515", "manufacturer": "芯力特", "p2pCompatible": true }
+    ],
+    "price": 6.20,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "/docs/mcp2515.pdf"
+  },
+  {
+    "id": "bme280",
+    "name": "BME280",
+    "manufacturer": "Bosch",
+    "original": "BME280",
+    "originalManufacturer": "Bosch",
+    "category": "sensor",
+    "specs": {
+      "温度": "-40~85℃",
+      "湿度": "0-100%",
+      "气压": "300-1100hPa"
     },
-    {
-      "id": "MAX3232CSE",
-      "manufacturer": "TI/Maxim",
-      "category": "interface",
-      "description": "RS-232收发器, 3.3V供电, 双通道",
-      "package": "SOIC-16",
-      "specs": {
-        "channels": "2",
-        "supplyVoltage": "3.0V~5.5V",
-        "dataRate": "250kbps",
-        "esdProtection": "±15kV",
-        "interface": "RS-232/TTL",
-        "operatingTemp": "-40°C~85°C"
-      },
-      "alternatives": [
-        {
-          "id": "SP3232EEN",
-          "manufacturer": "聚辰(Giantec)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "50%",
-          "stock": "充足",
-          "datasheet": "sp3232.pdf",
-          "description": "完全P2P兼容，参数更优",
-          "specs": {
-            "channels": "2",
-            "supplyVoltage": "3.0V~5.5V",
-            "dataRate": "250kbps",
-            "esdProtection": "±15kV",
-            "interface": "RS-232/TTL",
-            "operatingTemp": "-40°C~85°C"
-          }
-        },
-        {
-          "id": "TP3232",
-          "manufacturer": "思瑞浦(3PEAK)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "45%",
-          "stock": "充足",
-          "datasheet": "tp3232.pdf",
-          "description": "完全P2P兼容",
-          "specs": {
-            "channels": "2",
-            "supplyVoltage": "3.0V~5.5V",
-            "dataRate": "250kbps",
-            "esdProtection": "±15kV",
-            "interface": "RS-232/TTL",
-            "operatingTemp": "-40°C~85°C"
-          }
-        }
-      ]
+    "alternatives": [
+      { "name": "AHT20+BMP280", "manufacturer": "国产组合", "p2pCompatible": false }
+    ],
+    "price": 15.60,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "/docs/bme280.pdf"
+  },
+  {
+    "id": "w25q128",
+    "name": "W25Q128JV",
+    "manufacturer": "Winbond",
+    "original": "W25Q128JV",
+    "originalManufacturer": "Winbond",
+    "category": "memory",
+    "specs": {
+      "容量": "128Mbit",
+      "接口": "SPI",
+      "电压": "1.8-3.6V"
     },
-    {
-      "id": "TPS62160",
-      "manufacturer": "TI",
-      "category": "power",
-      "description": "1A 同步降压转换器, 3V-17V输入",
-      "package": "SOT-23-8",
-      "specs": {
-        "topology": "Buck",
-        "inputVoltage": "3V~17V",
-        "outputVoltage": "0.9V~6V",
-        "maxCurrent": "1A",
-        "switchFreq": "2.5MHz",
-        "efficiency": "95%",
-        "quiescentCurrent": "17μA"
-      },
-      "alternatives": [
-        {
-          "id": "SY8088",
-          "manufacturer": "矽力杰(Silergy)",
-          "p2pCompatible": false,
-          "difficulty": "medium",
-          "difficultyScore": 2,
-          "priceAdvantage": "40%",
-          "stock": "充足",
-          "datasheet": "sy8088.pdf",
-          "description": "功能兼容，外围参数需调整",
-          "specs": {
-            "topology": "Buck",
-            "inputVoltage": "2.5V~17V",
-            "outputVoltage": "0.6V~VIN",
-            "maxCurrent": "1A",
-            "switchFreq": "1MHz",
-            "efficiency": "93%",
-            "quiescentCurrent": "25μA"
-          }
-        },
-        {
-          "id": "MP2143",
-          "manufacturer": "MPS",
-          "p2pCompatible": false,
-          "difficulty": "medium",
-          "difficultyScore": 2,
-          "priceAdvantage": "35%",
-          "stock": "充足",
-          "datasheet": "mp2143.pdf",
-          "description": "功能兼容，引脚不完全一致",
-          "specs": {
-            "topology": "Buck",
-            "inputVoltage": "2.5V~17V",
-            "outputVoltage": "0.6V~VIN",
-            "maxCurrent": "3A",
-            "switchFreq": "1.2MHz",
-            "efficiency": "94%",
-            "quiescentCurrent": "20μA"
-          }
-        }
-      ]
-    },
-    {
-      "id": "STM32F407VGT6",
-      "manufacturer": "ST",
-      "category": "mcu",
-      "description": "ARM Cortex-M4 168MHz MCU, 1MB Flash, 192KB SRAM, FPU",
-      "package": "LQFP-100",
-      "specs": {
-        "core": "ARM Cortex-M4",
-        "flash": "1MB",
-        "sram": "192KB",
-        "frequency": "168MHz",
-        "gpio": "82",
-        "adc": "3×12-bit",
-        "dac": "2×12-bit",
-        "timers": "14",
-        "interfaces": "USART×4, SPI×3, I2C×3, CAN×2, USB OTG, Ethernet"
-      },
-      "alternatives": [
-        {
-          "id": "GD32F407VGT6",
-          "manufacturer": "兆易创新(GigaDevice)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 2,
-          "priceAdvantage": "30%",
-          "stock": "充足",
-          "datasheet": "gd32f407.pdf",
-          "description": "P2P兼容，DMA通道分配略有差异",
-          "specs": {
-            "core": "ARM Cortex-M4",
-            "flash": "1MB",
-            "sram": "192KB",
-            "frequency": "168MHz",
-            "gpio": "82",
-            "adc": "3×12-bit",
-            "dac": "2×12-bit",
-            "timers": "14",
-            "interfaces": "USART×4, SPI×3, I2C×3, CAN×2, USB OTG, Ethernet"
-          }
-        },
-        {
-          "id": "APM32F407VGT6",
-          "manufacturer": "极海半导体(Geehy)",
-          "p2pCompatible": false,
-          "difficulty": "medium",
-          "difficultyScore": 3,
-          "priceAdvantage": "40%",
-          "stock": "充足",
-          "datasheet": "apm32f407.pdf",
-          "description": "功能兼容，寄存器需适配，GPIO映射不同",
-          "specs": {
-            "core": "ARM Cortex-M4",
-            "flash": "1MB",
-            "sram": "192KB",
-            "frequency": "168MHz",
-            "gpio": "80",
-            "adc": "3×12-bit",
-            "dac": "2×12-bit",
-            "timers": "14",
-            "interfaces": "USART×4, SPI×3, I2C×3, CAN×2, USB OTG"
-          }
-        }
-      ]
-    },
-    {
-      "id": "L7805CV",
-      "manufacturer": "ST",
-      "category": "power",
-      "description": "5V 1.5A 线性稳压器, 经典三端稳压",
-      "package": "TO-220",
-      "specs": {
-        "topology": "LDO",
-        "inputVoltage": "7V~35V",
-        "outputVoltage": "5V",
-        "maxCurrent": "1.5A",
-        "dropoutVoltage": "2V",
-        "lineRegulation": "0.01%/V",
-        "loadRegulation": "0.1%/A"
-      },
-      "alternatives": [
-        {
-          "id": "AMS1117-5.0",
-          "manufacturer": "艾为(AWINIC)",
-          "p2pCompatible": false,
-          "difficulty": "easy",
-          "difficultyScore": 2,
-          "priceAdvantage": "60%",
-          "stock": "充足",
-          "datasheet": "ams1117.pdf",
-          "description": "功能兼容，封装不同需改板",
-          "specs": {
-            "topology": "LDO",
-            "inputVoltage": "6.5V~12V",
-            "outputVoltage": "5V",
-            "maxCurrent": "1A",
-            "dropoutVoltage": "1.3V",
-            "lineRegulation": "0.015%/V",
-            "loadRegulation": "0.15%/A"
-          }
-        },
-        {
-          "id": "XC6206P502MR",
-          "manufacturer": "长晶科技",
-          "p2pCompatible": false,
-          "difficulty": "medium",
-          "difficultyScore": 3,
-          "priceAdvantage": "70%",
-          "stock": "充足",
-          "datasheet": "xc6206.pdf",
-          "description": "小封装LDO，需重新设计",
-          "specs": {
-            "topology": "LDO",
-            "inputVoltage": "2V~6V",
-            "outputVoltage": "5V",
-            "maxCurrent": "200mA",
-            "dropoutVoltage": "0.25V",
-            "lineRegulation": "0.05%/V",
-            "loadRegulation": "0.1%/A"
-          }
-        }
-      ]
-    },
-    {
-      "id": "MCP2551",
-      "manufacturer": "Microchip",
-      "category": "interface",
-      "description": "CAN总线收发器, 高速CAN",
-      "package": "SOIC-8",
-      "specs": {
-        "protocol": "CAN 2.0B",
-        "dataRate": "1Mbps",
-        "supplyVoltage": "4.5V~5.5V",
-        "operatingTemp": "-40°C~125°C",
-        "esdProtection": "±8kV",
-        "slopeControl": "Adjustable"
-      },
-      "alternatives": [
-        {
-          "id": "SIT2551",
-          "manufacturer": "芯力特(SIT)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "55%",
-          "stock": "充足",
-          "datasheet": "sit2551.pdf",
-          "description": "完全P2P兼容，工业级",
-          "specs": {
-            "protocol": "CAN 2.0B",
-            "dataRate": "1Mbps",
-            "supplyVoltage": "4.5V~5.5V",
-            "operatingTemp": "-40°C~125°C",
-            "esdProtection": "±8kV",
-            "slopeControl": "Adjustable"
-          }
-        },
-        {
-          "id": "TJA1050",
-          "manufacturer": "思瑞浦(3PEAK)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "50%",
-          "stock": "充足",
-          "datasheet": "tja1050.pdf",
-          "description": "完全P2P兼容，汽车级",
-          "specs": {
-            "protocol": "CAN 2.0B",
-            "dataRate": "1Mbps",
-            "supplyVoltage": "4.75V~5.25V",
-            "operatingTemp": "-40°C~125°C",
-            "esdProtection": "±6kV",
-            "slopeControl": "Fixed"
-          }
-        }
-      ]
-    },
-    {
-      "id": "AT24C256",
-      "manufacturer": "Atmel/Microchip",
-      "category": "memory",
-      "description": "256Kbit I2C EEPROM, 32KB存储",
-      "package": "SOIC-8",
-      "specs": {
-        "capacity": "256Kbit (32KB)",
-        "interface": "I2C",
-        "clockFreq": "1MHz",
-        "writeCycle": "5ms",
-        "endurance": "1M cycles",
-        "retention": "100 years",
-        "operatingVoltage": "1.8V~5.5V"
-      },
-      "alternatives": [
-        {
-          "id": "FM24C256",
-          "manufacturer": "复旦微(Fudan)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "50%",
-          "stock": "充足",
-          "datasheet": "fm24c256.pdf",
-          "description": "完全P2P兼容",
-          "specs": {
-            "capacity": "256Kbit (32KB)",
-            "interface": "I2C",
-            "clockFreq": "1MHz",
-            "writeCycle": "5ms",
-            "endurance": "1M cycles",
-            "retention": "100 years",
-            "operatingVoltage": "1.8V~5.5V"
-          }
-        },
-        {
-          "id": "BL24C256",
-          "manufacturer": "贝岭(Belling)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "45%",
-          "stock": "充足",
-          "datasheet": "bl24c256.pdf",
-          "description": "完全P2P兼容",
-          "specs": {
-            "capacity": "256Kbit (32KB)",
-            "interface": "I2C",
-            "clockFreq": "400kHz",
-            "writeCycle": "5ms",
-            "endurance": "1M cycles",
-            "retention": "100 years",
-            "operatingVoltage": "2.5V~5.5V"
-          }
-        }
-      ]
-    },
-    {
-      "id": "BMP280",
-      "manufacturer": "Bosch",
-      "category": "sensor",
-      "description": "数字气压温度传感器, I2C/SPI接口",
-      "package": "LGA-8",
-      "specs": {
-        "pressureRange": "300~1100hPa",
-        "temperatureRange": "-40°C~85°C",
-        "pressureAccuracy": "±1hPa",
-        "tempAccuracy": "±1°C",
-        "interface": "I2C/SPI",
-        "supplyVoltage": "1.8V~3.6V",
-        "current": "2.7μA"
-      },
-      "alternatives": [
-        {
-          "id": "SPL06-001",
-          "manufacturer": "歌尔(Goertek)",
-          "p2pCompatible": false,
-          "difficulty": "medium",
-          "difficultyScore": 3,
-          "priceAdvantage": "40%",
-          "stock": "充足",
-          "datasheet": "spl06.pdf",
-          "description": "功能兼容，寄存器地址不同，需修改驱动",
-          "specs": {
-            "pressureRange": "300~1100hPa",
-            "temperatureRange": "-40°C~85°C",
-            "pressureAccuracy": "±1.5hPa",
-            "tempAccuracy": "±1.5°C",
-            "interface": "I2C/SPI",
-            "supplyVoltage": "1.8V~3.6V",
-            "current": "3μA"
-          }
-        }
-      ]
-    },
-    {
-      "id": "NE555",
-      "manufacturer": "TI",
-      "category": "analog",
-      "description": "经典定时器IC, 双极型",
-      "package": "SOIC-8",
-      "specs": {
-        "type": "Timer",
-        "supplyVoltage": "4.5V~16V",
-        "maxFrequency": "500kHz",
-        "outputCurrent": "200mA",
-        "tempDrift": "50ppm/°C",
-        "operatingTemp": "0°C~70°C"
-      },
-      "alternatives": [
-        {
-          "id": "NE555DR",
-          "manufacturer": "长电/长晶",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "65%",
-          "stock": "充足",
-          "datasheet": "ne555.pdf",
-          "description": "完全P2P兼容",
-          "specs": {
-            "type": "Timer",
-            "supplyVoltage": "4.5V~16V",
-            "maxFrequency": "500kHz",
-            "outputCurrent": "200mA",
-            "tempDrift": "50ppm/°C",
-            "operatingTemp": "0°C~70°C"
-          }
-        },
-        {
-          "id": "AiP555",
-          "manufacturer": "中微爱芯(AiP)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "60%",
-          "stock": "充足",
-          "datasheet": "aip555.pdf",
-          "description": "完全P2P兼容",
-          "specs": {
-            "type": "Timer",
-            "supplyVoltage": "4.5V~16V",
-            "maxFrequency": "500kHz",
-            "outputCurrent": "200mA",
-            "tempDrift": "50ppm/°C",
-            "operatingTemp": "-40°C~85°C"
-          }
-        }
-      ]
-    },
-    {
-      "id": "W25Q128JVSIM",
-      "manufacturer": "Winbond",
-      "category": "memory",
-      "description": "128Mbit SPI Flash, 16MB存储",
-      "package": "SOIC-8",
-      "specs": {
-        "capacity": "128Mbit (16MB)",
-        "interface": "SPI",
-        "clockFreq": "104MHz",
-        "sectorSize": "4KB",
-        "blockSize": "64KB",
-        "endurance": "100K cycles",
-        "retention": "20 years",
-        "supplyVoltage": "2.7V~3.6V"
-      },
-      "alternatives": [
-        {
-          "id": "GD25Q128C",
-          "manufacturer": "兆易创新(GigaDevice)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 1,
-          "priceAdvantage": "40%",
-          "stock": "充足",
-          "datasheet": "gd25q128.pdf",
-          "description": "完全P2P兼容，指令集一致",
-          "specs": {
-            "capacity": "128Mbit (16MB)",
-            "interface": "SPI",
-            "clockFreq": "120MHz",
-            "sectorSize": "4KB",
-            "blockSize": "64KB",
-            "endurance": "100K cycles",
-            "retention": "20 years",
-            "supplyVoltage": "2.7V~3.6V"
-          }
-        },
-        {
-          "id": "XM25QH128C",
-          "manufacturer": "武汉新芯(XMC)",
-          "p2pCompatible": true,
-          "difficulty": "easy",
-          "difficultyScore": 2,
-          "priceAdvantage": "45%",
-          "stock": "充足",
-          "datasheet": "xm25qh128.pdf",
-          "description": "P2P兼容，部分指令时序需微调",
-          "specs": {
-            "capacity": "128Mbit (16MB)",
-            "interface": "SPI",
-            "clockFreq": "104MHz",
-            "sectorSize": "4KB",
-            "blockSize": "64KB",
-            "endurance": "100K cycles",
-            "retention": "20 years",
-            "supplyVoltage": "2.7V~3.6V"
-          }
-        }
-      ]
-    }
-  ]
-}
+    "alternatives": [
+      { "name": "GD25Q128C", "manufacturer": "兆易创新", "p2pCompatible": true }
+    ],
+    "price": 3.80,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "/docs/w25q128.pdf"
+  }
+]
