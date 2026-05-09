@@ -3,125 +3,92 @@ import Layout from '../layouts/Layout.astro';
 const enterprises = (await import('../data/enterprises.json')).default;
 const chips = (await import('../data/chips.json')).default;
 const policies = (await import('../data/policies.json')).default;
-const stats = [
-{ label: '覆盖芯片', value: chips.length },
-{ label: '政策条目', value: policies.length },
-{ label: '受限追踪', value: 9 },
-{ label: '受制裁企业', value: enterprises.length }
-];
-const keywords = ['STM32替代', '电源芯片', 'RISC-V', 'AI芯片', '车规级', '光刻胶'];
+const keywords = ['STM32替代', '电源芯片', 'RISC-V', 'AI芯片'];
 ---
-<Layout title="国产芯片替代指南 | 追踪管制·验证替代" description="追踪芯片管制政策，验证国产替代进展。每一条信息都有官方出处：BIS联邦公报、企业公告、海关总署。">
-<!-- Hero区域 -->
-<section class="bg-gradient-to-br from-[#0F4C81] via-[#1a5a9e] to-[#0d3d6e] text-white py-16 px-4">
-<div class="max-w-4xl mx-auto text-center">
-<h1 class="text-4xl md:text-5xl font-bold mb-4">追踪芯片管制，验证国产替代</h1>
-<p class="text-xl md:text-2xl text-blue-100 mb-8">每一条信息都有官方出处</p>
+<Layout title="国产芯片替代指南" description="追踪芯片管制，验证国产替代。数据来源：BIS联邦公报、企业公告、海关总署。">
+<!-- 搜索区 -->
+<section class="bg-white py-16 px-4">
+<div class="max-w-3xl mx-auto text-center">
 <!-- 搜索框 -->
-<div class="max-w-2xl mx-auto mb-6">
-<div class="relative">
-<svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-<input type="text" id="searchInput" placeholder="输入型号或ECCN编码，如 STM32F103C8T6 / 3A001" class="w-full pl-12 pr-4 py-4 rounded-full bg-white text-slate-800 placeholder-slate-400 border-0 focus:outline-none focus:ring-4 focus:ring-blue-300/50">
-</div>
+<div class="relative mb-4">
+<svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+<input type="text" placeholder="搜索芯片型号，如STM32F103C8T6" class="w-full pl-12 pr-4 py-4 text-lg border border-gray-200 rounded-lg focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-200">
 </div>
 <!-- 关键词标签 -->
-<div class="flex flex-wrap justify-center gap-2 mb-6">
+<div class="flex justify-center gap-3 mb-4">
 {keywords.map(k => (
-<button class="px-4 py-1.5 bg-white/10 hover:bg-white/20 rounded-full text-sm transition-colors">{k}</button>
+<button class="px-3 py-1.5 text-sm text-gray-500 bg-gray-50 rounded hover:bg-gray-100">{k}</button>
 ))}
 </div>
-<!-- 信任标识 -->
-<div class="flex items-center justify-center gap-2 text-blue-100 text-sm">
-<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-<span>数据来源：BIS联邦公报 · 企业官方公告 · 中国海关总署</span>
-</div>
+<!-- 数据来源 -->
+<p class="text-xs text-gray-400">数据来源：BIS联邦公报 · 企业公告 · 海关总署</p>
 </div>
 </section>
-<div class="max-w-7xl mx-auto px-4 py-8">
 <!-- 数据看板 -->
-<section class="py-8 mb-8">
-<div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-{stats.map(s => (
+<section class="py-8 border-t border-gray-100">
+<div class="max-w-4xl mx-auto">
+<div class="grid grid-cols-4 gap-8 text-center">
 <div>
-<div class="text-4xl md:text-5xl font-bold text-[#0F4C81] mb-1">{s.value}</div>
-<div class="text-sm text-slate-500">{s.label}</div>
+<div class="text-3xl font-semibold text-gray-900">{chips.length}</div>
+<div class="text-xs text-gray-400 mt-1">收录芯片数</div>
 </div>
-))}
+<div>
+<div class="text-3xl font-semibold text-gray-900">{policies.length}</div>
+<div class="text-xs text-gray-400 mt-1">政策数</div>
+</div>
+<div>
+<div class="text-3xl font-semibold text-gray-900">9</div>
+<div class="text-xs text-gray-400 mt-1">受限项数</div>
+</div>
+<div>
+<div class="text-3xl font-semibold text-gray-900">{enterprises.length}</div>
+<div class="text-xs text-gray-400 mt-1">制裁企业数</div>
+</div>
+</div>
 </div>
 </section>
-<!-- 热门芯片矩阵 -->
-<section class="mb-12">
-<div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-bold text-slate-800">热门国产替代方案</h2>
-<a href="/chips" class="text-[#0F4C81] hover:underline text-sm">查看全部 {chips.length} 款 →</a>
+<div class="max-w-5xl mx-auto px-4">
+<!-- 热门芯片 -->
+<section class="py-10">
+<h2 class="text-sm font-medium text-gray-500 mb-6">热门替代方案</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+{chips.slice(0,3).map(chip => (
+<a href={`/chip/${chip.id}`} class="block bg-white border border-gray-100 rounded-lg p-4 hover:border-gray-200">
+<div class="flex justify-between items-start mb-2">
+<div>
+<div class="text-base font-medium text-gray-900">{chip.name}</div>
+<div class="text-xs text-gray-400">{chip.manufacturer}</div>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-{chips.slice(0,8).map(chip => (
-<a href={`/chip/${chip.id}`} class="bg-white rounded-xl p-5 hover:shadow-lg transition-shadow border border-slate-100">
-<div class="flex justify-between items-start mb-3">
-<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#0F4C81] to-[#2B6CB0] flex items-center justify-center text-white font-bold text-sm">
-{chip.manufacturer.slice(0,2)}
+<span class="text-sm font-medium text-orange-500">{chip.price}</span>
 </div>
-<span class={`text-xs px-2 py-1 rounded-full ${chip.substituteLevel==='pin2pin'?'bg-green-100 text-green-700':'bg-blue-100 text-blue-700'}`}>
-{chip.substituteLevel==='pin2pin'?'P2P':'功能替代'}
+<div class="flex items-center gap-2">
+<span class={`text-xs px-1.5 py-0.5 rounded ${chip.substituteLevel==='pin2pin'?'bg-green-50 text-green-600':'bg-blue-50 text-blue-600'}`}>
+{chip.substituteLevel==='pin2pin'?'P2P':'功能'}
 </span>
-</div>
-<h3 class="font-bold text-lg text-slate-800 mb-1">{chip.name}</h3>
-<p class="text-sm text-slate-500 mb-2">{chip.manufacturer}</p>
-<p class="text-xs text-slate-400 mb-3">替代 {chip.originalEquivalent}</p>
-<div class="flex justify-between items-center">
-<span class="text-[#E48736] font-bold text-lg">{chip.price}</span>
-<span class="text-xs text-slate-400">{Object.entries(chip.specs || {}).slice(0,2).map(([k,v]) => `${k}:${v}`).join(' · ')}</span>
+<span class="text-xs text-gray-400">替代 {chip.originalEquivalent}</span>
 </div>
 </a>
 ))}
 </div>
 </section>
 <!-- 最新管制动态 -->
-<section class="mb-12">
-<div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-bold text-slate-800">最新管制动态</h2>
-<a href="/policy" class="text-[#0F4C81] hover:underline text-sm">查看全部 →</a>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-{policies.slice(0,4).map(p => (
-<a href="/policy" class="flex items-center gap-4 bg-white rounded-xl p-4 hover:shadow-lg transition-shadow border border-slate-100">
-<div class="text-sm text-slate-400 whitespace-nowrap">{p.date}</div>
-<div class="flex-1">
-<h3 class="font-semibold text-slate-800">{p.title}</h3>
-</div>
-<span class={`text-xs px-2 py-1 rounded-full whitespace-nowrap ${p.impactLevel==='high'?'bg-red-100 text-red-700':p.impactLevel==='medium'?'bg-yellow-100 text-yellow-700':'bg-green-100 text-green-700'}`}>
+<section class="py-10 border-t border-gray-100">
+<h2 class="text-sm font-medium text-gray-500 mb-6">最新管制动态</h2>
+<div class="space-y-3">
+{policies.slice(0,3).map(p => (
+<a href="/policy" class="flex items-center gap-4 py-3 hover:bg-gray-50 rounded-lg -mx-2 px-2">
+<span class="text-xs text-gray-400 w-20">{p.date}</span>
+<span class="flex-1 text-sm text-gray-700">{p.title}</span>
+<span class={`text-xs px-2 py-1 rounded ${p.impactLevel==='high'?'bg-red-50 text-red-600':p.impactLevel==='medium'?'bg-yellow-50 text-yellow-600':'bg-green-50 text-green-600'}`}>
 {p.impactLevel==='high'?'高影响':p.impactLevel==='medium'?'中影响':'低影响'}
 </span>
 </a>
 ))}
 </div>
 </section>
-<!-- 产业链导航 -->
-<section class="mb-12">
-<h2 class="text-2xl font-bold text-slate-800 mb-6">产业链全景</h2>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-<a href="/equipment" class="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-shadow border border-slate-100">
-<div class="text-3xl mb-2">🔧</div>
-<h3 class="font-bold text-slate-800">设备</h3>
-<p class="text-sm text-slate-500">12大类</p>
-</a>
-<a href="/materials" class="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-shadow border border-slate-100">
-<div class="text-3xl mb-2">💎</div>
-<h3 class="font-bold text-slate-800">材料</h3>
-<p class="text-sm text-slate-500">10大类</p>
-</a>
-<a href="/eda-ip" class="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-shadow border border-slate-100">
-<div class="text-3xl mb-2">💻</div>
-<h3 class="font-bold text-slate-800">EDA/IP</h3>
-<p class="text-sm text-slate-500">8大类</p>
-</a>
-<a href="/chips" class="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-shadow border border-slate-100">
-<div class="text-3xl mb-2">🧩</div>
-<h3 class="font-bold text-slate-800">芯片</h3>
-<p class="text-sm text-slate-500">{chips.length}款</p>
-</a>
 </div>
-</section>
-</div>
+<!-- 底部 -->
+<footer class="py-8 text-center text-xs text-gray-400 border-t border-gray-100 mt-8">
+<p>AI芯片替代指南，数据可追溯</p>
+</footer>
 </Layout>

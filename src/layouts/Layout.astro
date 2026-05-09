@@ -1,6 +1,6 @@
 ---
-export interface Props { title: string; description: string; keywords?: string; }
-const { title, description, keywords } = Astro.props;
+export interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -9,33 +9,24 @@ const { title, description, keywords } = Astro.props;
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content={description}>
-{keywords && <meta name="keywords" content={keywords}>}
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-body { font-family: Inter, system-ui, -apple-system, sans-serif; background: #F8FAFC; color: #1E293B; line-height: 1.6; }
-.breadcrumb { font-size: 0.875rem; color: #64748B; }
-.breadcrumb a { color: #0F4C81; text-decoration: none; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #fff; color: #1a1a1a; line-height: 1.5; }
 </style>
 </head>
 <body>
-<nav class="bg-[#0F4C81] text-white fixed top-0 w-full z-50 shadow-sm" style="height:56px;">
-<div class="max-w-7xl mx-auto flex justify-between items-center h-full px-4">
-<a href="/" class="text-lg font-semibold">国产替代指南</a>
-<div class="space-x-6 text-sm hidden md:flex">
-<a href="/" class="hover:text-blue-200">首页</a>
-<a href="/chips" class="hover:text-blue-200">芯片搜索</a>
-<a href="/policy" class="hover:text-blue-200">政策数据库</a>
-<a href="/enterprise" class="hover:text-blue-200">实体清单</a>
-<a href="/restricted" class="hover:text-blue-200">受限追踪</a>
-<a href="/timeline" class="hover:text-blue-200">贸易看板</a>
+<nav class="bg-white border-b border-gray-100">
+<div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+<a href="/" class="text-base font-medium">国产芯片替代指南</a>
+<div class="flex gap-6 text-sm text-gray-500">
+<a href="/chips" class="hover:text-gray-900">芯片库</a>
+<a href="/policy" class="hover:text-gray-900">政策</a>
+<a href="/enterprise" class="hover:text-gray-900">企业</a>
 </div>
 </div>
 </nav>
-<main style="padding-top:56px; min-height:calc(100vh - 56px);">
+<main>
 <slot />
 </main>
-<footer class="bg-white border-t py-6 text-center text-sm text-slate-400">
-<p>© 2026 国产芯片替代指南 · 数据仅供参考</p>
-</footer>
 </body>
 </html>
