@@ -3,20 +3,117 @@ export interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content={description}>
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        'cyber-blue': '#00f2ff',
+        'alert-red': '#ff4d4d',
+        'logic-purple': '#a855f7',
+        'chip-gold': '#fbbf24',
+      },
+      fontFamily: {
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+      }
+    }
+  }
+}
+</script>
 <style>
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #fff; color: #1a1a1a; line-height: 1.5; }
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+body {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  background: #020617;
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+.circuit-bg {
+  background-image: 
+    linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+.glow-text {
+  text-shadow: 0 0 10px rgba(0, 242, 255, 0.5), 0 0 20px rgba(0, 242, 255, 0.3);
+}
+.glow-border {
+  box-shadow: 0 0 0 1px rgba(0, 242, 255, 0.3), 0 0 20px rgba(0, 242, 255, 0.1);
+}
+.glow-border:focus {
+  box-shadow: 0 0 0 2px rgba(0, 242, 255, 0.5), 0 0 30px rgba(0, 242, 255, 0.2);
+}
+.scanline {
+  position: relative;
+  overflow: hidden;
+}
+.scanline::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.5), transparent);
+  animation: scan 3s linear infinite;
+}
+@keyframes scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100px); }
+}
+.card-glitch {
+  position: relative;
+}
+.card-glitch::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, #00f2ff, #a855f7, #ff4d4d);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+}
+.card-glitch:hover::before {
+  opacity: 0.1;
+}
+.terminal-input {
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  color: #00f2ff;
+}
+.terminal-input::placeholder {
+  color: rgba(0, 242, 255, 0.4);
+}
+.badge-cyber {
+  background: rgba(0, 242, 255, 0.1);
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  color: #00f2ff;
+}
+.badge-alert {
+  background: rgba(255, 77, 77, 0.1);
+  border: 1px solid rgba(255, 77, 77, 0.3);
+  color: #ff4d4d;
+}
+.badge-purple {
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  color: #a855f7;
+}
+.badge-gold {
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+}
 </style>
 </head>
-<body>
-<main>
+<body class="circuit-bg min-h-screen">
 <slot />
-</main>
 </body>
 </html>
