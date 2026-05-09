@@ -1,13 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://www.aitoolguide.tech/sitemap.xml
-
-# Disallow admin and private pages
-Disallow: /member/
-Disallow: /vip-methods/
-Disallow: /sign-in/
-Disallow: /sign-up/
-
-# Crawl-delay for all bots
-Crawl-delay: 1
+Sitemap: https://www.ai2424.com/sitemap.xml

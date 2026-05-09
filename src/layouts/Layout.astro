@@ -1,138 +1,43 @@
 ---
-interface Props {
-  title: string;
-  description?: string;
-  lang?: string;
-}
-
-const { title, description = "国产芯片替代数据库平台 - 专业级元器件替代方案查询系统", lang = 'zh-CN' } = Astro.props;
-
-const currentPath = Astro.url.pathname;
+export interface Props { title: string; description: string; keywords?: string; }
+const { title, description, keywords } = Astro.props;
 ---
-
-<!doctype html>
-<html lang={lang} dir="ltr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="description" content={description} />
-  <meta name="keywords" content="国产芯片替代,芯片国产化,P2P兼容,元器件替代,兆易创新,STM32替代,国产MCU,国产ADC,国产电源芯片" />
-  <meta name="author" content="ChipAltDB Team" />
-  <meta name="robots" content="index, follow" />
-  <meta name="googlebot" content="index, follow" />
-  <meta name="bingbot" content="index, follow" />
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={`https://www.ai2424.com${currentPath}`} />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image" content="https://www.ai2424.com/chip-alt-og.jpg" />
-  <meta property="og:locale" content="zh_CN" />
-  
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content={`https://www.ai2424.com${currentPath}`} />
-  <meta property="twitter:title" content={title} />
-  <meta property="twitter:description" content={description} />
-  <meta property="twitter:image" content="https://www.ai2424.com/chip-alt-og.jpg" />
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href={`https://www.ai2424.com${currentPath}`} />
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json" is:inline>
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "ChipAltDB",
-    "url": "https://www.ai2424.com",
-    "description": "国产芯片替代数据库平台 - 专业级元器件替代方案查询系统",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://www.ai2424.com/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-  
-  <meta name="viewport" content="width=device-width" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="generator" content={Astro.generator} />
-  <title>{title}</title>
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com" is:inline></script>
-  <script is:inline>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            space: {
-              900: '#0a0e14',
-              800: '#111827',
-              700: '#1a2234',
-              600: '#243044',
-              500: '#3d4f6f',
-            },
-            industrial: {
-              500: '#2563eb',
-              400: '#3b82f6',
-              300: '#60a5fa',
-              600: '#1d4ed8',
-            },
-            oem: {
-              500: '#059669',
-              400: '#10b981',
-              300: '#34d399',
-              600: '#047857',
-            },
-            alert: {
-              amber: '#f59e0b',
-              red: '#dc2626',
-              orange: '#ea580c',
-            }
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Consolas', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
-  
-  <!-- Google Analytics (GA4) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-14213142037" is:inline></script>
-  <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-14213142037');
-  </script>
-  
-  <style is:global>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    .font-mono {
-      font-family: 'JetBrains Mono', Consolas, monospace;
-    }
-  </style>
+<!DOCTYPE html><html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title><meta name="description" content={description}>
+{keywords && <meta name="keywords" content={keywords}>}
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+body{font-family:'Inter',system-ui,sans-serif;background:#F8FAFC;color:#1E293B;line-height:1.7;font-size:18px;margin:0}
+.nav-gradient{background:linear-gradient(135deg,#0F4C81,#2B6CB0)}
+.card{background:#fff;border-radius:12px;border:1px solid #E2E8F0;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:24px;transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.btn-primary{background:#E48736;color:#fff;font-weight:600;padding:12px 24px;border-radius:8px;border:none;display:inline-block;text-decoration:none}
+.btn-primary:hover{background:#C96E2C}
+.btn-secondary{border:2px solid #0F4C81;color:#0F4C81;font-weight:600;padding:10px 22px;border-radius:8px;display:inline-block;text-decoration:none}
+.btn-secondary:hover{background:#0F4C81;color:#fff}
+.badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.75rem;font-weight:600}
+.badge-green{background:#DEF7EC;color:#03543F}
+.badge-blue{background:#E0F2FE;color:#075985}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-weight:600;color:#475569;padding:12px 8px;border-bottom:2px solid #E2E8F0}
+td{padding:12px 8px;border-bottom:1px solid #F1F5F9}
+tr:nth-child(even){background:#F8FAFC}tr:hover{background:#F1F5F9}
+.breadcrumb{font-size:.875rem;color:#64748B}.breadcrumb a{color:#0F4C81;text-decoration:none}
+.progress-bar{height:8px;background:#E2E8F0;border-radius:4px;overflow:hidden}.progress-fill{height:100%;border-radius:4px}
+.search-input{max-width:480px;padding:12px 20px;border:1px solid #CBD5E1;border-radius:8px;font-size:16px}
+.search-input:focus{outline:none;border-color:#0F4C81;box-shadow:0 0 0 3px rgba(15,76,129,.1)}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"AI芯片替代指南","url":"https://www.ai2424.com"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://www.ai2424.com","potentialAction":{"@type":"SearchAction","target":"https://www.ai2424.com/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 </head>
-<body class="bg-gray-900 text-gray-100 antialiased min-h-screen">
-  <slot />
-</body>
-</html>
+<body>
+<nav class="nav-gradient text-white fixed top-0 w-full z-50 shadow-md" style="height:60px"><div class="max-w-7xl mx-auto flex justify-between items-center h-full px-4">
+<a href="/" class="text-2xl font-bold">AI替代指南</a>
+<div class="space-x-6 text-sm font-medium hidden md:flex">
+<a href="/" class="hover:text-orange-200">首页</a><a href="/chips" class="hover:text-orange-200">芯片库</a><a href="/timeline" class="hover:text-orange-200">时间线</a><a href="/policy" class="hover:text-orange-200">政策库</a><a href="/restricted" class="hover:text-orange-200">受限追踪</a>
+</div></div></nav>
+<main style="padding-top:80px;min-height:calc(100vh - 60px)"><slot /></main>
+<footer class="bg-white border-t mt-12 py-6 text-center text-sm text-slate-500"><p>© 2026 AI芯片替代指南 · 数据仅供参考</p></footer>
+</body></html>

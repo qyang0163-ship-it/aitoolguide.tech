@@ -4,8 +4,7 @@ export async function getStaticPaths() {
   return chips.default.map(chip => ({ params: { id: chip.id }, props: { chip } }));
 }
 const { chip } = Astro.props;
-const { id, name, manufacturer, original, specs, alternatives, datasheetUrl, price } = chip;
-const originalEquivalent = original;
+const { id, name, manufacturer, originalEquivalent, specs, alternatives, datasheetUrl, price } = chip;
 const alternativeChips = alternatives || [];
 const pageTitle = `${name} 国产替代芯片 | P2P兼容 ${originalEquivalent} | 参数对比`;
 const pageDescription = `国产替代 ${name} 完美替换 ${originalEquivalent}，无需改板，参数对比与手册下载。`;
@@ -155,10 +154,10 @@ const pageDescription = `国产替代 ${name} 完美替换 ${originalEquivalent}
             {alternativeChips.map(alt => (
               <div class="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
                 <div>
-                  <span class="font-medium text-slate-800">{alt.name}</span>
-                  <span class="text-xs text-slate-500 ml-2">{alt.manufacturer}</span>
+                  <span class="font-medium text-slate-800">{alt.model}</span>
+                  <span class="text-xs text-slate-500 ml-2">{alt.supplier}</span>
                 </div>
-                <a href={`/chip/${alt.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}`} class="text-[#0A5CFF] text-sm hover:underline">查看</a>
+                <a href={`/chip/${alt.model.toLowerCase().replace(/[^a-z0-9]/g, '-')}`} class="text-[#0A5CFF] text-sm hover:underline">查看</a>
               </div>
             ))}
           </div>

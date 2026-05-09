@@ -1,181 +1,79 @@
 ---
 import Layout from '../layouts/Layout.astro';
 const chips = (await import('../data/chips.json')).default;
+const policies = (await import('../data/policies.json')).default;
+const restricted = (await import('../data/restricted.json')).default;
 ---
-
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>国产芯片替代指南 | P2P兼容参数对比</title>
-  <meta name="description" content="收录国产替代芯片，提供引脚兼容比对、技术手册下载，助力硬件开发者快速选型。">
-  <meta name="keywords" content="国产替代,芯片选型,P2P兼容,STM32替代,ESP32替代,参数对比">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .card { 
-      background-color: white; 
-      border-radius: 12px; 
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
-      border: 1px solid #e2e8f0; 
-      padding: 24px; 
-      transition: all 0.2s;
-    }
-    .card:hover { 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-    }
-    .btn-primary { 
-      background-color: #0A5CFF; 
-      color: white; 
-      font-weight: 600; 
-      padding: 12px 24px; 
-      border-radius: 8px; 
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-primary:hover { 
-      background-color: #0047CC; 
-    }
-    .btn-secondary {
-      border: 2px solid #0A5CFF;
-      color: #0A5CFF;
-      font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 8px;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-secondary:hover {
-      background-color: #0A5CFF;
-      color: white;
-    }
-  </style>
-</head>
-<body class="bg-slate-50 font-sans">
-  <nav class="bg-white border-b sticky top-0 z-50 px-4 py-3">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="/" class="text-2xl font-bold text-[#0A5CFF]">AI替代指南</a>
-      <div class="space-x-4">
-        <a href="/" class="text-slate-600 hover:text-[#0A5CFF] font-medium">首页</a>
-        <a href="/chips" class="text-slate-600 hover:text-[#0A5CFF]">芯片库</a>
-        <a href="/timeline" class="text-slate-600 hover:text-[#0A5CFF]">管制时间线</a>
-      </div>
-    </div>
-  </nav>
-
-  <main class="max-w-7xl mx-auto px-4 py-16">
-    <!-- Hero -->
-    <div class="text-center mb-16">
-      <h1 class="text-5xl font-extrabold text-slate-900 mb-6">国产芯片替代指南</h1>
-      <p class="text-xl text-slate-600 max-w-2xl mx-auto mb-8">引脚兼容、性能对比、手册下载——找到最合适的平替方案。应对出口管制，实现供应链自主可控。</p>
-      <div class="flex justify-center gap-4 flex-wrap">
-        <a href="/chips" class="btn-primary">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-          </svg>
-          浏览芯片库
-        </a>
-        <a href="/timeline" class="btn-secondary">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          查看管制时间线
-        </a>
-      </div>
-    </div>
-
-    <!-- 统计 -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-      <div class="card text-center">
-        <p class="text-3xl font-bold text-[#0A5CFF]">11</p>
-        <p class="text-slate-500 text-sm">收录芯片</p>
-      </div>
-      <div class="card text-center">
-        <p class="text-3xl font-bold text-[#0A5CFF]">6</p>
-        <p class="text-slate-500 text-sm">芯片品类</p>
-      </div>
-      <div class="card text-center">
-        <p class="text-3xl font-bold text-[#0A5CFF]">7</p>
-        <p class="text-slate-500 text-sm">P2P兼容</p>
-      </div>
-      <div class="card text-center">
-        <p class="text-3xl font-bold text-[#0A5CFF]">100%</p>
-        <p class="text-slate-500 text-sm">免费手册</p>
-      </div>
-    </div>
-
-    <!-- 精选芯片 -->
-    <div class="mb-8">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-slate-800">精选替代方案</h2>
-        <a href="/chips" class="text-[#0A5CFF] hover:underline text-sm">查看全部 →</a>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {chips.slice(0,6).map(chip => (
-          <a href={`/chip/${chip.id}`} class="card block">
-            <div class="flex justify-between items-start mb-3">
-              <div>
-                <h3 class="text-lg font-bold text-slate-800">{chip.name}</h3>
-                <p class="text-sm text-slate-500">替代 {chip.original}</p>
-              </div>
-              <span class="bg-green-50 text-green-700 text-xs px-2 py-1 rounded-full">
-                {chip.alternatives.filter(a => a.p2pCompatible).length > 0 ? 'P2P' : '功能'}
-              </span>
-            </div>
-            <div class="flex gap-2 mb-4">
-              {Object.entries(chip.specs).slice(0, 2).map(([k, v]) => (
-                <span class="text-xs text-slate-600 bg-slate-50 border border-slate-100 px-2 py-1 rounded">
-                  {k}: {v}
-                </span>
-              ))}
-            </div>
-            <div class="flex justify-between items-center pt-4 border-t border-slate-100">
-              <span class="text-[#0A5CFF] font-bold">¥{chip.price}</span>
-              <span class="text-slate-400 text-sm">{chip.manufacturer}</span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-
-    <!-- 管制动态 -->
-    <div class="card bg-gradient-to-br from-slate-800 to-slate-900 text-white mb-12">
-      <div class="flex items-start gap-4">
-        <div class="bg-red-500 rounded-full p-2">
-          <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-          </svg>
-        </div>
-        <div>
-          <h3 class="text-xl font-bold mb-2">最新管制动态</h3>
-          <p class="text-slate-300 mb-4">2026年3-4月，美国推进《芯片安全法案》与MATCH法案，全面封锁中国获取先进半导体技术。</p>
-          <a href="/timeline" class="text-blue-300 hover:text-white underline">查看完整时间线 →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="text-center">
-      <h2 class="text-2xl font-bold text-slate-800 mb-4">需要技术支持？</h2>
-      <p class="text-slate-600 mb-6">获取样品、技术手册、替代方案咨询，一对一技术支持</p>
-      <a href="/contact" class="btn-primary">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-        </svg>
-        联系工程师
-      </a>
-    </div>
-  </main>
-
-  <footer class="bg-slate-900 text-slate-400 py-8 mt-12">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <p>AI替代指南 - 国产芯片选型与替代方案平台</p>
-      <p class="text-sm mt-2">© 2026 保留所有权利</p>
-    </div>
-  </footer>
-</body>
-</html>
+<Layout title="国产芯片替代指南 | P2P兼容参数对比与技术手册" description="收录20+款国产替代芯片，提供引脚兼容比对、技术手册下载，追踪美国对华芯片管制政策。" keywords="国产替代,芯片选型,P2P兼容,STM32替代,出口管制">
+<div class="max-w-7xl mx-auto px-4 py-8">
+<div class="text-center mb-16 py-12">
+<h1 class="text-5xl font-extrabold text-slate-900 mb-6">国产芯片替代指南</h1>
+<p class="text-xl text-slate-600 max-w-2xl mx-auto mb-8">引脚兼容、性能对比、手册下载——找到最合适的平替方案。应对出口管制，实现供应链自主可控。</p>
+<div class="flex justify-center gap-4 flex-wrap">
+<a href="/chips" class="btn-primary">浏览芯片库</a>
+<a href="/restricted" class="btn-secondary">查看受限追踪</a>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+<div class="card text-center"><p class="text-3xl font-bold text-[#0F4C81]">{chips.length}</p><p class="text-slate-500 text-sm">收录芯片</p></div>
+<div class="card text-center"><p class="text-3xl font-bold text-[#0F4C81]">{policies.length}</p><p class="text-slate-500 text-sm">政策条目</p></div>
+<div class="card text-center"><p class="text-3xl font-bold text-[#0F4C81]">{restricted.length}</p><p class="text-slate-500 text-sm">受限项</p></div>
+<div class="card text-center"><p class="text-3xl font-bold text-[#E48736]">100%</p><p class="text-slate-500 text-sm">免费手册</p></div>
+</div>
+<div class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-slate-800">精选替代方案</h2>
+<a href="/chips" class="text-[#0F4C81] hover:underline text-sm font-medium">查看全部 →</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+{chips.slice(0,6).map(chip => (
+<a href={`/chip/${chip.id}`} class="card block hover:shadow-lg transition-shadow">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="text-lg font-bold text-slate-800">{chip.name}</h3>
+<p class="text-sm text-slate-500">替代 {chip.originalEquivalent}</p>
+</div>
+<span class="badge badge-green">{chip.substituteLevel === 'pin2pin' ? 'P2P' : '功能'}</span>
+</div>
+<div class="flex gap-2 mb-4 flex-wrap">
+{Object.entries(chip.specs).slice(0,2).map(([k,v]) => (
+<span class="text-xs text-slate-600 bg-slate-50 border border-slate-100 px-2 py-1 rounded">{k}: {v}</span>
+))}
+</div>
+<div class="flex justify-between items-center pt-4 border-t border-slate-100">
+<span class="text-[#E48736] font-bold">{chip.price}</span>
+<span class="text-slate-400 text-sm">{chip.manufacturer}</span>
+</div>
+</a>
+))}
+</div>
+</div>
+<div class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-slate-800">最新管制动态</h2>
+<a href="/policy" class="text-[#0F4C81] hover:underline text-sm font-medium">查看政策库 →</a>
+</div>
+<div class="card bg-gradient-to-br from-slate-800 to-slate-900 text-white">
+<div class="flex items-start gap-4">
+<div class="bg-red-500 rounded-full p-2 flex-shrink-0">
+<svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-bold mb-2">{policies[0].title}</h3>
+<p class="text-slate-300 mb-4">{policies[0].summary}</p>
+<div class="flex gap-4 text-sm">
+<span class="text-slate-400">发布日期: {policies[0].date}</span>
+<span class="text-slate-400">影响: {policies[0].impact}</span>
+</div>
+</div>
+<a href="/policy" class="btn-primary text-sm py-2 px-4 flex-shrink-0">查看详情</a>
+</div>
+</div>
+</div>
+<div class="text-center py-12">
+<h2 class="text-2xl font-bold text-slate-800 mb-4">需要技术支持？</h2>
+<p class="text-slate-600 mb-6 max-w-xl mx-auto">获取样品、技术手册、替代方案咨询，一对一技术支持。</p>
+<a href="/contact" class="btn-primary">联系工程师</a>
+</div>
+</div>
+</Layout>
