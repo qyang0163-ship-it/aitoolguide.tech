@@ -62,6 +62,73 @@
     "datasheetUrl": "/docs/ch32v307.pdf"
   },
   {
+    "id": "stm32f407vet6",
+    "name": "AT32F407VET6",
+    "manufacturer": "雅特力",
+    "original": "STM32F407VET6",
+    "originalManufacturer": "STMicroelectronics",
+    "category": "mcu",
+    "specs": {
+      "内核": "ARM Cortex-M4",
+      "主频": "200MHz",
+      "Flash": "512KB",
+      "SRAM": "192KB",
+      "电压": "1.8-3.6V",
+      "温度": "-40~85°C"
+    },
+    "alternatives": [
+      { "name": "GD32F407VET6", "manufacturer": "兆易创新", "p2pCompatible": true }
+    ],
+    "price": 5.80,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "https://www.arterytek.com/datasheet/AT32F407.pdf"
+  },
+  {
+    "id": "esp32-wroom-32",
+    "name": "CB3S",
+    "manufacturer": "乐鑫科技",
+    "original": "ESP32-WROOM-32",
+    "originalManufacturer": "Espressif",
+    "category": "wifi",
+    "specs": {
+      "内核": "Xtensa LX6",
+      "Wi-Fi": "802.11 b/g/n",
+      "蓝牙": "BLE 4.2",
+      "Flash": "4MB",
+      "电压": "3.0-3.6V"
+    },
+    "alternatives": [
+      { "name": "TG-12F", "manufacturer": "安信可", "p2pCompatible": false }
+    ],
+    "price": 6.50,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_cn.pdf"
+  },
+  {
+    "id": "atmega328p-au",
+    "name": "LGT8F328P",
+    "manufacturer": "逻辑科技",
+    "original": "ATmega328P-AU",
+    "originalManufacturer": "Microchip",
+    "category": "mcu",
+    "specs": {
+      "内核": "AVR 8-Bit",
+      "主频": "20MHz",
+      "Flash": "32KB",
+      "SRAM": "2KB",
+      "电压": "1.8-5.5V"
+    },
+    "alternatives": [
+      { "name": "N76E003AT20", "manufacturer": "新唐", "p2pCompatible": false }
+    ],
+    "price": 1.90,
+    "currency": "CNY",
+    "inStock": true,
+    "datasheetUrl": "http://www.lgtic.com/ds/LGT8F328P.pdf"
+  },
+  {
     "id": "ads1115",
     "name": "ADS1115",
     "manufacturer": "Texas Instruments",

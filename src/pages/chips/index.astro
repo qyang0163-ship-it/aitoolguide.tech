@@ -1,0 +1,117 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const chips = (await import('../../data/chips.json')).default;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>国产芯片替代库 | P2P兼容参数对比</title>
+  <meta name="description" content="收录最全国产替代芯片，引脚兼容、性能对比，快速找到平替方案。">
+  <meta name="keywords" content="国产替代,芯片选型,P2P兼容,STM32替代,ESP32替代,ATmega替代">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .card { 
+      background-color: white; 
+      border-radius: 12px; 
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+      border: 1px solid #e2e8f0; 
+      padding: 24px; 
+      transition: all 0.2s;
+    }
+    .card:hover { 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+    }
+    .btn-primary { 
+      background-color: #0A5CFF; 
+      color: white; 
+      font-weight: 600; 
+      padding: 12px 24px; 
+      border-radius: 8px; 
+      transition: all 0.2s;
+    }
+    .btn-primary:hover { 
+      background-color: #0047CC; 
+    }
+  </style>
+</head>
+<body class="bg-slate-50 font-sans">
+  <nav class="bg-white border-b sticky top-0 z-50 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold text-[#0A5CFF]">AI替代指南</a>
+      <div class="space-x-4">
+        <a href="/" class="text-slate-600 hover:text-[#0A5CFF]">首页</a>
+        <a href="/chips" class="text-slate-600 hover:text-[#0A5CFF] font-medium">芯片库</a>
+        <a href="/timeline" class="text-slate-600 hover:text-[#0A5CFF]">管制时间线</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-slate-900 mb-4">国产芯片替代库</h1>
+      <p class="text-slate-600 max-w-2xl mx-auto">收录11款国产替代芯片，涵盖MCU、ADC、电源、接口、传感器、存储等品类。以下芯片均可实现P2P兼容，无需修改电路板。</p>
+    </div>
+
+    <!-- 分类筛选 -->
+    <div class="flex gap-3 mb-8 flex-wrap justify-center">
+      <button class="px-4 py-2 bg-[#0A5CFF] text-white rounded-full text-sm font-medium">全部</button>
+      <button class="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-[#0A5CFF] hover:text-[#0A5CFF]">MCU</button>
+      <button class="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-[#0A5CFF] hover:text-[#0A5CFF]">ADC</button>
+      <button class="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-[#0A5CFF] hover:text-[#0A5CFF]">电源</button>
+      <button class="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-[#0A5CFF] hover:text-[#0A5CFF]">接口</button>
+      <button class="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-[#0A5CFF] hover:text-[#0A5CFF]">传感器</button>
+      <button class="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-[#0A5CFF] hover:text-[#0A5CFF]">存储</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {chips.map(chip => (
+        <a href={`/chip/${chip.id}`} class="card block">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h2 class="text-xl font-bold text-slate-800">{chip.name}</h2>
+              <p class="text-sm text-slate-500">替代 {chip.original}</p>
+            </div>
+            <span class="bg-green-50 text-green-700 text-xs px-2 py-1 rounded-full font-medium">
+              {chip.alternatives.filter(a => a.p2pCompatible).length > 0 ? 'P2P' : '功能替代'}
+            </span>
+          </div>
+          
+          <div class="flex gap-2 mb-4">
+            {Object.entries(chip.specs).slice(0, 3).map(([k, v]) => (
+              <span class="text-xs text-slate-600 bg-slate-50 border border-slate-100 px-2 py-1 rounded">
+                {k}: {v}
+              </span>
+            ))}
+          </div>
+
+          <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+            <span class="text-[#0A5CFF] font-bold text-lg">¥{chip.price}</span>
+            <span class="text-slate-400 text-sm">{chip.manufacturer}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-12 text-center">
+      <p class="text-slate-500 mb-4">没有找到需要的芯片？</p>
+      <a href="/contact" class="btn-primary inline-flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        提交替代需求
+      </a>
+    </div>
+  </main>
+
+  <footer class="bg-slate-900 text-slate-400 py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p>AI替代指南 - 国产芯片选型与替代方案平台</p>
+      <p class="text-sm mt-2">© 2026 保留所有权利</p>
+    </div>
+  </footer>
+</body>
+</html>
