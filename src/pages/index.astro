@@ -1,26 +1,120 @@
 ---
 import Layout from '../layouts/Layout.astro';
+const enterprises = (await import('../data/enterprises.json')).default;
 const chips = (await import('../data/chips.json')).default;
 const policies = (await import('../data/policies.json')).default;
-const restricted = (await import('../data/restricted.json')).default;
 ---
-<Layout title="国产芯片替代指南" description="国产替代芯片数据库">
-<section class="text-center py-16 px-4">
- <h1 class="text-5xl font-extrabold mb-4">国产芯片替代<span class="text-[#0F4C81]">智能选型</span></h1>
- <p class="text-xl text-slate-600 mb-4"><span class="font-bold">{chips.length}</span>款国产替代芯片</p>
- <p class="text-sm text-slate-400 mb-8">数据来源：BIS联邦公报、企业公告、海关总署</p>
- <div class="flex justify-center gap-4 flex-wrap mb-8"><a href="/chips" class="btn-primary">浏览芯片库</a><a href="/policy" class="btn-secondary">管制政策</a></div>
- <input type="text" placeholder="输入型号如 STM32F103C8T6" class="search-input" onkeydown="if(event.key==='Enter')window.location.href='/chips?search='+this.value">
+<Layout title="国产芯片替代指南 | 追踪管制·验证替代" description="追踪芯片管制政策，验证国产替代进展。每一条信息都有官方出处：BIS联邦公报、企业公告、海关总署。">
+<div class="max-w-7xl mx-auto px-4 py-8">
+<!-- Hero -->
+<section class="text-center py-12 mb-8">
+<h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">追踪芯片管制，验证国产替代<br><span class="text-[#0F4C81]">每一条信息都有官方出处</span></h1>
+<p class="text-lg text-slate-600">BIS联邦公报 · 企业官方公告 · 中国海关总署</p>
 </section>
-<section class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
- <div class="card text-center"><div class="text-4xl font-bold text-[#0F4C81]">{chips.length}</div><div>国产替代芯片</div></div>
- <div class="card text-center"><div class="text-4xl font-bold text-[#E48736]">{policies.length}</div><div>管制政策</div></div>
- <div class="card text-center"><div class="text-4xl font-bold">{restricted.length}</div><div>受限项</div></div>
+<!-- 数据看板 -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="card border-l-4 border-red-500">
+<div class="flex items-center gap-2 mb-3">
+<svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+<h2 class="text-xl font-bold text-slate-800">管制利剑</h2>
+</div>
+<p class="text-3xl font-bold text-red-600 mb-2">{enterprises.length}家</p>
+<p class="text-slate-600">实体清单企业</p>
+<div class="mt-4 pt-4 border-t border-slate-100">
+<p class="text-sm text-slate-500">MATCH法案：<span class="font-semibold text-red-600">参议院审议中</span></p>
+</div>
+</div>
+<div class="card border-l-4 border-green-500">
+<div class="flex items-center gap-2 mb-3">
+<svg class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+<h2 class="text-xl font-bold text-slate-800">替代时钟</h2>
+</div>
+<p class="text-lg font-semibold text-green-700 mb-2">昇腾910B</p>
+<p class="text-slate-600 mb-4">出货量持续攀升</p>
+<div class="mt-4 pt-4 border-t border-slate-100">
+<p class="text-sm text-slate-500">鼎龙光刻胶：<span class="font-semibold text-green-600">已投产</span></p>
+</div>
+</div>
+<div class="card border-l-4 border-blue-500">
+<div class="flex items-center gap-2 mb-3">
+<svg class="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+<h2 class="text-xl font-bold text-slate-800">贸易动态</h2>
+</div>
+<p class="text-3xl font-bold text-blue-600 mb-2">↑3.8%</p>
+<p class="text-slate-600">2026年4月芯片出口</p>
+<div class="mt-4 pt-4 border-t border-slate-100">
+<p class="text-sm text-slate-500">数据来源：<span class="font-semibold">海关总署</span></p>
+</div>
+</div>
 </section>
-<section class="max-w-7xl mx-auto px-4 mb-16">
- <h2 class="text-3xl font-bold mb-6">热门替代</h2>
- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
- {chips.slice(0,6).map(chip=>(<a href={`/chip/${chip.id}`} class="card block"><div class="flex justify-between"><h3 class="font-bold">{chip.name}</h3><span class="badge badge-green">P2P</span></div><p class="text-sm">替代 {chip.originalEquivalent}</p><div class="mt-3 flex justify-between"><span class="text-[#E48736] font-bold">{chip.price}</span><span class="text-xs text-slate-400">{chip.manufacturer}</span></div></a>))}
- </div>
+<!-- 最新管制动态 -->
+<section class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-slate-800">最新管制动态</h2>
+<a href="/policy" class="text-[#0F4C81] hover:underline text-sm">查看全部 →</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+{policies.slice(0,3).map(p => (
+<a href="/policy" class="card block hover:shadow-lg transition-shadow">
+<div class="flex justify-between items-start mb-3">
+<span class="text-xs text-slate-400">{p.date}</span>
+<span class={`badge ${p.impactLevel==='high'?'bg-red-100 text-red-700':p.impactLevel==='medium'?'bg-yellow-100 text-yellow-700':'bg-green-100 text-green-700'}`}>
+{p.impactLevel==='high'?'高影响':p.impactLevel==='medium'?'中影响':'低影响'}
+</span>
+</div>
+<h3 class="font-bold text-slate-800 mb-2">{p.title}</h3>
+<p class="text-sm text-slate-600 line-clamp-2">{p.summary}</p>
+</a>
+))}
+</div>
 </section>
+<!-- 热门替代芯片 -->
+<section class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-slate-800">热门替代芯片</h2>
+<a href="/chips" class="text-[#0F4C81] hover:underline text-sm">查看全部 {chips.length} 款 →</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+{chips.slice(0,6).map(chip => (
+<a href={`/chip/${chip.id}`} class="card block hover:shadow-lg transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-lg text-slate-800">{chip.name}</h3>
+<span class="badge badge-green">{chip.substituteLevel==='pin2pin'?'P2P':'功能'}</span>
+</div>
+<p class="text-sm text-slate-500 mb-3">替代 {chip.originalEquivalent}</p>
+<div class="flex justify-between items-center">
+<span class="text-[#E48736] font-bold">{chip.price}</span>
+<span class="text-xs text-slate-400">{chip.manufacturer}</span>
+</div>
+</a>
+))}
+</div>
+</section>
+<!-- 产业链导航 -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold text-slate-800 mb-6">产业链全景</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<a href="/equipment" class="card text-center py-8 hover:shadow-lg transition-shadow">
+<div class="text-3xl mb-2">🔧</div>
+<h3 class="font-bold text-slate-800">设备</h3>
+<p class="text-sm text-slate-500">12大类</p>
+</a>
+<a href="/materials" class="card text-center py-8 hover:shadow-lg transition-shadow">
+<div class="text-3xl mb-2">💎</div>
+<h3 class="font-bold text-slate-800">材料</h3>
+<p class="text-sm text-slate-500">10大类</p>
+</a>
+<a href="/eda-ip" class="card text-center py-8 hover:shadow-lg transition-shadow">
+<div class="text-3xl mb-2">💻</div>
+<h3 class="font-bold text-slate-800">EDA/IP</h3>
+<p class="text-sm text-slate-500">8大类</p>
+</a>
+<a href="/chips" class="card text-center py-8 hover:shadow-lg transition-shadow">
+<div class="text-3xl mb-2">🧩</div>
+<h3 class="font-bold text-slate-800">芯片</h3>
+<p class="text-sm text-slate-500">{chips.length}款</p>
+</a>
+</div>
+</section>
+</div>
 </Layout>
