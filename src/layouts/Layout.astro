@@ -26,24 +26,21 @@ td{padding:12px 8px;border-bottom:1px solid #F1F5F9}
 tr:nth-child(even){background:#F8FAFC}tr:hover{background:#F1F5F9}
 .breadcrumb{font-size:.875rem;color:#64748B}.breadcrumb a{color:#0F4C81;text-decoration:none}
 .progress-bar{height:8px;background:#E2E8F0;border-radius:4px;overflow:hidden}.progress-fill{height:100%;border-radius:4px}
-.search-input{max-width:480px;padding:12px 20px;border:1px solid #CBD5E1;border-radius:8px;font-size:16px}
-.search-input:focus{outline:none;border-color:#0F4C81;box-shadow:0 0 0 3px rgba(15,76,129,.1)}
+.search-input{max-width:640px;padding:14px 24px;border:2px solid #CBD5E1;border-radius:12px;font-size:16px;transition:all .2s}
+.search-input:focus{outline:none;border-color:#0F4C81;box-shadow:0 0 0 4px rgba(15,76,129,.1)}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"国产芯片替代指南","url":"https://www.ai2424.com"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://www.ai2424.com","potentialAction":{"@type":"SearchAction","target":"https://www.ai2424.com/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 </head>
 <body>
 <nav class="nav-gradient text-white fixed top-0 w-full z-50 shadow-md" style="height:60px"><div class="max-w-7xl mx-auto flex justify-between items-center h-full px-4">
 <a href="/" class="text-xl font-bold">国产替代指南</a>
-<div class="space-x-4 text-sm font-medium hidden md:flex">
-<a href="/equipment" class="hover:text-orange-200">设备</a>
-<a href="/materials" class="hover:text-orange-200">材料</a>
-<a href="/eda-ip" class="hover:text-orange-200">EDA/IP</a>
-<a href="/chips" class="hover:text-orange-200">芯片</a>
-<a href="/enterprise" class="hover:text-orange-200">企业</a>
-<a href="/policy" class="hover:text-orange-200">政策</a>
+<div class="space-x-6 text-sm font-medium hidden md:flex">
+<a href="/" class="hover:text-orange-200">首页</a>
+<a href="/chips" class="hover:text-orange-200">芯片搜索</a>
+<a href="/policy" class="hover:text-orange-200">政策数据库</a>
+<a href="/enterprise" class="hover:text-orange-200">实体清单</a>
 <a href="/restricted" class="hover:text-orange-200">受限追踪</a>
-<a href="/timeline" class="hover:text-orange-200">时间线</a>
+<a href="/timeline" class="hover:text-orange-200">贸易看板</a>
 </div></div></nav>
 <main style="padding-top:80px;min-height:calc(100vh - 60px)"><slot /></main>
 <footer class="bg-white border-t mt-12 py-6 text-center text-sm text-slate-500"><p>© 2026 国产芯片替代指南 · 数据仅供参考</p></footer>
