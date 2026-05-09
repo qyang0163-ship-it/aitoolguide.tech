@@ -1,8 +1,106 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// i18n translations for SEO meta
+const pageTitle = {
+  'zh-CN': '登录 - AIToolGuide 会员中心',
+  'en': 'Sign In - AIToolGuide Member Center',
+  'zh-TW': '登入 - AIToolGuide 會員中心',
+  'ja': 'ログイン - AIToolGuide メンバーセンター',
+  'ko': '로그인 - AIToolGuide 멤버 센터'
+};
+
+const pageDescription = {
+  'zh-CN': '登录 AIToolGuide 会员账户，访问独家AI赚钱教程、高级工具和真实成功案例。加入12,000+会员，用AI实现副业增收。',
+  'en': 'Sign in to AIToolGuide to access exclusive AI money-making tutorials, premium tools, and real success stories. Join 12,000+ members using AI for income growth.',
+  'zh-TW': '登入 AIToolGuide 會員帳戶，存取獨家AI賺錢教程、高階工具和真實成功案例。',
+  'ja': 'AIToolGuideにログインして、AI赚钱ガイド、高機能ツール、実績事例にアクセス。',
+  'ko': 'AIToolGuide에 로그인하여 AI 수익 창출 튜토리얼, 프리미엄 도구, 성공 사례 접근.'
+};
+
+// Detect current language from URL
+const pathLang = Astro.url.pathname.includes('/zh-CN') ? 'zh-CN' : 
+                 Astro.url.pathname.includes('/zh-TW') ? 'zh-TW' :
+                 Astro.url.pathname.includes('/ja') ? 'ja' :
+                 Astro.url.pathname.includes('/ko') ? 'ko' : 'en';
+const currentLang = pathLang;
+const title = pageTitle[currentLang] || pageTitle['en'];
+const description = pageDescription[currentLang] || pageDescription['en'];
+
+// Canonical and hreflang helpers
+const getAlternateUrl = (locale) => {
+  const path = currentPath.replace(/\/(zh-CN|zh-TW|ja|ko|es|fr|de|pt|ru|ar|hi|th|tr|vi|id)/, '');
+  return locale === 'en' ? `https://www.ai2424.com/sign-in/` : `https://www.ai2424.com/${locale}/sign-in/`;
+};
+
+const currentPath = Astro.url.pathname;
 ---
 
-<Layout title="Sign In - AIToolGuide Member Access">
+<Layout title={title}>
+  <!-- SEO Enhancement: JSON-LD Structured Data for Sign-In Page -->
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://www.ai2424.com/sign-in/",
+    "url": "https://www.ai2424.com/sign-in/",
+    "name": "Sign In - AIToolGuide Member Center",
+    "description": "Sign in to access AIToolGuide exclusive AI money-making content, premium tools, and community access.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://www.ai2424.com/#website",
+      "url": "https://www.ai2424.com",
+      "name": "AIToolGuide - AI赚钱工具指南",
+      "description": "AI赚钱工具与副业变现平台"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "AIToolGuide Member Account",
+      "description": "AI tools and money-making guidance membership"
+    },
+    "mainEntity": {
+      "@type": "WebApplication",
+      "name": "AIToolGuide Sign In",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free membership registration and sign-in"
+      }
+    }
+  }
+  </script>
+
+  <!-- Open Graph & Twitter Meta - Sign-In Specific -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.ai2424.com/sign-in/" />
+  <meta property="og:title" content="登录 - AIToolGuide 会员中心" />
+  <meta property="og:description" content="登录账户，访问独家AI赚钱教程和高级工具" />
+  <meta property="og:image" content="https://www.ai2424.com/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content="AIToolGuide" />
+
+  <!-- Twitter Card - Sign-In -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://www.ai2424.com/sign-in/" />
+  <meta name="twitter:title" content="登录 - AIToolGuide 会员中心" />
+  <meta name="twitter:description" content="登录账户，访问独家AI赚钱教程和高级工具" />
+  <meta name="twitter:image" content="https://www.ai2424.com/og-image.jpg" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.ai2424.com/sign-in/" />
+
+  <!-- Hreflang Tags -->
+  <link rel="alternate" hreflang="en" href="https://www.ai2424.com/sign-in/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://www.ai2424.com/zh-CN/sign-in/" />
+  <link rel="alternate" hreflang="zh-TW" href="https://www.ai2424.com/zh-TW/sign-in/" />
+  <link rel="alternate" hreflang="ja" href="https://www.ai2424.com/ja/sign-in/" />
+  <link rel="alternate" hreflang="ko" href="https://www.ai2424.com/ko/sign-in/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.ai2424.com/sign-in/" />
   <div class="auth-page">
     <!-- Header -->
     <header class="header">

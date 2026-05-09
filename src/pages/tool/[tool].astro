@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import chipsData from '../../data/chips_db.js';
+import { chipsData } from '../../data/chips_db.js';
 
 export function getStaticPaths() {
   return chipsData.map(chip => ({
@@ -21,8 +21,7 @@ const chip = chipsData.find(c => c.id === tool) || chipsData[0];
       <span style="margin-left:0.75rem;letter-spacing:0.1em;">chip-detail@platform:~</span>
     </div>
     <div class="terminal-body" style="background:#0a0a0a;border:1px solid #1a1a1a;border-top:none;border-radius:0 0 6px 6px;padding:2rem;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#00ff41,transparent);animation:glow-pulse 3s ease-in-out infinite;"></div>
-      @keyframes glow-pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#00ff41,transparent);"></div>
 
       <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid #1a1a1a;">
         <span style="font-size:10px;color:#555;letter-spacing:0.15em;">[{chip.id}]</span>
@@ -36,11 +35,15 @@ const chip = chipsData.find(c => c.id === tool) || chipsData[0];
           <h2 style="font-size:1.5rem;font-weight:700;color:#ff4444;margin:0.5rem 0;">{chip.us_chip.name}</h2>
           <div style="font-size:12px;color:#555;">{chip.us_chip.vendor} · {chip.us_chip.tier} 级</div>
           <div style="font-size:11px;color:#555;margin-top:0.75rem;padding:0.75rem;background:#000;border:1px solid #1a1a1a;border-radius:4px;text-align:left;">
-            {Object.entries(chip.us_chip.specs).map(([k, v]) => <div><span style="color:#ff4444;">{k}:</span> {v}</div>)}
+            {Object.entries(chip.us_chip.specs).map(([k, v]) => (
+              <div><span style="color:#ff4444;">{k}:</span> {v}</div>
+            ))}
           </div>
           <div style="margin-top:0.75rem;padding:0.75rem;background:#000;border:1px solid #1a1a1a;border-radius:4px;text-align:left;">
             <div style="color:#ff4444;font-size:11px;margin-bottom:0.5rem;">限制条款:</div>
-            {chip.us_chip.restrictions.map(r => <div style="color:#555;font-size:11px;">▸ {r}</div>)}
+            {chip.us_chip.restrictions.map(r => (
+              <div style="color:#555;font-size:11px;">▸ {r}</div>
+            ))}
           </div>
           <div style="margin-top:0.5rem;color:#555;font-size:12px;">报价: {chip.us_chip.price_per_unit}</div>
         </div>
@@ -50,11 +53,15 @@ const chip = chipsData.find(c => c.id === tool) || chipsData[0];
           <h2 style="font-size:1.5rem;font-weight:700;color:#00ff41;margin:0.5rem 0;">{chip.domestic_alternative.name}</h2>
           <div style="font-size:12px;color:#555;">{chip.domestic_alternative.vendor} · {chip.domestic_alternative.tier} 级</div>
           <div style="font-size:11px;color:#555;margin-top:0.75rem;padding:0.75rem;background:#000;border:1px solid #1a1a1a;border-radius:4px;text-align:left;">
-            {Object.entries(chip.domestic_alternative.specs).map(([k, v]) => <div><span style="color:#00ff41;">{k}:</span> {v}</div>)}
+            {Object.entries(chip.domestic_alternative.specs).map(([k, v]) => (
+              <div><span style="color:#00ff41;">{k}:</span> {v}</div>
+            ))}
           </div>
           <div style="margin-top:0.75rem;padding:0.75rem;background:#000;border:1px solid #1a1a1a;border-radius:4px;text-align:left;">
             <div style="color:#00ff41;font-size:11px;margin-bottom:0.5rem;">替代优势:</div>
-            {chip.domestic_alternative.advantages.map(a => <div style="color:#555;font-size:11px;">▸ {a}</div>)}
+            {chip.domestic_alternative.advantages.map(a => (
+              <div style="color:#555;font-size:11px;">▸ {a}</div>
+            ))}
           </div>
           <div style="margin-top:0.5rem;color:#00ff41;font-size:12px;">报价: {chip.domestic_alternative.price_per_unit} · {chip.domestic_alternative.availability}</div>
         </div>

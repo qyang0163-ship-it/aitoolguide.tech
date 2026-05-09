@@ -1,318 +1,138 @@
 ---
 interface Props {
-	title: string;
-	lang?: string;
+  title: string;
+  description?: string;
+  lang?: string;
 }
 
-const { title, lang = 'en' } = Astro.props;
+const { title, description = "国产芯片替代数据库平台 - 专业级元器件替代方案查询系统", lang = 'zh-CN' } = Astro.props;
 
-const locales = ['en', 'zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar', 'hi', 'th', 'tr', 'vi', 'id'];
 const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
-<html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} id="html-root">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="AIToolGuide - The most practical AI money-making tools directory in 2026. Learn how to use AI tools for side hustles, freelance work, and income growth." />
-		<meta name="keywords" content="AI tools,make money with AI,ChatGPT,Midjourney,AI side hustle,AI writing,AI design,freelance" />
-		<meta name="author" content="AIToolGuide Team" />
-		<meta name="robots" content="index, follow" />
-		<meta name="googlebot" content="index, follow" />
-		<meta name="bingbot" content="index, follow" />
-		
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://www.ai2424.com/" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content="The most practical AI money-making tools directory in 2026. Learn how to use AI tools for side hustles, freelance work, and income growth." />
-		<meta property="og:image" content="https://www.ai2424.com/og-image.jpg" />
-		<meta property="og:locale" content={lang.replace('-', '_')} />
-		
-		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="https://www.ai2424.com/" />
-		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content="The most practical AI money-making tools directory in 2026. Learn how to use AI tools for side hustles, freelance work, and income growth." />
-		<meta property="twitter:image" content="https://www.ai2424.com/og-image.jpg" />
-		
-		<!-- Canonical URL -->
-		<link rel="canonical" href={`https://www.ai2424.com${currentPath}`} />
-		
-		<!-- Hreflang tags for SEO -->
-		{locales.map(locale => (
-			<link rel="alternate" hreflang={locale} href={`https://www.ai2424.com/${locale}${currentPath}`} />
-		))}
-		<link rel="alternate" hreflang="x-default" href={`https://www.ai2424.com${currentPath}`} />
-		
-		<!-- Structured Data -->
-		<script type="application/ld+json" is:inline>
-		{
-			"@context": "https://schema.org",
-			"@type": "WebSite",
-			"name": "AIToolGuide",
-			"url": "https://www.ai2424.com",
-			"description": "The most practical AI money-making tools directory in 2026",
-			"potentialAction": {
-				"@type": "SearchAction",
-				"target": "https://www.ai2424.com/search?q={search_term_string}",
-				"query-input": "required name=search_term_string"
-			}
-		}
-		</script>
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<!-- Google Analytics (GA4) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-14213142037" is:inline></script>
-		<script is:inline>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'G-14213142037');
-			
-			// Track page load performance
-			window.addEventListener('load', function() {
-				setTimeout(function() {
-					var perfData = window.performance.timing;
-					var pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-					var domReadyTime = perfData.domContentLoadedEventEnd - perfData.navigationStart;
-					gtag('event', 'timing_complete', {
-						'name': 'page_load',
-						'value': pageLoadTime,
-						'event_category': 'Performance'
-					});
-					gtag('event', 'timing_complete', {
-						'name': 'dom_ready',
-						'value': domReadyTime,
-						'event_category': 'Performance'
-					});
-				}, 0);
-			});
-			
-			// Track CTA button clicks
-			document.addEventListener('click', function(e) {
-				var btn = e.target.closest('.btn-urgent, .btn-primary, [data-track]');
-				if (btn) {
-					var label = btn.textContent.trim().substring(0, 50);
-					var page = window.location.pathname;
-					var lang = localStorage.getItem('aitg_lang') || 'en';
-					gtag('event', 'cta_click', {
-						'event_category': 'conversion',
-						'event_label': label,
-						'page_path': page,
-						'user_language': lang
-					});
-				}
-			});
-			// Track language switches
-			var origSetLang = window.AITG_i18n && window.AITG_i18n.setLang;
-			if (origSetLang) {
-				var _orig = origSetLang;
-				window.AITG_i18n.setLang = function(code) {
-					gtag('event', 'language_switch', { 'event_category': 'i18n', 'event_label': code });
-					return _orig(code);
-				};
-			}
-		</script>
-		<!-- Vercel Analytics -->
-		<script defer src="/_vercel/insights/script.js" is:inline></script>
-		<style is:global>
-			:root {
-				/* Primary Colors - Modern Blue */
-				--primary: #635bff;
-				--primary-hover: #4f46e5;
-				--secondary: #00d4aa;
-				--accent: #ff6b6b;
-				
-				/* Background Colors - Clean Light */
-				--bg-primary: #ffffff;
-				--bg-secondary: #f6f9fc;
-				--bg-tertiary: #f1f5f9;
-				--bg-dark: #0a2540;
-				
-				/* Text Colors */
-				--text-primary: #0a2540;
-				--text-secondary: #425466;
-				--text-muted: #6b7280;
-				--text-white: #ffffff;
-				
-				/* Border & Shadow */
-				--border: #e5e7eb;
-				--border-light: #f3f4f6;
-				--shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-				--shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-				--shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-				--shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-			}
-			* {
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;
-			}
-			body {
-				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-				line-height: 1.6;
-				color: var(--text-primary);
-				background: var(--bg-primary);
-				min-height: 100vh;
-				-webkit-font-smoothing: antialiased;
-				-moz-osx-font-smoothing: grayscale;
-			}
-			a {
-				text-decoration: none;
-				color: inherit;
-			}
-			.container {
-				max-width: 1200px;
-				margin: 0 auto;
-				padding: 0 24px;
-			}
-			.btn {
-				display: inline-flex;
-				align-items: center;
-				gap: 8px;
-				padding: 14px 28px;
-				border-radius: 10px;
-				font-weight: 600;
-				font-size: 1rem;
-				transition: all 0.3s;
-				border: none;
-				cursor: pointer;
-			}
-			.btn-primary {
-				background: linear-gradient(135deg, var(--primary), #8b5cf6);
-				color: white;
-				box-shadow: var(--shadow);
-				transition: all 0.2s ease;
-			}
-			.btn-primary:hover {
-				transform: translateY(-1px);
-				box-shadow: var(--shadow-lg);
-				background: linear-gradient(135deg, var(--primary-hover), #7c3aed);
-			}
-			.btn-secondary {
-				background: white;
-				color: var(--dark);
-				border: 2px solid var(--border);
-			}
-			.btn-secondary:hover {
-				border-color: var(--primary);
-				color: var(--primary);
-			}
-			.btn-urgent {
-				background: linear-gradient(135deg, #ef4444, #f97316);
-				color: white;
-				box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
-				animation: pulse 2s infinite;
-			}
-			.btn-urgent:hover {
-				transform: translateY(-2px);
-				box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
-			}
-			@keyframes pulse {
-				0%, 100% { transform: scale(1); }
-				50% { transform: scale(1.02); }
-			}
-			.btn-large {
-				padding: 18px 36px;
-				font-size: 1.125rem;
-			}
-			.money-badge {
-				display: inline-flex;
-				align-items: center;
-				gap: 6px;
-				padding: 6px 12px;
-				background: linear-gradient(135deg, #fef3c7, #fde68a);
-				color: #92400e;
-				font-weight: 700;
-				font-size: 0.8rem;
-				border-radius: 20px;
-			}
-			.urgency-banner {
-				background: linear-gradient(90deg, #fef3c7, #fee2e2);
-				padding: 10px;
-				text-align: center;
-				font-weight: 600;
-				color: #92400e;
-				font-size: 0.9rem;
-			}
-			/* RTL Support for Arabic */
-			[dir="rtl"] .nav-links {
-				flex-direction: row-reverse;
-			}
-			[dir="rtl"] .hero-actions,
-			[dir="rtl"] .cta-actions,
-			[dir="rtl"] .bottom-cta-buttons {
-				flex-direction: row-reverse;
-			}
-			[dir="rtl"] .footer-links {
-				flex-direction: row-reverse;
-			}
-			[dir="rtl"] .article-card-footer,
-			[dir="rtl"] .tool-detail-header,
-			[dir="rtl"] .method-header {
-				flex-direction: row-reverse;
-			}
-		</style>
-	</head>
-	<body>
-		<!-- Auth Header (Clerk Frontend JS) -->
-		<div id="clerk-auth-header" style="position: fixed; top: 0; right: 0; z-index: 9999; padding: 10px 20px; display: flex; gap: 8px; align-items: center;">
-		</div>
-		<script is:inline>
-			// Clerk Frontend-only integration
-			(function() {
-				const CLERK_PK = 'pk_test_dGVhY2hpbmctZ2FyZmlzaC03NS5jbGVyay5hY2NvdW50cy5kZXYk';
-				const script = document.createElement('script');
-				script.src = 'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js';
-				script.crossOrigin = 'anonymous';
-				script.onload = async function() {
-					try {
-						const clerk = new window.Clerk(CLERK_PK);
-						await clerk.load();
-						window.__clerk = clerk;
-						const header = document.getElementById('clerk-auth-header');
-						if (!header) return;
-						if (clerk.user) {
-							// Signed in - show user button
-							const div = document.createElement('div');
-							div.id = 'user-button';
-							header.appendChild(div);
-							clerk.mountUserButton(div);
-						} else {
-							// Signed out - show sign in button
-							const div = document.createElement('div');
-							div.id = 'sign-in-btn';
-							header.appendChild(div);
-							clerk.mountSignIn(div, { appearance: { elements: { rootBox: { display: 'none' } } } });
-							const btn = document.createElement('button');
-							btn.textContent = 'Sign In';
-							btn.style.cssText = 'background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.85rem;';
-							btn.onclick = () => clerk.openSignIn();
-							header.appendChild(btn);
-						}
-					} catch(e) {
-						console.log('Clerk init skipped:', e.message);
-					}
-				};
-				document.head.appendChild(script);
-			})();
-		</script>
-		<slot />
-		<script src="/i18n.js" is:inline></script>
-		<script>
-			// Immediate language detection to prevent flash of wrong language
-			(function() {
-				const savedLang = localStorage.getItem('aitg_lang');
-				if (savedLang) {
-					document.documentElement.lang = savedLang === 'zh-CN' ? 'zh-Hans' : savedLang === 'zh-TW' ? 'zh-Hant' : savedLang;
-					if (savedLang === 'ar') {
-						document.documentElement.dir = 'rtl';
-					}
-				}
-			})();
-		</script>
-	</body>
+<html lang={lang} dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content={description} />
+  <meta name="keywords" content="国产芯片替代,芯片国产化,P2P兼容,元器件替代,兆易创新,STM32替代,国产MCU,国产ADC,国产电源芯片" />
+  <meta name="author" content="ChipAltDB Team" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="bingbot" content="index, follow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={`https://www.ai2424.com${currentPath}`} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content="https://www.ai2424.com/chip-alt-og.jpg" />
+  <meta property="og:locale" content="zh_CN" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={`https://www.ai2424.com${currentPath}`} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content="https://www.ai2424.com/chip-alt-og.jpg" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href={`https://www.ai2424.com${currentPath}`} />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "ChipAltDB",
+    "url": "https://www.ai2424.com",
+    "description": "国产芯片替代数据库平台 - 专业级元器件替代方案查询系统",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.ai2424.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title}</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com" is:inline></script>
+  <script is:inline>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            space: {
+              900: '#0a0e14',
+              800: '#111827',
+              700: '#1a2234',
+              600: '#243044',
+              500: '#3d4f6f',
+            },
+            industrial: {
+              500: '#2563eb',
+              400: '#3b82f6',
+              300: '#60a5fa',
+              600: '#1d4ed8',
+            },
+            oem: {
+              500: '#059669',
+              400: '#10b981',
+              300: '#34d399',
+              600: '#047857',
+            },
+            alert: {
+              amber: '#f59e0b',
+              red: '#dc2626',
+              orange: '#ea580c',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Consolas', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-14213142037" is:inline></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-14213142037');
+  </script>
+  
+  <style is:global>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 antialiased min-h-screen">
+  <slot />
+</body>
 </html>

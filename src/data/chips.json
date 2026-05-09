@@ -1,0 +1,362 @@
+{
+  "categories": [
+    { "id": "mcu", "name": "微控制器", "count": 2847 },
+    { "id": "adc", "name": "ADC/DAC", "count": 523 },
+    { "id": "analog", "name": "模拟芯片", "count": 1523 },
+    { "id": "power", "name": "电源管理", "count": 1986 },
+    { "id": "interface", "name": "接口芯片", "count": 1245 },
+    { "id": "sensor", "name": "传感器", "count": 967 },
+    { "id": "memory", "name": "存储器", "count": 756 },
+    { "id": "logic", "name": "逻辑器件", "count": 2134 },
+    { "id": "rf", "name": "射频无线", "count": 432 }
+  ],
+  "stats": {
+    "totalOriginal": 15847,
+    "totalAlternatives": 12456,
+    "p2pCompatible": 8934,
+    "vipManuals": 234
+  },
+  "chips": [
+    {
+      "id": "STM32F103C8T6",
+      "manufacturer": "ST",
+      "category": "mcu",
+      "description": "ARM Cortex-M3 72MHz MCU, 64KB Flash, 20KB SRAM",
+      "package": "LQFP-48",
+      "specs": {
+        "core": "ARM Cortex-M3",
+        "flash": "64KB",
+        "sram": "20KB",
+        "frequency": "72MHz",
+        "gpio": "37",
+        "adc": "2×12-bit",
+        "timers": "3×16-bit",
+        "interfaces": "USART×3, SPI×2, I2C×2, CAN×1, USB×1"
+      },
+      "alternatives": [
+        {
+          "id": "GD32F103C8T6",
+          "manufacturer": "兆易创新(GigaDevice)",
+          "p2pCompatible": true,
+          "difficulty": "easy",
+          "difficultyScore": 1,
+          "priceAdvantage": "35%",
+          "stock": "充足",
+          "datasheet": "gd32f103.pdf",
+          "description": "完全P2P兼容，寄存器级兼容，可直接替换",
+          "specs": {
+            "core": "ARM Cortex-M3",
+            "flash": "64KB",
+            "sram": "20KB",
+            "frequency": "108MHz",
+            "gpio": "37",
+            "adc": "2×12-bit",
+            "timers": "3×16-bit",
+            "interfaces": "USART×3, SPI×2, I2C×2, CAN×1, USB×1"
+          }
+        },
+        {
+          "id": "CH32F103C8T6",
+          "manufacturer": "沁恒微(WCH)",
+          "p2pCompatible": true,
+          "difficulty": "easy",
+          "difficultyScore": 1,
+          "priceAdvantage": "45%",
+          "stock": "充足",
+          "datasheet": "ch32f103.pdf",
+          "description": "P2P兼容，部分外设时序需微调",
+          "specs": {
+            "core": "ARM Cortex-M3",
+            "flash": "64KB",
+            "sram": "20KB",
+            "frequency": "72MHz",
+            "gpio": "37",
+            "adc": "2×12-bit",
+            "timers": "3×16-bit",
+            "interfaces": "USART×3, SPI×2, I2C×2, CAN×1, USB×1"
+          }
+        },
+        {
+          "id": "HK32F103C8T6",
+          "manufacturer": "航顺(HK)",
+          "p2pCompatible": true,
+          "difficulty": "easy",
+          "difficultyScore": 2,
+          "priceAdvantage": "50%",
+          "stock": "一般",
+          "datasheet": "hk32f103.pdf",
+          "description": "P2P兼容，时钟配置略有差异",
+          "specs": {
+            "core": "ARM Cortex-M3",
+            "flash": "64KB",
+            "sram": "20KB",
+            "frequency": "72MHz",
+            "gpio": "37",
+            "adc": "2×12-bit",
+            "timers": "3×16-bit",
+            "interfaces": "USART×3, SPI×2, I2C×2, CAN×1, USB×1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "AD7606",
+      "manufacturer": "ADI",
+      "category": "adc",
+      "description": "8通道同步采样16位ADC, ±10V/±5V输入",
+      "package": "LQFP-64",
+      "specs": {
+        "resolution": "16-bit",
+        "channels": "8",
+        "sampleRate": "200kSPS",
+        "inputRange": "±10V, ±5V",
+        "interface": "SPI/Parallel",
+        "power": "5V/3.3V",
+        "snr": "90dB"
+      },
+      "alternatives": [
+        {
+          "id": "BL7606",
+          "manufacturer": "贝岭(Belling)",
+          "p2pCompatible": false,
+          "difficulty": "medium",
+          "difficultyScore": 3,
+          "priceAdvantage": "55%",
+          "stock": "充足",
+          "datasheet": "bl7606.pdf",
+          "description": "功能兼容，寄存器需适配，时序略有差异",
+          "specs": {
+            "resolution": "16-bit",
+            "channels": "8",
+            "sampleRate": "200kSPS",
+            "inputRange": "±10V, ±5V",
+            "interface": "SPI",
+            "power": "5V/3.3V",
+            "snr": "88dB"
+          }
+        },
+        {
+          "id": "SC1467",
+          "manufacturer": "芯海科技(ChipSea)",
+          "p2pCompatible": false,
+          "difficulty": "medium",
+          "difficultyScore": 3,
+          "priceAdvantage": "50%",
+          "stock": "充足",
+          "datasheet": "sc1467.pdf",
+          "description": "功能兼容，驱动需重写",
+          "specs": {
+            "resolution": "16-bit",
+            "channels": "8",
+            "sampleRate": "200kSPS",
+            "inputRange": "±10V",
+            "interface": "SPI",
+            "power": "5V",
+            "snr": "89dB"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TPS5430DDAR",
+      "manufacturer": "TI",
+      "category": "power",
+      "description": "3A 降压DC-DC转换器, 5.5V-36V输入",
+      "package": "SOIC-8",
+      "specs": {
+        "topology": "Buck",
+        "inputVoltage": "5.5V~36V",
+        "outputVoltage": "1.22V~VIN",
+        "maxCurrent": "3A",
+        "switchFreq": "500kHz",
+        "efficiency": "95%"
+      },
+      "alternatives": [
+        {
+          "id": "MP1584EN",
+          "manufacturer": "MPS/矽力杰",
+          "p2pCompatible": false,
+          "difficulty": "medium",
+          "difficultyScore": 3,
+          "priceAdvantage": "40%",
+          "stock": "充足",
+          "datasheet": "mp1584.pdf",
+          "description": "功能兼容，外围电路需重新设计",
+          "specs": {
+            "topology": "Buck",
+            "inputVoltage": "4.5V~28V",
+            "outputVoltage": "0.8V~VIN",
+            "maxCurrent": "3A",
+            "switchFreq": "1.5MHz",
+            "efficiency": "96%"
+          }
+        },
+        {
+          "id": "XL1509",
+          "manufacturer": "芯龙(XLSEMI)",
+          "p2pCompatible": false,
+          "difficulty": "medium",
+          "difficultyScore": 3,
+          "priceAdvantage": "60%",
+          "stock": "充足",
+          "datasheet": "xl1509.pdf",
+          "description": "国产替代方案，外围简单",
+          "specs": {
+            "topology": "Buck",
+            "inputVoltage": "4.5V~40V",
+            "outputVoltage": "1.23V~37V",
+            "maxCurrent": "2A",
+            "switchFreq": "150kHz",
+            "efficiency": "90%"
+          }
+        }
+      ]
+    },
+    {
+      "id": "LM358",
+      "manufacturer": "TI",
+      "category": "analog",
+      "description": "双路低功耗运算放大器",
+      "package": "SOIC-8",
+      "specs": {
+        "channels": "2",
+        "supplyVoltage": "3V~32V",
+        "gbw": "1MHz",
+        "slewRate": "0.3V/μs",
+        "inputOffset": "2mV",
+        "quiescentCurrent": "700μA"
+      },
+      "alternatives": [
+        {
+          "id": "LM358DR",
+          "manufacturer": "圣邦微(SGM)",
+          "p2pCompatible": true,
+          "difficulty": "easy",
+          "difficultyScore": 1,
+          "priceAdvantage": "55%",
+          "stock": "充足",
+          "datasheet": "sgm358.pdf",
+          "description": "完全P2P兼容，参数更优",
+          "specs": {
+            "channels": "2",
+            "supplyVoltage": "2.5V~36V",
+            "gbw": "1MHz",
+            "slewRate": "0.5V/μs",
+            "inputOffset": "1mV",
+            "quiescentCurrent": "500μA"
+          }
+        },
+        {
+          "id": "LM358M",
+          "manufacturer": "华润微(CRM)",
+          "p2pCompatible": true,
+          "difficulty": "easy",
+          "difficultyScore": 1,
+          "priceAdvantage": "65%",
+          "stock": "充足",
+          "datasheet": "crm358.pdf",
+          "description": "完全P2P兼容",
+          "specs": {
+            "channels": "2",
+            "supplyVoltage": "3V~32V",
+            "gbw": "1MHz",
+            "slewRate": "0.3V/μs",
+            "inputOffset": "2mV",
+            "quiescentCurrent": "700μA"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ADS1115IDGSR",
+      "manufacturer": "TI",
+      "category": "adc",
+      "description": "16位ADC 4通道 I2C接口",
+      "package": "VSSOP-10",
+      "specs": {
+        "resolution": "16-bit",
+        "channels": "4",
+        "sampleRate": "860SPS",
+        "interface": "I2C",
+        "inputRange": "±6.144V",
+        "power": "2.0V~5.5V"
+      },
+      "alternatives": [
+        {
+          "id": "BL5372",
+          "manufacturer": "贝岭(Belling)",
+          "p2pCompatible": true,
+          "difficulty": "easy",
+          "difficultyScore": 2,
+          "priceAdvantage": "55%",
+          "stock": "充足",
+          "datasheet": "bl5372.pdf",
+          "description": "P2P兼容，精度略低",
+          "specs": {
+            "resolution": "16-bit",
+            "channels": "4",
+            "sampleRate": "860SPS",
+            "interface": "I2C",
+            "inputRange": "±6.144V",
+            "power": "2.0V~5.5V"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ESP32-WROOM-32",
+      "manufacturer": "Espressif",
+      "category": "rf",
+      "description": "Wi-Fi + BLE 双模模组",
+      "package": "SMD-38",
+      "specs": {
+        "wifi": "802.11 b/g/n",
+        "bluetooth": "BLE 4.2/5.0",
+        "cpu": "Xtensa dual-core 240MHz",
+        "sram": "520KB",
+        "flash": "4MB",
+        "interfaces": "SPI, I2C, UART, SDIO, PWM"
+      },
+      "alternatives": [
+        {
+          "id": "BL602",
+          "manufacturer": "博通集成(Beken)",
+          "p2pCompatible": false,
+          "difficulty": "hard",
+          "difficultyScore": 4,
+          "priceAdvantage": "30%",
+          "stock": "充足",
+          "datasheet": "bl602.pdf",
+          "description": "WiFi+BLE Combo，需重写固件",
+          "specs": {
+            "wifi": "802.11 b/g/n",
+            "bluetooth": "BLE 5.0",
+            "cpu": "RISC-V 192MHz",
+            "sram": "276KB",
+            "flash": "External",
+            "interfaces": "SPI, I2C, UART, PWM"
+          }
+        },
+        {
+          "id": "W801",
+          "manufacturer": "联盛德(WinnerMicro)",
+          "p2pCompatible": false,
+          "difficulty": "hard",
+          "difficultyScore": 4,
+          "priceAdvantage": "35%",
+          "stock": "一般",
+          "datasheet": "w801.pdf",
+          "description": "WiFi+BLE，SDK差异较大",
+          "specs": {
+            "wifi": "802.11 b/g/n",
+            "bluetooth": "BLE 5.0",
+            "cpu": "XT804 240MHz",
+            "sram": "288KB",
+            "flash": "2MB",
+            "interfaces": "SPI, I2C, UART, SDIO, PWM"
+          }
+        }
+      ]
+    }
+  ]
+}

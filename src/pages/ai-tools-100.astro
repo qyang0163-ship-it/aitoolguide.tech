@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { top100Tools, categoryColors } from '../data/top100-tools.js';
+// import { top100Tools, categoryColors } from '../data/top100-tools.js';
+const top100Tools = [];
+const categoryColors = {};
 
 // Group tools by tier for display
 const tier1 = top100Tools.filter(t => t.rank <= 10);
