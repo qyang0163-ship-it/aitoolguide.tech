@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="半导体材料 - 10大类 约800种产品 | 国产替代指南" description="半导体材料分类导航：硅片、光刻胶、电子特气、CMP材料、靶材、湿电子化学品、光掩膜、封装基板、引线框架、陶瓷基板等10大类材料。" keywords="半导体材料,硅片,光刻胶,电子特气,国产替代">
+<div class="max-w-7xl mx-auto px-4 py-8">
+<nav class="breadcrumb mb-6"><a href="/">首页</a> / <span>材料</span></nav>
+<h1 class="text-4xl font-bold text-slate-900 mb-2">半导体材料</h1>
+<p class="text-slate-600 mb-8">10大类 · 约800种产品</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+{['硅片','光刻胶','电子特气','CMP材料','靶材','湿电子化学品','光掩膜','封装基板','引线框架','陶瓷基板'].map(cat => (
+<div class="card text-center py-12">
+<h2 class="text-xl font-bold text-slate-800 mb-2">{cat}</h2>
+<p class="text-slate-500">产品分类整理中，敬请期待</p>
+</div>
+))}
+</div>
+</div>
+</Layout>

@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="EDA/IP - 8大类 约500种产品 | 国产替代指南" description="EDA工具与IP核分类导航：数字设计、模拟设计、验证工具、物理设计、签核工具、IP核授权、PDK开发、云服务等8大类。" keywords="EDA,IP核,数字设计,模拟设计,验证工具,国产替代">
+<div class="max-w-7xl mx-auto px-4 py-8">
+<nav class="breadcrumb mb-6"><a href="/">首页</a> / <span>EDA/IP</span></nav>
+<h1 class="text-4xl font-bold text-slate-900 mb-2">EDA/IP</h1>
+<p class="text-slate-600 mb-8">8大类 · 约500种产品</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+{['数字设计','模拟设计','验证工具','物理设计','签核工具','IP核授权','PDK开发','云服务'].map(cat => (
+<div class="card text-center py-12">
+<h2 class="text-xl font-bold text-slate-800 mb-2">{cat}</h2>
+<p class="text-slate-500">产品分类整理中，敬请期待</p>
+</div>
+))}
+</div>
+</div>
+</Layout>

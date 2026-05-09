@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="半导体设备 - 12大类 约1200种产品 | 国产替代指南" description="半导体设备分类导航：光刻、刻蚀、薄膜沉积、量测检测、离子注入、CMP、清洗、热处理、显影track、EFEM、真空泵、射频电源等12大类设备。" keywords="半导体设备,光刻机,刻蚀机,薄膜沉积,国产替代">
+<div class="max-w-7xl mx-auto px-4 py-8">
+<nav class="breadcrumb mb-6"><a href="/">首页</a> / <span>设备</span></nav>
+<h1 class="text-4xl font-bold text-slate-900 mb-2">半导体设备</h1>
+<p class="text-slate-600 mb-8">12大类 · 约1200种产品</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+{['光刻设备','刻蚀设备','薄膜沉积','量测检测','离子注入','CMP设备','清洗设备','热处理','显影Track','EFEM','真空泵','射频电源'].map(cat => (
+<div class="card text-center py-12">
+<h2 class="text-xl font-bold text-slate-800 mb-2">{cat}</h2>
+<p class="text-slate-500">产品分类整理中，敬请期待</p>
+</div>
+))}
+</div>
+</div>
+</Layout>
