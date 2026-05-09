@@ -53,7 +53,8 @@
       "Flash": "256KB"
     },
     "alternatives": [
-      { "name": "GD32F407VGT6", "manufacturer": "兆易创新", "p2pCompatible": false }
+      { "name": "GD32F407VGT6", "manufacturer": "兆易创新", "p2pCompatible": false },
+      { "name": "MM32F407VGT6", "manufacturer": "灵动微", "p2pCompatible": false }
     ],
     "price": 4.50,
     "currency": "CNY",
