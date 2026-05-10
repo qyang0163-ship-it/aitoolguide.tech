@@ -1,0 +1,106 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TerminalBreadcrumb from '../../components/TerminalBreadcrumb.astro';
+
+// 设备数据
+const equipment = [
+  { id: 'naura-nmc508', name: '北方华创 NMC508 刻蚀机', manufacturer: '北方华创', category: '刻蚀设备', specs: { 工艺节点: '7nm', 产能: '120wph' }, price: '¥2,800万', status: '量产' },
+  { id: 'amec-ccp', name: '中微 CCP 刻蚀机', manufacturer: '中微公司', category: '刻蚀设备', specs: { 工艺节点: '5nm', 均匀性: '±1.5%' }, price: '¥3,200万', status: '量产' },
+  { id: 'piotech-pecvd', name: '拓荆 PECVD Pro', manufacturer: '拓荆科技', category: '薄膜沉积', specs: { 工艺节点: '7nm', 均匀性: '±1%' }, price: '¥2,500万', status: '量产' },
+  { id: 'sme-ssx600', name: '上海微 SSX600 光刻机', manufacturer: '上海微电子', category: '光刻设备', specs: { 分辨率: '90nm', 套刻精度: '≤8nm' }, price: '¥1,500万', status: '量产' },
+  { id: 'kingsemi-track', name: '芯源微 涂胶显影机', manufacturer: '芯源微', category: '涂胶显影', specs: { 产能: '200wph', 均匀性: '±1%' }, price: '¥800万', status: '量产' },
+  { id: 'tyst-implanter', name: '拓荆 离子注入机', manufacturer: '拓荆科技', category: '离子注入', specs: { 能量范围: '0.2-400keV', 剂量精度: '±0.5%' }, price: '¥1,200万', status: '量产' },
+  { id: 'naura-rtp', name: '北方华创 快速热处理', manufacturer: '北方华创', category: '热处理', specs: { 升温速率: '250°C/s', 温度精度: '±0.5°C' }, price: '¥1,800万', status: '量产' },
+  { id: 'shengmei-cmp', name: '盛美 CMP 设备', manufacturer: '盛美上海', category: 'CMP', specs: { 去除速率: '300nm/min', 均匀性: '3%' }, price: '¥2,200万', status: '量产' },
+];
+
+const categories = ['全部', '刻蚀设备', '薄膜沉积', '光刻设备', '涂胶显影', '离子注入', '热处理', 'CMP'];
+const stats = { total: 1247, domestic: 892, restricted: 156, monitoring: 199 };
+---
+<Layout title="设备大厅 | SCIP MONITOR" description="半导体制造设备数据库">
+<div style="min-height: 100vh; background: #020617; font-family: 'JetBrains Mono', monospace; padding-top: 80px;">
+  <div style="max-width: 1400px; margin: 0 auto; padding: 0 24px;">
+    
+    <!-- 终端面包屑 -->
+    <TerminalBreadcrumb path={[{label: 'equipment'}]} />
+    
+    <!-- 页面标题区 -->
+    <div style="margin-bottom: 32px;">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
+        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #a78bfa, #7c3aed); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">⚙️</div>
+        <div>
+          <h1 style="font-size: 24px; color: #e2e8f0; margin: 0; font-weight: 600;">EQUIPMENT HALL</h1>
+          <p style="font-size: 12px; color: #64748b; margin: 4px 0 0 0;">半导体制造设备情报中心</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 统计卡片 -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px;">
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
+        <div style="font-size: 28px; font-weight: bold; color: #a78bfa; text-shadow: 0 0 10px rgba(167, 139, 250, 0.3);">{stats.total.toLocaleString()}</div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">收录设备</div>
+      </div>
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
+        <div style="font-size: 28px; font-weight: bold; color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.3);">{stats.domestic.toLocaleString()}</div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">国产设备</div>
+      </div>
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
+        <div style="font-size: 28px; font-weight: bold; color: #ef4444; text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);">{stats.restricted}</div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">受限设备</div>
+      </div>
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
+        <div style="font-size: 28px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);">{stats.monitoring}</div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">监控中</div>
+      </div>
+    </div>
+    
+    <!-- 搜索过滤 -->
+    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        {categories.map(cat => (
+          <button style={`padding: 8px 16px; font-size: 12px; border: 1px solid ${cat === '全部' ? '#a78bfa' : '#334155'}; background: ${cat === '全部' ? 'rgba(167, 139, 250, 0.1)' : 'transparent'}; color: ${cat === '全部' ? '#a78bfa' : '#94a3b8'}; border-radius: 6px; cursor: pointer; transition: all 0.2s;`} onmouseenter="this.style.borderColor='#a78bfa'; this.style.color='#a78bfa'" onmouseleave={`this.style.borderColor='${cat === '全部' ? '#a78bfa' : '#334155'}'; this.style.color='${cat === '全部' ? '#a78bfa' : '#94a3b8'}'`}>{cat}</button>
+        ))}
+      </div>
+      <div style="margin-top: 16px; display: flex; gap: 12px;">
+        <div style="flex: 1; display: flex; align-items: center; background: #020617; border: 1px solid #334155; border-radius: 8px; padding: 0 16px;">
+          <span style="color: #a78bfa; margin-right: 12px;">$</span>
+          <input type="text" placeholder="search --manufacturer 北方华创 --category 刻蚀设备" style="flex: 1; background: transparent; border: none; color: #e2e8f0; padding: 12px 0; font-family: inherit; outline: none;" />
+        </div>
+        <button style="padding: 12px 24px; background: rgba(167, 139, 250, 0.2); border: 1px solid rgba(167, 139, 250, 0.3); color: #a78bfa; border-radius: 8px; font-size: 12px; cursor: pointer;">EXECUTE</button>
+      </div>
+    </div>
+    
+    <!-- 设备列表 -->
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+      {equipment.map(item => (
+        <a href={`/equipment/${item.id}`} style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px; text-decoration: none; transition: all 0.2s;" onmouseenter="this.style.borderColor='#a78bfa'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 30px rgba(167, 139, 250, 0.1)'" onmouseleave="this.style.borderColor='#1e293b'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #a78bfa, #7c3aed); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px;">⚙️</div>
+              <div>
+                <div style="font-size: 14px; color: #e2e8f0; font-weight: 500;">{item.name}</div>
+                <div style="font-size: 11px; color: #64748b;">{item.manufacturer} · {item.category}</div>
+              </div>
+            </div>
+            <span style={`padding: 4px 8px; font-size: 10px; border-radius: 4px; background: ${item.status === '量产' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(251, 191, 36, 0.1)'}; color: ${item.status === '量产' ? '#22c55e' : '#fbbf24'}; border: 1px solid ${item.status === '量产' ? 'rgba(34, 197, 94, 0.3)' : 'rgba(251, 191, 36, 0.3)'};`}>{item.status}</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px;">
+            {Object.entries(item.specs).map(([key, val]) => (
+              <div style="background: rgba(30, 41, 59, 0.5); padding: 8px 12px; border-radius: 6px;">
+                <div style="font-size: 10px; color: #64748b;">{key}</div>
+                <div style="font-size: 12px; color: #e2e8f0;">{val}</div>
+              </div>
+            ))}
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 14px; color: #a78bfa; font-weight: 600;">{item.price}</span>
+            <span style="font-size: 11px; color: #64748b;">查看详情 →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+    
+  </div>
+</div>
+</Layout>

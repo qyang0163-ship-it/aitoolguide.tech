@@ -1,67 +1,135 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import TerminalBreadcrumb from '../../components/TerminalBreadcrumb.astro';
+
 const chips = (await import('../../data/chips.json')).default;
+
 const categories = ['全部', 'MCU', 'AI芯片', '电源', '无线', '模拟'];
 const levels = ['全部', 'P2P', '功能替代'];
-const priceRanges = ['全部', '<¥10', '¥10-50', '>¥50'];
+
+// 统计数据
+const stats = {
+  total: chips.length,
+  mcu: chips.filter(c => !c.processNode?.includes('AI')).length,
+  ai: chips.filter(c => c.processNode?.includes('AI')).length,
+  pin2pin: chips.filter(c => c.substituteLevel === 'pin2pin').length
+};
+
+// 厂商图标映射
+const getIcon = (manufacturer) => {
+  const map = {
+    '极海半导体': '🔷', '兆易创新': '🔶', '华为海思': '🔴',
+    '寒武纪': '🟣', '摩尔线程': '🟢', '圣邦微': '🟡',
+    '雅特力': '🔵', '乐鑫科技': '📶', '沁恒微': '⚡',
+    '灵动微': '💫', '逻辑科技': '💎', '中科芯': '🔌',
+    '博流智能': '📡', '航顺': '✈️', '新唐': '🆕',
+    '华大半导体': '🏛️', '中颖电子': '⚡', '海光信息': '💧',
+    '百度': '🔍', '壁仞科技': '🧱', '燧原科技': '🔥',
+    '天数智芯': '📅'
+  };
+  return map[manufacturer] || '💠';
+};
 ---
-<Layout title="芯片替代库 | 国产替代指南" description="筛选国产替代芯片，支持按类别、替代级别、价格区间筛选。">
-<div class="max-w-7xl mx-auto px-4 py-8">
-<nav class="breadcrumb mb-4"><a href="/">首页</a> / <span>芯片库</span></nav>
-<h1 class="text-3xl font-bold text-slate-900 mb-2">芯片替代库</h1>
-<p class="text-slate-500 mb-6">{chips.length} 款国产替代方案</p>
-<!-- 类别快速导航 -->
-<div class="flex flex-wrap gap-2 mb-6">
-{categories.map((cat, i) => (
-<button class={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${i===0?'bg-[#0F4C81] text-white':'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>{cat}</button>
-))}
-</div>
-<!-- 搜索与筛选 -->
-<div class="bg-white rounded-xl p-4 mb-6 border border-slate-100">
-<div class="relative mb-4">
-<svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-<input type="text" id="searchInput" placeholder="输入型号搜索，如 STM32F103C8T6" class="w-full pl-12 pr-4 py-3 rounded-lg bg-slate-50 border-0 focus:outline-none focus:ring-2 focus:ring-[#0F4C81]/20">
-</div>
-<div class="flex flex-wrap gap-4 text-sm">
-<div class="flex items-center gap-2">
-<span class="text-slate-500">替代级别</span>
-<select class="bg-slate-50 rounded-lg px-3 py-2 border-0 focus:outline-none focus:ring-2 focus:ring-[#0F4C81]/20">
-{levels.map(l => <option>{l}</option>)}
-</select>
-</div>
-<div class="flex items-center gap-2">
-<span class="text-slate-500">价格区间</span>
-<select class="bg-slate-50 rounded-lg px-3 py-2 border-0 focus:outline-none focus:ring-2 focus:ring-[#0F4C81]/20">
-{priceRanges.map(p => <option>{p}</option>)}
-</select>
-</div>
-<div class="flex items-center gap-2 text-slate-500">
-<span>找到</span>
-<span class="font-bold text-[#0F4C81]">{chips.length}</span>
-<span>款芯片</span>
-</div>
-</div>
-</div>
-<!-- 芯片卡片矩阵 -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-{chips.map(chip => (
-<a href={`/chips/${chip.id}`} class="bg-white rounded-xl p-5 hover:shadow-lg transition-shadow border border-slate-100">
-<div class="flex justify-between items-start mb-3">
-<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#0F4C81] to-[#2B6CB0] flex items-center justify-center text-white font-bold text-sm">
-{chip.manufacturer.slice(0,2)}
-</div>
-<span class={`text-xs px-2 py-1 rounded-full ${chip.substituteLevel==='pin2pin'?'bg-green-100 text-green-700':'bg-blue-100 text-blue-700'}`}>
-{chip.substituteLevel==='pin2pin'?'P2P':'功能替代'}
-</span>
-</div>
-<h3 class="font-bold text-lg text-slate-800 mb-1">{chip.name}</h3>
-<p class="text-sm text-slate-500 mb-2">{chip.manufacturer}</p>
-<p class="text-xs text-slate-400 mb-3">替代 {chip.originalEquivalent}</p>
-<div class="flex justify-between items-center">
-<span class="text-[#E48736] font-bold text-lg">{chip.price}</span>
-</div>
-</a>
-))}
-</div>
+<Layout title="芯片大厅 | SCIP MONITOR" description="国产替代芯片数据库">
+<div style="min-height: 100vh; background: #020617; font-family: 'JetBrains Mono', monospace; padding-top: 80px;">
+  <div style="max-width: 1400px; margin: 0 auto; padding: 0 24px;">
+    
+    <TerminalBreadcrumb path={[{label: 'chips'}]} />
+    
+    <div style="margin-bottom: 32px;">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
+        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #22d3ee, #0ea5e9); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">💾</div>
+        <div>
+          <h1 style="font-size: 24px; color: #e2e8f0; margin: 0; font-weight: 600;">CHIP DATABASE</h1>
+          <p style="font-size: 12px; color: #64748b; margin: 4px 0 0 0;">国产替代芯片情报中心 · {stats.total} 款收录</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 统计卡片 -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px;">
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
+        <div style="font-size: 28px; font-weight: bold; color: #22d3ee; text-shadow: 0 0 10px rgba(34, 211, 238, 0.3);">{stats.total}</div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">收录芯片</div>
+      </div>
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
+        <div style="font-size: 28px; font-weight: bold; color: #a78bfa; text-shadow: 0 0 10px rgba(167, 139, 250, 0.3);">{stats.mcu}</div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">MCU/电源</div>
+      </div>
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
+        <div style="font-size: 28px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);">{stats.ai}</div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">AI芯片</div>
+      </div>
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
+        <div style="font-size: 28px; font-weight: bold; color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.3);">{stats.pin2pin}</div>
+        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">P2P替代</div>
+      </div>
+    </div>
+    
+    <!-- 分类过滤 -->
+    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
+        {categories.map((cat, i) => (
+          <button style={`padding: 8px 16px; font-size: 12px; border: 1px solid ${i === 0 ? '#22d3ee' : '#334155'}; background: ${i === 0 ? 'rgba(34, 211, 238, 0.1)' : 'transparent'}; color: ${i === 0 ? '#22d3ee' : '#94a3b8'}; border-radius: 6px; cursor: pointer; transition: all 0.2s;`} onmouseenter="this.style.borderColor='#22d3ee'; this.style.color='#22d3ee'" onmouseleave={`this.style.borderColor='${i === 0 ? '#22d3ee' : '#334155'}'; this.style.color='${i === 0 ? '#22d3ee' : '#94a3b8'}'`}>{cat}</button>
+        ))}
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        {levels.map((level, i) => (
+          <button style={`padding: 6px 14px; font-size: 11px; border: 1px solid ${i === 0 ? '#22c55e' : '#334155'}; background: ${i === 0 ? 'rgba(34, 197, 94, 0.1)' : 'transparent'}; color: ${i === 0 ? '#22c55e' : '#64748b'}; border-radius: 4px; cursor: pointer;`}>{level}</button>
+        ))}
+      </div>
+      <div style="margin-top: 16px; display: flex; gap: 12px;">
+        <div style="flex: 1; display: flex; align-items: center; background: #020617; border: 1px solid #334155; border-radius: 8px; padding: 0 16px;">
+          <span style="color: #22d3ee; margin-right: 12px;">$</span>
+          <input type="text" placeholder="search --model STM32 --manufacturer 极海半导体" style="flex: 1; background: transparent; border: none; color: #e2e8f0; padding: 12px 0; font-family: inherit; outline: none;" />
+        </div>
+        <button style="padding: 12px 24px; background: rgba(34, 211, 238, 0.2); border: 1px solid rgba(34, 211, 238, 0.3); color: #22d3ee; border-radius: 8px; font-size: 12px; cursor: pointer;">EXECUTE</button>
+      </div>
+    </div>
+    
+    <!-- 芯片网格 -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+      {chips.map(chip => (
+        <a href={`/chips/${chip.id}`} style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px; text-decoration: none; transition: all 0.2s;" onmouseenter="this.style.borderColor='#22d3ee'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 20px 40px rgba(34, 211, 238, 0.1)'" onmouseleave="this.style.borderColor='#1e293b'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #22d3ee, #0ea5e9); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                {getIcon(chip.manufacturer)}
+              </div>
+              <div>
+                <div style="font-size: 15px; color: #e2e8f0; font-weight: 600;">{chip.name}</div>
+                <div style="font-size: 11px; color: #64748b; margin-top: 2px;">{chip.manufacturer}</div>
+              </div>
+            </div>
+            <span style={`padding: 4px 10px; font-size: 10px; border-radius: 4px; ${chip.substituteLevel === 'pin2pin' ? 'background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3)' : 'background: rgba(34, 211, 238, 0.1); color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.3)'};`}>
+              {chip.substituteLevel === 'pin2pin' ? 'P2P' : 'FUNC'}
+            </span>
+          </div>
+          
+          <div style="background: rgba(30, 41, 59, 0.5); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+            <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">替代对象</div>
+            <div style="font-size: 13px; color: #e2e8f0;">{chip.originalEquivalent}</div>
+          </div>
+          
+          {chip.specs && (
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px;">
+              {Object.entries(chip.specs).slice(0, 2).map(([key, val]) => (
+                <div style="background: rgba(30, 41, 59, 0.3); padding: 8px; border-radius: 6px;">
+                  <div style="font-size: 9px; color: #64748b; text-transform: uppercase;">{key}</div>
+                  <div style="font-size: 11px; color: #e2e8f0;">{val}</div>
+                </div>
+              ))}
+            </div>
+          )}
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid #1e293b;">
+            <span style="font-size: 14px; color: #22d3ee; font-weight: 600;">{chip.price}</span>
+            <span style="font-size: 11px; color: #64748b;">查看详情 →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+    
+  </div>
 </div>
 </Layout>
