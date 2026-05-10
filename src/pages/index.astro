@@ -24,7 +24,7 @@ const featuredChips = chips.slice(0, 6);
 <span class="text-slate-500 text-xs ml-2">v2.0.26</span>
 </div>
 <div class="flex items-center gap-1">
-{['设备','材料','EDA/IP','芯片','企业','政策'].map((item, i) => (
+{['设备','材料','EDA/IP','芯片','企业','政策'].map((item) => (
 <a href={`/${item === 'EDA/IP' ? 'eda-ip' : item.toLowerCase()}`} 
    class="px-4 py-2 text-xs font-medium rounded-lg border border-slate-700 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/30 transition-all">
 {item}
@@ -63,7 +63,7 @@ const featuredChips = chips.slice(0, 6);
 
 <section class="mb-8">
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-{stats.map((stat, i) => (
+{stats.map((stat) => (
 <div class="relative bg-slate-900/50 backdrop-blur-md rounded-2xl border border-slate-800 p-6 overflow-hidden group hover:border-cyan-500/30 transition-all">
 <div class="absolute top-0 right-0 w-20 h-20 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
 <div class="relative z-10">
