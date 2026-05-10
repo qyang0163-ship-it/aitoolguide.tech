@@ -16,31 +16,17 @@ export async function getStaticPaths() {
     chips = [];
   }
   
-  // 调试输出
   console.log(`\n[SCIP MONITOR] 已成功挂载 ${chips.length} 个行业情报节点`);
-  console.log(`[SCIP MONITOR] 数据源: chips.json`);
   
-  // 数据验证和路径生成
   const paths = [];
   let validCount = 0;
-  let invalidCount = 0;
   
   chips.forEach((chip, index) => {
-    // 标准化 slug
     const slug = chip?.id ? chip.id.toLowerCase().replace(/[^a-z0-9-]/g, '-') : `node-${index}`;
-    
-    // 基础验证
-    const hasId = !!chip?.id;
-    const hasName = !!chip?.name;
+    const isValid = !!chip?.id && !!chip?.name;
     const hasSpecs = chip?.specs && Object.keys(chip.specs).length > 0;
-    const isValid = hasId && hasName;
     
-    if (isValid) {
-      validCount++;
-    } else {
-      invalidCount++;
-      console.log(`[SCIP MONITOR] 警告: 节点 [${index}] ${chip?.id || 'unknown'} 数据异常`);
-    }
+    if (isValid) validCount++;
     
     paths.push({
       params: { slug },
@@ -53,9 +39,8 @@ export async function getStaticPaths() {
     });
   });
   
-  console.log(`[SCIP MONITOR] 有效节点: ${validCount}, 异常节点: ${invalidCount}`);
+  console.log(`[SCIP MONITOR] 有效节点: ${validCount}/${chips.length}`);
   
-  // 如果没有数据，返回占位
   if (paths.length === 0) {
     return [{ params: { slug: 'no-data' }, props: { chip: {}, isValid: false, hasSpecs: false, index: 0 }}];
   }
@@ -69,140 +54,219 @@ const { chip, isValid, hasSpecs, index } = Astro.props;
 const isDataEmpty = !isValid || !chip?.id;
 const isDecrypting = isValid && !hasSpecs;
 
-// 替代等级映射
-const levelMap = {
-  'pin2pin': { text: 'P2P 引脚兼容', color: '#22c55e' },
-  'functional': { text: '功能替代', color: '#22d3ee' },
-  'partial': { text: '部分兼容', color: '#fbbf24' },
-  'development': { text: '开发中', color: '#94a3b8' }
+// 国产化率计算（模拟）
+const localizationRate = chip?.substituteLevel === 'pin2pin' ? 98 : 
+                          chip?.substituteLevel === 'functional' ? 85 : 72;
+
+// 成熟度等级
+const maturityGrade = localizationRate >= 95 ? 'S' : 
+                     localizationRate >= 85 ? 'A' : 
+                     localizationRate >= 70 ? 'B' : 'C';
+
+const gradeColor = {
+  'S': '#22c55e',
+  'A': '#22d3ee', 
+  'B': '#fbbf24',
+  'C': '#f43f5e'
 };
 
-const level = levelMap[chip?.substituteLevel] || levelMap['functional'];
----
-<Layout title={isDataEmpty ? "数据解密中 | SCIP MONITOR" : `${chip.name} | 国产替代方案`}>
-<div style="min-height: 100vh; background: #020617; font-family: 'JetBrains Mono', monospace;">
+// BIS制裁状态
+const bisStatus = chip?.originalEquivalent?.includes('NVIDIA') || 
+                 chip?.originalEquivalent?.includes('Intel') || 
+                 chip?.originalEquivalent?.includes('AMD') ||
+                 chip?.originalEquivalent?.includes('STM32') ? 
+                 { status: 'RESTRICTED', level: '实体清单', color: '#f43f5e' } :
+                 { status: 'MONITORING', level: '监控中', color: '#fbbf24' };
 
-<!-- 顶部导航 -->
-<nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(2, 6, 23, 0.95); border-bottom: 1px solid #1e293b; backdrop-filter: blur(20px);">
+// 供货稳定期
+const supplyStability = chip?.substituteLevel === 'pin2pin' ? '12-24月' : '6-12月';
+
+// 寄存器修改成本
+const registerCost = chip?.substituteLevel === 'pin2pin' ? '低 (<5%)' : '中 (10-20%)';
+---
+<Layout title={isDataEmpty ? "数据解密中 | SCIP MONITOR" : `【机密档案】${chip.name} | 国产替代情报`}>
+<div style="min-height: 100vh; background: #020617; font-family: 'JetBrains Mono', monospace; background-image: linear-gradient(to right, rgba(128,128,128,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(128,128,128,0.05) 1px, transparent 1px); background-size: 24px 24px;">
+
+<!-- 顶部导航栏 -->
+<nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(2, 6, 23, 0.98); border-bottom: 1px solid #1e293b; backdrop-filter: blur(20px);">
 <div style="max-width: 1400px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; justify-content: space-between; align-items: center;">
 <div style="display: flex; align-items: center; gap: 12px;">
-<div style="width: 32px; height: 32px; background: linear-gradient(135deg, #06b6d4, #2563eb); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+<div style="width: 32px; height: 32px; background: linear-gradient(135deg, #06b6d4, #2563eb); border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);">
 <span style="color: white; font-weight: bold; font-size: 14px;">S</span>
 </div>
-<span style="color: #22d3ee; font-weight: bold; letter-spacing: 0.1em;">SCIP MONITOR</span>
+<span style="color: #22d3ee; font-weight: bold; letter-spacing: 0.1em; font-size: 14px;">SCIP MONITOR</span>
+<span style="color: #334155; font-size: 11px;">|</span>
+<span style="color: #64748b; font-size: 11px;">机密档案系统 v2.4.1</span>
 </div>
-<div style="font-size: 11px; color: #64748b;">
-<span style="color: #22c55e;">●</span> P100节点在线
+<div style="display: flex; align-items: center; gap: 16px;">
+<span style="font-size: 11px; color: #64748b;">
+<span style={`color: ${bisStatus.color};`}>●</span> {bisStatus.status}
+</span>
+<div style="padding: 4px 12px; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 4px;">
+<span style="font-size: 11px; color: #22d3ee;">P100节点在线</span>
+</div>
 </div>
 </div>
 </nav>
 
-<div style="padding-top: 80px; padding-bottom: 32px;">
-<div style="max-width: 1400px; margin: 0 auto; padding: 0 24px;">
-
-<!-- 面包屑 -->
-<div style="margin-bottom: 24px; font-size: 12px; color: #64748b;">
-<a href="/" style="color: #64748b; text-decoration: none;">首页</a>
-<span style="margin: 0 8px;">/</span>
-<a href="/chips" style="color: #64748b; text-decoration: none;">芯片库</a>
-<span style="margin: 0 8px;">/</span>
-<span style="color: #22d3ee;">{isDataEmpty ? '解密中' : chip.name}</span>
-</div>
+<div style="padding-top: 64px;">
+<div style="max-width: 1400px; margin: 0 auto; padding: 24px;">
 
 {isDataEmpty ? (
-  <!-- 数据解密中占位页面 -->
-  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center;">
-    <div style="width: 120px; height: 120px; border: 2px solid #22d3ee; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; position: relative;">
+  <!-- 数据解密中 -->
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh;">
+    <div style="width: 140px; height: 140px; border: 2px solid #22d3ee; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 40px rgba(34, 211, 238, 0.2);">
       <div style="position: absolute; width: 100%; height: 100%; border: 2px solid transparent; border-top-color: #22d3ee; border-radius: 50%; animation: spin 2s linear infinite;"></div>
-      <span style="font-size: 36px; color: #22d3ee;">🔐</span>
+      <span style="font-size: 48px; color: #22d3ee;">🔐</span>
     </div>
-    <h1 style="font-size: 24px; color: #22d3ee; margin-bottom: 16px; text-shadow: 0 0 20px rgba(34, 211, 238, 0.3);">数据正在由 P100 节点解密中...</h1>
-    <p style="color: #64748b; font-size: 14px; margin-bottom: 8px;">情报节点编号: #{index}</p>
-    <p style="color: #94a3b8; font-size: 12px; max-width: 400px; margin-bottom: 32px;">
-      该芯片的详细技术规格正在通过安全通道传输。我们的 P100 算力节点正在解密厂商提供的加密数据包。
-    </p>
-    <div style="display: flex; gap: 16px;">
-      <a href="/chips" style="padding: 12px 24px; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.3); color: #22d3ee; border-radius: 8px; text-decoration: none; font-size: 13px;">
-        返回芯片库
-      </a>
-      <button style="padding: 12px 24px; background: transparent; border: 1px solid #334155; color: #64748b; border-radius: 8px; font-size: 13px; cursor: pointer;" onclick="location.reload()">
-        刷新状态
-      </button>
-    </div>
-    <div style="margin-top: 48px; padding: 16px 24px; background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 8px;">
-      <div style="font-size: 11px; color: #64748b; margin-bottom: 8px;">系统状态</div>
-      <div style="display: flex; gap: 24px; font-size: 11px;">
-        <span style="color: #22c55e;">● 节点在线</span>
-        <span style="color: #fbbf24;">◐ 数据同步中</span>
-        <span style="color: #64748b;">○ 等待解密</span>
-      </div>
-    </div>
-  </div>
-) : isDecrypting ? (
-  <!-- 规格解密中 -->
-  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center;">
-    <div style="width: 100px; height: 100px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 32px;">
-      <span style="font-size: 36px; color: #fbbf24;">📡</span>
-    </div>
-    <h1 style="font-size: 24px; color: #fbbf24; margin-bottom: 16px;">规格参数同步中...</h1>
-    <p style="color: #64748b; font-size: 14px; margin-bottom: 8px;">型号: {chip.name}</p>
-    <p style="color: #94a3b8; font-size: 12px; max-width: 400px; margin-bottom: 32px;">
-      基础信息已加载，详细技术规格正在从厂商数据库同步。预计 5-10 分钟内完成。
-    </p>
-    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 24px; width: 100%; max-width: 500px;">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
-        <span style="color: #64748b; font-size: 12px;">厂商</span>
-        <span style="color: #e2e8f0; font-size: 12px;">{chip.manufacturer}</span>
-      </div>
-      <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
-        <span style="color: #64748b; font-size: 12px;">替代对象</span>
-        <span style="color: #f43f5e; font-size: 12px;">{chip.originalEquivalent}</span>
-      </div>
-      <div style="display: flex; justify-content: space-between;">
-        <span style="color: #64748b; font-size: 12px;">价格</span>
-        <span style="color: #fbbf24; font-size: 12px;">{chip.price || '待公布'}</span>
-      </div>
-    </div>
+    <h1 style="font-size: 28px; color: #22d3ee; margin: 32px 0 16px; text-shadow: 0 0 20px rgba(34, 211, 238, 0.4);">数据正在由 P100 节点解密中...</h1>
+    <p style="color: #64748b; font-size: 13px;">情报节点编号: #{index.toString().padStart(4, '0')}</p>
   </div>
 ) : (
-  <!-- 完整详情页 -->
   <>
-  <!-- 芯片标题区 -->
-  <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 16px; padding: 32px; margin-bottom: 24px;">
-    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px;">
-      <div>
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-          <h1 style="font-size: 36px; font-weight: bold; color: #e2e8f0; margin: 0; text-shadow: 0 0 20px rgba(34, 211, 238, 0.2);">{chip.name}</h1>
-          <span style={`font-size: 11px; padding: 4px 12px; border-radius: 4px; border: 1px solid ${level.color}; background: ${level.color}20; color: ${level.color};`}>
-            {level.text}
-          </span>
-        </div>
-        <p style="color: #94a3b8; font-size: 14px; margin: 0 0 8px 0;">
-          {chip.manufacturer} · 替代 <span style="color: #f43f5e;">{chip.originalEquivalent}</span>
-        </p>
-        <p style="color: #64748b; font-size: 12px; margin: 0;">
-          情报节点 #{index} · 数据源: chips.json
-        </p>
+  <!-- 面包屑导航 -->
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px; font-size: 12px; color: #64748b;">
+    <a href="/" style="color: #64748b; text-decoration: none;">ROOT</a>
+    <span style="color: #334155;">/</span>
+    <a href="/chips" style="color: #64748b; text-decoration: none;">INTEL_DB</a>
+    <span style="color: #334155;">/</span>
+    <span style="color: #22d3ee; text-transform: uppercase;">{chip.id}</span>
+    <span style="margin-left: auto; padding: 2px 8px; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.2); border-radius: 4px; font-size: 10px; color: #22d3ee;">CLASSIFIED</span>
+  </div>
+
+  <!-- 1. 顶部：型号状态栏 (Header Status) -->
+  <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7)); border: 1px solid #334155; border-radius: 12px; padding: 24px; margin-bottom: 24px; position: relative; overflow: hidden;">
+    <!-- 电子印章效果 -->
+    <div style={`position: absolute; top: 16px; right: 16px; padding: 8px 16px; border: 2px solid ${gradeColor[maturityGrade]}; border-radius: 8px; transform: rotate(-5deg); box-shadow: 0 0 20px ${gradeColor[maturityGrade]}40;`}>
+      <div style={`font-size: 24px; font-weight: bold; color: ${gradeColor[maturityGrade]}; text-shadow: 0 0 10px ${gradeColor[maturityGrade]}80;`}>{maturityGrade}级</div>
+      <div style={`font-size: 9px; color: ${gradeColor[maturityGrade]}; text-align: center;`}>替代成熟度</div>
+    </div>
+    
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+      <h1 style="font-size: 36px; font-weight: bold; color: #e2e8f0; margin: 0; text-shadow: 0 0 30px rgba(34, 211, 238, 0.3);">{chip.name}</h1>
+      <div style="padding: 4px 12px; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 4px;">
+        <span style="font-size: 11px; color: #22d3ee;">{chip.manufacturer}</span>
       </div>
-      <div style="text-align: right;">
-        <div style="font-size: 14px; color: #64748b; margin-bottom: 4px;">参考价格</div>
-        <div style="font-size: 42px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);">{chip.price}</div>
-        <div style="font-size: 11px; color: #64748b; margin-top: 8px;">最后更新: 2026-05-10</div>
+    </div>
+    
+    <div style="display: flex; gap: 32px; flex-wrap: wrap;">
+      <!-- 国产化率 -->
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style={`width: 60px; height: 60px; border: 3px solid ${localizationRate >= 90 ? '#22c55e' : '#fbbf24'}; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 20px ${localizationRate >= 90 ? 'rgba(34, 197, 94, 0.3)' : 'rgba(251, 191, 36, 0.3)'};`}>
+          <span style={`font-size: 16px; font-weight: bold; color: ${localizationRate >= 90 ? '#22c55e' : '#fbbf24'};`}>{localizationRate}%</span>
+        </div>
+        <div>
+          <div style="font-size: 11px; color: #64748b;">国产化率</div>
+          <div style={`font-size: 13px; color: ${localizationRate >= 90 ? '#22c55e' : '#fbbf24'};`}>{localizationRate >= 90 ? '高度自主' : '替代可行'}</div>
+        </div>
+      </div>
+      
+      <!-- 替代类型 -->
+      <div style="padding: 12px 20px; background: rgba(30, 41, 59, 0.5); border-radius: 8px; border: 1px solid #334155;">
+        <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">替代类型</div>
+        <div style="font-size: 14px; color: #e2e8f0;">
+          {chip.substituteLevel === 'pin2pin' ? '🔌 P2P 引脚兼容' : '⚡ 功能级替代'}
+        </div>
+      </div>
+      
+      <!-- 价格 -->
+      <div style="padding: 12px 20px; background: rgba(251, 191, 36, 0.05); border-radius: 8px; border: 1px solid rgba(251, 191, 36, 0.2);">
+        <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">参考价格</div>
+        <div style="font-size: 20px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);">{chip.price}</div>
+      </div>
+      
+      <!-- BIS状态 -->
+      <div style={`padding: 12px 20px; background: ${bisStatus.color}10; border-radius: 8px; border: 1px solid ${bisStatus.color}40;`}>
+        <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">BIS管制状态</div>
+        <div style={`font-size: 14px; color: ${bisStatus.color}; font-weight: 500;`}>{bisStatus.level}</div>
       </div>
     </div>
   </div>
 
-  <!-- 核心参数 -->
+  <!-- 2. 中部：双轴对比看板 (Twin-Axis Monitor) -->
+  <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; margin-bottom: 24px;">
+    
+    <!-- 左侧：国外对标型号 -->
+    <div style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.2); border-radius: 12px; padding: 24px; position: relative;">
+      <div style="position: absolute; top: -1px; left: -1px; right: -1px; height: 3px; background: linear-gradient(90deg, #f43f5e, #fb7185); border-radius: 12px 12px 0 0;"></div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+        <span style="width: 8px; height: 8px; background: #f43f5e; border-radius: 50%; animation: pulse 2s infinite;"></span>
+        <span style="font-size: 12px; color: #f43f5e; font-weight: 600; letter-spacing: 0.1em;">FOREIGN ORIGINAL</span>
+      </div>
+      
+      <div style="font-size: 24px; font-weight: bold; color: #e2e8f0; margin-bottom: 8px;">{chip.originalEquivalent}</div>
+      <div style="font-size: 12px; color: #64748b; margin-bottom: 20px;">原厂对标型号</div>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="padding: 12px; background: rgba(30, 41, 59, 0.5); border-radius: 6px;">
+          <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">BIS制裁状态</div>
+          <div style={`font-size: 13px; color: ${bisStatus.color}; font-weight: 500;`}>{bisStatus.status}</div>
+        </div>
+        <div style="padding: 12px; background: rgba(30, 41, 59, 0.5); border-radius: 6px;">
+          <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">供货风险</div>
+          <div style="font-size: 13px; color: #f43f5e; font-weight: 500;">高风险</div>
+        </div>
+        <div style="padding: 12px; background: rgba(30, 41, 59, 0.5); border-radius: 6px;">
+          <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">预计交期</div>
+          <div style="font-size: 13px; color: #fbbf24;">52+ 周 / 断供</div>
+        </div>
+        <div style="padding: 12px; background: rgba(30, 41, 59, 0.5); border-radius: 6px;">
+          <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">价格波动</div>
+          <div style="font-size: 13px; color: #f43f5e;">↑ 300-500%</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 中间：VS -->
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #22d3ee, #a78bfa); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; color: #020617; box-shadow: 0 0 30px rgba(34, 211, 238, 0.4);">
+        VS
+      </div>
+    </div>
+    
+    <!-- 右侧：国产替代方案 -->
+    <div style="background: rgba(34, 211, 238, 0.05); border: 1px solid rgba(34, 211, 238, 0.2); border-radius: 12px; padding: 24px; position: relative;">
+      <div style="position: absolute; top: -1px; left: -1px; right: -1px; height: 3px; background: linear-gradient(90deg, #22d3ee, #06b6d4); border-radius: 12px 12px 0 0;"></div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+        <span style="width: 8px; height: 8px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite;"></span>
+        <span style="font-size: 12px; color: #22d3ee; font-weight: 600; letter-spacing: 0.1em;">DOMESTIC SUBSTITUTE</span>
+      </div>
+      
+      <div style="font-size: 24px; font-weight: bold; color: #e2e8f0; margin-bottom: 8px;">{chip.name}</div>
+      <div style="font-size: 12px; color: #64748b; margin-bottom: 20px;">{chip.manufacturer}</div>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="padding: 12px; background: rgba(30, 41, 59, 0.5); border-radius: 6px;">
+          <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">引脚兼容性</div>
+          <div style="font-size: 13px; color: #22c55e; font-weight: 500;">{chip.substituteLevel === 'pin2pin' ? '98% 完全兼容' : '85% 需适配'}</div>
+        </div>
+        <div style="padding: 12px; background: rgba(30, 41, 59, 0.5); border-radius: 6px;">
+          <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">寄存器修改成本</div>
+          <div style="font-size: 13px; color: #22d3ee; font-weight: 500;">{registerCost}</div>
+        </div>
+        <div style="padding: 12px; background: rgba(30, 41, 59, 0.5); border-radius: 6px;">
+          <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">供货稳定期</div>
+          <div style="font-size: 13px; color: #22c55e;">{supplyStability}</div>
+        </div>
+        <div style="padding: 12px; background: rgba(30, 41, 59, 0.5); border-radius: 6px;">
+          <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">价格优势</div>
+          <div style="font-size: 13px; color: #22c55e;">↓ 30-60%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 核心参数矩阵 -->
   {chip.specs && Object.keys(chip.specs).length > 0 && (
-    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 16px; padding: 24px; margin-bottom: 24px;">
-      <h2 style="font-size: 16px; font-weight: bold; color: #22d3ee; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
         <span style="width: 6px; height: 6px; background: #22d3ee; border-radius: 50%;"></span>
-        核心参数
-      </h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+        <span style="font-size: 14px; color: #22d3ee; font-weight: 600;">TECHNICAL SPECIFICATIONS</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
         {Object.entries(chip.specs).map(([key, value]) => (
-          <div style="background: rgba(30, 41, 59, 0.5); padding: 16px; border-radius: 8px; border: 1px solid #1e293b;">
-            <div style="font-size: 11px; color: #64748b; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em;">{key}</div>
+          <div style="background: rgba(30, 41, 59, 0.5); padding: 16px; border-radius: 8px; border: 1px solid #1e293b; transition: all 0.2s;" onmouseenter="this.style.borderColor='#22d3ee'; this.style.background='rgba(34, 211, 238, 0.05)'" onmouseleave="this.style.borderColor='#1e293b'; this.style.background='rgba(30, 41, 59, 0.5)'">
+            <div style="font-size: 10px; color: #64748b; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em;">{key}</div>
             <div style="font-size: 14px; color: #e2e8f0; font-weight: 500;">{value}</div>
           </div>
         ))}
@@ -210,14 +274,59 @@ const level = levelMap[chip?.substituteLevel] || levelMap['functional'];
     </div>
   )}
 
-  <!-- 操作按钮 -->
-  <div style="display: flex; gap: 16px; justify-content: center; margin-top: 32px;">
-    <a href={chip.datasheetUrl || '#'} style="padding: 16px 32px; background: linear-gradient(135deg, #22d3ee, #0ea5e9); color: #020617; font-weight: bold; border-radius: 8px; text-decoration: none; font-size: 14px;">
-      📄 下载技术手册
+  <!-- 3. 底部：VIP 情报拦截 (Lead Gen Hook) -->
+  <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7)); border: 1px solid #334155; border-radius: 12px; padding: 24px; margin-bottom: 24px; position: relative;">
+    <div style="position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 4px;">
+      <span style="font-size: 10px; color: #fbbf24;">🔒 ENCRYPTED</span>
+    </div>
+    
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+      <span style="font-size: 18px;">🛡️</span>
+      <span style="font-size: 16px; color: #e2e8f0; font-weight: 600;">加密资源区</span>
+      <span style="font-size: 11px; color: #64748b;">VIP专属情报</span>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+      <!-- 资源1 -->
+      <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; border-radius: 8px; padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;" onmouseenter="this.style.borderColor='#fbbf24'; this.style.transform='translateY(-2px)'" onmouseleave="this.style.borderColor='#334155'; this.style.transform='translateY(0)'" onclick="showVIPModal('P2P兼容性测试报告')">
+        <div style="position: absolute; top: 8px; right: 8px; font-size: 16px; color: #fbbf24;">🔒</div>
+        <div style="font-size: 13px; color: #e2e8f0; margin-bottom: 8px;">P2P 兼容性测试报告</div>
+        <div style="font-size: 11px; color: #64748b;">PDF · 12.4 MB</div>
+        <div style="margin-top: 12px; padding: 6px 12px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.2); border-radius: 4px; text-align: center;">
+          <span style="font-size: 10px; color: #fbbf24;">获取密钥</span>
+        </div>
+      </div>
+      
+      <!-- 资源2 -->
+      <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; border-radius: 8px; padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;" onmouseenter="this.style.borderColor='#fbbf24'; this.style.transform='translateY(-2px)'" onmouseleave="this.style.borderColor='#334155'; this.style.transform='translateY(0)'" onclick="showVIPModal('寄存器映射详细表')">
+        <div style="position: absolute; top: 8px; right: 8px; font-size: 16px; color: #fbbf24;">🔒</div>
+        <div style="font-size: 13px; color: #e2e8f0; margin-bottom: 8px;">寄存器映射详细表</div>
+        <div style="font-size: 11px; color: #64748b;">XLSX · 3.2 MB</div>
+        <div style="margin-top: 12px; padding: 6px 12px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.2); border-radius: 4px; text-align: center;">
+          <span style="font-size: 10px; color: #fbbf24;">获取密钥</span>
+        </div>
+      </div>
+      
+      <!-- 资源3 -->
+      <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; border-radius: 8px; padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;" onmouseenter="this.style.borderColor='#fbbf24'; this.style.transform='translateY(-2px)'" onmouseleave="this.style.borderColor='#334155'; this.style.transform='translateY(0)'" onclick="showVIPModal('算力实验室魔改BIOS')">
+        <div style="position: absolute; top: 8px; right: 8px; font-size: 16px; color: #fbbf24;">🔒</div>
+        <div style="font-size: 13px; color: #e2e8f0; margin-bottom: 8px;">算力实验室魔改 BIOS</div>
+        <div style="font-size: 11px; color: #64748b;">BIN · 8.7 MB</div>
+        <div style="margin-top: 12px; padding: 6px 12px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.2); border-radius: 4px; text-align: center;">
+          <span style="font-size: 10px; color: #fbbf24;">获取密钥</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部操作栏 -->
+  <div style="display: flex; justify-content: center; gap: 16px; padding: 24px 0;">
+    <a href={chip.datasheetUrl || '#'} style="padding: 14px 28px; background: linear-gradient(135deg, #22d3ee, #0ea5e9); color: #020617; font-weight: bold; border-radius: 8px; text-decoration: none; font-size: 13px; letter-spacing: 0.05em; box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);">
+      📄 下载公开技术手册
     </a>
-    <button style="padding: 16px 32px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); color: #fbbf24; border-radius: 8px; font-size: 14px; cursor: pointer;">
-      🔒 [VIP] 完整对比
-    </button>
+    <a href="/chips" style="padding: 14px 28px; background: transparent; border: 1px solid #334155; color: #94a3b8; border-radius: 8px; text-decoration: none; font-size: 13px;">
+      ← 返回情报库
+    </a>
   </div>
   </>
 )}
@@ -225,12 +334,67 @@ const level = levelMap[chip?.substituteLevel] || levelMap['functional'];
 </div>
 </div>
 
+<!-- VIP弹窗 -->
+<div id="vipModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(2, 6, 23, 0.95); z-index: 100; align-items: center; justify-content: center;">
+  <div style="background: linear-gradient(135deg, #0f172a, #1e293b); border: 1px solid #334155; border-radius: 16px; padding: 40px; max-width: 400px; text-align: center; box-shadow: 0 0 60px rgba(251, 191, 36, 0.2);">
+    <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
+    <h2 style="font-size: 20px; color: #fbbf24; margin-bottom: 12px;">加密资源访问受限</h2>
+    <p id="modalResourceName" style="color: #94a3b8; font-size: 14px; margin-bottom: 24px;"></p>
+    <p style="color: #64748b; font-size: 12px; margin-bottom: 24px;">
+      该资源为 VIP 专属情报，需要完成身份验证或升级会员等级获取解密密钥。
+    </p>
+    <div style="display: flex; gap: 12px;">
+      <button style="flex: 1; padding: 12px; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #020617; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 13px;">
+        升级 VIP
+      </button>
+      <button onclick="closeVIPModal()" style="flex: 1; padding: 12px; background: transparent; border: 1px solid #334155; color: #94a3b8; border-radius: 8px; cursor: pointer; font-size: 13px;">
+        稍后
+      </button>
+    </div>
+    <div style="margin-top: 20px; padding: 12px; background: rgba(30, 41, 59, 0.5); border-radius: 8px;">
+      <div style="font-size: 11px; color: #64748b; margin-bottom: 8px;">或扫码关注公众号获取限时密钥</div>
+      <div style="width: 120px; height: 120px; background: #334155; border-radius: 8px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+        <span style="color: #64748b; font-size: 10px;">QR CODE</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <style>
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
 </style>
+
+<script is:inline>
+  function showVIPModal(resourceName) {
+    const modal = document.getElementById('vipModal');
+    const nameEl = document.getElementById('modalResourceName');
+    if (modal && nameEl) {
+      nameEl.textContent = '「' + resourceName + '」';
+      modal.style.display = 'flex';
+    }
+  }
+  
+  function closeVIPModal() {
+    const modal = document.getElementById('vipModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
+  
+  // 点击背景关闭
+  document.getElementById('vipModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeVIPModal();
+    }
+  });
+</script>
 
 </div>
 </Layout>
