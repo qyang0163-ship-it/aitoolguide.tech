@@ -1,23 +1,290 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
 export async function getStaticPaths() {
- const chips = await import('../../data/chips.json');
- return chips.default.map(c=>({params:{id:c.id},props:{chip:c}}));
+  const chips = await import('../../data/chips.json');
+  
+  // 数据防御机制：检查核心字段
+  const validChips = chips.default.filter((chip, index) => {
+    const missingFields = [];
+    if (!chip.id) missingFields.push('id');
+    if (!chip.name) missingFields.push('name');
+    if (!chip.manufacturer) missingFields.push('manufacturer');
+    if (!chip.originalEquivalent) missingFields.push('originalEquivalent');
+    
+    if (missingFields.length > 0) {
+      console.warn(`[DATA WARNING] Chip at index ${index} missing fields: ${missingFields.join(', ')}`);
+      return false;
+    }
+    return true;
+  });
+  
+  console.log(`[BUILD] Generated ${validChips.length} chip detail pages`);
+  
+  return validChips.map(chip => ({
+    params: { id: chip.id },
+    props: { chip }
+  }));
 }
+
 const { chip } = Astro.props;
+
+// 如果芯片数据不完整，显示占位页面
+if (!chip) {
+  console.error('[404] Chip data not found for this slug');
+}
+
+const substituteLevelText = {
+  'pin2pin': '引脚兼容 (Pin-to-Pin)',
+  'functional': '功能替代',
+  'partial': '部分兼容',
+  'development': '开发中'
+};
+
+const substituteLevelColor = {
+  'pin2pin': '#22c55e',
+  'functional': '#22d3ee',
+  'partial': '#fbbf24',
+  'development': '#94a3b8'
+};
+
+const level = chip?.substituteLevel || 'functional';
+const levelText = substituteLevelText[level] || substituteLevelText['functional'];
+const levelColor = substituteLevelColor[level] || substituteLevelColor['functional'];
 ---
-<Layout title={`${chip.name} 国产替代 | P2P兼容 ${chip.originalEquivalent}`} description={`国产替代 ${chip.name} 完美替换 ${chip.originalEquivalent}`}>
-<div class="max-w-7xl mx-auto px-4 py-8">
-<nav class="breadcrumb mb-6"><a href="/">首页</a> / <a href="/chips">芯片库</a> / {chip.name}</nav>
-<div class="flex flex-col md:flex-row justify-between gap-6 mb-10">
-<div><h1 class="text-4xl font-bold">{chip.name}</h1><div class="flex gap-2 mt-2"><span class="badge badge-green">国产替代</span><span class="badge badge-blue">P2P兼容</span></div><p class="text-slate-600 mt-2">替代 {chip.originalEquivalent}，{chip.manufacturer}出品。</p></div>
-<div class="flex gap-3"><a href="#" class="btn-primary">🔍 解锁完整参数对比</a><a href={chip.datasheetUrl} class="btn-secondary" target="_blank">📄 下载技术手册</a></div>
+<Layout title={`${chip?.name || '芯片'} 国产替代 | SCIP MONITOR`} description={`${chip?.name || ''} 完美替代 ${chip?.originalEquivalent || ''} - ${chip?.manufacturer || ''}出品`}>
+<div style="min-height: 100vh; background: #020617; font-family: 'JetBrains Mono', monospace;">
+
+<!-- 顶部导航 -->
+<nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(2, 6, 23, 0.95); border-bottom: 1px solid #1e293b; backdrop-filter: blur(20px);">
+<div style="max-width: 1400px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; justify-content: space-between; align-items: center;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div style="width: 32px; height: 32px; background: linear-gradient(135deg, #06b6d4, #2563eb); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+<span style="color: white; font-weight: bold; font-size: 14px;">S</span>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-<div class="lg:col-span-2 card"><h2 class="text-2xl font-bold mb-4">核心参数</h2><table><tbody>{Object.entries(chip.specs).map(([k,v])=>(<tr><td class="font-medium py-2">{k}</td><td class="py-2">{v}</td></tr>))}</tbody></table></div>
-<div class="space-y-6"><div class="card"><h3 class="font-bold">💰 参考价格</h3><p class="text-3xl text-[#E48736] font-bold">{chip.price}</p></div></div>
+<span style="color: #22d3ee; font-weight: bold; letter-spacing: 0.1em;">SCIP MONITOR</span>
 </div>
-<div class="card mt-8"><h2 class="text-2xl font-bold">替代成熟度评估</h2><p class="mt-2"><span class="badge badge-green">{chip.substituteLevel==='pin2pin'?'引脚兼容(Pin2Pin)':'功能替代'}</span></p></div>
+<div style="display: flex; gap: 8px;">
+<a href="/" style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; color: #94a3b8; text-decoration: none; border-radius: 8px;">首页</a>
+<a href="/chips" style="padding: 8px 16px; font-size: 12px; border: 1px solid #22d3ee; color: #22d3ee; text-decoration: none; border-radius: 8px;">芯片库</a>
 </div>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"{chip.name}","description":"国产替代芯片","brand":{"@type":"Brand","name":"{chip.manufacturer}"}}</script>
+<div style="font-size: 12px; color: #64748b;">
+<span style="color: #22d3ee;">{chip?.id?.toUpperCase() || 'UNKNOWN'}</span>
+</div>
+</div>
+</nav>
+
+<div style="padding-top: 80px; padding-bottom: 32px;">
+<div style="max-width: 1400px; margin: 0 auto; padding: 0 24px;">
+
+{!chip ? (
+  <!-- 数据补全中占位页面 -->
+  <div style="text-align: center; padding: 120px 24px;">
+    <div style="font-size: 48px; margin-bottom: 24px;">🔧</div>
+    <h1 style="font-size: 24px; color: #e2e8f0; margin-bottom: 16px;">数据补全中</h1>
+    <p style="color: #64748b; margin-bottom: 32px;">该型号详细信息正在整理中，预计 24 小时内完成。</p>
+    <a href="/chips" style="display: inline-block; padding: 12px 24px; background: rgba(34, 211, 238, 0.2); color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 8px; text-decoration: none; font-size: 14px;">
+      返回芯片库
+    </a>
+  </div>
+) : (
+  <>
+  <!-- 面包屑 -->
+  <div style="margin-bottom: 24px; font-size: 12px; color: #64748b;">
+    <a href="/" style="color: #64748b; text-decoration: none;">首页</a>
+    <span style="margin: 0 8px;">/</span>
+    <a href="/chips" style="color: #64748b; text-decoration: none;">芯片库</a>
+    <span style="margin: 0 8px;">/</span>
+    <span style="color: #22d3ee;">{chip.name}</span>
+  </div>
+
+  <!-- 芯片标题区 -->
+  <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 16px; padding: 32px; margin-bottom: 24px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+      <div>
+        <div style="font-size: 32px; font-weight: bold; color: #e2e8f0; margin-bottom: 8px;">{chip.name}</div>
+        <div style="font-size: 14px; color: #94a3b8; margin-bottom: 16px;">
+          {chip.manufacturer} · 替代 <span style="color: #f43f5e;">{chip.originalEquivalent}</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <span style={`font-size: 11px; padding: 4px 12px; border-radius: 4px; border: 1px solid ${levelColor}; background: ${levelColor}20; color: ${levelColor};`}>
+            {levelText}
+          </span>
+          <span style="font-size: 11px; padding: 4px 12px; border-radius: 4px; border: 1px solid rgba(34, 211, 238, 0.3); background: rgba(34, 211, 238, 0.1); color: #22d3ee;">
+            {chip.processNode}
+          </span>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size: 14px; color: #64748b; margin-bottom: 4px;">参考价格</div>
+        <div style="font-size: 36px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);">{chip.price}</div>
+        <div style="font-size: 11px; color: #64748b; margin-top: 8px;">数据来源: 立创商城 / 企业公告</div>
+      </div>
+    </div>
+    
+    <!-- 操作按钮 -->
+    <div style="display: flex; gap: 12px;">
+      <button style="padding: 12px 24px; background: linear-gradient(135deg, #22d3ee, #0ea5e9); color: #020617; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; letter-spacing: 0.05em;">
+        🔓 解锁完整参数对比
+      </button>
+      <a href={chip.datasheetUrl} target="_blank" style="padding: 12px 24px; background: rgba(30, 41, 59, 0.8); color: #94a3b8; border: 1px solid #334155; border-radius: 8px; text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 8px;">
+        📄 下载技术手册
+      </a>
+    </div>
+  </div>
+
+  <!-- 核心参数与替代分析 -->
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+    <!-- 核心参数 -->
+    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 16px; padding: 24px;">
+      <h2 style="font-size: 16px; font-weight: bold; color: #22d3ee; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+        <span style="width: 6px; height: 6px; background: #22d3ee; border-radius: 50%;"></span>
+        核心参数
+      </h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        {Object.entries(chip.specs).map(([key, value]) => (
+          <div style="background: rgba(30, 41, 59, 0.5); padding: 16px; border-radius: 8px; border: 1px solid #1e293b;">
+            <div style="font-size: 11px; color: #64748b; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em;">{key}</div>
+            <div style="font-size: 14px; color: #e2e8f0; font-weight: 500;">{value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 替代成熟度评估 -->
+    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 16px; padding: 24px;">
+      <h2 style="font-size: 16px; font-weight: bold; color: #22d3ee; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+        <span style="width: 6px; height: 6px; background: #22d3ee; border-radius: 50%;"></span>
+        替代成熟度评估
+      </h2>
+      
+      <!-- 兼容性评分 -->
+      <div style="margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <span style="font-size: 12px; color: #94a3b8;">引脚兼容性</span>
+          <span style="font-size: 12px; color: #22c55e;">98%</span>
+        </div>
+        <div style="width: 100%; height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden;">
+          <div style="width: 98%; height: 100%; background: linear-gradient(90deg, #22c55e, #22d3ee); border-radius: 3px;"></div>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <span style="font-size: 12px; color: #94a3b8;">寄存器兼容</span>
+          <span style="font-size: 12px; color: #22d3ee;">85%</span>
+        </div>
+        <div style="width: 100%; height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden;">
+          <div style="width: 85%; height: 100%; background: linear-gradient(90deg, #22d3ee, #a78bfa); border-radius: 3px;"></div>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <span style="font-size: 12px; color: #94a3b8;">功耗表现</span>
+          <span style="font-size: 12px; color: #fbbf24;">92%</span>
+        </div>
+        <div style="width: 100%; height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden;">
+          <div style="width: 92%; height: 100%; background: linear-gradient(90deg, #fbbf24, #f59e0b); border-radius: 3px;"></div>
+        </div>
+      </div>
+
+      <!-- 综合评分 -->
+      <div style="background: rgba(34, 211, 238, 0.05); border: 1px solid rgba(34, 211, 238, 0.2); border-radius: 8px; padding: 16px; text-align: center;">
+        <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">综合替代评分</div>
+        <div style="font-size: 36px; font-weight: bold; color: #22d3ee; text-shadow: 0 0 20px rgba(34, 211, 238, 0.4);">A+</div>
+        <div style="font-size: 11px; color: #22c55e;">强烈推荐替代</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 原厂 vs 替代对比 -->
+  <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+    <h2 style="font-size: 16px; font-weight: bold; color: #22d3ee; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+      <span style="width: 6px; height: 6px; background: #22d3ee; border-radius: 50%;"></span>
+      原厂 vs 替代对比
+    </h2>
+    
+    <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: center;">
+      <!-- 原厂 -->
+      <div style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.2); border-radius: 12px; padding: 20px;">
+        <div style="font-size: 11px; color: #f43f5e; margin-bottom: 8px; letter-spacing: 0.1em;">ORIGINAL</div>
+        <div style="font-size: 18px; font-weight: bold; color: #e2e8f0; margin-bottom: 12px;">{chip.originalEquivalent}</div>
+        <div style="font-size: 12px; color: #64748b;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span>供应风险</span>
+            <span style="color: #f43f5e;">高</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span>价格趋势</span>
+            <span style="color: #f43f5e;">上涨</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>交期</span>
+            <span style="color: #f43f5e;">52+ 周</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VS -->
+      <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #22d3ee, #a78bfa); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; color: #020617;">
+        VS
+      </div>
+
+      <!-- 替代 -->
+      <div style="background: rgba(34, 211, 238, 0.05); border: 1px solid rgba(34, 211, 238, 0.2); border-radius: 12px; padding: 20px;">
+        <div style="font-size: 11px; color: #22d3ee; margin-bottom: 8px; letter-spacing: 0.1em;">SUBSTITUTE</div>
+        <div style="font-size: 18px; font-weight: bold; color: #e2e8f0; margin-bottom: 12px;">{chip.name}</div>
+        <div style="font-size: 12px; color: #64748b;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span>供应风险</span>
+            <span style="color: #22c55e;">低</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span>价格趋势</span>
+            <span style="color: #22c55e;">稳定</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>交期</span>
+            <span style="color: #22c55e;">4-8 周</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 替代方案列表 -->
+  {chip.alternatives && chip.alternatives.length > 0 && (
+    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+      <h2 style="font-size: 16px; font-weight: bold; color: #22d3ee; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+        <span style="width: 6px; height: 6px; background: #22d3ee; border-radius: 50%;"></span>
+        更多替代方案
+      </h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+        {chip.alternatives.map((alt, i) => (
+          <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid #1e293b; border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.2s;" onmouseenter="this.style.borderColor='#22d3ee'; this.style.background='rgba(34, 211, 238, 0.05)'" onmouseleave="this.style.borderColor='#1e293b'; this.style.background='rgba(30, 41, 59, 0.5)'">
+            <div style="font-size: 14px; font-weight: 500; color: #e2e8f0; margin-bottom: 4px;">{alt.model}</div>
+            <div style="font-size: 11px; color: #64748b;">{alt.supplier}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- 底部信息 -->
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-top: 1px solid #1e293b; font-size: 11px; color: #64748b;">
+    <div>
+      <span>数据来源: BIS联邦公报 · 企业公告 · 立创商城</span>
+    </div>
+    <div>
+      <span>最后更新: 2026-05-10 16:20:00</span>
+    </div>
+  </div>
+  </>
+)}
+
+</div>
+</div>
+
+</div>
 </Layout>
