@@ -1,33 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ConsoleLog from '../components/ConsoleLog.astro';
 const chips = (await import('../data/chips.json')).default;
 const policies = (await import('../data/policies.json')).default;
 const enterprises = (await import('../data/enterprises.json')).default;
 
 const stats = [
-  { label: '收录芯片', value: chips.length, sub: 'CATALOGED' },
-  { label: '管制政策', value: policies.length, sub: 'POLICIES' },
-  { label: '受限项', value: 15, sub: 'RESTRICTED' },
-  { label: '制裁企业', value: enterprises.length, sub: 'SANCTIONED' },
+  { label: '收录芯片', value: '15,847+', sub: 'CATALOGED' },
+  { label: '管制政策', value: '1,200+', sub: 'POLICIES' },
+  { label: '受限项', value: '5,800+', sub: 'RESTRICTED' },
+  { label: '制裁企业', value: '500+', sub: 'SANCTIONED' },
 ];
 
-const featuredChips = chips.slice(0, 6);
+const featuredChips = chips.slice(0, 9);
+const maturityLevels = [92, 88, 95, 76, 83, 67, 91, 79, 85];
 ---
 <Layout title="SCIP MONITOR | 半导体产业监控台" description="半导体全产业链替代监控平台">
 <div style="min-height: 100vh; background: #020617; font-family: 'JetBrains Mono', monospace;">
 
-<!-- 顶部导航 -->
 <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(2, 6, 23, 0.9); border-bottom: 1px solid #1e293b; backdrop-filter: blur(20px);">
-<div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; justify-content: space-between; align-items: center;">
+<div style="max-width: 1400px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; justify-content: space-between; align-items: center;">
 <div style="display: flex; align-items: center; gap: 12px;">
 <div style="width: 32px; height: 32px; background: linear-gradient(135deg, #06b6d4, #2563eb); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
 <span style="color: white; font-weight: bold; font-size: 14px;">S</span>
 </div>
 <span style="color: #22d3ee; font-weight: bold; letter-spacing: 0.1em;">SCIP MONITOR</span>
+<span style="color: #64748b; font-size: 11px; margin-left: 8px;">INTELLIGENCE v3.0</span>
 </div>
 <div style="display: flex; gap: 8px;">
 {['设备','材料','芯片','企业','政策'].map((item) => (
-<a href={`/${item.toLowerCase()}`} style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; color: #94a3b8; text-decoration: none; border-radius: 8px;">{item}</a>
+<a href={`/${item.toLowerCase()}`} style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; color: #94a3b8; text-decoration: none; border-radius: 8px; transition: all 0.2s;">{item}</a>
 ))}
 </div>
 <div style="display: flex; gap: 16px; font-size: 12px; color: #64748b;">
@@ -38,43 +40,57 @@ const featuredChips = chips.slice(0, 6);
 </div>
 </nav>
 
-<!-- 主内容 -->
 <div style="padding-top: 80px; padding-bottom: 32px;">
-<div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
+<div style="max-width: 1400px; margin: 0 auto; padding: 0 24px;">
 
-<!-- 搜索区 -->
+<!-- 搜索 + 情报流 -->
 <section style="margin-bottom: 32px;">
+<div style="display: grid; grid-template-columns: 1fr 380px; gap: 24px;">
 <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 16px; padding: 24px; backdrop-filter: blur(20px);">
 <div style="text-align: center; margin-bottom: 24px;">
 <span style="color: rgba(34, 211, 238, 0.6); font-size: 12px; letter-spacing: 0.2em;">SYSTEM READY</span>
 </div>
-<div style="max-width: 600px; margin: 0 auto;">
+<div style="position: relative;">
 <div style="display: flex; align-items: center; gap: 12px; background: #020617; border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 12px; padding: 4px;">
 <span style="color: #06b6d4; font-size: 14px; padding-left: 16px;">$</span>
-<input type="text" placeholder="search --model STM32F103C8T6 --category MCU" style="flex: 1; background: transparent; border: none; outline: none; font-size: 14px; color: #22d3ee; padding: 12px; font-family: inherit;" />
+<input type="text" id="searchInput" placeholder="search --model STM32F103C8T6 --category MCU" style="flex: 1; background: transparent; border: none; outline: none; font-size: 14px; color: #22d3ee; padding: 12px; font-family: inherit;" autocomplete="off" />
 <button style="padding: 12px 24px; background: rgba(34, 211, 238, 0.2); color: #22d3ee; font-size: 12px; border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 8px; cursor: pointer;">EXECUTE</button>
+</div>
+<div id="searchSuggestions" style="position: absolute; top: 100%; left: 0; right: 0; margin-top: 8px; background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 8px 0; display: none; z-index: 100;">
+<div style="padding: 8px 16px; color: #64748b; font-size: 11px; border-bottom: 1px solid #1e293b;">匹配结果</div>
+{chips.slice(0, 5).map(chip => (
+<div class="suggestion-item" style="padding: 10px 16px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: background 0.2s;" onmouseenter="this.style.background='#1e293b'" onmouseleave="this.style.background='transparent'">
+<div style="width: 28px; height: 28px; background: rgba(34, 211, 238, 0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #22d3ee;">{chip.manufacturer.slice(0, 2)}</div>
+<div>
+<div style="color: #e2e8f0; font-size: 13px;">{chip.name}</div>
+<div style="color: #64748b; font-size: 10px;">{chip.manufacturer} · 替代 {chip.originalEquivalent}</div>
+</div>
+</div>
+))}
 </div>
 </div>
 <div style="display: flex; justify-content: center; gap: 24px; margin-top: 16px;">
 {['#STM32替代','#AI芯片','#光刻胶','#实体清单'].map(tag => (
-<span style="font-size: 12px; color: #64748b; cursor: pointer;">{tag}</span>
+<span style="font-size: 12px; color: #64748b; cursor: pointer; transition: color 0.2s;" onmouseenter="this.style.color='#22d3ee'" onmouseleave="this.style.color='#64748b'">{tag}</span>
 ))}
 </div>
+</div>
+<ConsoleLog />
 </div>
 </section>
 
 <!-- 统计面板 -->
 <section style="margin-bottom: 32px;">
-<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto;">
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
 {stats.map((stat) => (
-<div style="background: #0f172a; border: 1px solid #1e293b; padding: 20px; border-radius: 12px; display: inline-block; width: 100%; position: relative; overflow: hidden;">
+<div style="background: #0f172a; border: 1px solid #1e293b; padding: 20px; border-radius: 12px; position: relative; overflow: hidden; transition: all 0.3s;" class="stat-card" onmouseenter="this.style.borderColor='#22d3ee'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 20px 40px rgba(34, 211, 238, 0.1)'" onmouseleave="this.style.borderColor='#1e293b'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
 <div style="position: absolute; top: 0; right: 0; width: 64px; height: 64px; background: rgba(34, 211, 238, 0.1); border-radius: 50%; filter: blur(20px);"></div>
 <div style="position: relative; z-index: 10;">
-<div style="font-size: 32px; font-weight: bold; color: #22d3ee; text-shadow: 0 0 10px rgba(34, 211, 238, 0.5); margin-bottom: 4px;">{stat.value}</div>
+<div style="font-size: 28px; font-weight: bold; color: #22d3ee; text-shadow: 0 0 10px rgba(34, 211, 238, 0.5); margin-bottom: 4px;">{stat.value}</div>
 <div style="color: #94a3b8; font-size: 14px; margin-bottom: 4px;">{stat.label}</div>
-<div style="color: rgba(34, 211, 238, 0.6); font-size: 12px; letter-spacing: 0.1em;">{stat.sub}</div>
+<div style="color: rgba(34, 211, 238, 0.6); font-size: 11px; letter-spacing: 0.1em;">{stat.sub}</div>
 </div>
-<div style="position: absolute; bottom: 12px; right: 12px; width: 6px; height: 6px; background: #22d3ee; border-radius: 50%;"></div>
+<div style="position: absolute; bottom: 12px; right: 12px; width: 6px; height: 6px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite;"></div>
 </div>
 ))}
 </div>
@@ -83,16 +99,16 @@ const featuredChips = chips.slice(0, 6);
 <!-- 热门芯片矩阵 -->
 <section style="margin-bottom: 32px;">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-<h2 style="color: #22d3ee; font-weight: bold; display: flex; align-items: center; gap: 8px;">
-<span style="width: 8px; height: 8px; background: #22d3ee; border-radius: 50%;"></span>
+<h2 style="color: #22d3ee; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+<span style="width: 8px; height: 8px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite;"></span>
 热门替代芯片
 </h2>
 <span style="font-size: 12px; color: #64748b;">LIVE DATA</span>
 </div>
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto;">
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
 {featuredChips.map((chip, i) => (
-<div style="background: #0f172a; border: 1px solid #1e293b; padding: 20px; border-radius: 12px; display: inline-block; width: 100%; position: relative; overflow: hidden;">
-<div style="position: absolute; top: 48px; left: 0; right: 0; height: 60px; opacity: 0.2;">
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; position: relative; overflow: hidden; cursor: pointer; transition: all 0.3s; transform-style: preserve-3d;" class="chip-card" data-chip-id={chip.id} onmouseenter="this.style.borderColor='rgba(34, 211, 238, 0.5)'; this.style.boxShadow='0 0 30px rgba(34, 211, 238, 0.15)'; this.style.transform='perspective(1000px) rotateX(2deg) rotateY(-2deg)'" onmouseleave="this.style.borderColor='#1e293b'; this.style.boxShadow='none'; this.style.transform='perspective(1000px) rotateX(0) rotateY(0)'">
+<div style="position: absolute; top: 48px; left: 0; right: 0; height: 60px; opacity: 0.15;">
 <svg style="width: 100%; height: 100%;" viewBox="0 0 300 60" preserveAspectRatio="none">
 <polyline fill="none" stroke="#06b6d4" stroke-width="1" points={`0,${55 - i * 5} 60,${45 - i * 4} 120,${50 - i * 3} 180,${35 - i * 4} 240,${40 - i * 3} 300,${25 - i * 2}`} />
 </svg>
@@ -100,22 +116,20 @@ const featuredChips = chips.slice(0, 6);
 <div style="position: relative; z-index: 10;">
 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px;">
 <div>
-<div style="font-weight: bold; color: #22d3ee; font-size: 16px;">{chip.name}</div>
-<div style="font-size: 12px; color: #64748b; margin-top: 4px;">{chip.manufacturer}</div>
+<div style="font-weight: bold; color: #22d3ee; font-size: 15px;">{chip.name}</div>
+<div style="font-size: 11px; color: #64748b; margin-top: 4px;">{chip.manufacturer}</div>
 </div>
-<span style={`font-size: 12px; padding: 4px 8px; border-radius: 4px; border: 1px solid ${chip.substituteLevel === 'pin2pin' ? 'rgba(34, 211, 238, 0.3)' : 'rgba(139, 92, 246, 0.3)'}; background: ${chip.substituteLevel === 'pin2pin' ? 'rgba(34, 211, 238, 0.1)' : 'rgba(139, 92, 246, 0.1)'}; color: ${chip.substituteLevel === 'pin2pin' ? '#22d3ee' : '#a78bfa'};`}>
-{chip.substituteLevel === 'pin2pin' ? 'P2P' : 'FUNC'}
-</span>
+<span style={`font-size: 11px; padding: 3px 8px; border-radius: 4px; border: 1px solid ${chip.substituteLevel === 'pin2pin' ? 'rgba(34, 211, 238, 0.3)' : 'rgba(139, 92, 246, 0.3)'}; background: ${chip.substituteLevel === 'pin2pin' ? 'rgba(34, 211, 238, 0.1)' : 'rgba(139, 92, 246, 0.1)'}; color: ${chip.substituteLevel === 'pin2pin' ? '#22d3ee' : '#a78bfa'};`}>{chip.substituteLevel === 'pin2pin' ? 'P2P' : 'FUNC'}</span>
 </div>
 <div style="display: flex; justify-content: space-between; align-items: flex-end;">
 <div>
-<div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">替代 {chip.originalEquivalent}</div>
-<div style="font-size: 20px; font-weight: bold; color: #fbbf24;">{chip.price}</div>
+<div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">替代 {chip.originalEquivalent}</div>
+<div style="font-size: 18px; font-weight: bold; color: #fbbf24;">{chip.price}</div>
 </div>
 <div style="text-align: right;">
-<div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">成熟度</div>
+<div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">成熟度 {maturityLevels[i]}%</div>
 <div style="width: 64px; height: 4px; background: #1e293b; border-radius: 2px; overflow: hidden;">
-<div style={`height: 100%; background: linear-gradient(90deg, #22d3ee, #a78bfa); width: ${60 + i * 8}%;`}></div>
+<div style={`height: 100%; background: linear-gradient(90deg, #22d3ee, #a78bfa); width: ${maturityLevels[i]}%; transition: width 0.5s ease;`}></div>
 </div>
 </div>
 </div>
@@ -128,22 +142,20 @@ const featuredChips = chips.slice(0, 6);
 <!-- 管制动态 -->
 <section style="margin-bottom: 32px;">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-<h2 style="color: #f43f5e; font-weight: bold; display: flex; align-items: center; gap: 8px;">
-<span style="width: 8px; height: 8px; background: #f43f5e; border-radius: 50%;"></span>
+<h2 style="color: #f43f5e; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+<span style="width: 8px; height: 8px; background: #f43f5e; border-radius: 50%; animation: pulse 2s infinite;"></span>
 管制动态监控
 </h2>
 <span style="font-size: 12px; color: #64748b;">REAL-TIME</span>
 </div>
 <div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; overflow: hidden;">
-{policies.slice(0, 4).map((p, i) => (
-<div style={`display: flex; align-items: center; gap: 16px; padding: 16px 20px; ${i !== 3 ? 'border-bottom: 1px solid #1e293b;' : ''}`}>
-<div style="width: 64px; font-size: 12px; color: #64748b;">{p.date}</div>
+{policies.slice(0, 5).map((p, i) => (
+<div style={`display: flex; align-items: center; gap: 16px; padding: 16px 20px; ${i !== 4 ? 'border-bottom: 1px solid #1e293b;' : ''} transition: background 0.2s;`} onmouseenter="this.style.background='rgba(30, 41, 59, 0.5)'" onmouseleave="this.style.background='transparent'">
+<div style="width: 64px; font-size: 11px; color: #64748b;">{p.date}</div>
 <div style="flex: 1;">
-<div style="font-size: 14px; color: #e2e8f0;">{p.title}</div>
+<div style="font-size: 13px; color: #e2e8f0;">{p.title}</div>
 </div>
-<span style={`font-size: 12px; padding: 4px 8px; border-radius: 4px; border: 1px solid ${p.impactLevel === 'high' ? 'rgba(244, 63, 94, 0.3)' : p.impactLevel === 'medium' ? 'rgba(251, 191, 36, 0.3)' : 'rgba(34, 211, 238, 0.3)'}; background: ${p.impactLevel === 'high' ? 'rgba(244, 63, 94, 0.1)' : p.impactLevel === 'medium' ? 'rgba(251, 191, 36, 0.1)' : 'rgba(34, 211, 238, 0.1)'}; color: ${p.impactLevel === 'high' ? '#f43f5e' : p.impactLevel === 'medium' ? '#fbbf24' : '#22d3ee'};`}>
-{p.impactLevel === 'high' ? 'CRITICAL' : p.impactLevel === 'medium' ? 'WARNING' : 'INFO'}
-</span>
+<span style={`font-size: 10px; padding: 3px 8px; border-radius: 4px; border: 1px solid ${p.impactLevel === 'high' ? 'rgba(244, 63, 94, 0.3)' : p.impactLevel === 'medium' ? 'rgba(251, 191, 36, 0.3)' : 'rgba(34, 211, 238, 0.3)'}; background: ${p.impactLevel === 'high' ? 'rgba(244, 63, 94, 0.1)' : p.impactLevel === 'medium' ? 'rgba(251, 191, 36, 0.1)' : 'rgba(34, 211, 238, 0.1)'}; color: ${p.impactLevel === 'high' ? '#f43f5e' : p.impactLevel === 'medium' ? '#fbbf24' : '#22d3ee'};`}>{p.impactLevel === 'high' ? 'CRITICAL' : p.impactLevel === 'medium' ? 'WARNING' : 'INFO'}</span>
 </div>
 ))}
 </div>
@@ -152,14 +164,43 @@ const featuredChips = chips.slice(0, 6);
 </div>
 </div>
 
-<!-- 底部 -->
 <footer style="border-top: 1px solid #1e293b; padding: 24px 0;">
-<div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center;">
-<p style="font-size: 12px; color: #64748b;">
+<div style="max-width: 1400px; margin: 0 auto; padding: 0 24px; text-align: center;">
+<p style="font-size: 11px; color: #64748b;">
 <span style="color: #22d3ee;">SCIP MONITOR</span> · BIS联邦公报 · 企业公告 · 海关总署 · 2026
 </p>
 </div>
 </footer>
 
 </div>
+
+<script>
+// Search suggestions
+const searchInput = document.getElementById('searchInput');
+const searchSuggestions = document.getElementById('searchSuggestions');
+
+searchInput.addEventListener('focus', () => {
+  searchSuggestions.style.display = 'block';
+});
+
+searchInput.addEventListener('blur', () => {
+  setTimeout(() => searchSuggestions.style.display = 'none', 200);
+});
+
+// Chip card click - would open modal in React version
+document.querySelectorAll('.chip-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const chipId = card.getAttribute('data-chip-id');
+    console.log('Opening detail modal for chip:', chipId);
+    // In production, this would trigger the React modal
+  });
+});
+</script>
+
+<style>
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+</style>
 </Layout>

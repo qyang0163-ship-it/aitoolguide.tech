@@ -1,0 +1,38 @@
+---
+const logs = [
+  { type: 'INFO', time: '14:32:18', message: '正在扫描 BIS 联邦公报 (2026-05-10)...', color: '#22d3ee' },
+  { type: 'DATA', time: '14:32:15', message: '发现中芯国际 7nm 生产线设备变动预警', color: '#fbbf24' },
+  { type: 'UPDATE', time: '14:31:42', message: '极海半导体 APM32 系列替代库已同步', color: '#a78bfa' },
+  { type: 'SCAN', time: '14:31:08', message: '正在爬取立创商城最新价格数据...', color: '#22d3ee' },
+  { type: 'ALERT', time: '14:30:55', message: '检测到新的实体清单更新 - 3家企业', color: '#f43f5e' },
+  { type: 'INFO', time: '14:30:22', message: '华为昇腾 910C 技术参数已入库', color: '#22d3ee' },
+  { type: 'DATA', time: '14:29:48', message: '长江存储 232 层 NAND 良率数据更新', color: '#fbbf24' },
+  { type: 'SCAN', time: '14:29:15', message: '正在分析海关总署进出口数据...', color: '#22d3ee' },
+];
+---
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 16px; height: 200px; overflow: hidden; position: relative;">
+<div style="position: absolute; top: 12px; left: 16px; font-size: 11px; color: #64748b; letter-spacing: 0.1em;">SYSTEM INTELLIGENCE STREAM</div>
+<div style="position: absolute; top: 12px; right: 16px; display: flex; gap: 8px;">
+<span style="width: 8px; height: 8px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite;"></span>
+<span style="font-size: 10px; color: #22d3ee;">LIVE</span>
+</div>
+<div style="margin-top: 24px; display: flex; flex-direction: column; gap: 8px; animation: scroll 20s linear infinite;">
+{[...logs, ...logs].map((log, i) => (
+<div style="display: flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
+<span style="color: #475569; min-width: 60px;">{log.time}</span>
+<span style={`color: ${log.color}; min-width: 50px; font-weight: 600;`}>[{log.type}]</span>
+<span style="color: #94a3b8; flex: 1;">{log.message}</span>
+</div>
+))}
+</div>
+<style>
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+</style>
+</div>
