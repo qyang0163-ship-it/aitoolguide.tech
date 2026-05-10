@@ -45,7 +45,7 @@ const priceRanges = ['全部', '<¥10', '¥10-50', '>¥50'];
 <!-- 芯片卡片矩阵 -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 {chips.map(chip => (
-<a href={`/chip/${chip.id}`} class="bg-white rounded-xl p-5 hover:shadow-lg transition-shadow border border-slate-100">
+<a href={`/chips/${chip.id}`} class="bg-white rounded-xl p-5 hover:shadow-lg transition-shadow border border-slate-100">
 <div class="flex justify-between items-start mb-3">
 <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#0F4C81] to-[#2B6CB0] flex items-center justify-center text-white font-bold text-sm">
 {chip.manufacturer.slice(0,2)}
