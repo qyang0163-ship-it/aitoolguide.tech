@@ -14,94 +14,108 @@ const stats = [
 const featuredChips = chips.slice(0, 6);
 ---
 <Layout title="SCIP MONITOR | 半导体产业监控台" description="半导体全产业链替代监控平台">
-<div class="min-h-screen bg-[#020617]" style="background-image: linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px); background-size: 24px 24px;">
+<div style="min-height: 100vh; background: #020617; font-family: 'JetBrains Mono', monospace;">
 
-<nav class="fixed top-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-slate-800">
-<div class="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
-<span class="text-white font-bold text-sm">S</span>
+<!-- 顶部导航 -->
+<nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(2, 6, 23, 0.9); border-bottom: 1px solid #1e293b; backdrop-filter: blur(20px);">
+<div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; justify-content: space-between; align-items: center;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<div style="width: 32px; height: 32px; background: linear-gradient(135deg, #06b6d4, #2563eb); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+<span style="color: white; font-weight: bold; font-size: 14px;">S</span>
 </div>
-<span class="text-cyan-400 font-bold tracking-wider">SCIP MONITOR</span>
+<span style="color: #22d3ee; font-weight: bold; letter-spacing: 0.1em;">SCIP MONITOR</span>
 </div>
-<div class="flex items-center gap-1">
+<div style="display: flex; gap: 8px;">
 {['设备','材料','芯片','企业','政策'].map((item) => (
-<a href={`/${item.toLowerCase()}`} class="px-4 py-2 text-xs font-medium rounded-lg border border-slate-700 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/30 transition-all">{item}</a>
+<a href={`/${item.toLowerCase()}`} style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; color: #94a3b8; text-decoration: none; border-radius: 8px;">{item}</a>
 ))}
 </div>
-<div class="flex items-center gap-4 text-xs font-mono text-slate-500">
-<span>CPU:12%</span><span>MEM:34%</span><span class="text-cyan-400">READY</span>
+<div style="display: flex; gap: 16px; font-size: 12px; color: #64748b;">
+<span>CPU:12%</span>
+<span>MEM:34%</span>
+<span style="color: #22d3ee;">READY</span>
 </div>
 </div>
 </nav>
 
-<div class="pt-20 pb-8">
-<div class="max-w-[1400px] mx-auto p-6">
+<!-- 主内容 -->
+<div style="padding-top: 80px; padding-bottom: 32px;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
 
-<section class="mb-8">
-<div class="bg-slate-900/60 backdrop-blur-xl rounded-2xl border border-slate-800 p-6">
-<div class="text-center mb-6"><span class="text-cyan-400/60 text-xs tracking-[0.2em] font-mono">SYSTEM READY</span></div>
-<div class="max-w-2xl mx-auto">
-<div class="flex items-center gap-3 bg-slate-950 rounded-xl border border-cyan-500/30 p-1 focus-within:ring-2 focus-within:ring-cyan-500 transition-all">
-<span class="text-cyan-500 font-mono text-sm pl-4">$</span>
-<input type="text" placeholder="search --model STM32F103C8T6 --category MCU" class="flex-1 bg-transparent outline-none text-sm font-mono text-cyan-400 placeholder-cyan-600/50 px-3 py-3"/>
-<button class="px-6 py-3 bg-cyan-500/20 text-cyan-400 text-xs font-mono rounded-lg border border-cyan-500/30 hover:bg-cyan-500/30 transition-colors">EXECUTE</button>
+<!-- 搜索区 -->
+<section style="margin-bottom: 32px;">
+<div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 16px; padding: 24px; backdrop-filter: blur(20px);">
+<div style="text-align: center; margin-bottom: 24px;">
+<span style="color: rgba(34, 211, 238, 0.6); font-size: 12px; letter-spacing: 0.2em;">SYSTEM READY</span>
+</div>
+<div style="max-width: 600px; margin: 0 auto;">
+<div style="display: flex; align-items: center; gap: 12px; background: #020617; border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 12px; padding: 4px;">
+<span style="color: #06b6d4; font-size: 14px; padding-left: 16px;">$</span>
+<input type="text" placeholder="search --model STM32F103C8T6 --category MCU" style="flex: 1; background: transparent; border: none; outline: none; font-size: 14px; color: #22d3ee; padding: 12px; font-family: inherit;" />
+<button style="padding: 12px 24px; background: rgba(34, 211, 238, 0.2); color: #22d3ee; font-size: 12px; border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 8px; cursor: pointer;">EXECUTE</button>
 </div>
 </div>
-<div class="flex justify-center gap-6 mt-4">
+<div style="display: flex; justify-content: center; gap: 24px; margin-top: 16px;">
 {['#STM32替代','#AI芯片','#光刻胶','#实体清单'].map(tag => (
-<span class="text-xs text-slate-500 font-mono cursor-pointer hover:text-cyan-400 transition-colors">{tag}</span>
+<span style="font-size: 12px; color: #64748b; cursor: pointer;">{tag}</span>
 ))}
 </div>
 </div>
 </section>
 
-<section class="mb-8">
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- 统计面板 -->
+<section style="margin-bottom: 32px;">
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto;">
 {stats.map((stat) => (
-<div class="bg-slate-900/40 border border-slate-800 p-4 rounded-2xl relative overflow-hidden group hover:border-cyan-500/30 transition-all">
-<div class="absolute top-0 right-0 w-16 h-16 bg-cyan-500/10 rounded-full blur-xl group-hover:bg-cyan-500/20 transition-all"></div>
-<div class="relative z-10">
-<div class="text-3xl font-bold text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)] mb-1">{stat.value}</div>
-<div class="text-slate-400 text-sm mb-1">{stat.label}</div>
-<div class="text-xs text-cyan-500/60 font-mono tracking-wider">{stat.sub}</div>
+<div style="background: #0f172a; border: 1px solid #1e293b; padding: 20px; border-radius: 12px; display: inline-block; width: 100%; position: relative; overflow: hidden;">
+<div style="position: absolute; top: 0; right: 0; width: 64px; height: 64px; background: rgba(34, 211, 238, 0.1); border-radius: 50%; filter: blur(20px);"></div>
+<div style="position: relative; z-index: 10;">
+<div style="font-size: 32px; font-weight: bold; color: #22d3ee; text-shadow: 0 0 10px rgba(34, 211, 238, 0.5); margin-bottom: 4px;">{stat.value}</div>
+<div style="color: #94a3b8; font-size: 14px; margin-bottom: 4px;">{stat.label}</div>
+<div style="color: rgba(34, 211, 238, 0.6); font-size: 12px; letter-spacing: 0.1em;">{stat.sub}</div>
 </div>
-<div class="absolute bottom-3 right-3 w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></div>
+<div style="position: absolute; bottom: 12px; right: 12px; width: 6px; height: 6px; background: #22d3ee; border-radius: 50%;"></div>
 </div>
 ))}
 </div>
 </section>
 
-<section class="mb-8">
-<div class="flex items-center justify-between mb-4">
-<h2 class="text-cyan-400 font-bold flex items-center gap-2"><span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>热门替代芯片</h2>
-<span class="text-xs text-slate-500 font-mono">LIVE DATA</span>
+<!-- 热门芯片矩阵 -->
+<section style="margin-bottom: 32px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+<h2 style="color: #22d3ee; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+<span style="width: 8px; height: 8px; background: #22d3ee; border-radius: 50%;"></span>
+热门替代芯片
+</h2>
+<span style="font-size: 12px; color: #64748b;">LIVE DATA</span>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto;">
 {featuredChips.map((chip, i) => (
-<div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-5 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] transition-all group relative overflow-hidden">
-<div class="absolute top-12 left-0 right-0 h-[60px] opacity-20">
-<svg class="w-full h-full" viewBox="0 0 300 60" preserveAspectRatio="none">
-<path d={`M0,${55 - i * 5} L60,${45 - i * 4} L120,${50 - i * 3} L180,${35 - i * 4} L240,${40 - i * 3} L300,${25 - i * 2}`} fill="none" stroke="#06b6d4" stroke-width="1"/>
+<div style="background: #0f172a; border: 1px solid #1e293b; padding: 20px; border-radius: 12px; display: inline-block; width: 100%; position: relative; overflow: hidden;">
+<div style="position: absolute; top: 48px; left: 0; right: 0; height: 60px; opacity: 0.2;">
+<svg style="width: 100%; height: 100%;" viewBox="0 0 300 60" preserveAspectRatio="none">
+<polyline fill="none" stroke="#06b6d4" stroke-width="1" points={`0,${55 - i * 5} 60,${45 - i * 4} 120,${50 - i * 3} 180,${35 - i * 4} 240,${40 - i * 3} 300,${25 - i * 2}`} />
 </svg>
 </div>
-<div class="relative z-10">
-<div class="flex justify-between items-start mb-8">
+<div style="position: relative; z-index: 10;">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px;">
 <div>
-<div class="font-bold text-cyan-400 group-hover:drop-shadow-[0_0_10px_rgba(34,211,238,0.5)] transition-all">{chip.name}</div>
-<div class="text-xs text-slate-400 mt-1">{chip.manufacturer}</div>
+<div style="font-weight: bold; color: #22d3ee; font-size: 16px;">{chip.name}</div>
+<div style="font-size: 12px; color: #64748b; margin-top: 4px;">{chip.manufacturer}</div>
 </div>
-<span class={`text-xs px-2 py-0.5 rounded border ${chip.substituteLevel === 'pin2pin' ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400' : 'bg-violet-500/10 border-violet-500/30 text-violet-400'}`}>{chip.substituteLevel === 'pin2pin' ? 'P2P' : 'FUNC'}</span>
+<span style={`font-size: 12px; padding: 4px 8px; border-radius: 4px; border: 1px solid ${chip.substituteLevel === 'pin2pin' ? 'rgba(34, 211, 238, 0.3)' : 'rgba(139, 92, 246, 0.3)'}; background: ${chip.substituteLevel === 'pin2pin' ? 'rgba(34, 211, 238, 0.1)' : 'rgba(139, 92, 246, 0.1)'}; color: ${chip.substituteLevel === 'pin2pin' ? '#22d3ee' : '#a78bfa'};`}>
+{chip.substituteLevel === 'pin2pin' ? 'P2P' : 'FUNC'}
+</span>
 </div>
-<div class="flex justify-between items-end">
+<div style="display: flex; justify-content: space-between; align-items: flex-end;">
 <div>
-<div class="text-xs text-slate-500 mb-1">替代 {chip.originalEquivalent}</div>
-<div class="text-lg font-bold text-amber-400">{chip.price}</div>
+<div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">替代 {chip.originalEquivalent}</div>
+<div style="font-size: 20px; font-weight: bold; color: #fbbf24;">{chip.price}</div>
 </div>
-<div class="text-right">
-<div class="text-xs text-slate-500 mb-1">成熟度</div>
-<div class="w-16 h-1 bg-slate-800 rounded-full overflow-hidden">
-<div class="h-full bg-gradient-to-r from-cyan-500 to-violet-500" style={`width: ${60 + i * 8}%`}></div>
+<div style="text-align: right;">
+<div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">成熟度</div>
+<div style="width: 64px; height: 4px; background: #1e293b; border-radius: 2px; overflow: hidden;">
+<div style={`height: 100%; background: linear-gradient(90deg, #22d3ee, #a78bfa); width: ${60 + i * 8}%;`}></div>
 </div>
 </div>
 </div>
@@ -111,17 +125,25 @@ const featuredChips = chips.slice(0, 6);
 </div>
 </section>
 
-<section class="mb-8">
-<div class="flex items-center justify-between mb-4">
-<h2 class="text-rose-400 font-bold flex items-center gap-2"><span class="w-2 h-2 bg-rose-400 rounded-full animate-pulse"></span>管制动态监控</h2>
-<span class="text-xs text-slate-500 font-mono">REAL-TIME</span>
+<!-- 管制动态 -->
+<section style="margin-bottom: 32px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+<h2 style="color: #f43f5e; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+<span style="width: 8px; height: 8px; background: #f43f5e; border-radius: 50%;"></span>
+管制动态监控
+</h2>
+<span style="font-size: 12px; color: #64748b;">REAL-TIME</span>
 </div>
-<div class="bg-slate-900/40 border border-slate-800 rounded-2xl">
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; overflow: hidden;">
 {policies.slice(0, 4).map((p, i) => (
-<div class={`flex items-center gap-4 px-5 py-4 ${i !== 3 ? 'border-b border-slate-800' : ''} hover:bg-slate-800/30 transition-colors cursor-pointer`}>
-<div class="w-16 text-xs text-slate-500 font-mono">{p.date}</div>
-<div class="flex-1"><div class="text-sm text-slate-200">{p.title}</div></div>
-<span class={`text-xs px-2 py-0.5 rounded border ${p.impactLevel === 'high' ? 'bg-rose-500/10 border-rose-500/30 text-rose-400' : p.impactLevel === 'medium' ? 'bg-amber-500/10 border-amber-500/30 text-amber-400' : 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400'}`}>{p.impactLevel === 'high' ? 'CRITICAL' : p.impactLevel === 'medium' ? 'WARNING' : 'INFO'}</span>
+<div style={`display: flex; align-items: center; gap: 16px; padding: 16px 20px; ${i !== 3 ? 'border-bottom: 1px solid #1e293b;' : ''}`}>
+<div style="width: 64px; font-size: 12px; color: #64748b;">{p.date}</div>
+<div style="flex: 1;">
+<div style="font-size: 14px; color: #e2e8f0;">{p.title}</div>
+</div>
+<span style={`font-size: 12px; padding: 4px 8px; border-radius: 4px; border: 1px solid ${p.impactLevel === 'high' ? 'rgba(244, 63, 94, 0.3)' : p.impactLevel === 'medium' ? 'rgba(251, 191, 36, 0.3)' : 'rgba(34, 211, 238, 0.3)'}; background: ${p.impactLevel === 'high' ? 'rgba(244, 63, 94, 0.1)' : p.impactLevel === 'medium' ? 'rgba(251, 191, 36, 0.1)' : 'rgba(34, 211, 238, 0.1)'}; color: ${p.impactLevel === 'high' ? '#f43f5e' : p.impactLevel === 'medium' ? '#fbbf24' : '#22d3ee'};`}>
+{p.impactLevel === 'high' ? 'CRITICAL' : p.impactLevel === 'medium' ? 'WARNING' : 'INFO'}
+</span>
 </div>
 ))}
 </div>
@@ -130,9 +152,12 @@ const featuredChips = chips.slice(0, 6);
 </div>
 </div>
 
-<footer class="border-t border-slate-800 py-6">
-<div class="max-w-[1400px] mx-auto px-6 text-center">
-<p class="text-xs text-slate-500 font-mono"><span class="text-cyan-400">SCIP MONITOR</span> · BIS联邦公报 · 企业公告 · 海关总署 · 2026</p>
+<!-- 底部 -->
+<footer style="border-top: 1px solid #1e293b; padding: 24px 0;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; text-align: center;">
+<p style="font-size: 12px; color: #64748b;">
+<span style="color: #22d3ee;">SCIP MONITOR</span> · BIS联邦公报 · 企业公告 · 海关总署 · 2026
+</p>
 </div>
 </footer>
 
