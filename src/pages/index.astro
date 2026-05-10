@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ConsoleLog from '../components/ConsoleLog.astro';
+import LiveIntel from '../components/LiveIntel.astro';
 const chips = (await import('../data/chips.json')).default;
 const policies = (await import('../data/policies.json')).default;
 const enterprises = (await import('../data/enterprises.json')).default;
@@ -78,13 +78,14 @@ const maturityLevels = [92, 88, 95, 76, 83, 67, 91, 79, 85];
 ))}
 </div>
 </div>
-<div style="display: flex; justify-content: center; gap: 24px; margin-top: 16px;">
-{['#STM32替代','#AI芯片','#光刻胶','#实体清单'].map(tag => (
-<span style="font-size: 12px; color: #64748b; cursor: pointer; transition: color 0.2s;" onmouseenter="this.style.color='#22d3ee'" onmouseleave="this.style.color='#64748b'">{tag}</span>
+<!-- 热门搜索标签 -->
+<div style="display: flex; justify-content: center; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
+{['#STM32替代','#昇腾910B适配','#P100解锁','#实体清单查询','#光刻胶','#RISC-V生态'].map((tag, i) => (
+<span style={`font-size: 11px; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 0.2s; border: 1px solid ${i < 2 ? 'rgba(34, 211, 238, 0.3)' : 'rgba(100, 116, 139, 0.3)'}; background: ${i < 2 ? 'rgba(34, 211, 238, 0.08)' : 'transparent'}; color: ${i < 2 ? '#22d3ee' : '#64748b'};`} onmouseenter="this.style.borderColor='rgba(34, 211, 238, 0.5)'; this.style.color='#22d3ee'" onmouseleave={`this.style.borderColor='${i < 2 ? 'rgba(34, 211, 238, 0.3)' : 'rgba(100, 116, 139, 0.3)'}'; this.style.color='${i < 2 ? '#22d3ee' : '#64748b'}'`}>{tag}</span>
 ))}
 </div>
 </div>
-<ConsoleLog />
+<LiveIntel />
 </div>
 </section>
 
@@ -201,6 +202,18 @@ document.querySelectorAll('.chip-card').forEach(card => {
   card.addEventListener('click', () => {
     const chipId = card.getAttribute('data-chip-id');
     console.log('Opening detail modal for chip:', chipId);
+    // In production, this would trigger the React modal
+  });
+});
+</script>
+
+<style>
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+</style>
+</Layout>  console.log('Opening detail modal for chip:', chipId);
     // In production, this would trigger the React modal
   });
 });
