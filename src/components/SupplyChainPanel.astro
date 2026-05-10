@@ -1,0 +1,99 @@
+---
+import supplyChainData from '../data/supplyChain.json';
+
+export interface Props {
+  chipId: string;
+}
+
+const { chipId } = Astro.props;
+
+// 获取关联数据
+const equipment = supplyChainData.equipmentRelations[chipId] || [];
+const materials = supplyChainData.materialRelations[chipId] || [];
+const eda = supplyChainData.edaRelations[chipId] || [];
+
+const equipmentDetails = equipment.map(id => supplyChainData.equipmentDetails[id]).filter(Boolean);
+const materialDetails = materials.map(id => supplyChainData.materialDetails[id]).filter(Boolean);
+const edaDetails = eda.map(id => supplyChainData.edaDetails[id]).filter(Boolean);
+
+const hasRelations = equipmentDetails.length > 0 || materialDetails.length > 0 || edaDetails.length > 0;
+---
+
+{hasRelations && (
+<div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+    <span style="width: 6px; height: 6px; background: #a78bfa; border-radius: 50%;"></span>
+    <span style="font-size: 14px; color: #a78bfa; font-weight: 600;">SUPPLY_CHAIN_LINKAGE</span>
+    <span style="font-size: 11px; color: #64748b;">产业链自动穿透关联</span>
+  </div>
+  
+  <!-- 制造设备 -->
+  {equipmentDetails.length > 0 && (
+    <div style="margin-bottom: 16px;">
+      <div style="font-size: 11px; color: #64748b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">
+        🔧 制造该芯片所需设备
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        {equipmentDetails.map(item => (
+          <a href={`/equipment/${item.name.toLowerCase().replace(/[^a-z0-9-]/g, '-')}`} style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(30, 41, 59, 0.5); border: 1px solid #1e293b; border-radius: 8px; text-decoration: none; transition: all 0.2s;" onmouseenter="this.style.borderColor='#a78bfa'; this.style.background='rgba(167, 139, 250, 0.05)'" onmouseleave="this.style.borderColor='#1e293b'; this.style.background='rgba(30, 41, 59, 0.5)'">
+            <div style="width: 36px; height: 36px; background: rgba(167, 139, 250, 0.1); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 14px;">⚙️</span>
+            </div>
+            <div style="flex: 1;">
+              <div style="font-size: 13px; color: #e2e8f0; margin-bottom: 2px;">{item.name}</div>
+              <div style="font-size: 10px; color: #64748b;">{item.manufacturer} · {item.category}</div>
+            </div>
+            <span style="font-size: 11px; color: #a78bfa;">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+  
+  <!-- 配套材料 -->
+  {materialDetails.length > 0 && (
+    <div style="margin-bottom: 16px;">
+      <div style="font-size: 11px; color: #64748b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">
+        🧪 配套国产材料
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        {materialDetails.map(item => (
+          <a href={`/materials/${item.name.toLowerCase().replace(/[^a-z0-9-]/g, '-')}`} style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(30, 41, 59, 0.5); border: 1px solid #1e293b; border-radius: 8px; text-decoration: none; transition: all 0.2s;" onmouseenter="this.style.borderColor='#22c55e'; this.style.background='rgba(34, 197, 94, 0.05)'" onmouseleave="this.style.borderColor='#1e293b'; this.style.background='rgba(30, 41, 59, 0.5)'">
+            <div style="width: 36px; height: 36px; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 14px;">🧪</span>
+            </div>
+            <div style="flex: 1;">
+              <div style="font-size: 13px; color: #e2e8f0; margin-bottom: 2px;">{item.name}</div>
+              <div style="font-size: 10px; color: #64748b;">{item.manufacturer} · {item.category}</div>
+            </div>
+            <span style="font-size: 11px; color: #22c55e;">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+  
+  <!-- EDA工具 -->
+  {edaDetails.length > 0 && (
+    <div>
+      <div style="font-size: 11px; color: #64748b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">
+        💻 设计该芯片所用 EDA 工具
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        {edaDetails.map(item => (
+          <a href={`/eda-ip/${item.name.toLowerCase().replace(/[^a-z0-9-]/g, '-')}`} style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(30, 41, 59, 0.5); border: 1px solid #1e293b; border-radius: 8px; text-decoration: none; transition: all 0.2s;" onmouseenter="this.style.borderColor='#fbbf24'; this.style.background='rgba(251, 191, 36, 0.05)'" onmouseleave="this.style.borderColor='#1e293b'; this.style.background='rgba(30, 41, 59, 0.5)'">
+            <div style="width: 36px; height: 36px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 14px;">💻</span>
+            </div>
+            <div style="flex: 1;">
+              <div style="font-size: 13px; color: #e2e8f0; margin-bottom: 2px;">{item.name}</div>
+              <div style="font-size: 10px; color: #64748b;">{item.manufacturer} · {item.category}</div>
+            </div>
+            <span style="font-size: 11px; color: #fbbf24;">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
+)}

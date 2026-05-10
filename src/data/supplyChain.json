@@ -1,0 +1,56 @@
+{
+  "equipmentRelations": {
+    "stm32f103c8t6": ["naura-nmc508", "tongfu-micro-etcher"],
+    "stm32f407vet6": ["naura-nmc512", "amec-ccp-advanced"],
+    "ascend-910b": ["naura-nmc612", "piotech-pecvd-pro"],
+    "dcu-z100": ["naura-nmc612", "tongfu-advanced-etcher"],
+    "mlu370": ["amec-ccp-advanced", "kingsemi-litho"],
+    "mtt-s4000": ["piotech-pecvd-pro", "naura-cvd-system"]
+  },
+  "materialRelations": {
+    "stm32f103c8t6": ["nata-chem-arf", "jsmc-silicon-wafer"],
+    "stm32f407vet6": ["nata-chem-krf", "siltronic-wafer-cn"],
+    "ascend-910b": ["dupont-photoresist-cn", "shin-etsu-wafer"],
+    "dcu-z100": ["nata-chem-arf", "jsmc-silicon-wafer"],
+    "mlu370": ["fujifilm-photoresist-cn", "sumco-wafer-cn"],
+    "mtt-s4000": ["jsr-photoresist-cn", "siltronic-wafer-cn"]
+  },
+  "edaRelations": {
+    "stm32f103c8t6": ["empyrean-ic-design", "easyeda-pro"],
+    "stm32f407vet6": ["empyrean-verification", "x-epic-simulation"],
+    "ascend-910b": ["huawei-eda-platform", "empyrean-ai-tools"],
+    "dcu-z100": ["empyrean-ic-design", "easyeda-pro"],
+    "mlu370": ["x-epic-simulation", "empyrean-verification"],
+    "mtt-s4000": ["huawei-eda-platform", "empyrean-ai-tools"]
+  },
+  "equipmentDetails": {
+    "naura-nmc508": { "name": "北方华创 NMC508 刻蚀机", "category": "刻蚀设备", "manufacturer": "北方华创" },
+    "naura-nmc512": { "name": "北方华创 NMC512 刻蚀机", "category": "刻蚀设备", "manufacturer": "北方华创" },
+    "naura-nmc612": { "name": "北方华创 NMC612 先进刻蚀机", "category": "刻蚀设备", "manufacturer": "北方华创" },
+    "amec-ccp-advanced": { "name": "中微 CCP 刻蚀机", "category": "刻蚀设备", "manufacturer": "中微公司" },
+    "tongfu-micro-etcher": { "name": "通富微电 刻蚀系统", "category": "刻蚀设备", "manufacturer": "通富微电" },
+    "tongfu-advanced-etcher": { "name": "通富微电 先进刻蚀系统", "category": "刻蚀设备", "manufacturer": "通富微电" },
+    "piotech-pecvd-pro": { "name": "拓荆 PECVD Pro", "category": "薄膜沉积", "manufacturer": "拓荆科技" },
+    "naura-cvd-system": { "name": "北方华创 CVD 系统", "category": "薄膜沉积", "manufacturer": "北方华创" },
+    "kingsemi-litho": { "name": "芯源微 光刻机", "category": "光刻设备", "manufacturer": "芯源微" }
+  },
+  "materialDetails": {
+    "nata-chem-arf": { "name": "南大光电 ArF 光刻胶", "category": "光刻胶", "manufacturer": "南大光电" },
+    "nata-chem-krf": { "name": "南大光电 KrF 光刻胶", "category": "光刻胶", "manufacturer": "南大光电" },
+    "dupont-photoresist-cn": { "name": "杜邦光刻胶 (国产版)", "category": "光刻胶", "manufacturer": "杜邦中国" },
+    "fujifilm-photoresist-cn": { "name": "富士胶片光刻胶 (国产版)", "category": "光刻胶", "manufacturer": "富士胶片中国" },
+    "jsr-photoresist-cn": { "name": "JSR 光刻胶 (国产版)", "category": "光刻胶", "manufacturer": "JSR中国" },
+    "jsmc-silicon-wafer": { "name": "沪硅产业 硅片", "category": "硅片", "manufacturer": "沪硅产业" },
+    "siltronic-wafer-cn": { "name": "Siltronic 硅片 (国产版)", "category": "硅片", "manufacturer": "Siltronic中国" },
+    "shin-etsu-wafer": { "name": "信越化学 硅片", "category": "硅片", "manufacturer": "信越化学" },
+    "sumco-wafer-cn": { "name": "SUMCO 硅片 (国产版)", "category": "硅片", "manufacturer": "SUMCO中国" }
+  },
+  "edaDetails": {
+    "empyrean-ic-design": { "name": "华大九天 IC设计平台", "category": "EDA工具", "manufacturer": "华大九天" },
+    "empyrean-verification": { "name": "华大九天 验证工具", "category": "EDA工具", "manufacturer": "华大九天" },
+    "empyrean-ai-tools": { "name": "华大九天 AI设计工具", "category": "EDA工具", "manufacturer": "华大九天" },
+    "easyeda-pro": { "name": "立创EDA Pro", "category": "EDA工具", "manufacturer": "立创商城" },
+    "x-epic-simulation": { "name": "芯华章 仿真工具", "category": "EDA工具", "manufacturer": "芯华章" },
+    "huawei-eda-platform": { "name": "华为 EDA平台", "category": "EDA工具", "manufacturer": "华为" }
+  }
+}

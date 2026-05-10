@@ -1,1 +1,7 @@
-[{"category":"光刻","items":[]},{"category":"刻蚀","items":[]},{"category":"薄膜沉积","items":[]},{"category":"量测检测","items":[]},{"category":"离子注入","items":[]},{"category":"CMP","items":[]},{"category":"清洗","items":[]},{"category":"热处理","items":[]},{"category":"显影Track","items":[]},{"category":"EFEM","items":[]},{"category":"真空泵","items":[]},{"category":"射频电源","items":[]}]
+[
+  {"id": "naura-etcher-n7", "name": "北方华创N7刻蚀机", "manufacturer": "北方华创", "category": "刻蚀设备", "relatedChips": ["stm32f103c8t6", "stm32f407vet6", "gd32f103c8t6"], "specs": {"工艺节点": "7nm", "产能": "120wph"}, "price": "¥2,800万", "datasheetUrl": "#"},
+  {"id": "amec-cvd-prismo", "name": "中微Prismo CVD", "manufacturer": "中微公司", "category": "薄膜沉积", "relatedChips": ["ascend-910b", "dcu-z100", "mlu370"], "specs": {"工艺节点": "5nm", "均匀性": "±1.5%"}, "price": "¥3,200万", "datasheetUrl": "#"},
+  {"id": "sme-litho-ssx600", "name": "上海微SSX600光刻机", "manufacturer": "上海微电子", "category": "光刻设备", "relatedChips": ["mm32f103c8t6", "ch32f103c8t6", "hc32f103c8t6"], "specs": {"分辨率": "90nm", "套刻精度": "≤8nm"}, "price": "¥1,500万", "datasheetUrl": "#"},
+  {"id": "kingsemi-track", "name": "芯源微涂胶显影机", "manufacturer": "芯源微", "category": "涂胶显影", "relatedChips": ["sgm6010", "sgm7221", "sh367004"], "specs": {"产能": "200wph", "均匀性": "±1%"}, "price": "¥800万", "datasheetUrl": "#"},
+  {"id": "tyst-implanter", "name": "拓荆离子注入机", "manufacturer": "拓荆科技", "category": "离子注入", "relatedChips": ["at32f403avgt7", "bl602", "beken7231"], "specs": {"能量范围": "0.2-400keV", "剂量精度": "±0.5%"}, "price": "¥1,200万", "datasheetUrl": "#"}
+]

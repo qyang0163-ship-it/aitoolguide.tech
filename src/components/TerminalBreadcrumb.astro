@@ -1,0 +1,37 @@
+---
+export interface Props {
+  path: Array<{label: string; href?: string}>;
+  current?: string;
+}
+
+const { path, current } = Astro.props;
+---
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #64748b; margin-bottom: 24px; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 8px; display: flex; align-items: center; gap: 4px; overflow-x: auto;">
+  <span style="color: #22c55e;">root@ai2424</span>
+  <span style="color: #64748b;">:</span>
+  <span style="color: #22d3ee;">~</span>
+  {path.map((segment, i) => (
+    <>
+      <span style="color: #64748b;">/</span>
+      {segment.href ? (
+        <a href={segment.href} style="color: #22d3ee; text-decoration: none; padding: 2px 6px; border-radius: 4px; transition: all 0.2s;" onmouseenter="this.style.background='rgba(34, 211, 238, 0.1)'" onmouseleave="this.style.background='transparent'">{segment.label}</a>
+      ) : (
+        <span style="color: #64748b;">{segment.label}</span>
+      )}
+    </>
+  ))}
+  {current && (
+    <>
+      <span style="color: #64748b;">/</span>
+      <span style="color: #fbbf24; font-weight: 500;">{current}</span>
+    </>
+  )}
+  <span style="color: #22c55e; margin-left: 4px; animation: blink 1s infinite;">_</span>
+</div>
+
+<style>
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+</style>

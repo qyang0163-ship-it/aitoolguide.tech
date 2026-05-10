@@ -1,1 +1,7 @@
-[{"category":"硅片","items":[]},{"category":"光刻胶","items":[]},{"category":"电子特气","items":[]},{"category":"CMP材料","items":[]},{"category":"靶材","items":[]},{"category":"湿电子化学品","items":[]},{"category":"光掩膜","items":[]},{"category":"封装基板","items":[]},{"category":"引线框架","items":[]},{"category":"陶瓷基板","items":[]}]
+[
+  {"id": "nanda-arf-01", "name": "南大光电ArF光刻胶", "manufacturer": "南大光电", "category": "光刻胶", "relatedChips": ["stm32f103c8t6", "stm32f407vet6", "ascend-910b"], "specs": {"波长": "193nm", "分辨率": "≤65nm"}, "price": "¥12,000/L", "datasheetUrl": "#"},
+  {"id": "jsmc-silicon-12", "name": "沪硅产业12寸硅片", "manufacturer": "沪硅产业", "category": "硅片", "relatedChips": ["gd32f103c8t6", "mm32f103c8t6", "dcu-z100"], "specs": {"直径": "300mm", "厚度": "775μm"}, "price": "¥3,500/片", "datasheetUrl": "#"},
+  {"id": "entegris-chemical", "name": "英特格高纯试剂", "manufacturer": "英特格(国产线)", "category": "电子化学品", "relatedChips": ["ch32f103c8t6", "cs32f103c8t6", "mlu370"], "specs": {"纯度": "99.99999%", "金属杂质": "<1ppb"}, "price": "¥800/L", "datasheetUrl": "#"},
+  {"id": "suzhou-epoxy", "name": "苏州瑞红环氧塑封料", "manufacturer": "苏州瑞红", "category": "封装材料", "relatedChips": ["hk32f030m", "n76e003", "ht7533"], "specs": {"Tg": "175°C", "CTE": "8ppm"}, "price": "¥150/kg", "datasheetUrl": "#"},
+  {"id": "borun-target", "name": "博润靶材", "manufacturer": "博润新材料", "category": "溅射靶材", "relatedChips": ["sgm6010", "sgm7221", "mwct1013"], "specs": {"纯度": "99.999%", "密度": "99.5%"}, "price": "¥5,000/块", "datasheetUrl": "#"}
+]

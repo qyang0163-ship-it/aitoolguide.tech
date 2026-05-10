@@ -1,0 +1,50 @@
+---
+const { path } = Astro.props;
+
+// 终端路径风格映射
+const pathMap = {
+  '': { label: 'root', icon: '⌂' },
+  'chips': { label: 'chips', icon: '💾' },
+  'equipment': { label: 'equipment', icon: '⚙️' },
+  'materials': { label: 'materials', icon: '🧪' },
+  'enterprise': { label: 'enterprise', icon: '🏢' },
+  'policy': { label: 'policy', icon: '📋' },
+  'MCU': { label: 'MCU', icon: '🔧' },
+  'AI芯片': { label: 'AI', icon: '🧠' },
+  '电源': { label: 'power', icon: '⚡' },
+  '模拟': { label: 'analog', icon: '〰️' },
+};
+
+// 构建终端风格路径
+const segments = path.split('/').filter(Boolean);
+const terminalPath = segments.map((seg, i) => {
+  const mapped = pathMap[seg] || { label: seg.toLowerCase(), icon: '📄' };
+  const href = '/' + segments.slice(0, i + 1).join('/');
+  return { ...mapped, href, raw: seg };
+});
+---
+<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; font-size: 13px; overflow-x: auto;">
+  <div style="display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; white-space: nowrap;">
+    <span style="color: #22c55e;">root@ai2424</span>
+    <span style="color: #64748b;">:</span>
+    <span style="color: #22d3ee;">~</span>
+    {terminalPath.map((seg, i) => (
+      <>
+        <span style="color: #64748b;">/</span>
+        <a href={seg.href} style="color: #22d3ee; text-decoration: none; padding: 2px 6px; border-radius: 4px; transition: all 0.2s;" onmouseenter="this.style.background='rgba(34, 211, 238, 0.1)'" onmouseleave="this.style.background='transparent'">
+          <span style="margin-right: 4px;">{seg.icon}</span>
+          <span>{seg.label}</span>
+        </a>
+      </>
+    ))}
+    <span style="color: #64748b; margin-left: 4px;">$</span>
+    <span style="color: #22d3ee; animation: blink 1s infinite;">_</span>
+  </div>
+</div>
+
+<style>
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+</style>
