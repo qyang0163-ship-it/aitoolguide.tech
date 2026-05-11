@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  let items = [];
+  try {
+    const imported = await import('../../data/equipment.json');
+    items = imported.default || imported;
+  } catch (e) {
+    console.error(`[DATA ERROR] 无法加载设备数据: ${e.message}`);
+  }
+  
+  if (!Array.isArray(items) || items.length === 0) {
+    return [{ params: { slug: 'no-data' }, props: { item: {}, isValid: false }}];
+  }
+  
+  return items.map((item) => ({
+    params: { slug: item.id || 'unknown' },
+    props: { item, isValid: true }
+  }));
+}
+
+const { item, isValid } = Astro.props;
+---
+<Layout title={isValid ? `${item.name} | 设备详情` : '设备详情'} description="半导体设备详细信息">
+<div style="min-height: 100vh; background: #020617; font-family: 'JetBrains Mono', monospace; padding-top: 80px;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
+    
+    <div style="font-size: 12px; color: #64748b; margin-bottom: 24px; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 8px;">
+      <span style="color: #22c55e;">root@ai2424</span><span style="color: #64748b;">:</span><span style="color: #22d3ee;">~</span><span style="color: #64748b;">/</span><span style="color: #fbbf24;">equipment</span><span style="color: #64748b;">/</span><span style="color: #a78bfa;">{isValid ? item.id : 'unknown'}</span><span style="color: #22c55e; margin-left: 4px;">_</span>
+    </div>
+    
+    {isValid ? (
+      <>
+        <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 32px;">
+          <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #a78bfa, #7c3aed); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 40px;">⚙️</div>
+          <div>
+            <h1 style="font-size: 36px; color: #e2e8f0; margin: 0; font-weight: 700;">{item.name}</h1>
+            <p style="font-size: 16px; color: #64748b; margin: 8px 0 0 0;">{item.manufacturer} · {item.category}</p>
+          </div>
+          <span style={`margin-left: auto; padding: 8px 16px; font-size: 14px; border-radius: 8px; ${item.status === '量产' ? 'background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3)' : 'background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3)'};`}>{item.status}</span>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px;">
+            <h3 style="font-size: 14px; color: #64748b; margin: 0 0 16px 0; text-transform: uppercase; letter-spacing: 0.1em;">技术规格</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              {Object.entries(item.specs || {}).map(([key, val]) => (
+                <div style="background: rgba(30, 41, 59, 0.6); padding: 16px; border-radius: 8px;">
+                  <div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">{key}</div>
+                  <div style="font-size: 18px; color: #e2e8f0; font-weight: 600;">{val}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px;">
+            <h3 style="font-size: 14px; color: #64748b; margin: 0 0 16px 0; text-transform: uppercase; letter-spacing: 0.1em;">商业信息</h3>
+            <div style="margin-bottom: 16px;">
+              <div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">参考价格</div>
+              <div style="font-size: 32px; color: #a78bfa; font-weight: 700;">{item.price}</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">设备ID</div>
+              <div style="font-size: 14px; color: #e2e8f0; font-family: monospace;">{item.id}</div>
+            </div>
+          </div>
+        </div>
+        
+        <a href="/equipment" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: rgba(167, 139, 250, 0.2); border: 1px solid rgba(167, 139, 250, 0.4); color: #a78bfa; border-radius: 8px; text-decoration: none; font-size: 14px;">← 返回设备大厅</a>
+      </>
+    ) : (
+      <div style="text-align: center; padding: 80px 24px;">
+        <div style="font-size: 64px; margin-bottom: 24px;">⚠️</div>
+        <h2 style="font-size: 24px; color: #e2e8f0; margin-bottom: 12px;">设备数据未找到</h2>
+        <p style="font-size: 14px; color: #64748b; margin-bottom: 24px;">该设备ID不存在或数据正在同步中</p>
+        <a href="/equipment" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: rgba(167, 139, 250, 0.2); border: 1px solid rgba(167, 139, 250, 0.4); color: #a78bfa; border-radius: 8px; text-decoration: none; font-size: 14px;">← 返回设备大厅</a>
+      </div>
+    )}
+    
+  </div>
+</div>
+</Layout>
