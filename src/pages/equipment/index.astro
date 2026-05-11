@@ -1,13 +1,34 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// 读取设备数据
-let equipment = [];
+// 使用 Astro.glob 动态读取所有设备数据文件
+let equipmentFiles: any[] = [];
 try {
-  const data = await import('../../data/equipment.json');
-  equipment = data.default || [];
+  equipmentFiles = await Astro.glob('../../data/equipment/*.json');
 } catch (e) {
-  console.log('[DATA] 使用备用数据');
+  equipmentFiles = [];
+}
+
+// 合并所有文件的数据
+let equipment: any[] = [];
+if (equipmentFiles && equipmentFiles.length > 0) {
+  equipmentFiles.forEach((file: any) => {
+    if (Array.isArray(file.default)) {
+      equipment = equipment.concat(file.default);
+    } else if (typeof file.default === 'object' && file.default !== null) {
+      if (file.default.items) {
+        equipment = equipment.concat(file.default.items);
+      } else if (file.default.id) {
+        equipment.push(file.default);
+      }
+    }
+  });
+
+  // 去重
+  const uniqueEquipment = equipment.filter((item, index, self) =>
+    index === self.findIndex((e) => e.id === item.id)
+  );
+  equipment = uniqueEquipment;
 }
 
 // 备用数据
@@ -31,13 +52,13 @@ const categories = ['全部', '刻蚀设备', '薄膜沉积', '光刻设备', '�
 const riskFilters = ['全部', '高风险', '中风险', '低风险'];
 const localizationFilters = ['全部', '国产化率>90%', '国产化率>70%'];
 
-const getRiskColor = (risk) => {
+const getRiskColor = (risk: string) => {
   if (risk === '高') return '#ef4444';
   if (risk === '中') return '#fbbf24';
   return '#22c55e';
 };
 
-const getLocalizationColor = (rate) => {
+const getLocalizationColor = (rate: number) => {
   if (rate >= 90) return '#22c55e';
   if (rate >= 70) return '#fbbf24';
   return '#ef4444';
@@ -50,6 +71,10 @@ const getLocalizationColor = (rate) => {
     <!-- 面包屑 -->
     <div style="font-size: 12px; color: #64748b; margin-bottom: 24px; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 8px;">
       <span style="color: #22c55e;">root@scip-monitor</span><span style="color: #64748b;">:</span><span style="color: #22d3ee;">~/intel</span><span style="color: #64748b;">/</span><span style="color: #fbbf24;">equipment</span><span style="color: #22c55e; margin-left: 4px;">_</span>
+      <span style="color: #64748b; margin-left: 12px;">|</span>
+      <span style="color: #a78bfa; margin-left: 12px;">动态加载: {equipmentFiles.length} 个数据文件</span>
+      <span style="color: #64748b; margin-left: 8px;">|</span>
+      <span style="color: #22c55e; margin-left: 8px;">{equipment.length} 条记录</span>
     </div>
     
     <!-- Header -->
@@ -120,7 +145,7 @@ const getLocalizationColor = (rate) => {
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
           {equipment.map(item => (
             <a href={`/equipment/${item.id}`} style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 16px; padding: 28px; text-decoration: none; transition: all 0.3s; position: relative; overflow: hidden;" onmouseenter="this.style.borderColor='#a78bfa'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 20px 40px rgba(167, 139, 250, 0.1)'" onmouseleave="this.style.borderColor='#334155'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-              <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, {getRiskColor(item.risk)}, transparent);"></div>
+              <div style={`position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, ${getRiskColor(item.risk)}, transparent);`}></div>
               <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
                 <div style="display: flex; align-items: center; gap: 16px;">
                   <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #a78bfa, #7c3aed); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px;">⚙️</div>
@@ -160,7 +185,7 @@ const getLocalizationColor = (rate) => {
         <div style="width: 80px; height: 80px; border: 3px solid #334155; border-top-color: #a78bfa; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 32px;"></div>
         <h2 style="font-size: 24px; color: #e2e8f0; margin-bottom: 12px;">数据正在由 P100 算力节点同步中...</h2>
         <p style="font-size: 14px; color: #64748b;">设备情报数据库正在从本地节点同步到云端</p>
-        <p style="font-size: 12px; color: #475569; margin-top: 16px;">运行: python sync.py</p>
+        <p style="font-size: 12px; color: #475569; margin-top: 16px;">运行: python sync_and_deploy.py</p>
       </div>
     )}
     

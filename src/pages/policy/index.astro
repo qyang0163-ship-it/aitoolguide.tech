@@ -1,13 +1,34 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// 读取政策数据
-let policies = [];
+// 使用 Astro.glob 动态读取所有政策数据文件
+let policyFiles: any[] = [];
 try {
-  const data = await import('../../data/policies.json');
-  policies = data.default || [];
+  policyFiles = await Astro.glob('../../data/policy/*.json');
 } catch (e) {
-  console.log('[DATA] 使用备用数据');
+  policyFiles = [];
+}
+
+// 合并所有文件的数据
+let policies: any[] = [];
+if (policyFiles && policyFiles.length > 0) {
+  policyFiles.forEach((file: any) => {
+    if (Array.isArray(file.default)) {
+      policies = policies.concat(file.default);
+    } else if (typeof file.default === 'object' && file.default !== null) {
+      if (file.default.items) {
+        policies = policies.concat(file.default.items);
+      } else if (file.default.id) {
+        policies.push(file.default);
+      }
+    }
+  });
+
+  // 去重
+  const uniquePolicies = policies.filter((item, index, self) =>
+    index === self.findIndex((p) => p.id === item.id)
+  );
+  policies = uniquePolicies;
 }
 
 // 备用数据
@@ -33,14 +54,14 @@ const sourceFilters = ['全部', '美国', '欧盟', '中国', '日本', '韩国
 const riskFilters = ['全部', '极高', '高', '中', '低'];
 const impactFilters = ['全部', '全面', '设备', '材料', '技术', '资本', '区域性', '国内'];
 
-const getRiskColor = (risk) => {
+const getRiskColor = (risk: string) => {
   if (risk === '极高') return '#7f1d1d';
   if (risk === '高') return '#ef4444';
   if (risk === '中') return '#fbbf24';
   return '#22c55e';
 };
 
-const getTypeColor = (type) => {
+const getTypeColor = (type: string) => {
   if (type === '出口管制') return '#ef4444';
   if (type === '产业促进') return '#22c55e';
   if (type === '投资管制') return '#fbbf24';
@@ -55,6 +76,10 @@ const getTypeColor = (type) => {
     <!-- 面包屑 -->
     <div style="font-size: 12px; color: #64748b; margin-bottom: 24px; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 8px;">
       <span style="color: #22c55e;">root@scip-monitor</span><span style="color: #64748b;">:</span><span style="color: #22d3ee;">~/intel</span><span style="color: #64748b;">/</span><span style="color: #fbbf24;">policy</span><span style="color: #22c55e; margin-left: 4px;">_</span>
+      <span style="color: #64748b; margin-left: 12px;">|</span>
+      <span style="color: #ef4444; margin-left: 12px;">动态加载: {policyFiles.length} 个数据文件</span>
+      <span style="color: #64748b; margin-left: 8px;">|</span>
+      <span style="color: #22c55e; margin-left: 8px;">{policies.length} 条记录</span>
     </div>
     
     <!-- Header -->
@@ -125,7 +150,7 @@ const getTypeColor = (type) => {
         <div style="display: flex; flex-direction: column; gap: 16px;">
           {policies.map(item => (
             <a href={`/policy/${item.id}`} style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 16px; padding: 24px; text-decoration: none; transition: all 0.3s; position: relative; overflow: hidden;" onmouseenter="this.style.borderColor='#ef4444'; this.style.transform='translateX(4px)'; this.style.boxShadow='0 10px 30px rgba(239, 68, 68, 0.1)'" onmouseleave="this.style.borderColor='#334155'; this.style.transform='translateX(0)'; this.style.boxShadow='none'">
-              <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, {getRiskColor(item.risk)}, transparent);"></div>
+              <div style={`position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, ${getRiskColor(item.risk)}, transparent);`}></div>
               <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
                 <div style="display: flex; align-items: center; gap: 16px;">
                   <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #ef4444, #dc2626); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">📋</div>
@@ -146,7 +171,7 @@ const getTypeColor = (type) => {
               </div>
               
               <div style="display: flex; gap: 12px;">
-                <span style={`padding: 6px 12px; font-size: 11px; border-radius: 6px; background: rgba(${getTypeColor(item.type).replace('#', '').match(/.{2}/g).map(h => parseInt(h, 16)).join(', ')}, 0.15); color: {getTypeColor(item.type)}; border: 1px solid rgba(${getTypeColor(item.type).replace('#', '').match(/.{2}/g).map(h => parseInt(h, 16)).join(', ')}, 0.3);`}>{item.type}</span>
+                <span style={`padding: 6px 12px; font-size: 11px; border-radius: 6px; background: rgba(${getTypeColor(item.type).replace('#', '').match(/.{2}/g)!.map(h => parseInt(h, 16)).join(', ')}, 0.15); color: {getTypeColor(item.type)}; border: 1px solid rgba(${getTypeColor(item.type).replace('#', '').match(/.{2}/g)!.map(h => parseInt(h, 16)).join(', ')}, 0.3);`}>{item.type}</span>
                 <span style="padding: 6px 12px; font-size: 11px; border-radius: 6px; background: rgba(100, 116, 139, 0.15); color: #94a3b8; border: 1px solid rgba(100, 116, 139, 0.3);">影响: {item.impact}</span>
               </div>
             </a>
@@ -158,7 +183,7 @@ const getTypeColor = (type) => {
         <div style="width: 80px; height: 80px; border: 3px solid #334155; border-top-color: #ef4444; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 32px;"></div>
         <h2 style="font-size: 24px; color: #e2e8f0; margin-bottom: 12px;">数据正在由 P100 算力节点同步中...</h2>
         <p style="font-size: 14px; color: #64748b;">政策情报数据库正在从本地节点同步到云端</p>
-        <p style="font-size: 12px; color: #475569; margin-top: 16px;">运行: python sync.py</p>
+        <p style="font-size: 12px; color: #475569; margin-top: 16px;">运行: python sync_and_deploy.py</p>
       </div>
     )}
     

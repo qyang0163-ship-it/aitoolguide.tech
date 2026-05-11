@@ -1,13 +1,34 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// 读取企业数据
-let enterprises = [];
+// 使用 Astro.glob 动态读取所有企业数据文件
+let enterpriseFiles: any[] = [];
 try {
-  const data = await import('../../data/enterprises.json');
-  enterprises = data.default || [];
+  enterpriseFiles = await Astro.glob('../../data/enterprise/*.json');
 } catch (e) {
-  console.log('[DATA] 使用备用数据');
+  enterpriseFiles = [];
+}
+
+// 合并所有文件的数据
+let enterprises: any[] = [];
+if (enterpriseFiles && enterpriseFiles.length > 0) {
+  enterpriseFiles.forEach((file: any) => {
+    if (Array.isArray(file.default)) {
+      enterprises = enterprises.concat(file.default);
+    } else if (typeof file.default === 'object' && file.default !== null) {
+      if (file.default.items) {
+        enterprises = enterprises.concat(file.default.items);
+      } else if (file.default.id) {
+        enterprises.push(file.default);
+      }
+    }
+  });
+
+  // 去重
+  const uniqueEnterprises = enterprises.filter((item, index, self) =>
+    index === self.findIndex((e) => e.id === item.id)
+  );
+  enterprises = uniqueEnterprises;
 }
 
 // 备用数据
@@ -31,13 +52,13 @@ const categories = ['全部', '设备制造', '晶圆代工', '芯片设计', '�
 const statusFilters = ['全部', '正常', '监控中', '受限'];
 const riskFilters = ['全部', '极高', '高', '中', '低'];
 
-const getStatusColor = (status) => {
+const getStatusColor = (status: string) => {
   if (status === '受限') return '#ef4444';
   if (status === '监控中') return '#22d3ee';
   return '#22c55e';
 };
 
-const getRiskColor = (risk) => {
+const getRiskColor = (risk: string) => {
   if (risk === '极高') return '#7f1d1d';
   if (risk === '高') return '#ef4444';
   if (risk === '中') return '#fbbf24';
@@ -51,6 +72,10 @@ const getRiskColor = (risk) => {
     <!-- 面包屑 -->
     <div style="font-size: 12px; color: #64748b; margin-bottom: 24px; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 8px;">
       <span style="color: #22c55e;">root@scip-monitor</span><span style="color: #64748b;">:</span><span style="color: #22d3ee;">~/intel</span><span style="color: #64748b;">/</span><span style="color: #fbbf24;">enterprise</span><span style="color: #22c55e; margin-left: 4px;">_</span>
+      <span style="color: #64748b; margin-left: 12px;">|</span>
+      <span style="color: #fbbf24; margin-left: 12px;">动态加载: {enterpriseFiles.length} 个数据文件</span>
+      <span style="color: #64748b; margin-left: 8px;">|</span>
+      <span style="color: #22c55e; margin-left: 8px;">{enterprises.length} 条记录</span>
     </div>
     
     <!-- Header -->
@@ -121,7 +146,7 @@ const getRiskColor = (risk) => {
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
           {enterprises.map(item => (
             <a href={`/enterprise/${item.id}`} style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 16px; padding: 28px; text-decoration: none; transition: all 0.3s; position: relative; overflow: hidden;" onmouseenter="this.style.borderColor='#fbbf24'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 20px 40px rgba(251, 191, 36, 0.1)'" onmouseleave="this.style.borderColor='#334155'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-              <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, {getRiskColor(item.risk)}, transparent);"></div>
+              <div style={`position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, ${getRiskColor(item.risk)}, transparent);`}></div>
               <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
                 <div style="display: flex; align-items: center; gap: 16px;">
                   <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px;">🏢</div>
@@ -159,7 +184,7 @@ const getRiskColor = (risk) => {
         <div style="width: 80px; height: 80px; border: 3px solid #334155; border-top-color: #fbbf24; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 32px;"></div>
         <h2 style="font-size: 24px; color: #e2e8f0; margin-bottom: 12px;">数据正在由 P100 算力节点同步中...</h2>
         <p style="font-size: 14px; color: #64748b;">企业情报数据库正在从本地节点同步到云端</p>
-        <p style="font-size: 12px; color: #475569; margin-top: 16px;">运行: python sync.py</p>
+        <p style="font-size: 12px; color: #475569; margin-top: 16px;">运行: python sync_and_deploy.py</p>
       </div>
     )}
     

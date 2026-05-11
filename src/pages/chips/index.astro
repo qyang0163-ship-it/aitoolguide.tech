@@ -1,16 +1,38 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// 读取芯片数据
-let chips = [];
+// 使用 Astro.glob 动态读取所有芯片数据文件
+let chipFiles: any[] = [];
 try {
-  const data = await import('../../data/chips.json');
-  chips = data.default || [];
+  chipFiles = await Astro.glob('../../data/chips/*.json');
 } catch (e) {
-  console.log('[DATA] 使用备用数据');
+  // 目录为空或不存在，使用空数组
+  chipFiles = [];
 }
 
-// 备用数据
+// 合并所有文件的数据
+let chips: any[] = [];
+if (chipFiles && chipFiles.length > 0) {
+  chipFiles.forEach((file: any) => {
+    if (Array.isArray(file.default)) {
+      chips = chips.concat(file.default);
+    } else if (typeof file.default === 'object' && file.default !== null) {
+      if (file.default.items) {
+        chips = chips.concat(file.default.items);
+      } else if (file.default.id) {
+        chips.push(file.default);
+      }
+    }
+  });
+
+  // 去重（基于id）
+  const uniqueChips = chips.filter((chip, index, self) =>
+    index === self.findIndex((c) => c.id === chip.id)
+  );
+  chips = uniqueChips;
+}
+
+// 备用数据（当没有数据文件时）
 if (chips.length === 0) {
   chips = [
     { id: 'stm32f103c8t6', name: 'APM32F103C8T6', manufacturer: '极海半导体', originalEquivalent: 'STM32F103C8T6', category: 'MCU', specs: { 内核: 'ARM Cortex-M3', 主频: '72MHz', Flash: '64KB' }, price: '¥2.35', substituteLevel: 'pin2pin', localization: 95 },
@@ -33,12 +55,12 @@ const levels = ['全部', 'P2P替代', '功能替代'];
 const localizationFilters = ['全部', '国产化率>90%', '国产化率>70%', '受限替代'];
 
 // 厂商图标
-const getIcon = (m) => {
-  const map = { '极海半导体': '🔷', '兆易创新': '🔶', '华为海思': '🔴', '寒武纪': '🟣', '摩尔线程': '🟢', '圣邦微': '🟡', '雅特力': '🔵', '乐鑫科技': '📶', '沁恒微': '⚡', '灵动微': '💫', '海光信息': '💧' };
+const getIcon = (m: string) => {
+  const map: Record<string, string> = { '极海半导体': '🔷', '兆易创新': '🔶', '华为海思': '🔴', '寒武纪': '🟣', '摩尔线程': '🟢', '圣邦微': '🟡', '雅特力': '🔵', '乐鑫科技': '📶', '沁恒微': '⚡', '灵动微': '💫', '海光信息': '💧' };
   return map[m] || '💠';
 };
 
-const getLocalizationColor = (rate) => {
+const getLocalizationColor = (rate: number) => {
   if (rate >= 90) return '#22c55e';
   if (rate >= 70) return '#fbbf24';
   return '#ef4444';
@@ -51,6 +73,10 @@ const getLocalizationColor = (rate) => {
     <!-- 面包屑 -->
     <div style="font-size: 12px; color: #64748b; margin-bottom: 24px; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 8px;">
       <span style="color: #22c55e;">root@scip-monitor</span><span style="color: #64748b;">:</span><span style="color: #22d3ee;">~/intel</span><span style="color: #64748b;">/</span><span style="color: #fbbf24;">chips</span><span style="color: #22c55e; margin-left: 4px;">_</span>
+      <span style="color: #64748b; margin-left: 12px;">|</span>
+      <span style="color: #22d3ee; margin-left: 12px;">动态加载: {chipFiles.length} 个数据文件</span>
+      <span style="color: #64748b; margin-left: 8px;">|</span>
+      <span style="color: #22c55e; margin-left: 8px;">{chips.length} 条记录</span>
     </div>
     
     <!-- Header -->
@@ -121,7 +147,7 @@ const getLocalizationColor = (rate) => {
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
           {chips.map(chip => (
             <a href={`/chips/${chip.id}`} style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 16px; padding: 24px; text-decoration: none; transition: all 0.3s; position: relative; overflow: hidden;" onmouseenter="this.style.borderColor='#22d3ee'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 20px 40px rgba(34, 211, 238, 0.1)'" onmouseleave="this.style.borderColor='#334155'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-              <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, {getLocalizationColor(chip.localization || 0)}, transparent);"></div>
+              <div style={`position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, ${getLocalizationColor(chip.localization || 0)}, transparent);`}></div>
               <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
                 <div style="display: flex; align-items: center; gap: 14px;">
                   <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #22d3ee, #0ea5e9); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">{getIcon(chip.manufacturer)}</div>
@@ -168,7 +194,7 @@ const getLocalizationColor = (rate) => {
         <div style="width: 80px; height: 80px; border: 3px solid #334155; border-top-color: #22d3ee; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 32px;"></div>
         <h2 style="font-size: 24px; color: #e2e8f0; margin-bottom: 12px;">数据正在由 P100 算力节点同步中...</h2>
         <p style="font-size: 14px; color: #64748b;">芯片情报数据库正在从本地节点同步到云端</p>
-        <p style="font-size: 12px; color: #475569; margin-top: 16px;">运行: python sync.py</p>
+        <p style="font-size: 12px; color: #475569; margin-top: 16px;">运行: python sync_and_deploy.py</p>
       </div>
     )}
     
