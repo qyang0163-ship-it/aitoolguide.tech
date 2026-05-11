@@ -55,6 +55,28 @@
     {
       "source": "/go/:tool",
       "destination": "/api/redirect?tool=:tool"
+    },
+    {
+      "source": "/equipment/:path*",
+      "destination": "/equipment/:path*"
+    },
+    {
+      "source": "/materials/:path*",
+      "destination": "/materials/:path*"
+    },
+    {
+      "source": "/chips/:path*",
+      "destination": "/chips/:path*"
+    },
+    {
+      "source": "/enterprise/:path*",
+      "destination": "/enterprise/:path*"
+    },
+    {
+      "source": "/policy/:path*",
+      "destination": "/policy/:path*"
     }
-  ]
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
 }
