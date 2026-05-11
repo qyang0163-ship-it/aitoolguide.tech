@@ -28,9 +28,11 @@ const maturityLevels = [92, 88, 95, 76, 83, 67, 91, 79, 85];
 <span style="color: #64748b; font-size: 11px; margin-left: 8px;">INTELLIGENCE v3.0</span>
 </div>
 <div style="display: flex; gap: 8px;">
-{['设备','材料','芯片','企业','政策'].map((item) => (
-<a href={`/${item.toLowerCase()}`} style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; color: #94a3b8; text-decoration: none; border-radius: 8px; transition: all 0.2s;">{item}</a>
-))}
+<a href="/equipment" style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; color: #94a3b8; text-decoration: none; border-radius: 8px; transition: all 0.2s;">设备</a>
+<a href="/materials" style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; color: #94a3b8; text-decoration: none; border-radius: 8px; transition: all 0.2s;">材料</a>
+<a href="/chips" style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; color: #94a3b8; text-decoration: none; border-radius: 8px; transition: all 0.2s;">芯片</a>
+<a href="/enterprise" style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; color: #94a3b8; text-decoration: none; border-radius: 8px; transition: all 0.2s;">企业</a>
+<a href="/policy" style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; color: #94a3b8; text-decoration: none; border-radius: 8px; transition: all 0.2s;">政策</a>
 </div>
 <div style="display: flex; gap: 16px; font-size: 12px; color: #64748b;">
 <span>CPU:12%</span>
