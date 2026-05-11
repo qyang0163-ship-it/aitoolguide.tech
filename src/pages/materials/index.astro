@@ -38,4 +38,90 @@ const categories = ['全部', '光刻胶', '硅片', '电子化学品', '封装�
         <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #22c55e, #16a34a); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px;">🧪</div>
         <div>
           <h1 style="font-size: 32px; color: #e2e8f0; margin: 0; font-weight: 700;">MATERIALS HALL</h1>
-          <p style="font-size: 14px; color:
+          <p style="font-size: 14px; color: #64748b; margin: 8px 0 0 0;">中国半导体材料国产替代库 · 已收录 {materials.length} 款材料</p>
+        </div>
+      </div>
+    </div>
+    
+    {hasData ? (
+      <>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px;">
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px;">
+            <div style="font-size: 32px; font-weight: bold; color: #22c55e; text-shadow: 0 0 20px rgba(34, 197, 94, 0.4);">{materials.length}</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 8px;">收录材料</div>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px;">
+            <div style="font-size: 32px; font-weight: bold; color: #22d3ee; text-shadow: 0 0 20px rgba(34, 211, 238, 0.4);">2156</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 8px;">国产材料</div>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px;">
+            <div style="font-size: 32px; font-weight: bold; color: #ef4444; text-shadow: 0 0 20px rgba(239, 68, 68, 0.4);">89</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 8px;">受限材料</div>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px;">
+            <div style="font-size: 32px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);">602</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 8px;">监控中</div>
+          </div>
+        </div>
+        
+        <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
+            {categories.map(cat => (
+              <button style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; background: transparent; color: #94a3b8; border-radius: 6px; cursor: pointer;">{cat}</button>
+            ))}
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <div style="flex: 1; display: flex; align-items: center; background: #020617; border: 1px solid #334155; border-radius: 8px; padding: 0 16px;">
+              <span style="color: #22c55e; margin-right: 12px;">$</span>
+              <input type="text" placeholder="search --category 光刻胶 --manufacturer 南大光电" style="flex: 1; background: transparent; border: none; color: #e2e8f0; padding: 14px 0; font-family: inherit; font-size: 14px; outline: none;" />
+            </div>
+            <button style="padding: 14px 28px; background: rgba(34, 197, 94, 0.2); border: 1px solid rgba(34, 197, 94, 0.4); color: #22c55e; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;">EXECUTE</button>
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+          {materials.map(item => (
+            <a href={`/materials/${item.id}`} style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px; text-decoration: none; transition: all 0.2s;" onmouseenter="this.style.borderColor='#22c55e'; this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='#334155'; this.style.transform='translateY(0)'">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 16px;">
+                  <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #22c55e, #16a34a); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🧪</div>
+                  <div>
+                    <div style="font-size: 16px; color: #e2e8f0; font-weight: 600;">{item.name}</div>
+                    <div style="font-size: 12px; color: #64748b; margin-top: 4px;">{item.manufacturer} · {item.category}</div>
+                  </div>
+                </div>
+                <span style={`padding: 6px 12px; font-size: 11px; border-radius: 4px; ${item.status === '量产' ? 'background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3)' : 'background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3)'};`}>{item.status}</span>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
+                {Object.entries(item.specs).map(([key, val]) => (
+                  <div style="background: rgba(30, 41, 59, 0.6); padding: 12px; border-radius: 8px;">
+                    <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">{key}</div>
+                    <div style="font-size: 13px; color: #e2e8f0; font-weight: 500;">{val}</div>
+                  </div>
+                ))}
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid #334155;">
+                <span style="font-size: 16px; color: #22c55e; font-weight: 700;">{item.price}</span>
+                <span style="font-size: 12px; color: #64748b;">查看详情 →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </>
+    ) : (
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 24px; text-align: center;">
+        <div style="width: 80px; height: 80px; border: 3px solid #334155; border-top-color: #22c55e; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 32px;"></div>
+        <h2 style="font-size: 24px; color: #e2e8f0; margin-bottom: 12px;">数据正在由 P100 算力节点同步中...</h2>
+        <p style="font-size: 14px; color: #64748b;">材料数据库正在从 F:\mined_data\materials 同步到云端</p>
+      </div>
+    )}
+    
+  </div>
+</div>
+
+<style>
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
+</Layout>
