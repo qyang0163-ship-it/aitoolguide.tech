@@ -1,7 +1,10 @@
 [
-  {"id": "naura-etcher-n7", "name": "北方华创N7刻蚀机", "manufacturer": "北方华创", "category": "刻蚀设备", "relatedChips": ["stm32f103c8t6", "stm32f407vet6", "gd32f103c8t6"], "specs": {"工艺节点": "7nm", "产能": "120wph"}, "price": "¥2,800万", "datasheetUrl": "#"},
-  {"id": "amec-cvd-prismo", "name": "中微Prismo CVD", "manufacturer": "中微公司", "category": "薄膜沉积", "relatedChips": ["ascend-910b", "dcu-z100", "mlu370"], "specs": {"工艺节点": "5nm", "均匀性": "±1.5%"}, "price": "¥3,200万", "datasheetUrl": "#"},
-  {"id": "sme-litho-ssx600", "name": "上海微SSX600光刻机", "manufacturer": "上海微电子", "category": "光刻设备", "relatedChips": ["mm32f103c8t6", "ch32f103c8t6", "hc32f103c8t6"], "specs": {"分辨率": "90nm", "套刻精度": "≤8nm"}, "price": "¥1,500万", "datasheetUrl": "#"},
-  {"id": "kingsemi-track", "name": "芯源微涂胶显影机", "manufacturer": "芯源微", "category": "涂胶显影", "relatedChips": ["sgm6010", "sgm7221", "sh367004"], "specs": {"产能": "200wph", "均匀性": "±1%"}, "price": "¥800万", "datasheetUrl": "#"},
-  {"id": "tyst-implanter", "name": "拓荆离子注入机", "manufacturer": "拓荆科技", "category": "离子注入", "relatedChips": ["at32f403avgt7", "bl602", "beken7231"], "specs": {"能量范围": "0.2-400keV", "剂量精度": "±0.5%"}, "price": "¥1,200万", "datasheetUrl": "#"}
+  {"id":"naura-nmc508","name":"北方华创 NMC508 刻蚀机","manufacturer":"北方华创","category":"刻蚀设备","specs":{"工艺节点":"7nm","产能":"120wph"},"price":"¥2,800万","status":"量产"},
+  {"id":"amec-ccp","name":"中微 CCP 刻蚀机","manufacturer":"中微公司","category":"刻蚀设备","specs":{"工艺节点":"5nm","均匀性":"±1.5%"},"price":"¥3,200万","status":"量产"},
+  {"id":"piotech-pecvd","name":"拓荆 PECVD Pro","manufacturer":"拓荆科技","category":"薄膜沉积","specs":{"工艺节点":"7nm","均匀性":"±1%"},"price":"¥2,500万","status":"量产"},
+  {"id":"sme-ssx600","name":"上海微 SSX600 光刻机","manufacturer":"上海微电子","category":"光刻设备","specs":{"分辨率":"90nm","套刻精度":"≤8nm"},"price":"¥1,500万","status":"量产"},
+  {"id":"kingsemi-track","name":"芯源微 涂胶显影机","manufacturer":"芯源微","category":"涂胶显影","specs":{"产能":"200wph","均匀性":"±1%"},"price":"¥800万","status":"量产"},
+  {"id":"tyst-implanter","name":"拓荆 离子注入机","manufacturer":"拓荆科技","category":"离子注入","specs":{"能量范围":"0.2-400keV","剂量精度":"±0.5%"},"price":"¥1,200万","status":"量产"},
+  {"id":"naura-rtp","name":"北方华创 快速热处理","manufacturer":"北方华创","category":"热处理","specs":{"升温速率":"250°C/s","温度精度":"±0.5°C"},"price":"¥1,800万","status":"量产"},
+  {"id":"shengmei-cmp","name":"盛美 CMP 设备","manufacturer":"盛美上海","category":"CMP","specs":{"去除速率":"300nm/min","均匀性":"3%"},"price":"¥2,200万","status":"量产"}
 ]

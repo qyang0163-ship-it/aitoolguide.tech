@@ -1,7 +1,10 @@
 [
-  {"id": "nanda-arf-01", "name": "南大光电ArF光刻胶", "manufacturer": "南大光电", "category": "光刻胶", "relatedChips": ["stm32f103c8t6", "stm32f407vet6", "ascend-910b"], "specs": {"波长": "193nm", "分辨率": "≤65nm"}, "price": "¥12,000/L", "datasheetUrl": "#"},
-  {"id": "jsmc-silicon-12", "name": "沪硅产业12寸硅片", "manufacturer": "沪硅产业", "category": "硅片", "relatedChips": ["gd32f103c8t6", "mm32f103c8t6", "dcu-z100"], "specs": {"直径": "300mm", "厚度": "775μm"}, "price": "¥3,500/片", "datasheetUrl": "#"},
-  {"id": "entegris-chemical", "name": "英特格高纯试剂", "manufacturer": "英特格(国产线)", "category": "电子化学品", "relatedChips": ["ch32f103c8t6", "cs32f103c8t6", "mlu370"], "specs": {"纯度": "99.99999%", "金属杂质": "<1ppb"}, "price": "¥800/L", "datasheetUrl": "#"},
-  {"id": "suzhou-epoxy", "name": "苏州瑞红环氧塑封料", "manufacturer": "苏州瑞红", "category": "封装材料", "relatedChips": ["hk32f030m", "n76e003", "ht7533"], "specs": {"Tg": "175°C", "CTE": "8ppm"}, "price": "¥150/kg", "datasheetUrl": "#"},
-  {"id": "borun-target", "name": "博润靶材", "manufacturer": "博润新材料", "category": "溅射靶材", "relatedChips": ["sgm6010", "sgm7221", "mwct1013"], "specs": {"纯度": "99.999%", "密度": "99.5%"}, "price": "¥5,000/块", "datasheetUrl": "#"}
+  {"id":"nata-arf","name":"南大光电 ArF 光刻胶","manufacturer":"南大光电","category":"光刻胶","specs":{"波长":"193nm","分辨率":"≤65nm"},"price":"¥12,000/L","status":"量产"},
+  {"id":"jsmc-wafer","name":"沪硅产业 12寸硅片","manufacturer":"沪硅产业","category":"硅片","specs":{"直径":"300mm","厚度":"775μm"},"price":"¥3,500/片","status":"量产"},
+  {"id":"entegris-chemical","name":"英特格 高纯试剂","manufacturer":"英特格(国产线)","category":"电子化学品","specs":{"纯度":"99.99999%","金属杂质":"<1ppb"},"price":"¥800/L","status":"量产"},
+  {"id":"suzhou-epoxy","name":"苏州瑞红 环氧塑封料","manufacturer":"苏州瑞红","category":"封装材料","specs":{"Tg":"175°C","CTE":"8ppm"},"price":"¥150/kg","status":"量产"},
+  {"id":"borun-target","name":"博润 溅射靶材","manufacturer":"博润新材料","category":"靶材","specs":{"纯度":"99.999%","密度":"99.5%"},"price":"¥5,000/块","status":"量产"},
+  {"id":"jiangfeng-target","name":"江丰电子 高纯靶材","manufacturer":"江丰电子","category":"靶材","specs":{"纯度":"99.999%","晶粒":"均匀"},"price":"¥8,000/块","status":"量产"},
+  {"id":"anji-cmp","name":"安集科技 CMP抛光液","manufacturer":"安集科技","category":"CMP材料","specs":{"去除速率":"300nm/min","缺陷":"<0.1/cm²"},"price":"¥2,000/L","status":"量产"},
+  {"id":"dinglong-cmp","name":"鼎龙控股 CMP抛光垫","manufacturer":"鼎龙控股","category":"CMP材料","specs":{"硬度":"适中","寿命":"长"},"price":"¥1,500/片","status":"量产"}
 ]

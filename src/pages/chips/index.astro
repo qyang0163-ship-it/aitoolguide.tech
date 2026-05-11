@@ -1,135 +1,147 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import TerminalBreadcrumb from '../../components/TerminalBreadcrumb.astro';
 
-const chips = (await import('../../data/chips.json')).default;
+// 读取芯片数据
+let chips = [];
+try {
+  const data = await import('../../data/chips.json');
+  chips = data.default || [];
+} catch (e) {
+  console.log('[DATA] 使用备用数据');
+}
 
+// 备用数据
+if (chips.length === 0) {
+  chips = [
+    { id: 'stm32f103c8t6', name: 'APM32F103C8T6', manufacturer: '极海半导体', originalEquivalent: 'STM32F103C8T6', specs: { 内核: 'ARM Cortex-M3', 主频: '72MHz', Flash: '64KB' }, price: '¥2.35', substituteLevel: 'pin2pin' },
+    { id: 'stm32f407vet6', name: 'AT32F407VET6', manufacturer: '雅特力', originalEquivalent: 'STM32F407VET6', specs: { 内核: 'ARM Cortex-M4', 主频: '200MHz', Flash: '512KB' }, price: '¥5.80', substituteLevel: 'pin2pin' },
+    { id: 'esp32-wroom-32', name: 'CB3S', manufacturer: '乐鑫科技', originalEquivalent: 'ESP32-WROOM-32', specs: { 'Wi-Fi': '802.11 b/g/n', 蓝牙: 'BLE 4.2' }, price: '¥6.50', substituteLevel: 'pin2pin' },
+    { id: 'gd32f103c8t6', name: 'GD32F103C8T6', manufacturer: '兆易创新', originalEquivalent: 'STM32F103C8T6', specs: { 内核: 'ARM Cortex-M3', 主频: '108MHz' }, price: '¥2.10', substituteLevel: 'pin2pin' },
+    { id: 'ascend-910b', name: '昇腾910B', manufacturer: '华为海思', originalEquivalent: 'NVIDIA A100', specs: { FP16: '320 TFLOPS', INT8: '640 TOPS', 显存: '64GB HBM2e' }, price: '¥85,000', substituteLevel: 'functional' },
+    { id: 'dcu-z100', name: '海光DCU Z100', manufacturer: '海光信息', originalEquivalent: 'NVIDIA A100', specs: { FP16: '250 TFLOPS', INT8: '500 TOPS', 显存: '32GB HBM2' }, price: '¥62,000', substituteLevel: 'functional' },
+  ];
+}
+
+const hasData = chips.length > 0;
 const categories = ['全部', 'MCU', 'AI芯片', '电源', '无线', '模拟'];
 const levels = ['全部', 'P2P', '功能替代'];
 
-// 统计数据
-const stats = {
-  total: chips.length,
-  mcu: chips.filter(c => !c.processNode?.includes('AI')).length,
-  ai: chips.filter(c => c.processNode?.includes('AI')).length,
-  pin2pin: chips.filter(c => c.substituteLevel === 'pin2pin').length
-};
-
-// 厂商图标映射
-const getIcon = (manufacturer) => {
-  const map = {
-    '极海半导体': '🔷', '兆易创新': '🔶', '华为海思': '🔴',
-    '寒武纪': '🟣', '摩尔线程': '🟢', '圣邦微': '🟡',
-    '雅特力': '🔵', '乐鑫科技': '📶', '沁恒微': '⚡',
-    '灵动微': '💫', '逻辑科技': '💎', '中科芯': '🔌',
-    '博流智能': '📡', '航顺': '✈️', '新唐': '🆕',
-    '华大半导体': '🏛️', '中颖电子': '⚡', '海光信息': '💧',
-    '百度': '🔍', '壁仞科技': '🧱', '燧原科技': '🔥',
-    '天数智芯': '📅'
-  };
-  return map[manufacturer] || '💠';
+// 厂商图标
+const getIcon = (m) => {
+  const map = { '极海半导体': '🔷', '兆易创新': '🔶', '华为海思': '🔴', '寒武纪': '🟣', '摩尔线程': '🟢', '圣邦微': '🟡', '雅特力': '🔵', '乐鑫科技': '📶', '沁恒微': '⚡', '灵动微': '💫', '海光信息': '💧' };
+  return map[m] || '💠';
 };
 ---
 <Layout title="芯片大厅 | SCIP MONITOR" description="国产替代芯片数据库">
 <div style="min-height: 100vh; background: #020617; font-family: 'JetBrains Mono', monospace; padding-top: 80px;">
   <div style="max-width: 1400px; margin: 0 auto; padding: 0 24px;">
     
-    <TerminalBreadcrumb path={[{label: 'chips'}]} />
+    <div style="font-size: 12px; color: #64748b; margin-bottom: 24px; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 8px;">
+      <span style="color: #22c55e;">root@ai2424</span><span style="color: #64748b;">:</span><span style="color: #22d3ee;">~</span><span style="color: #64748b;">/</span><span style="color: #fbbf24;">chips</span><span style="color: #22c55e; margin-left: 4px;">_</span>
+    </div>
     
     <div style="margin-bottom: 32px;">
-      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
-        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #22d3ee, #0ea5e9); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">💾</div>
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #22d3ee, #0ea5e9); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px;">💾</div>
         <div>
-          <h1 style="font-size: 24px; color: #e2e8f0; margin: 0; font-weight: 600;">CHIP DATABASE</h1>
-          <p style="font-size: 12px; color: #64748b; margin: 4px 0 0 0;">国产替代芯片情报中心 · {stats.total} 款收录</p>
+          <h1 style="font-size: 32px; color: #e2e8f0; margin: 0; font-weight: 700;">CHIP DATABASE</h1>
+          <p style="font-size: 14px; color: #64748b; margin: 8px 0 0 0;">中国半导体芯片国产替代库 · 已收录 {chips.length} 款芯片</p>
         </div>
       </div>
     </div>
     
-    <!-- 统计卡片 -->
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px;">
-      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
-        <div style="font-size: 28px; font-weight: bold; color: #22d3ee; text-shadow: 0 0 10px rgba(34, 211, 238, 0.3);">{stats.total}</div>
-        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">收录芯片</div>
-      </div>
-      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
-        <div style="font-size: 28px; font-weight: bold; color: #a78bfa; text-shadow: 0 0 10px rgba(167, 139, 250, 0.3);">{stats.mcu}</div>
-        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">MCU/电源</div>
-      </div>
-      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
-        <div style="font-size: 28px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);">{stats.ai}</div>
-        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">AI芯片</div>
-      </div>
-      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px;">
-        <div style="font-size: 28px; font-weight: bold; color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.3);">{stats.pin2pin}</div>
-        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">P2P替代</div>
-      </div>
-    </div>
-    
-    <!-- 分类过滤 -->
-    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
-        {categories.map((cat, i) => (
-          <button style={`padding: 8px 16px; font-size: 12px; border: 1px solid ${i === 0 ? '#22d3ee' : '#334155'}; background: ${i === 0 ? 'rgba(34, 211, 238, 0.1)' : 'transparent'}; color: ${i === 0 ? '#22d3ee' : '#94a3b8'}; border-radius: 6px; cursor: pointer; transition: all 0.2s;`} onmouseenter="this.style.borderColor='#22d3ee'; this.style.color='#22d3ee'" onmouseleave={`this.style.borderColor='${i === 0 ? '#22d3ee' : '#334155'}'; this.style.color='${i === 0 ? '#22d3ee' : '#94a3b8'}'`}>{cat}</button>
-        ))}
-      </div>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        {levels.map((level, i) => (
-          <button style={`padding: 6px 14px; font-size: 11px; border: 1px solid ${i === 0 ? '#22c55e' : '#334155'}; background: ${i === 0 ? 'rgba(34, 197, 94, 0.1)' : 'transparent'}; color: ${i === 0 ? '#22c55e' : '#64748b'}; border-radius: 4px; cursor: pointer;`}>{level}</button>
-        ))}
-      </div>
-      <div style="margin-top: 16px; display: flex; gap: 12px;">
-        <div style="flex: 1; display: flex; align-items: center; background: #020617; border: 1px solid #334155; border-radius: 8px; padding: 0 16px;">
-          <span style="color: #22d3ee; margin-right: 12px;">$</span>
-          <input type="text" placeholder="search --model STM32 --manufacturer 极海半导体" style="flex: 1; background: transparent; border: none; color: #e2e8f0; padding: 12px 0; font-family: inherit; outline: none;" />
+    {hasData ? (
+      <>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px;">
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px;">
+            <div style="font-size: 32px; font-weight: bold; color: #22d3ee; text-shadow: 0 0 20px rgba(34, 211, 238, 0.4);">{chips.length}</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 8px;">收录芯片</div>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px;">
+            <div style="font-size: 32px; font-weight: bold; color: #a78bfa; text-shadow: 0 0 20px rgba(167, 139, 250, 0.4);">{chips.filter(c => !c.processNode?.includes('AI')).length}</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 8px;">MCU/电源</div>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px;">
+            <div style="font-size: 32px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);">{chips.filter(c => c.processNode?.includes('AI')).length}</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 8px;">AI芯片</div>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px;">
+            <div style="font-size: 32px; font-weight: bold; color: #22c55e; text-shadow: 0 0 20px rgba(34, 197, 94, 0.4);">{chips.filter(c => c.substituteLevel === 'pin2pin').length}</div>
+            <div style="font-size: 12px; color: #64748b; margin-top: 8px;">P2P替代</div>
+          </div>
         </div>
-        <button style="padding: 12px 24px; background: rgba(34, 211, 238, 0.2); border: 1px solid rgba(34, 211, 238, 0.3); color: #22d3ee; border-radius: 8px; font-size: 12px; cursor: pointer;">EXECUTE</button>
-      </div>
-    </div>
-    
-    <!-- 芯片网格 -->
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
-      {chips.map(chip => (
-        <a href={`/chips/${chip.id}`} style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 12px; padding: 20px; text-decoration: none; transition: all 0.2s;" onmouseenter="this.style.borderColor='#22d3ee'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 20px 40px rgba(34, 211, 238, 0.1)'" onmouseleave="this.style.borderColor='#1e293b'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #22d3ee, #0ea5e9); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
-                {getIcon(chip.manufacturer)}
-              </div>
-              <div>
-                <div style="font-size: 15px; color: #e2e8f0; font-weight: 600;">{chip.name}</div>
-                <div style="font-size: 11px; color: #64748b; margin-top: 2px;">{chip.manufacturer}</div>
-              </div>
+        
+        <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+            {categories.map(cat => (
+              <button style="padding: 8px 16px; font-size: 12px; border: 1px solid #334155; background: transparent; color: #94a3b8; border-radius: 6px; cursor: pointer;">{cat}</button>
+            ))}
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
+            {levels.map(level => (
+              <button style="padding: 6px 14px; font-size: 11px; border: 1px solid #334155; background: transparent; color: #64748b; border-radius: 4px; cursor: pointer;">{level}</button>
+            ))}
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <div style="flex: 1; display: flex; align-items: center; background: #020617; border: 1px solid #334155; border-radius: 8px; padding: 0 16px;">
+              <span style="color: #22d3ee; margin-right: 12px;">$</span>
+              <input type="text" placeholder="search --model STM32 --manufacturer 极海半导体" style="flex: 1; background: transparent; border: none; color: #e2e8f0; padding: 14px 0; font-family: inherit; font-size: 14px; outline: none;" />
             </div>
-            <span style={`padding: 4px 10px; font-size: 10px; border-radius: 4px; ${chip.substituteLevel === 'pin2pin' ? 'background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3)' : 'background: rgba(34, 211, 238, 0.1); color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.3)'};`}>
-              {chip.substituteLevel === 'pin2pin' ? 'P2P' : 'FUNC'}
-            </span>
+            <button style="padding: 14px 28px; background: rgba(34, 211, 238, 0.2); border: 1px solid rgba(34, 211, 238, 0.4); color: #22d3ee; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;">EXECUTE</button>
           </div>
-          
-          <div style="background: rgba(30, 41, 59, 0.5); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
-            <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">替代对象</div>
-            <div style="font-size: 13px; color: #e2e8f0;">{chip.originalEquivalent}</div>
-          </div>
-          
-          {chip.specs && (
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px;">
-              {Object.entries(chip.specs).slice(0, 2).map(([key, val]) => (
-                <div style="background: rgba(30, 41, 59, 0.3); padding: 8px; border-radius: 6px;">
-                  <div style="font-size: 9px; color: #64748b; text-transform: uppercase;">{key}</div>
-                  <div style="font-size: 11px; color: #e2e8f0;">{val}</div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+          {chips.map(chip => (
+            <a href={`/chips/${chip.id}`} style="background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; padding: 24px; text-decoration: none; transition: all 0.2s;" onmouseenter="this.style.borderColor='#22d3ee'; this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='#334155'; this.style.transform='translateY(0)'">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="width: 44px; height: 44px; background: linear-gradient(135deg, #22d3ee, #0ea5e9); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">{getIcon(chip.manufacturer)}</div>
+                  <div>
+                    <div style="font-size: 15px; color: #e2e8f0; font-weight: 600;">{chip.name}</div>
+                    <div style="font-size: 11px; color: #64748b; margin-top: 2px;">{chip.manufacturer}</div>
+                  </div>
                 </div>
-              ))}
-            </div>
-          )}
-          
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid #1e293b;">
-            <span style="font-size: 14px; color: #22d3ee; font-weight: 600;">{chip.price}</span>
-            <span style="font-size: 11px; color: #64748b;">查看详情 →</span>
-          </div>
-        </a>
-      ))}
-    </div>
+                <span style={`padding: 4px 10px; font-size: 10px; border-radius: 4px; ${chip.substituteLevel === 'pin2pin' ? 'background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3)' : 'background: rgba(34, 211, 238, 0.15); color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.3)'};`}>
+                  {chip.substituteLevel === 'pin2pin' ? 'P2P' : 'FUNC'}
+                </span>
+              </div>
+              <div style="background: rgba(30, 41, 59, 0.6); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">替代对象</div>
+                <div style="font-size: 13px; color: #e2e8f0;">{chip.originalEquivalent}</div>
+              </div>
+              {chip.specs && (
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px;">
+                  {Object.entries(chip.specs).slice(0, 2).map(([key, val]) => (
+                    <div style="background: rgba(30, 41, 59, 0.4); padding: 8px; border-radius: 6px;">
+                      <div style="font-size: 9px; color: #64748b; text-transform: uppercase;">{key}</div>
+                      <div style="font-size: 11px; color: #e2e8f0;">{val}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid #334155;">
+                <span style="font-size: 14px; color: #22d3ee; font-weight: 700;">{chip.price}</span>
+                <span style="font-size: 11px; color: #64748b;">查看详情 →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </>
+    ) : (
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 24px; text-align: center;">
+        <div style="width: 80px; height: 80px; border: 3px solid #334155; border-top-color: #22d3ee; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 32px;"></div>
+        <h2 style="font-size: 24px; color: #e2e8f0; margin-bottom: 12px;">数据正在由 P100 算力节点同步中...</h2>
+        <p style="font-size: 14px; color: #64748b;">芯片数据库正在从 F:\mined_data\chips 同步到云端</p>
+      </div>
+    )}
     
   </div>
 </div>
+
+<style>
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
 </Layout>

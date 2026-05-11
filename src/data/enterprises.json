@@ -1,1 +1,10 @@
-[{"id":"smic","name":"中芯国际","category":"制造","level":"推定拒绝"},{"id":"cxmt","name":"长鑫存储","category":"制造","level":"推定拒绝"},{"id":"ymtc","name":"长江存储","category":"制造","level":"推定拒绝"},{"id":"hlmc","name":"华虹","category":"制造","level":"推定拒绝"},{"id":"huawei","name":"华为海思","category":"设计","level":"推定拒绝"},{"id":"naura","name":"北方华创","category":"设备","level":"逐案审查"},{"id":"piotech","name":"拓荆科技","category":"设备","level":"逐案审查"},{"id":"sicarrier","name":"新凯来","category":"设备","level":"逐案审查"},{"id":"amec","name":"中微公司","category":"设备","level":"逐案审查"},{"id":"smwe","name":"上海微电子","category":"设备","level":"逐案审查"},{"id":"haiguang","name":"海光信息","category":"设计","level":"实体清单"},{"id":"cambricon","name":"寒武纪","category":"设计","level":"实体清单"},{"id":"nsig","name":"沪硅产业","category":"材料","level":"出口监控"}]
+[
+  {"id":"naura","name":"北方华创","category":"设备制造","status":"监控中","risk":"高","revenue":"¥146亿","employees":"8,500+"},
+  {"id":"amec","name":"中微公司","category":"设备制造","status":"正常","risk":"中","revenue":"¥47亿","employees":"1,200+"},
+  {"id":"smic","name":"中芯国际","category":"晶圆代工","status":"受限","risk":"极高","revenue":"¥452亿","employees":"18,000+"},
+  {"id":"hgrace","name":"华虹半导体","category":"晶圆代工","status":"正常","risk":"低","revenue":"¥168亿","employees":"6,500+"},
+  {"id":"gigadevice","name":"兆易创新","category":"芯片设计","status":"正常","risk":"低","revenue":"¥81亿","employees":"1,100+"},
+  {"id":"gpixel","name":"格科微","category":"芯片设计","status":"监控中","risk":"中","revenue":"¥69亿","employees":"1,800+"},
+  {"id":"nata","name":"南大光电","category":"材料供应","status":"正常","risk":"低","revenue":"¥15亿","employees":"800+"},
+  {"id":"jsmc","name":"沪硅产业","category":"材料供应","status":"正常","risk":"低","revenue":"¥36亿","employees":"2,100+"}
+]
